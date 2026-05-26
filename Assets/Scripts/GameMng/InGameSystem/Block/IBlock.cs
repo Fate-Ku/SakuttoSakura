@@ -41,8 +41,6 @@ public abstract class IBlock
 
     public IBlock() { }
 
-    public virtual void Init() { }
-    public virtual void Term() { }
     public void Update()
     {
         if (m_UpdateStartegy != null)
@@ -75,6 +73,10 @@ public abstract class IBlock
 
     public void Destroy()
     {
+        if (m_DestroyStrategy != null)
+        {
+            m_DestroyStrategy.Do(this);
+        }
     }
 
 
