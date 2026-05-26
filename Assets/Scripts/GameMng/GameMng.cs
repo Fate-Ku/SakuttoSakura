@@ -116,7 +116,7 @@ public class GameMng
 
 
     //2026/05/26 Update By Man-Yi, Yeh 
-    //mothod of InGameSystem
+    //method of InGameSystem
     public void InGameSystemInit()
     {
         //renew
@@ -136,6 +136,12 @@ public class GameMng
         m_InGameSystem.Update();
     }
 
-    
+    //2026/05/26 Update By Man-Yi, Yeh 
+    //ingame click column
+    public void InGameClickColumn(int id)
+    {
+        Debug.Log("click col: " + id.ToString());
+    }
+
 
 }
