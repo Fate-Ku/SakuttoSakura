@@ -6,6 +6,24 @@
 
 using UnityEngine;
 
+public enum BlockType
+{
+    //flower
+    Tsubaki,
+    Kaede,
+    Himawari,
+    Clover,
+    Asagao,
+    Kikyou,
+    Sakura,
+
+    //obstacle
+    Isi,
+
+    //item
+    TimeItem,
+}
+
 public class InGameSystem : IGameSystem
 {
     public InGameSystem(GameMng gameMng) 

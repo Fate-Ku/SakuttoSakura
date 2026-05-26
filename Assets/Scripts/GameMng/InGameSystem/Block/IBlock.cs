@@ -8,9 +8,27 @@ using UnityEngine;
 
 public abstract class IBlock
 {
-    //info
+    //-------------------
+    //oner
+    //-------------------
     //oner frame
     //oner combine set
+
+    //-------------------
+    //info
+    //-------------------
+    //type
+    private BlockType m_Type;
+    protected void SetType(BlockType type)
+    {
+        m_Type = type;
+    }
+
+    //
+
+    //is do combine check
+    private bool m_IsDoCombineCheck = false;
+
 
     //startegys
     private IBlockStrategy m_UpdateStartegy;
@@ -22,7 +40,25 @@ public abstract class IBlock
 
     public virtual void Init() { }
     public virtual void Term() { }
-    public virtual void Update() { }
+    public void Update()
+    {
+        if (m_UpdateStartegy != null)
+        {
+            m_UpdateStartegy.Do(this);
+        }
+    }
+
+    public void CombineCheck()
+    {
+        if (m_CombineCheckStartegy != null)
+        {
+            m_CombineCheckStartegy.Do(this);
+        }
+    }
+
+    public void Destroy()
+    {
+    }
 
 
 }
