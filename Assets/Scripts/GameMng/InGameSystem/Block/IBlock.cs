@@ -19,16 +19,19 @@ public abstract class IBlock
     //-------------------
     //type
     private BlockType m_Type;
-    protected void SetType(BlockType type)
+    public BlockType Type
     {
-        m_Type = type;
+        get { return m_Type; }
+        set { m_Type = value; }
     }
 
-    //
-
-    //is do combine check
-    private bool m_IsDoCombineCheck = false;
-
+    //is idle
+    private bool m_IsIdle = false;
+    public bool IsIdle
+    {
+        get { return m_IsIdle; }
+        set {  m_IsIdle = value; }
+    }
 
     //startegys
     private IBlockStrategy m_UpdateStartegy;
@@ -52,7 +55,21 @@ public abstract class IBlock
     {
         if (m_CombineCheckStartegy != null)
         {
-            m_CombineCheckStartegy.Do(this);
+            if (IsIdle)
+            {
+                m_CombineCheckStartegy.Do(this);
+            }
+        }
+    }
+
+    public void NextDestroy()
+    {
+        if (m_NextDestroyStrategy != null)
+        {
+            if (IsIdle)
+            {
+                m_NextDestroyStrategy.Do(this);
+            }
         }
     }
 
