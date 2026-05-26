@@ -2,11 +2,12 @@
 // IGameSystem.cs
 // 
 // 2026/05/21 Update By Man-Yi, Yeh 
+// 2026/05/26 Update By Man-Yi, Yeh 
 // 
 
 using UnityEngine;
 
-public class IGameSystem
+public abstract class IGameSystem
 {
     //GameMng
     protected GameMng m_GameMng = null;

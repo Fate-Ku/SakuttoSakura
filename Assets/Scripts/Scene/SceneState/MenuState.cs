@@ -2,6 +2,7 @@
 // MenuState.cs
 // 
 // 2026/05/19 Created By Man-Yi, Yeh
+// 2026/05/26 Update By Man-Yi, Yeh 
 //
 
 using UnityEngine;
@@ -16,7 +17,7 @@ public class MenuState : ISceneState
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.S)) 
         {
             //change to InGameState
             m_Controller.SetState(new SkillSelectState(m_Controller), "SkillSelectScene");

@@ -2,6 +2,7 @@
 // GameMng.cs
 // 
 // 2026/05/21 Created By Man-Yi, Yeh
+// 2026/05/26 Update By Man-Yi, Yeh 
 // 
 
 using UnityEngine;
@@ -11,6 +12,8 @@ public class GameMng
     public enum PhaseType
     {
         SkillSelect,
+        InGame,
+        Score,
     }
 
     //singleton
@@ -41,6 +44,9 @@ public class GameMng
     //-------------------
     //game system
     //-------------------
+    //in game system
+    private InGameSystem m_InGameSystem;
+
     //skill data
     private SkillDataSystem m_SkillDataSystem;
     
@@ -88,6 +94,14 @@ public class GameMng
                 phase = new SkillSelectPhase(this);
                 break;
 
+            case PhaseType.InGame:
+                phase = new InGamePhase(this);
+                break;
+
+            case PhaseType.Score:
+                phase = new ScorePhase(this);
+                break;
+
             default:
                 Debug.Log("Don't have the phase");
                 break;
@@ -99,5 +113,29 @@ public class GameMng
 
         m_NowPhase = phase;
     }
+
+
+    //2026/05/26 Update By Man-Yi, Yeh 
+    //mothod of InGameSystem
+    public void InGameSystemInit()
+    {
+        //renew
+        m_InGameSystem = new InGameSystem(this);
+
+        //init
+        m_InGameSystem.Init();
+    }
+
+    public void InGameSystemTerm()
+    {
+        m_InGameSystem.Term();
+    }
+
+    public void InGameSystemUpdate()
+    {
+        m_InGameSystem.Update();
+    }
+
+    
 
 }

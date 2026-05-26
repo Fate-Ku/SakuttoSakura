@@ -3,6 +3,7 @@
 // 
 // 2026/05/19 Created By Man-Yi, Yeh
 // 2026/05/21 Update By Man-Yi, Yeh 
+// 2026/05/26 Update By Man-Yi, Yeh 
 // 
 
 using UnityEngine;
@@ -11,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class SceneStateController
 {
     private ISceneState m_State;
-    private AsyncOperation asyncOp;
+    private AsyncOperation m_AsyncOp;
     private bool m_bRunBegin = false;
 
     public SceneStateController() { }
@@ -23,10 +24,7 @@ public class SceneStateController
         m_bRunBegin = false;
 
         //load scene
-        if (loadSceneName != "")
-        {
-            asyncOp = SceneManager.LoadSceneAsync(loadSceneName);
-        }
+        LoadScene(loadSceneName);
 
         //end previous state
         if (m_State != null)
@@ -48,9 +46,9 @@ public class SceneStateController
         }
 
         //is loading
-        if (asyncOp != null)
+        if (m_AsyncOp != null)
         {
-            if (!asyncOp.isDone)
+            if (!m_AsyncOp.isDone)
             {
                 return;
             }
@@ -74,7 +72,7 @@ public class SceneStateController
         {
             return;
         }
-        SceneManager.LoadScene(loadSceneName);
+        m_AsyncOp = SceneManager.LoadSceneAsync(loadSceneName);
     }
 
 }

@@ -14,12 +14,21 @@ public class InGameState : ISceneState
         this.StateName = "InGameState";
     }
 
+    public override void StateBegin()
+    {
+        GameMng.Instance.SetPhase(GameMng.PhaseType.InGame);
+    }
+
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            //change to MenuState
-            m_Controller.SetState(new MenuState(m_Controller), "MenuScene");
+            //change to ScoreState
+            m_Controller.SetState(new ScoreState(m_Controller), "ScoreScene");
+            return;
         }
+
+        GameMng.Instance.Update();
+
     }
 }

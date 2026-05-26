@@ -2,6 +2,7 @@
 // SkillSelectState.cs
 // 
 // 2026/05/21 Created By Man-Yi, Yeh
+// 2026/05/26 Update By Man-Yi, Yeh 
 //
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -21,7 +22,7 @@ public class SkillSelectState : ISceneState
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             //change to InGameState
             m_Controller.SetState(new InGameState(m_Controller), "InGameScene");
