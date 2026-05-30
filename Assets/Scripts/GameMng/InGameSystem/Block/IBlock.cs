@@ -9,6 +9,12 @@ using UnityEngine;
 public abstract class IBlock
 {
     //-------------------
+    //game object
+    //-------------------
+    private GameObject m_Block;
+
+
+    //-------------------
     //oner
     //-------------------
     //oner frame
@@ -34,13 +40,22 @@ public abstract class IBlock
     }
 
     //startegys
-    private IBlockStrategy m_UpdateStartegy;
-    private IBlockStrategy m_CombineCheckStartegy;
-    private IBlockStrategy m_NextDestroyStrategy;
-    private IBlockStrategy m_DestroyStrategy;
+    //private IBlockStrategy m_UpdateStartegy;
+    //private IBlockStrategy m_CombineCheckStartegy;
+    //private IBlockStrategy m_NextDestroyStrategy;
+    //private IBlockStrategy m_DestroyStrategy;
 
-    public IBlock() { }
+    public IBlock(GameObject block) 
+    {
+        m_Block = Object.Instantiate(block);
+    }
 
+    public void Test(bool active)
+    {
+        m_Block.SetActive(active);
+    }
+
+    /*
     public void Update()
     {
         if (m_UpdateStartegy != null)
@@ -79,5 +94,5 @@ public abstract class IBlock
         }
     }
 
-
+    */
 }

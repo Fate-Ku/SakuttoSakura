@@ -2,6 +2,7 @@
 // GameInfo.cs
 // 
 // 2026/05/26 Created By Man-Yi, Yeh
+// 2026/05/30 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -9,8 +10,13 @@ using UnityEngine;
 public class GameInfo : MonoBehaviour
 {
     //number or col and row
+    [Header("Scale")]
     [SerializeField] private int colNum;
     [SerializeField] private int rowNum;
+
+    [Header("Block")]
+    [SerializeField] GameObject block;
+
 
     public Vector2Int GetScale()
     {
@@ -28,5 +34,10 @@ public class GameInfo : MonoBehaviour
     public float GetSize()
     {
         return gameObject.transform.localScale.x;
+    }
+
+    public GameObject GetBlock()
+    {
+        return block;
     }
 }
