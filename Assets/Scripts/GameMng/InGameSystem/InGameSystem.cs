@@ -5,12 +5,11 @@
 // 2026/05/30 Updated By Man-Yi, Yeh
 // 
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum BlockType
 {
-    None = -1,
-
     //flower
     Tsubaki,
     Kaede,
@@ -25,6 +24,9 @@ public enum BlockType
 
     //item
     TimeItem,
+
+    //count
+    Count
 }
 
 public class InGameSystem : IGameSystem
@@ -36,6 +38,7 @@ public class InGameSystem : IGameSystem
 
     //gameInfo
     private GameInfo m_GameInfo;
+    private Dictionary<BlockType, GameObject> m_Blocks = new();
 
     //frame
     private IBlock testBlock;
@@ -47,13 +50,22 @@ public class InGameSystem : IGameSystem
     public override void Init()
     {
         Debug.Log("InGameSystem Init");
+        
         GameObject gameInfo = GameObject.Find("GameInfo");
         if (gameInfo != null)
         {
             m_GameInfo = gameInfo.GetComponent<GameInfo>();
         }
 
-        testBlock = new FlowerBlock(m_GameInfo.GetBlock());
+        for (int i = 0; i < (int)BlockType.Count; i++)
+        {
+            bool isAdded = m_Blocks.TryAdd((BlockType)i, m_GameInfo.GetBlock((BlockType)i));
+            if (!isAdded) 
+            {
+                Debug.Log("TryAdd failed for GameObject:" + ((BlockType)i).ToString());
+            }
+        }
+
     }
 
     public override void Term()
@@ -63,15 +75,38 @@ public class InGameSystem : IGameSystem
 
     public override void Update()
     {
-        Debug.Log("InGameSystem Update");
+        //Debug.Log("InGameSystem Update");
+
+        //test
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            testBlock?.TestDestroy();
+            testBlock = CreateBlock((BlockType)1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            testBlock?.TestDestroy();
+            testBlock = CreateBlock((BlockType)2);
+        }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            testBlock.Test(true);
+            Debug.Log("T");
+            testBlock?.Test(true);
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            testBlock.Test(false);
+            Debug.Log("F");
+            testBlock?.Test(false);
         }
+    }
+
+    private IBlock CreateBlock(BlockType type)
+    {
+        IBlock res = null;
+
+        res = new FlowerBlock(m_Blocks[type]);
+
+        return res;
     }
 }

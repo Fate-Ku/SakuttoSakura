@@ -4,6 +4,7 @@
 // 2026/05/26 Created By Man-Yi, Yeh
 // 
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class IBlock
@@ -53,6 +54,11 @@ public abstract class IBlock
     public void Test(bool active)
     {
         m_Block.SetActive(active);
+    }
+
+    public void TestDestroy()
+    {
+        Object.Destroy(m_Block);
     }
 
     /*

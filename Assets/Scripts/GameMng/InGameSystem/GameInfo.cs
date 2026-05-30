@@ -5,6 +5,7 @@
 // 2026/05/30 Updated By Man-Yi, Yeh
 // 
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameInfo : MonoBehaviour
@@ -15,7 +16,8 @@ public class GameInfo : MonoBehaviour
     [SerializeField] private int rowNum;
 
     [Header("Block")]
-    [SerializeField] GameObject block;
+    //[SerializeField] GameObject block;
+    [SerializeField] private GameObject[] blocks; 
 
 
     public Vector2Int GetScale()
@@ -36,8 +38,11 @@ public class GameInfo : MonoBehaviour
         return gameObject.transform.localScale.x;
     }
 
-    public GameObject GetBlock()
+    
+    public GameObject GetBlock(BlockType type)
     {
-        return block;
+        GameObject res = blocks[(int)type];
+        return res;
     }
+
 }

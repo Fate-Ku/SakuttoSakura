@@ -723,7 +723,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameInfo
   colNum: 7
   rowNum: 8
-  block: {fileID: 4898762186925487620, guid: 76fd723c6e5dff94daa664d56bf6c6aa, type: 3}
+  blocks:
+  - {fileID: 4674765785214467854, guid: 5388c303e6b90b148987486516043e01, type: 3}
+  - {fileID: 5579780809926416440, guid: e0326dcb5ac54214eaf4a97e41d09220, type: 3}
+  - {fileID: 284210754064123932, guid: dfde5439438aff94089c48fcbf22a40e, type: 3}
+  - {fileID: 4303323566264276307, guid: 1fa603d13730f64429ff623cfe8549d8, type: 3}
+  - {fileID: 775361337113117985, guid: 1d7ad5df416b87d46a2d036afef54599, type: 3}
+  - {fileID: 1324455130430193808, guid: 486f2907f2f6b30429002f7ecc469c0c, type: 3}
+  - {fileID: 4898762186925487620, guid: 76fd723c6e5dff94daa664d56bf6c6aa, type: 3}
+  - {fileID: 7451213132323733625, guid: c12e70d1a095fc8478eea204bb8c9892, type: 3}
+  - {fileID: 7451213132323733625, guid: c12e70d1a095fc8478eea204bb8c9892, type: 3}
 --- !u!1 &184580439
 GameObject:
   m_ObjectHideFlags: 0
@@ -7290,6 +7299,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 1188506851340322029, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3835221577200217439, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.8
@@ -7328,6 +7341,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3835221577200217439, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045130304975015084, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
