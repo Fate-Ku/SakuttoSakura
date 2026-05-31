@@ -3,6 +3,7 @@
 // 
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/05/30 Updated By Man-Yi, Yeh
+// 2026/05/31 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -36,14 +37,26 @@ public class InGameSystem : IGameSystem
     {
     }
 
-    //gameInfo
+    //-------------------
+    //Infomation
+    //-------------------
+    //game info
     private GameInfo m_GameInfo;
+    public GameInfo GameInfo
+    {
+        get { return m_GameInfo; }
+    }
+    //GameObject of blocks
     private Dictionary<BlockType, GameObject> m_Blocks = new();
 
+    //-------------------
     //frame
+    //-------------------
     private IBlock testBlock;
 
+    //-------------------
     //combine sets
+    //-------------------
 
 
 
@@ -71,6 +84,8 @@ public class InGameSystem : IGameSystem
     public override void Term()
     {
         Debug.Log("InGameSystem Term");
+
+        m_GameInfo = null;
     }
 
     public override void Update()

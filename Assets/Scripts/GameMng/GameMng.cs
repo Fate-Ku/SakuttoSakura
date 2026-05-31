@@ -2,7 +2,8 @@
 // GameMng.cs
 // 
 // 2026/05/21 Created By Man-Yi, Yeh
-// 2026/05/26 Update By Man-Yi, Yeh 
+// 2026/05/26 Updated By Man-Yi, Yeh 
+// 2026/05/31 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -40,7 +41,6 @@ public class GameMng
     private Phase m_NowPhase;
 
 
-
     //-------------------
     //game system
     //-------------------
@@ -49,7 +49,14 @@ public class GameMng
 
     //skill data
     private SkillDataSystem m_SkillDataSystem;
-    
+
+
+    //-------------------
+    //UI
+    //-------------------
+    //if UI in GameMng
+    //UIManager m_UIManager;
+
 
 
     public void Init()
@@ -136,6 +143,39 @@ public class GameMng
     public void InGameSystemUpdate()
     {
         m_InGameSystem.Update();
+    }
+
+    //2026/05/30 Updated By Man-Yi, Yeh
+    //-------------------
+    //get game info
+    //-------------------
+    public Vector2Int GetGameScale()
+    {
+        Vector2Int res = new(0, 0);
+        if (m_InGameSystem != null) 
+        {
+            if (m_InGameSystem.GameInfo != null)
+            {
+                res = m_InGameSystem.GameInfo.GetScale();
+            }
+        }
+        
+        return res;
+    }
+
+    public Vector2 GetGameReferPos()
+    {
+        Vector2 res = new(0, 0);
+
+        if (m_InGameSystem != null)
+        {
+            if (m_InGameSystem.GameInfo != null)
+            {
+                res = m_InGameSystem.GameInfo.GetReferPos();
+            }
+        }
+
+        return res;
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
