@@ -29,5 +29,8 @@ public class MenuState : IGameSceneState
             //change to InGameState
             m_Controller.SetState(new InGameState(m_Controller), "InGameScene");
         }
+
+        GameMng.Instance.Update();
+        ControllSceneByGameMng();
     }
 }

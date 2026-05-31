@@ -112,7 +112,10 @@ public class GameMng
         m_NextSceneName = nextSceneName;
     }
 
-    //SetPhase
+    //2026/05/31 Update By Man-Yi, Yeh 
+    //-------------------
+    //method of phase
+    //-------------------
     public void SetPhase(PhaseType phaseType)
     {
         if (m_NowPhase != null)
@@ -147,8 +150,19 @@ public class GameMng
         m_NowPhase = phase;
     }
 
+    public void EndPhase()
+    {
+        if (m_NowPhase != null)
+        {
+            m_NowPhase.Term();
+        }
+        m_NowPhase = null;
+    }
+
     //2026/05/31 Update By Man-Yi, Yeh 
-    //SetUI
+    //-------------------
+    //method of UI
+    //-------------------
     public void SetUI()
     {
         

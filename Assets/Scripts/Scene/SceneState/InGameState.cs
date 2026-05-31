@@ -20,6 +20,11 @@ public class InGameState : IGameSceneState
         GameMng.Instance.SetPhase(GameMng.PhaseType.InGame);
     }
 
+    public override void StateEnd()
+    {
+        GameMng.Instance.EndPhase();
+    }
+
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.S))

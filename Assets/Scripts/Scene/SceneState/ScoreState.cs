@@ -20,6 +20,11 @@ public class ScoreState : IGameSceneState
         GameMng.Instance.SetPhase(GameMng.PhaseType.Score);
     }
 
+    public override void StateEnd()
+    {
+        GameMng.Instance.EndPhase();
+    }
+
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.M))
@@ -29,5 +34,7 @@ public class ScoreState : IGameSceneState
             return;
         }
 
+        GameMng.Instance.Update();
+        ControllSceneByGameMng();
     }
 }

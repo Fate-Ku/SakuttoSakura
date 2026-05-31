@@ -21,6 +21,11 @@ public class SkillSelectState : IGameSceneState
         GameMng.Instance.SetPhase(GameMng.PhaseType.SkillSelect);
     }
 
+    public override void StateEnd()
+    {
+        GameMng.Instance.EndPhase();
+    }
+
     public override void StateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.G))
@@ -30,5 +35,6 @@ public class SkillSelectState : IGameSceneState
         }
 
         GameMng.Instance.Update();
+        ControllSceneByGameMng();
     }
 }
