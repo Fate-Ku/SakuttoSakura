@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5176939366938651855}
   - component: {fileID: 290642093878643132}
   m_Layer: 5
-  m_Name: UITouchButton
+  m_Name: InGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

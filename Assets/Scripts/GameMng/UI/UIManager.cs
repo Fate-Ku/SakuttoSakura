@@ -6,9 +6,72 @@
 //
 using UnityEngine;
 
-public class UIManager : GameInfo
+public class UIManager : IGameSystem
 {
-    //----------------In Game Button---------------------//
+    private IGameSystem m_CurrentUI = null;
+
+    public UIManager(GameMng gameMng)
+        : base(gameMng)
+    {
+    }
+
+    public override void Term()
+    {
+        if (m_CurrentUI != null)
+        {
+            m_CurrentUI.Term();
+            m_CurrentUI = null;
+        }
+        Debug.Log("UIManager Term");
+    }
+
+    public override void Update()
+    {
+        if (m_CurrentUI != null)
+        {
+            m_CurrentUI.Update();
+        }
+    }
+
+    public void SetUI(GameMng.PhaseType phaseType)
+    {
+        // clean old UI
+        if (m_CurrentUI != null)
+        {
+            m_CurrentUI.Term();
+            m_CurrentUI = null;
+        }
+
+        // Create UI by PhaseType
+        switch (phaseType)
+        {
+            case GameMng.PhaseType.SkillSelect:
+                m_CurrentUI = new SkillSelectUI(m_GameMng);
+                break;
+
+            case GameMng.PhaseType.InGame:
+                m_CurrentUI = new InGameUI(m_GameMng);
+                break;
+
+            case GameMng.PhaseType.Score:
+                m_CurrentUI = new ScoreUI(m_GameMng);
+                break;
+
+            default:
+                Debug.LogWarning("UIManager.SetUI: unknown PhaseType " + phaseType);
+                break;
+        }
+
+        // Init new UI
+        if (m_CurrentUI != null)
+        {
+            m_CurrentUI.Init();
+        }
+    }
+
+    //-------------------------------------
+    //In Game Button
+    //-------------------------------------
     public static UIManager Instance { get; private set; }
 
     // button width/height setting
@@ -55,6 +118,5 @@ public class UIManager : GameInfo
 
         return new Vector2(x, y);
     }
-
 
 }

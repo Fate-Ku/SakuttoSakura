@@ -3,6 +3,7 @@
 // 
 // 2026/05/19 Created By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
+// 2026/05/31 Update By Fate Ku
 //
 
 using UnityEngine;
@@ -18,6 +19,9 @@ public class InGameState : IGameSceneState
     public override void StateBegin()
     {
         GameMng.Instance.SetPhase(GameMng.PhaseType.InGame);
+        //2026/05/31 Update By Fate Ku
+        //GameMng.Instance.SetUI(GameMng.PhaseType.InGame);
+        //2026/05/31 Update By Fate Ku
     }
 
     public override void StateEnd()

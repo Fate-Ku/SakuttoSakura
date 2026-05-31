@@ -4,6 +4,7 @@
 // 2026/05/21 Created By Man-Yi, Yeh
 // 2026/05/26 Updated By Man-Yi, Yeh 
 // 2026/05/31 Updated By Man-Yi, Yeh
+// 2026/05/31 Update By Fate Ku
 // 
 
 using UnityEngine;
@@ -39,7 +40,7 @@ public class GameMng
     private bool m_IsSceneEnd = false;
     public bool IsSceneEnd
     {
-        get {  return m_IsSceneEnd; }
+        get { return m_IsSceneEnd; }
         set { m_IsSceneEnd = value; }
     }
 
@@ -47,9 +48,9 @@ public class GameMng
     public string NextSceneName
     {
         get { return m_NextSceneName; }
-        set { m_NextSceneName= value; }
+        set { m_NextSceneName = value; }
     }
-    
+
     //phase
     private Phase m_NowPhase;
 
@@ -67,7 +68,7 @@ public class GameMng
     //-------------------
     //UI
     //-------------------
-    //UIManager m_UIManager;
+    private UIManager m_UIManager;
 
 
 
@@ -83,12 +84,12 @@ public class GameMng
             m_NowPhase.Term();
         }
 
-        /*
-        if (m_UIManager)
+
+        if (m_UIManager != null)
         {
             m_UIManager.Term();
         }
-        */
+
     }
 
     public void Update()
@@ -98,12 +99,12 @@ public class GameMng
             m_NowPhase.Update();
         }
 
-        /*
-        if (m_UIManager)
+
+        if (m_UIManager != null)
         {
             m_UIManager.Update();
         }
-        */
+
     }
 
     public void SetNextScene(string nextSceneName)
@@ -124,7 +125,7 @@ public class GameMng
         }
 
         Phase phase = null;
-        switch (phaseType) 
+        switch (phaseType)
         {
             case PhaseType.SkillSelect:
                 phase = new SkillSelectPhase(this);
@@ -159,16 +160,21 @@ public class GameMng
         m_NowPhase = null;
     }
 
+    //2026/05/31 Update By Fate Ku
     //2026/05/31 Update By Man-Yi, Yeh 
     //-------------------
     //method of UI
     //-------------------
-    public void SetUI()
+    public void SetUI(PhaseType phaseType)
     {
-        
+        if (m_UIManager != null)
+        {
+            m_UIManager.SetUI(phaseType);
+        }
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
+    //2026/05/31 Update By Fate Ku
     //-------------------
     //method of InGameSystem
     //-------------------
@@ -203,14 +209,14 @@ public class GameMng
     public Vector2Int GetGameScale()
     {
         Vector2Int res = new(0, 0);
-        if (m_InGameSystem != null) 
+        if (m_InGameSystem != null)
         {
             if (m_InGameSystem.GameInfo != null)
             {
                 res = m_InGameSystem.GameInfo.GetScale();
             }
         }
-        
+
         return res;
     }
 
