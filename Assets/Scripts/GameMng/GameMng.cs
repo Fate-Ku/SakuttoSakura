@@ -35,8 +35,21 @@ public class GameMng
     //-------------------
     //basic info
     //-------------------
-    //is game end
-    private bool m_IsGameEnd;
+    //is scene end
+    private bool m_IsSceneEnd = false;
+    public bool IsSceneEnd
+    {
+        get {  return m_IsSceneEnd; }
+        set { m_IsSceneEnd = value; }
+    }
+
+    private string m_NextSceneName;
+    public string NextSceneName
+    {
+        get { return m_NextSceneName; }
+        set { m_NextSceneName= value; }
+    }
+    
     //phase
     private Phase m_NowPhase;
 
@@ -54,15 +67,12 @@ public class GameMng
     //-------------------
     //UI
     //-------------------
-    //if UI in GameMng
     //UIManager m_UIManager;
 
 
 
     public void Init()
     {
-        m_IsGameEnd = false;
-
         m_SkillDataSystem = new SkillDataSystem(this);
     }
 
@@ -72,6 +82,13 @@ public class GameMng
         {
             m_NowPhase.Term();
         }
+
+        /*
+        if (m_UIManager)
+        {
+            m_UIManager.Term();
+        }
+        */
     }
 
     public void Update()
@@ -80,13 +97,22 @@ public class GameMng
         {
             m_NowPhase.Update();
         }
+
+        /*
+        if (m_UIManager)
+        {
+            m_UIManager.Update();
+        }
+        */
     }
 
-    public bool IsGameEnd()
+    public void SetNextScene(string nextSceneName)
     {
-        return m_IsGameEnd;
+        m_IsSceneEnd = true;
+        m_NextSceneName = nextSceneName;
     }
 
+    //SetPhase
     public void SetPhase(PhaseType phaseType)
     {
         if (m_NowPhase != null)
@@ -121,6 +147,12 @@ public class GameMng
         m_NowPhase = phase;
     }
 
+    //2026/05/31 Update By Man-Yi, Yeh 
+    //SetUI
+    public void SetUI()
+    {
+        
+    }
 
     //2026/05/26 Update By Man-Yi, Yeh 
     //-------------------
@@ -145,6 +177,11 @@ public class GameMng
         m_InGameSystem.Update();
     }
 
+    public bool IsInGameEnd()
+    {
+        return m_InGameSystem.IsGameEnd;
+    }
+
     //2026/05/30 Updated By Man-Yi, Yeh
     //-------------------
     //get game info
@@ -166,7 +203,6 @@ public class GameMng
     public Vector2 GetGameReferPos()
     {
         Vector2 res = new(0, 0);
-
         if (m_InGameSystem != null)
         {
             if (m_InGameSystem.GameInfo != null)

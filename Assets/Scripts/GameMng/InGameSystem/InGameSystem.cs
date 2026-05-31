@@ -38,6 +38,15 @@ public class InGameSystem : IGameSystem
     }
 
     //-------------------
+    //game end
+    //-------------------
+    private bool m_IsGameEnd;
+    public bool IsGameEnd
+    {
+        get { return m_IsGameEnd; }
+    }
+
+    //-------------------
     //Infomation
     //-------------------
     //game info
@@ -63,7 +72,9 @@ public class InGameSystem : IGameSystem
     public override void Init()
     {
         Debug.Log("InGameSystem Init");
-        
+
+        m_IsGameEnd = false;
+
         GameObject gameInfo = GameObject.Find("GameInfo");
         if (gameInfo != null)
         {
@@ -113,6 +124,13 @@ public class InGameSystem : IGameSystem
         {
             Debug.Log("F");
             testBlock?.Test(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("Test End Game");
+
+            m_IsGameEnd = true;
         }
     }
 

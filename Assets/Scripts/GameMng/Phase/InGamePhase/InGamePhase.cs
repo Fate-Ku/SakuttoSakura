@@ -22,20 +22,25 @@ public class InGamePhase : Phase
 
     public override void Init()
     {
-        GameMng.Instance.InGameSystemInit();
+        m_GameMng.InGameSystemInit();
         //m_InGameUI.Init();
     }
 
     public override void Term()
     {
-        GameMng.Instance.InGameSystemTerm();
+        m_GameMng.InGameSystemTerm();
         //m_InGameUI.Term();
     }
 
     public override void Update()
     {
-        GameMng.Instance.InGameSystemUpdate();
+        m_GameMng.InGameSystemUpdate();
         //m_InGameUI.Update();
+
+        if (m_GameMng.IsInGameEnd())
+        {
+            m_GameMng.SetNextScene("ScoreScene");
+        }
     }
 
 

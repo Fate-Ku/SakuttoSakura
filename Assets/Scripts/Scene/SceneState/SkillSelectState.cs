@@ -2,12 +2,13 @@
 // SkillSelectState.cs
 // 
 // 2026/05/21 Created By Man-Yi, Yeh
-// 2026/05/26 Update By Man-Yi, Yeh 
+// 2026/05/26 Updated By Man-Yi, Yeh 
+// 2026/05/31 Updated By Man-Yi, Yeh
 //
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
-public class SkillSelectState : ISceneState
+public class SkillSelectState : IGameSceneState
 {
     public SkillSelectState(SceneStateController controller)
         : base(controller)
