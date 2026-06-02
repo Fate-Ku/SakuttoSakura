@@ -65,13 +65,6 @@ public class GameMng
     private SkillDataSystem m_SkillDataSystem;
 
 
-    //-------------------
-    //UI
-    //-------------------
-    private UIManager m_UIManager;
-
-
-
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);
@@ -83,13 +76,6 @@ public class GameMng
         {
             m_NowPhase.Term();
         }
-
-
-        if (m_UIManager != null)
-        {
-            m_UIManager.Term();
-        }
-
     }
 
     public void Update()
@@ -98,13 +84,6 @@ public class GameMng
         {
             m_NowPhase.Update();
         }
-
-
-        if (m_UIManager != null)
-        {
-            m_UIManager.Update();
-        }
-
     }
 
     public void SetNextScene(string nextSceneName)
@@ -158,19 +137,6 @@ public class GameMng
             m_NowPhase.Term();
         }
         m_NowPhase = null;
-    }
-
-    //2026/05/31 Update By Fate Ku
-    //2026/05/31 Update By Man-Yi, Yeh 
-    //-------------------
-    //method of UI
-    //-------------------
-    public void SetUI(PhaseType phaseType)
-    {
-        if (m_UIManager != null)
-        {
-            m_UIManager.SetUI(phaseType);
-        }
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
@@ -242,6 +208,5 @@ public class GameMng
     {
         Debug.Log("click col: " + id.ToString());
     }
-
 
 }

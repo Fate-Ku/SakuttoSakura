@@ -47,7 +47,7 @@ public class InGameSystem : IGameSystem
     }
 
     //-------------------
-    //Infomation
+    //Information
     //-------------------
     //game info
     private GameInfo m_GameInfo;

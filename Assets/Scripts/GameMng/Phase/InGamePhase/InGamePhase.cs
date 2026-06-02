@@ -17,8 +17,8 @@ public class InGamePhase : Phase
     //-------------------
     //UI
     //-------------------
-    //if UI in Phase
-    //UIManager m_InGameUI;
+    //UISystem m_InGameUI;  //call m_GameMng.InGameClickColumn(id);
+    //UISystem pauseUI;
 
     public override void Init()
     {
