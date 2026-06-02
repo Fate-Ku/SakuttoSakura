@@ -3,13 +3,15 @@
 // 
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
-//
+// 2026/06/02 Updated By Fate Ku
+// 
+
 
 using UnityEngine;
 
 public class InGamePhase : Phase
 {
-    public InGamePhase(GameMng gameMng) 
+    public InGamePhase(GameMng gameMng)
         : base(gameMng)
     {
     }
@@ -17,25 +19,40 @@ public class InGamePhase : Phase
     //-------------------
     //UI
     //-------------------
-    //UISystem m_InGameUI;  //call m_GameMng.InGameClickColumn(id);
+    UISystem m_InGameUI;  //call m_GameMng.InGameClickColumn(id);
     //UISystem pauseUI;
 
     public override void Init()
     {
         m_GameMng.InGameSystemInit();
-        //m_InGameUI.Init();
+
+        // 2026/06/02 Updated By Fate Ku
+        m_InGameUI = new InGameUI(m_GameMng);
+        m_InGameUI.Init();
+        // 2026/06/02 Updated By Fate Ku
     }
 
     public override void Term()
     {
         m_GameMng.InGameSystemTerm();
-        //m_InGameUI.Term();
+
+        // 2026/06/02 Updated By Fate Ku
+        if (m_InGameUI != null)
+        {
+            m_InGameUI.Term();
+        }
+        // 2026/06/02 Updated By Fate Ku
+
     }
 
     public override void Update()
     {
         m_GameMng.InGameSystemUpdate();
-        //m_InGameUI.Update();
+
+        // 2026/06/02 Updated By Fate Ku
+        if (m_InGameUI != null)
+            m_InGameUI.Update();
+        // 2026/06/02 Updated By Fate Ku
 
         if (m_GameMng.IsInGameEnd())
         {

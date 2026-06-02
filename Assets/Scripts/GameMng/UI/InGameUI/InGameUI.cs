@@ -13,7 +13,7 @@ public class InGameUI : UISystem
     public InGameUI(GameMng gameMng)
         : base(gameMng)
     {
-
+        m_ButtonSystem = new InGameUIButton();
     }
 
     public override void Init()

@@ -65,14 +65,6 @@ public class GameMng
     //skill data
     private SkillDataSystem m_SkillDataSystem;
 
-
-    //-------------------
-    //UI
-    //-------------------
-    private UIManager m_UIManager;
-
-
-
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);
