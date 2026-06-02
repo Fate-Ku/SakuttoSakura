@@ -55,9 +55,10 @@ public abstract class IBlock
     //private IBlockStrategy m_NextDestroyStrategy;
     //private IBlockStrategy m_DestroyStrategy;
 
-    public IBlock(GameObject block) 
+    public IBlock(GameObject block, float size) 
     {
         m_BlockOb = Object.Instantiate(block);
+        m_BlockOb.transform.localScale = new Vector3(size, size, 1);
     }
     ~IBlock()
     {

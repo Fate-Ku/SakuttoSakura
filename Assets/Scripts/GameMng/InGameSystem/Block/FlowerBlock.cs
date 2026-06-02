@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class FlowerBlock : IBlock
 {
-    public FlowerBlock(GameObject block) 
-        : base(block)
+    public FlowerBlock(GameObject block, float size) 
+        : base(block, size)
     {
     }
 }

@@ -14,6 +14,10 @@ public class BlockNode
     {
         get { return m_Block; }
     }
+    public bool IsEmpty()
+    {
+        return m_Block == null;
+    }
 
     //fixed info
     private BlockController m_Controller;  //oner

@@ -9,8 +9,9 @@
 
 using System.Collections.Generic;
 using System.Numerics;
-
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public enum BlockType
 {
@@ -71,6 +72,12 @@ public class InGameSystem : IGameSystem
     //-------------------
 
 
+    //-------------------
+    //operate
+    //-------------------
+    private bool m_CanOperate;
+    private float m_OperateTimer;
+
 
     public override void Init()
     {
@@ -106,6 +113,11 @@ public class InGameSystem : IGameSystem
         m_BlockController = new(m_GameInfo);
         SetNextBlock();
 
+        //-------------------
+        //operate
+        //-------------------
+        m_CanOperate = true;
+
     }
 
     public override void Term()
@@ -117,23 +129,22 @@ public class InGameSystem : IGameSystem
 
     public override void Update()
     {
-        //Debug.Log("InGameSystem Update");
+        ControlOperate();
 
         //test
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            m_BlockController.FallBlock(0);
-            SetNextBlock();
+            ColumnOnClick(0);
+            ColumnOnClick(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            m_BlockController.FallBlock(1);
-            SetNextBlock();
+            ColumnOnClick(1);
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            m_BlockController.FallBlock(GameInfo.GetScale().x - 1);
-            SetNextBlock();
+            ColumnOnClick(2);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -144,13 +155,32 @@ public class InGameSystem : IGameSystem
         }
     }
 
+    //-------------------
+    //column button callBack
+    //-------------------
+    public void ColumnOnClick(int id)
+    {
+        if (m_CanOperate)
+        {
+            SetCantControl();
+            if (m_BlockController.FallBlock(id))
+            {
+                SetNextBlock();
+            }
+        }
+    }
+
+    //-------------------
+    //method of blocks
+    //-------------------
     private IBlock CreateBlock(BlockType type)
     {
         IBlock res = null;
 
         if (m_BlockObs.TryGetValue(type, out var blockOb))
         {
-            res = new FlowerBlock(blockOb);
+            float size = GameInfo.GetSize();
+            res = new FlowerBlock(blockOb, size);
         }
         else
         {
@@ -162,13 +192,35 @@ public class InGameSystem : IGameSystem
 
     private void SetNextBlock()
     {
-        IBlock block = null;
+        IBlock block;
 
         int id = Random.Range(0, 7);
         block = CreateBlock((BlockType)id);
         Debug.Log("type of next block " + id.ToString());
 
         m_BlockController.SetNextBlock(block);
-
     }
+
+    //-------------------
+    //method of operate
+    //-------------------
+    private void ControlOperate()
+    {
+        if (!m_CanOperate)
+        {
+            m_OperateTimer -= Time.deltaTime;
+            if (m_OperateTimer <= 0)
+            {
+                m_CanOperate = true;
+            }
+        }
+    }
+
+    private void SetCantControl()
+    {
+        m_CanOperate = false;
+        m_OperateTimer = GameInfo.GetNextOperateTime();
+    }
+
+    
 }

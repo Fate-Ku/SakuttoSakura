@@ -53,15 +53,17 @@ public class BlockController
         block.SetPos(blockNode.Pos);
     }
 
-    public void FallBlock(int col)
+    public bool FallBlock(int col)
     {
-        Vector2Int id = new(col, 0);
+        Vector2Int id = new(col, -1);
 
         if (IsNodeEmpty(id))
         {
             GetNode(m_NextNodeID).Block.SetPos(GetNodePos(id));
             GetNode(m_NextNodeID).BlockChangeNode(id);
+            return true;
         }
+        return false;
     }
 
     public BlockNode GetNode(Vector2Int id)
@@ -80,7 +82,10 @@ public class BlockController
         bool res = false;
 
         BlockNode blockNode = GetNode(id);
-        res = (blockNode.Block == null);
+        if (blockNode != null) 
+        {
+            res = blockNode.IsEmpty();
+        }
 
         return res;
     }
