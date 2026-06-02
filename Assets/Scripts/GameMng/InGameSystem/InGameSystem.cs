@@ -62,10 +62,9 @@ public class InGameSystem : IGameSystem
     private Dictionary<BlockType, GameObject> m_BlockObs = new();
 
     //-------------------
-    //frame
+    //blocks
     //-------------------
-    //private IBlock testBlock;
-    private Frame m_Frame;
+    private BlockController m_BlockController;
 
     //-------------------
     //combine sets
@@ -102,9 +101,10 @@ public class InGameSystem : IGameSystem
         }
 
         //-------------------
-        //frame
+        //blocks
         //-------------------
-        m_Frame = new(m_GameInfo);
+        m_BlockController = new(m_GameInfo);
+        SetNextBlock();
 
     }
 
@@ -122,34 +122,18 @@ public class InGameSystem : IGameSystem
         //test
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Vector2Int id = new(0, 0);
-            IBlock block = CreateBlock((BlockType)1);
-            block?.SetPos(m_Frame.GetBlockPos(id));
-
-            AddBlockIntoFrame(id, block);
+            m_BlockController.FallBlock(0);
+            SetNextBlock();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Vector2Int id = new(GameInfo.GetScale().x - 1, GameInfo.GetScale().y - 1);
-            IBlock block = CreateBlock((BlockType)2);
-            block?.SetPos(m_Frame.GetBlockPos(id));
-
-            AddBlockIntoFrame(id, block);
+            m_BlockController.FallBlock(1);
+            SetNextBlock();
         }
-
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            Debug.Log("T");
-
-            Vector2Int id = new(0, 0);
-            m_Frame.Test(id, true);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("F");
-
-            Vector2Int id = new(0, 0);
-            m_Frame.Test(id, false);
+            m_BlockController.FallBlock(GameInfo.GetScale().x - 1);
+            SetNextBlock();
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -164,7 +148,7 @@ public class InGameSystem : IGameSystem
     {
         IBlock res = null;
 
-        if (m_BlockObs.TryGetValue(type,out var blockOb))
+        if (m_BlockObs.TryGetValue(type, out var blockOb))
         {
             res = new FlowerBlock(blockOb);
         }
@@ -176,8 +160,15 @@ public class InGameSystem : IGameSystem
         return res;
     }
 
-    private void AddBlockIntoFrame(Vector2Int id, IBlock block)
+    private void SetNextBlock()
     {
-       m_Frame.AddBlock(id, block);
+        IBlock block = null;
+
+        int id = Random.Range(0, 7);
+        block = CreateBlock((BlockType)id);
+        Debug.Log("type of next block " + id.ToString());
+
+        m_BlockController.SetNextBlock(block);
+
     }
 }

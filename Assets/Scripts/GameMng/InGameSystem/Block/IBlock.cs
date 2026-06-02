@@ -19,8 +19,8 @@ public abstract class IBlock
     //-------------------
     //oner
     //-------------------
-    private Node m_OnerNode;
-    public Node OnerNode
+    private BlockNode m_OnerNode;
+    public BlockNode OnerNode
     {
         set { m_OnerNode = value; }
     }
@@ -59,6 +59,11 @@ public abstract class IBlock
     {
         m_BlockOb = Object.Instantiate(block);
     }
+    ~IBlock()
+    {
+        TestDestroy();
+    }
+
 
     public void SetPos(Vector2 pos)
     {
