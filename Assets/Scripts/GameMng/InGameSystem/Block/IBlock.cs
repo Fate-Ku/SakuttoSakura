@@ -2,6 +2,7 @@
 // IBlock.cs
 // 
 // 2026/05/26 Created By Man-Yi, Yeh
+// 2026/06/02 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
@@ -12,13 +13,18 @@ public abstract class IBlock
     //-------------------
     //game object
     //-------------------
-    private GameObject m_Block;
+    private GameObject m_BlockOb;
 
 
     //-------------------
     //oner
     //-------------------
-    //oner frame
+    private Node m_OnerNode;
+    public Node OnerNode
+    {
+        set { m_OnerNode = value; }
+    }
+
     //oner combine set
 
     //-------------------
@@ -40,6 +46,9 @@ public abstract class IBlock
         set {  m_IsIdle = value; }
     }
 
+    //pos
+    private Vector2 m_Pos;
+
     //startegys
     //private IBlockStrategy m_UpdateStartegy;
     //private IBlockStrategy m_CombineCheckStartegy;
@@ -48,17 +57,30 @@ public abstract class IBlock
 
     public IBlock(GameObject block) 
     {
-        m_Block = Object.Instantiate(block);
+        m_BlockOb = Object.Instantiate(block);
+    }
+
+    public void SetPos(Vector2 pos)
+    {
+        m_Pos = pos;
+        if (m_BlockOb != null) 
+        {
+            m_BlockOb.transform.localPosition =
+                new Vector3(
+                    pos.x,
+                    pos.y,
+                    m_BlockOb.transform.localPosition.z);
+        }
     }
 
     public void Test(bool active)
     {
-        m_Block.SetActive(active);
+        m_BlockOb.SetActive(active);
     }
 
     public void TestDestroy()
     {
-        Object.Destroy(m_Block);
+        Object.Destroy(m_BlockOb);
     }
 
     /*
