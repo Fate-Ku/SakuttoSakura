@@ -3,6 +3,7 @@
 // 
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/05/30 Updated By Man-Yi, Yeh
+// 2026/06/02 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ public class GameInfo : MonoBehaviour
     [SerializeField] private GameObject[] blocks; 
 
 
+    //x :col, y :row
     public Vector2Int GetScale()
     {
         return new Vector2Int(colNum, rowNum);
