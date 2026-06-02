@@ -7,17 +7,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
-public class MenuUI : MonoBehaviour
+public class MenuUI : UISystem
 {
-
-    public void GoToSkillSelectScene()
+    public MenuUI(GameMng gameMng) : base(gameMng)
     {
-        GameMng.Instance.SetNextScene("SkillSelectScene");
     }
 
-    public void GoToInGameScene()
+    public override void Init()
     {
-        GameMng.Instance.SetNextScene("InGameScene");
+
+    }
+    public override void Update()
+    {
+
+    }
+
+    public override void Term()
+    {
+
     }
 
 }
