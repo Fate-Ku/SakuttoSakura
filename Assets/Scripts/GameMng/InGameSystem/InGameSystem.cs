@@ -135,7 +135,6 @@ public class InGameSystem : IGameSystem
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ColumnOnClick(0);
-            ColumnOnClick(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -145,6 +144,22 @@ public class InGameSystem : IGameSystem
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             ColumnOnClick(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ColumnOnClick(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ColumnOnClick(4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ColumnOnClick(5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            ColumnOnClick(6);
         }
 
         if (Input.GetKeyDown(KeyCode.E))

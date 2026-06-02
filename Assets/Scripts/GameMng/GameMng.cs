@@ -4,9 +4,8 @@
 // 2026/05/21 Created By Man-Yi, Yeh
 // 2026/05/26 Updated By Man-Yi, Yeh 
 // 2026/05/31 Updated By Man-Yi, Yeh
+// 2026/06/02 Updated By Man-Yi, Yeh
 // 
-// 
-
 
 using UnityEngine;
 
@@ -74,18 +73,12 @@ public class GameMng
 
     public void Term()
     {
-        if (m_NowPhase != null)
-        {
-            m_NowPhase.Term();
-        }
+        m_NowPhase?.Term();
     }
 
     public void Update()
     {
-        if (m_NowPhase != null)
-        {
-            m_NowPhase.Update();
-        }
+        m_NowPhase?.Update();
     }
 
     public void SetNextScene(string nextSceneName)
@@ -100,10 +93,7 @@ public class GameMng
     //-------------------
     public void SetPhase(PhaseType phaseType)
     {
-        if (m_NowPhase != null)
-        {
-            m_NowPhase.Term();
-        }
+        m_NowPhase?.Term();
 
         Phase phase = null;
         switch (phaseType)
@@ -134,15 +124,11 @@ public class GameMng
 
     public void EndPhase()
     {
-        if (m_NowPhase != null)
-        {
-            m_NowPhase.Term();
-        }
+        m_NowPhase?.Term();
         m_NowPhase = null;
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
-  
     //-------------------
     //method of InGameSystem
     //-------------------
@@ -214,7 +200,6 @@ public class GameMng
         }
 
         return res;
-
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
