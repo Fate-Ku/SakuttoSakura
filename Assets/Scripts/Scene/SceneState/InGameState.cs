@@ -3,7 +3,6 @@
 // 
 // 2026/05/19 Created By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
-// 2026/05/31 Update By Fate Ku
 //
 
 using UnityEngine;

@@ -65,10 +65,6 @@ public class GameMng
     //skill data
     private SkillDataSystem m_SkillDataSystem;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);

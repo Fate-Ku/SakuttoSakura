@@ -59,16 +59,24 @@ public class InGameUIButton
     private void CreateCubes()
     {
         // setting
-        Vector2Int scale = GameMng.Instance.GetGameScale();     // scaleX, scaleY
+        float scale = GameMng.Instance.GetSize();     // scaleX, scaleY
         Vector2 referPos = GameMng.Instance.GetGameReferPos();  // refer pos
+        Vector2Int xy = GameMng.Instance.GetGameScale(); //column & row
 
-        float scaleX = scale.x;
-        float scaleY = scale.y * 8f;   // scaleY * 8
+        float col = xy.y; // 8
+        float row = xy.x; // 7
+
+        float scaleX = scale;
+        float scaleY = scale * col;   // scaleY * col
+
+        float offsetY = scale * 0.5f; //top
+
+        float startPosY = referPos.y + offsetY - (offsetY * col/2); // middle
 
         // first Cube
-        Vector3 pos = new Vector3(referPos.x, referPos.y, 0);
+        Vector3 pos = new Vector3(referPos.x, startPosY, 0);
 
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < row; i++)
         {
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.name = "ClickButton" + i;
@@ -80,7 +88,7 @@ public class InGameUIButton
             cube.transform.localScale = new Vector3(scaleX, scaleY, 1);
 
             // cannot see cube
-            //cube.GetComponent<MeshRenderer>().enabled = false;
+            cube.GetComponent<MeshRenderer>().enabled = false;
 
             // record
             m_Cubes[i] = cube.transform;
