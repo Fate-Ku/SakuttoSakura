@@ -65,6 +65,10 @@ public class GameMng
     //skill data
     private SkillDataSystem m_SkillDataSystem;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);
@@ -201,13 +205,29 @@ public class GameMng
         return res;
     }
 
+    public float GetSize()
+    {
+        float res = 0;
+        if (m_InGameSystem != null)
+        {
+            if (m_InGameSystem.GameInfo != null)
+            {
+                res = m_InGameSystem.GameInfo.GetSize();
+            }
+        }
+
+        return res;
+
+    }
+
     //2026/05/26 Update By Man-Yi, Yeh 
     //-------------------
     //ingame click column
     //-------------------
-    public void InGameClickColumn(int id)
+    public void InGameColumnOnClick(int id)
     {
         Debug.Log("click col: " + id.ToString());
+        m_InGameSystem.ColumnOnClick(id);
     }
 
 }

@@ -107,7 +107,7 @@ public class InGameUIButton
                     Debug.Log("Click id：" + i);
 
                     // rid return to GameMng
-                    GameMng.Instance.InGameClickColumn(i);
+                    GameMng.Instance.InGameColumnOnClick(i);
 
                     return;
                 }

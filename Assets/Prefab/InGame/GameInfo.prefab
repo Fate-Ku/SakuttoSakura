@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3835221577200217439}
   - component: {fileID: 4329834018805430042}
   - component: {fileID: 9045130304975015084}
+  - component: {fileID: 365702353927796876}
   m_Layer: 0
   m_Name: GameInfo
   m_TagString: Untagged
@@ -90,3 +91,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &365702353927796876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188506851340322029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3e4290c92005f4c8fad49f9ebe980d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameInfo
+  colNum: 7
+  rowNum: 8
+  blocks:
+  - {fileID: 4674765785214467854, guid: 5388c303e6b90b148987486516043e01, type: 3}
+  - {fileID: 5579780809926416440, guid: e0326dcb5ac54214eaf4a97e41d09220, type: 3}
+  - {fileID: 284210754064123932, guid: dfde5439438aff94089c48fcbf22a40e, type: 3}
+  - {fileID: 4303323566264276307, guid: 1fa603d13730f64429ff623cfe8549d8, type: 3}
+  - {fileID: 775361337113117985, guid: 1d7ad5df416b87d46a2d036afef54599, type: 3}
+  - {fileID: 1324455130430193808, guid: 486f2907f2f6b30429002f7ecc469c0c, type: 3}
+  - {fileID: 4898762186925487620, guid: 76fd723c6e5dff94daa664d56bf6c6aa, type: 3}
+  - {fileID: 7451213132323733625, guid: c12e70d1a095fc8478eea204bb8c9892, type: 3}
+  - {fileID: 7451213132323733625, guid: c12e70d1a095fc8478eea204bb8c9892, type: 3}
+  nextOperateTime: 0.1

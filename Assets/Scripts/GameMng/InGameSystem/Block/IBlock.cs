@@ -19,8 +19,8 @@ public abstract class IBlock
     //-------------------
     //oner
     //-------------------
-    private Node m_OnerNode;
-    public Node OnerNode
+    private BlockNode m_OnerNode;
+    public BlockNode OnerNode
     {
         set { m_OnerNode = value; }
     }
@@ -55,10 +55,16 @@ public abstract class IBlock
     //private IBlockStrategy m_NextDestroyStrategy;
     //private IBlockStrategy m_DestroyStrategy;
 
-    public IBlock(GameObject block) 
+    public IBlock(GameObject block, float size) 
     {
         m_BlockOb = Object.Instantiate(block);
+        m_BlockOb.transform.localScale = new Vector3(size, size, 1);
     }
+    ~IBlock()
+    {
+        TestDestroy();
+    }
+
 
     public void SetPos(Vector2 pos)
     {

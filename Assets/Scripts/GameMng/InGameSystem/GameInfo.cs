@@ -7,6 +7,7 @@
 // 
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameInfo : MonoBehaviour
@@ -17,9 +18,10 @@ public class GameInfo : MonoBehaviour
     [SerializeField] private int rowNum;
 
     [Header("Block")]
-    //[SerializeField] GameObject block;
-    [SerializeField] private GameObject[] blocks; 
+    [SerializeField] private GameObject[] blocks;
 
+    [Header("Time")]
+    [SerializeField] private float nextOperateTime;
 
     //x :col, y :row
     public Vector2Int GetScale()
@@ -40,11 +42,15 @@ public class GameInfo : MonoBehaviour
         return gameObject.transform.localScale.x;
     }
 
-    
     public GameObject GetBlock(BlockType type)
     {
         GameObject res = blocks[(int)type];
         return res;
+    }
+
+    public float GetNextOperateTime()
+    {
+        return nextOperateTime;
     }
 
 }

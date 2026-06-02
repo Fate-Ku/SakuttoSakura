@@ -9,8 +9,9 @@
 
 using System.Collections.Generic;
 using System.Numerics;
-
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public enum BlockType
 {
@@ -62,15 +63,20 @@ public class InGameSystem : IGameSystem
     private Dictionary<BlockType, GameObject> m_BlockObs = new();
 
     //-------------------
-    //frame
+    //blocks
     //-------------------
-    //private IBlock testBlock;
-    private Frame m_Frame;
+    private BlockController m_BlockController;
 
     //-------------------
     //combine sets
     //-------------------
 
+
+    //-------------------
+    //operate
+    //-------------------
+    private bool m_CanOperate;
+    private float m_OperateTimer;
 
 
     public override void Init()
@@ -102,9 +108,15 @@ public class InGameSystem : IGameSystem
         }
 
         //-------------------
-        //frame
+        //blocks
         //-------------------
-        m_Frame = new(m_GameInfo);
+        m_BlockController = new(m_GameInfo);
+        SetNextBlock();
+
+        //-------------------
+        //operate
+        //-------------------
+        m_CanOperate = true;
 
     }
 
@@ -117,39 +129,22 @@ public class InGameSystem : IGameSystem
 
     public override void Update()
     {
-        //Debug.Log("InGameSystem Update");
+        ControlOperate();
 
         //test
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Vector2Int id = new(0, 0);
-            IBlock block = CreateBlock((BlockType)1);
-            block?.SetPos(m_Frame.GetBlockPos(id));
-
-            AddBlockIntoFrame(id, block);
+            ColumnOnClick(0);
+            ColumnOnClick(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Vector2Int id = new(GameInfo.GetScale().x - 1, GameInfo.GetScale().y - 1);
-            IBlock block = CreateBlock((BlockType)2);
-            block?.SetPos(m_Frame.GetBlockPos(id));
+            ColumnOnClick(1);
 
-            AddBlockIntoFrame(id, block);
         }
-
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            Debug.Log("T");
-
-            Vector2Int id = new(0, 0);
-            m_Frame.Test(id, true);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("F");
-
-            Vector2Int id = new(0, 0);
-            m_Frame.Test(id, false);
+            ColumnOnClick(2);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -160,13 +155,32 @@ public class InGameSystem : IGameSystem
         }
     }
 
+    //-------------------
+    //column button callBack
+    //-------------------
+    public void ColumnOnClick(int id)
+    {
+        if (m_CanOperate)
+        {
+            SetCantControl();
+            if (m_BlockController.FallBlock(id))
+            {
+                SetNextBlock();
+            }
+        }
+    }
+
+    //-------------------
+    //method of blocks
+    //-------------------
     private IBlock CreateBlock(BlockType type)
     {
         IBlock res = null;
 
-        if (m_BlockObs.TryGetValue(type,out var blockOb))
+        if (m_BlockObs.TryGetValue(type, out var blockOb))
         {
-            res = new FlowerBlock(blockOb);
+            float size = GameInfo.GetSize();
+            res = new FlowerBlock(blockOb, size);
         }
         else
         {
@@ -176,8 +190,37 @@ public class InGameSystem : IGameSystem
         return res;
     }
 
-    private void AddBlockIntoFrame(Vector2Int id, IBlock block)
+    private void SetNextBlock()
     {
-       m_Frame.AddBlock(id, block);
+        IBlock block;
+
+        int id = Random.Range(0, 7);
+        block = CreateBlock((BlockType)id);
+        Debug.Log("type of next block " + id.ToString());
+
+        m_BlockController.SetNextBlock(block);
     }
+
+    //-------------------
+    //method of operate
+    //-------------------
+    private void ControlOperate()
+    {
+        if (!m_CanOperate)
+        {
+            m_OperateTimer -= Time.deltaTime;
+            if (m_OperateTimer <= 0)
+            {
+                m_CanOperate = true;
+            }
+        }
+    }
+
+    private void SetCantControl()
+    {
+        m_CanOperate = false;
+        m_OperateTimer = GameInfo.GetNextOperateTime();
+    }
+
+    
 }
