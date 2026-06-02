@@ -4,8 +4,9 @@
 // 2026/05/21 Created By Man-Yi, Yeh
 // 2026/05/26 Updated By Man-Yi, Yeh 
 // 2026/05/31 Updated By Man-Yi, Yeh
-// 2026/05/31 Update By Fate Ku
 // 
+// 
+
 
 using UnityEngine;
 
@@ -65,9 +66,17 @@ public class GameMng
     private SkillDataSystem m_SkillDataSystem;
 
 
+    //-------------------
+    //UI
+    //-------------------
+    private UIManager m_UIManager;
+
+
+
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);
+
     }
 
     public void Term()
@@ -140,7 +149,7 @@ public class GameMng
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
-    //2026/05/31 Update By Fate Ku
+  
     //-------------------
     //method of InGameSystem
     //-------------------

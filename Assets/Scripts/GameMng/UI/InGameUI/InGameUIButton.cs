@@ -2,101 +2,117 @@
 // InGameUIButton.cs
 // 
 // 2026/05/31 Created By Fate Ku
-//
+// 2026/06/02 Updated By Fate Ku
 //
 using UnityEngine;
-using UnityEngine.UI;
-
 public class InGameUIButton
 {
-    private UIManager m_UIManager;
-    private GameMng m_GameMng;
-
-    [SerializeField] private Button m_ButtonPrefab;
-    [SerializeField] private RectTransform m_ParentUI;
-
-    public InGameUIButton(UIManager uiManager, GameMng gameMng)
-    {
-        m_UIManager = uiManager;
-        m_GameMng = gameMng;
-    }
+    private Camera m_MainCam;
+    private Transform[] m_Cubes = new Transform[7]; //create new 7 cubes
 
     public void Init()
     {
-        // Load Prefab
-        //m_ButtonPrefab = Resources.Load<Button>("InGame/UI/InGameButton");
+        // main camera
+        m_MainCam = Camera.main;
 
-        // Find UI Panel
-        //m_ParentUI = GameObject.Find("InGameButtonPanel").GetComponent<RectTransform>();
-
-        CreateButtons();
+        CreateCubes();
     }
 
     // -------------------------
-    // delete button
+    // Update：Raycast for click/touch
+    // -------------------------
+    public void Update()
+    {
+        // mouse click
+        if (Input.GetMouseButtonDown(0))
+        {
+            CheckRaycast(Input.mousePosition);
+        }
+
+        // touch
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                CheckRaycast(touch.position);
+            }
+        }
+    }
+
+    // -------------------------
+    // delete Cubes
     // -------------------------
     public void Term()
     {
-        foreach (Transform child in m_ParentUI)
+        for (int i = 0; i < m_Cubes.Length; i++)
         {
-            GameObject.Destroy(child.gameObject);
+            if (m_Cubes[i] != null)
+                GameObject.Destroy(m_Cubes[i].gameObject);
         }
     }
 
     // -------------------------
-    // Create button
+    // Create 7 Cubes
     // -------------------------
-    private void CreateButtons()
+    private void CreateCubes()
     {
+        // setting
+        Vector2Int scale = GameMng.Instance.GetGameScale();     // scaleX, scaleY
+        Vector2 referPos = GameMng.Instance.GetGameReferPos();  // refer pos
+
+        float scaleX = scale.x;
+        float scaleY = scale.y * 8f;   // scaleY * 8
+
+        // first Cube
+        Vector3 pos = new Vector3(referPos.x, referPos.y, 0);
+
         for (int i = 0; i < 7; i++)
         {
-            int index = i;
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.name = "ClickButton" + i;
 
-            Button btn = GameObject.Instantiate(m_ButtonPrefab, m_ParentUI);
-
-            RectTransform rt = btn.GetComponent<RectTransform>();
+            // set pos
+            cube.transform.position = pos;
 
             // set size
-            rt.sizeDelta = m_UIManager.GetButtonSize();
+            cube.transform.localScale = new Vector3(scaleX, scaleY, 1);
 
-            // set position
-            rt.anchoredPosition = m_UIManager.GetButtonPos(index);
+            // cannot see cube
+            //cube.GetComponent<MeshRenderer>().enabled = false;
 
-            // set Transparent
-            SetButtonTransparent(btn);
+            // record
+            m_Cubes[i] = cube.transform;
 
-            // on click event
-            btn.onClick.AddListener(() => OnButtonClicked(index));
+            // next Cube pos（+Cube width）
+            pos.x += scaleX;
         }
     }
 
     // -------------------------
-    // set button Transparent
+    // Check click/touch
     // -------------------------
-    private void SetButtonTransparent(Button btn)
+    private void CheckRaycast(Vector2 screenPos)
     {
-        Image img = btn.GetComponent<Image>();
-        if (img != null)
+        Ray ray = m_MainCam.ScreenPointToRay(screenPos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
         {
-            Color c = img.color;
-            //c.a = 0f; // Transparent
+            for (int i = 0; i < 7; i++)
+            {
+                if (hit.collider != null && hit.collider.name == "ClickButton" + i)
+                {
+                    Debug.Log("Click id：" + i);
 
-            //for test
-            c.a = 0.5f; 
+                    // rid return to GameMng
+                    GameMng.Instance.InGameClickColumn(i);
 
-            img.color = c;
+                    return;
+                }
+            }
         }
     }
 
-    // -------------------------
-    // on click event
-    // -------------------------
-    private void OnButtonClicked(int index)
-    {
-        Debug.Log("InGameUIButton Clicked: " + index);
-
-        // return to UIManager
-        m_UIManager.SetSelectedIndex(index);
-
-    }
 }

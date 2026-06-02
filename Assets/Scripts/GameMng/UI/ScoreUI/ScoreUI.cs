@@ -2,11 +2,11 @@
 // ScoreUI.cs
 // 
 // 2026/05/31 Created By Fate Ku
-//
+// 2026/06/02 Updated By Fate Ku
 //
 using UnityEngine;
 
-public class ScoreUI : IGameSystem
+public class ScoreUI : UISystem
 {
     public ScoreUI(GameMng gameMng)
         : base(gameMng)

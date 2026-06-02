@@ -19,9 +19,6 @@ public class InGameState : IGameSceneState
     public override void StateBegin()
     {
         GameMng.Instance.SetPhase(GameMng.PhaseType.InGame);
-        //2026/05/31 Update By Fate Ku
-        //GameMng.Instance.SetUI(GameMng.PhaseType.InGame);
-        //2026/05/31 Update By Fate Ku
     }
 
     public override void StateEnd()
