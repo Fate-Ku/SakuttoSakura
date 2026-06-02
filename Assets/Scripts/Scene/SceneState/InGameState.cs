@@ -27,15 +27,7 @@ public class InGameState : IGameSceneState
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            //change to ScoreState
-            m_Controller.SetState(new ScoreState(m_Controller), "ScoreScene");
-            return;
-        }
-
         GameMng.Instance.Update();
         ControllSceneByGameMng(); 
-
     }
 }
