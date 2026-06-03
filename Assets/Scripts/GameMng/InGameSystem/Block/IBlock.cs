@@ -49,20 +49,65 @@ public abstract class IBlock
     //pos
     private Vector2 m_Pos;
 
+    //-------------------
+    //controller
+    //-------------------
+    //state
+    private BlockStateController m_BlockStateController = new();
     //startegys
-    //private IBlockStrategy m_UpdateStartegy;
-    //private IBlockStrategy m_CombineCheckStartegy;
-    //private IBlockStrategy m_NextDestroyStrategy;
-    //private IBlockStrategy m_DestroyStrategy;
+    private IBlockStrategy m_CombineCheckStartegy;
+    private IBlockStrategy m_NearDestroyStrategy;
+    private IBlockStrategy m_DestroyStrategy;
 
     public IBlock(GameObject block, float size) 
     {
         m_BlockOb = Object.Instantiate(block);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
+
+        m_BlockStateController.SetState(new BlockIdleState(this, m_BlockStateController));
     }
     ~IBlock()
     {
-        TestDestroy();
+        BlockDestroy();
+    }
+
+    //update
+    public void Update()
+    {
+        m_BlockStateController.BlockUpdate();
+    }
+
+    //check is go fall
+    public void GoFallCheck()
+    {
+        m_BlockStateController.GoFallCheck();
+    }
+
+    //is falling
+    public bool IsFalling()
+    {
+        return m_BlockStateController.IsFalling();
+    }
+
+    //fall info
+    //public FallInfo GetFallInfo()
+
+    //check combine
+    public void CombineCheck()
+    {
+        m_BlockStateController.CombineCheck();
+    }
+
+    //check is go destroy
+    public void GoDestroyCheck()
+    {
+        m_BlockStateController.GoDestroyCheck();
+    }
+
+    //near destroy
+    public void NearDestroy()
+    {
+        m_BlockStateController.NearDestroy();
     }
 
 
@@ -84,49 +129,10 @@ public abstract class IBlock
         m_BlockOb.SetActive(active);
     }
 
-    public void TestDestroy()
+    public void BlockDestroy()
     {
         Object.Destroy(m_BlockOb);
     }
 
-    /*
-    public void Update()
-    {
-        if (m_UpdateStartegy != null)
-        {
-            m_UpdateStartegy.Do(this);
-        }
-    }
-
-    public void CombineCheck()
-    {
-        if (m_CombineCheckStartegy != null)
-        {
-            if (IsIdle)
-            {
-                m_CombineCheckStartegy.Do(this);
-            }
-        }
-    }
-
-    public void NextDestroy()
-    {
-        if (m_NextDestroyStrategy != null)
-        {
-            if (IsIdle)
-            {
-                m_NextDestroyStrategy.Do(this);
-            }
-        }
-    }
-
-    public void Destroy()
-    {
-        if (m_DestroyStrategy != null)
-        {
-            m_DestroyStrategy.Do(this);
-        }
-    }
-
-    */
+   
 }

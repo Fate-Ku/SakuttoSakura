@@ -2,7 +2,8 @@
 // GameLoop.cs
 // 
 // 2026/05/19 Created By Man-Yi, Yeh
-// 2026/05/21 Update By Man-Yi, Yeh 
+// 2026/05/21 Updated By Man-Yi, Yeh 
+// 2026/06/03 Updated By Man-Yi, Yeh 
 //
 
 using UnityEngine;
@@ -10,7 +11,7 @@ using UnityEngine;
 public class GameLoop : MonoBehaviour
 {
     //scene state controller
-    SceneStateController m_SceneStateController = new SceneStateController();
+    SceneStateController m_SceneStateController = new();
 
     private void Awake()
     {

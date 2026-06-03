@@ -2,6 +2,7 @@
 // BlockController.cs
 // 
 // 2026/06/02 Created By Man-Yi, Yeh
+// 2026/06/03 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -10,25 +11,29 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
-public class BlockController
+public class BlocksController
 {
     //nodes
     private Dictionary<Vector2Int, BlockNode> m_Nodes = new();
     private Vector2Int m_NextNodeID;
 
-    public BlockController(GameInfo gameInfo)
+    //gameinfo
+    private int m_ColNum;
+    private int m_RowNum;
+
+    public BlocksController(GameInfo gameInfo)
     {
-        int colNum = gameInfo.GetScale().x;
-        int rowNum = gameInfo.GetScale().y;
+        m_ColNum = gameInfo.GetScale().x;
+        m_RowNum = gameInfo.GetScale().y;
         Vector2 referPos = gameInfo.GetReferPos();
         float size = gameInfo.GetSize();
 
         //Nodes
-        //cols: 0 ~ colNum - 1
-        for (int i = 0; i < colNum; ++i)
+        //cols: 0 ~ m_ColNum - 1
+        for (int i = 0; i < m_ColNum; ++i)
         {
-            //rows: -1, 0 ~ rowNum - 1, rowNum
-            for (int j = -1; j <= rowNum; ++j)
+            //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
+            for (int j = -1; j <= m_RowNum; ++j)
             {
                 Vector2Int id = new(i, j);
                 Vector2 pos = referPos + new Vector2(size * i, -size * j);
@@ -40,10 +45,25 @@ public class BlockController
 
         //NextNode
         m_NextNodeID = new(-1, -1);
-        Vector2 nextPos = referPos + new Vector2(size * (colNum - 1), -size * -2);
+        Vector2 nextPos = referPos + new Vector2(size * (m_ColNum - 1), -size * -2);
         BlockNode nextNode = new(this, m_NextNodeID, nextPos);
         m_Nodes.TryAdd(m_NextNodeID, nextNode);
 
+    }
+
+    public void Update()
+    {
+        //cols: 0 ~ m_ColNum - 1
+        for (int i = 0;i< m_ColNum; ++i)
+        {
+            //rows: m_RowNum, m_RowNum - 1 ~ 0, -1
+            //update start from under
+            for (int j = m_RowNum; j >= -1 ; --j)
+            {
+                BlockNode blockNode = GetNode(new Vector2Int(i, j));
+                blockNode?.Block?.Update();
+            }
+        }
     }
 
     public void SetNextBlock(IBlock block)
@@ -113,15 +133,4 @@ public class BlockController
         return res;
     }
 
-    public void Test(Vector2Int id,bool active)
-    {
-        if (m_Nodes.TryGetValue(id, out var node))
-        {
-            node.Block?.Test(active);
-        }
-        else
-        {
-            Debug.Log("out frame");
-        }
-    }
 }

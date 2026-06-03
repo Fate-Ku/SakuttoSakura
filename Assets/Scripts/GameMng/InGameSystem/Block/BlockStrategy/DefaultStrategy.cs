@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DefaultUpdateStrategy : IBlockStrategy
+public class DefaultStrategy : IBlockStrategy
 {
     public override void Do(IBlock block)
     {

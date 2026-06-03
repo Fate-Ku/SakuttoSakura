@@ -2,8 +2,9 @@
 // SceneStateController.cs
 // 
 // 2026/05/19 Created By Man-Yi, Yeh
-// 2026/05/21 Update By Man-Yi, Yeh 
-// 2026/05/26 Update By Man-Yi, Yeh 
+// 2026/05/21 Updated By Man-Yi, Yeh 
+// 2026/05/26 Updated By Man-Yi, Yeh 
+// 2026/06/03 Updated By Man-Yi, Yeh 
 // 
 
 using UnityEngine;
@@ -20,17 +21,14 @@ public class SceneStateController
     //set state
     public void SetState(ISceneState state, string loadSceneName)
     {
-        Debug.Log("SetState:" + state.ToString());
+        Debug.Log("Set Scene State:" + state.ToString());
         m_bRunBegin = false;
 
         //load scene
         LoadScene(loadSceneName);
 
         //end previous state
-        if (m_State != null)
-        {
-            m_State.StateEnd();
-        }
+        m_State?.StateEnd();
 
         //setting
         m_State = state;

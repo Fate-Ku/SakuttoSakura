@@ -20,7 +20,7 @@ public class BlockNode
     }
 
     //fixed info
-    private BlockController m_Controller;  //oner
+    private BlocksController m_Controller;  //oner
     private Vector2Int m_ID;
     private Vector2 m_Pos;
     public Vector2 Pos
@@ -28,7 +28,7 @@ public class BlockNode
         get { return m_Pos; }
     }
 
-    public BlockNode(BlockController controller, Vector2Int id, Vector2 pos)
+    public BlockNode(BlocksController controller, Vector2Int id, Vector2 pos)
     {
         m_Controller = controller;
         m_ID = id;
