@@ -3,6 +3,7 @@
 // 
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/06/02 Updated By Man-Yi, Yeh
+// 2026/06/04 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
@@ -54,11 +55,35 @@ public abstract class IBlock
     //-------------------
     //state
     private BlockStateController m_BlockStateController = new();
-    //startegys
-    private IBlockStrategy m_CombineCheckStartegy;
-    private IBlockStrategy m_NearDestroyStrategy;
-    private IBlockStrategy m_DestroyStrategy;
 
+    //fall controller
+    protected IBlockFallController m_FallController;
+    public IBlockFallController FallController
+    {
+        get { return m_FallController; }
+    }
+
+    //startegys
+    protected IBlockStrategy m_CombineCheckStartegy;
+    public IBlockStrategy CombineCheckStartegy
+    {
+        get { return m_CombineCheckStartegy; }
+    }
+
+    protected IBlockStrategy m_DestroyStrategy;
+    public IBlockStrategy DestroyStrategy
+    {
+        get { return m_DestroyStrategy; }
+    }
+
+
+    protected IBlockStrategy m_NearDestroyStrategy;
+    public IBlockStrategy NearDestroyStrategy
+    {
+        get { return m_NearDestroyStrategy; }
+    }
+
+    
     public IBlock(GameObject block, float size) 
     {
         m_BlockOb = Object.Instantiate(block);
@@ -71,26 +96,14 @@ public abstract class IBlock
         BlockDestroy();
     }
 
+    //-------------------
+    //update
+    //-------------------
     //update
     public void Update()
     {
         m_BlockStateController.BlockUpdate();
     }
-
-    //check is go fall
-    public void GoFallCheck()
-    {
-        m_BlockStateController.GoFallCheck();
-    }
-
-    //is falling
-    public bool IsFalling()
-    {
-        return m_BlockStateController.IsFalling();
-    }
-
-    //fall info
-    //public FallInfo GetFallInfo()
 
     //check combine
     public void CombineCheck()
@@ -99,9 +112,9 @@ public abstract class IBlock
     }
 
     //check is go destroy
-    public void GoDestroyCheck()
+    public void DestroyCheck()
     {
-        m_BlockStateController.GoDestroyCheck();
+        m_BlockStateController.DestroyCheck();
     }
 
     //near destroy
@@ -110,7 +123,35 @@ public abstract class IBlock
         m_BlockStateController.NearDestroy();
     }
 
+    //-------------------
+    //fall
+    //-------------------
+    //is go fall
+    public bool IsGoFall()
+    {
+        bool res = true;
 
+        BlockNode underNode = m_OnerNode.GetUnderNode();
+        if (underNode?.Block != null)
+        {
+            res = underNode.Block.IsFalling();
+        }
+
+        return res;
+    }
+
+    //is falling
+    public bool IsFalling()
+    {
+        return m_FallController.IsFalling();
+    }
+
+    //fall info
+    //public FallInfo GetFallInfo()
+
+    //-------------------
+    //basic method
+    //-------------------
     public void SetPos(Vector2 pos)
     {
         m_Pos = pos;
@@ -124,15 +165,16 @@ public abstract class IBlock
         }
     }
 
-    public void Test(bool active)
-    {
-        m_BlockOb.SetActive(active);
-    }
-
     public void BlockDestroy()
     {
         Object.Destroy(m_BlockOb);
     }
 
-   
+    //-------------------
+    //test
+    //-------------------
+    public void Test(bool active)
+    {
+        m_BlockOb.SetActive(active);
+    }
 }

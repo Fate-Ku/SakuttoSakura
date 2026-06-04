@@ -2,6 +2,7 @@
 // BlockIdleState.cs
 // 
 // 2026/06/03 Created By Man-Yi, Yeh
+// 2026/06/04 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -16,13 +17,9 @@ public class BlockIdleState : IBlockState
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (m_Block.IsGoFall())
         {
-            m_Block.Test(true);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            m_Block.Test(false);
+            m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
         }
     }
 }

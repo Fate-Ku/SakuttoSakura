@@ -22,6 +22,9 @@ public class BlockStateController
 
         //setting
         m_State = state;
+
+        //begin new state
+        m_State?.StateBegin();
     }
 
     //block update
@@ -36,21 +39,6 @@ public class BlockStateController
         m_State.StateUpdate();
     }
 
-    //check is go fall
-    public void GoFallCheck()
-    {
-
-    }
-
-    //is falling
-    public bool IsFalling()
-    {
-        return false;
-    }
-
-    //fall info
-    //public FallInfo GetFallInfo()
-
     //check combine
     public void CombineCheck()
     {
@@ -58,7 +46,7 @@ public class BlockStateController
     }
 
     //check is go destroy
-    public void GoDestroyCheck()
+    public void DestroyCheck()
     {
 
     }

@@ -3,6 +3,7 @@
 // 
 // 2026/06/02 Created By Man-Yi, Yeh
 // 2026/06/03 Updated By Man-Yi, Yeh
+// 2026/06/04 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -29,9 +30,11 @@ public class BlocksController
         float size = gameInfo.GetSize();
 
         //Nodes
+        //left to right
         //cols: 0 ~ m_ColNum - 1
         for (int i = 0; i < m_ColNum; ++i)
         {
+            //above to under
             //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
             for (int j = -1; j <= m_RowNum; ++j)
             {
@@ -66,6 +69,9 @@ public class BlocksController
         }
     }
 
+    //-------------------
+    //game
+    //-------------------
     public void SetNextBlock(IBlock block)
     {
         BlockNode blockNode = GetNode(m_NextNodeID);
@@ -86,6 +92,10 @@ public class BlocksController
         return false;
     }
 
+
+    //-------------------
+    //basic method of node
+    //-------------------
     public BlockNode GetNode(Vector2Int id)
     {
         BlockNode blockNode = null;
@@ -109,6 +119,37 @@ public class BlocksController
 
         return res;
     }
+
+    public Vector2 GetNodePos(Vector2Int id)
+    {
+        Vector2 res = new(0, 0);
+
+        if (m_Nodes.TryGetValue(id, out var node))
+        {
+            res = node.Pos;
+        }
+
+        return res;
+    }
+
+    public BlockNode GetUnderNode(Vector2Int id)
+    {
+        BlockNode blockNode = null;
+
+        //if isn't bottom
+        if (id.y + 1 < m_RowNum)
+        {
+            //get under node
+            blockNode = GetNode(new Vector2Int(id.x, id.y + 1));
+        }
+
+        return blockNode;
+    }
+
+
+    //-------------------
+    //basic method of block
+    //-------------------
     private void AddBlock(Vector2Int id, IBlock block)
     {
         BlockNode blockNode = GetNode(id);
@@ -121,16 +162,6 @@ public class BlocksController
         blockNode.RemoveBlock();
     }
 
-    public Vector2 GetNodePos(Vector2Int id)
-    {
-        Vector2 res = new(0, 0);
-
-        if (m_Nodes.TryGetValue(id, out var node)) 
-        {
-            res = node.Pos;
-        }
-
-        return res;
-    }
+    
 
 }
