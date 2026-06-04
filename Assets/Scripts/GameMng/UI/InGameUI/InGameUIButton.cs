@@ -71,7 +71,7 @@ public class InGameUIButton
 
         float offsetY = scale * 0.5f; //top
 
-        float startPosY = referPos.y + offsetY - (offsetY * col/2); // middle
+        float startPosY = referPos.y + offsetY - (offsetY * col); // middle
 
         // first Cube
         Vector3 pos = new Vector3(referPos.x, startPosY, 0);
