@@ -17,12 +17,12 @@ public class BlockFallState : IBlockState
     public override void StateBegin()
     {
         Debug.Log("block start fall");
-        m_Block.FallController.SetFalling(true);
-    }
 
-    public override void StateEnd()
-    {
-        m_Block.FallController.SetFalling(false);
+        //falling
+        m_Block.FallController.SetFalling(true);
+        //set target pos as under node's pos
+        Vector2 pos = m_Block.GetUnderNode().Pos;
+        m_Block.SetFallTargetPos(pos);
     }
 
     public override void StateUpdate()

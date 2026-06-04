@@ -81,17 +81,38 @@ public class BlocksController
 
     public bool FallBlock(int col)
     {
-        Vector2Int id = new(col, -1);
-
-        if (IsNodeEmpty(id))
+        if (CanFall(col))
         {
+            Vector2Int id = new(col, -1);
+
             GetNode(m_NextNodeID).Block.SetPos(GetNodePos(id));
             GetNode(m_NextNodeID).BlockChangeNode(id);
+
             return true;
         }
         return false;
     }
 
+    private bool CanFall(int col)
+    {
+        bool res = false;
+
+        Vector2Int id = new(col, -1);
+        Vector2Int underID= new(col, 0);
+        if (IsNodeEmpty(id))
+        {
+            if (IsNodeEmpty(underID))
+            {
+                res = true;
+            }
+            else
+            {
+                res = GetNode(underID).Block.IsFalling();
+            }
+        }
+
+        return res;
+    }
 
     //-------------------
     //basic method of node

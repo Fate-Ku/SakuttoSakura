@@ -9,14 +9,16 @@ using UnityEngine;
 public struct FallInfo
 {
     public bool IsFalling;
+    public Vector2 TargetPos;
     public float Speed;
 }
 
 public class IBlockFallController
 {
-    private IBlock m_Block;
-
-    private FallInfo m_FallInfo;
+    //block
+    protected IBlock m_Block;
+    //fall info
+    protected FallInfo m_FallInfo;
     public FallInfo FallInfo
     {
         get { return m_FallInfo; }
@@ -27,10 +29,32 @@ public class IBlockFallController
         m_Block = block;
     }
 
-    //return is continue fall
+
+    //fall
     public virtual void FallUpdate()
     {
 
+    }
+
+    //is go fall
+    public bool IsGoFall()
+    {
+        bool res = false;
+
+        BlockNode underNode = m_Block.GetUnderNode();
+        if (underNode != null)
+        {
+            if (underNode.Block == null)
+            {
+                res = true;
+            }
+            else
+            {
+                res = underNode.Block.IsFalling();
+            }
+        }
+
+        return res;
     }
 
     public bool IsFalling()
@@ -41,5 +65,15 @@ public class IBlockFallController
     public void SetFalling(bool isFalling)
     {
         m_FallInfo.IsFalling = isFalling;
+    }
+
+    public void SetTargetPos(Vector2 targetPos)
+    {
+        m_FallInfo.TargetPos = targetPos;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        m_FallInfo.Speed = speed;
     }
 }

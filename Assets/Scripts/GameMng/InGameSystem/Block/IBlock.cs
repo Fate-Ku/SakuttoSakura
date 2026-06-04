@@ -20,10 +20,10 @@ public abstract class IBlock
     //-------------------
     //oner
     //-------------------
-    private BlockNode m_OnerNode;
-    public BlockNode OnerNode
+    private BlockNode m_BlockNode;
+    public BlockNode BlockNode
     {
-        set { m_OnerNode = value; }
+        set { m_BlockNode = value; }
     }
 
     //oner combine set
@@ -49,6 +49,10 @@ public abstract class IBlock
 
     //pos
     private Vector2 m_Pos;
+    public Vector2 Pos
+    {
+        get { return m_Pos; }
+    }
 
     //-------------------
     //controller
@@ -129,15 +133,7 @@ public abstract class IBlock
     //is go fall
     public bool IsGoFall()
     {
-        bool res = true;
-
-        BlockNode underNode = m_OnerNode.GetUnderNode();
-        if (underNode?.Block != null)
-        {
-            res = underNode.Block.IsFalling();
-        }
-
-        return res;
+        return m_FallController.IsGoFall();
     }
 
     //is falling
@@ -147,7 +143,22 @@ public abstract class IBlock
     }
 
     //fall info
-    //public FallInfo GetFallInfo()
+    public FallInfo GetFallInfo()
+    {
+        return m_FallController.FallInfo;
+    }
+
+    //set fall target pos
+    public void SetFallTargetPos(Vector2 targetPos)
+    {
+        m_FallController.SetTargetPos(targetPos);
+    }
+
+    //set fall speed
+    public void SetSpeed(float speed)
+    {
+        m_FallController.SetSpeed(speed);
+    }
 
     //-------------------
     //basic method
@@ -168,6 +179,19 @@ public abstract class IBlock
     public void BlockDestroy()
     {
         Object.Destroy(m_BlockOb);
+    }
+
+    //-------------------
+    //basic method of node
+    //-------------------
+    public BlockNode GetUnderNode()
+    {
+        return m_BlockNode.GetUnderNode();
+    }
+
+    public void GoUnderNode()
+    {
+        m_BlockNode.BlockGoUnderNode();
     }
 
     //-------------------

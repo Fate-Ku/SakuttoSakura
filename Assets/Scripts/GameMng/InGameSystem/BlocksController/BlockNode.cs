@@ -35,15 +35,19 @@ public class BlockNode
         m_Pos = pos;
     }
 
+
+    //-------------------
+    //basic
+    //-------------------
     public void SetBlock(IBlock block)
     {
         m_Block = block;
-        m_Block.OnerNode = this;
+        m_Block.BlockNode = this;
     }
 
     public void RemoveBlock()
     {
-        m_Block.OnerNode = null;
+        m_Block.BlockNode = null;
         m_Block = null;
     }
 
@@ -56,12 +60,20 @@ public class BlockNode
         }
     }
 
+
+    //-------------------
+    //under
+    //-------------------
+    public void BlockGoUnderNode()
+    {
+        Vector2Int id = new(m_ID.x, m_ID.y + 1);
+        BlockChangeNode(id);
+    }
+
     public BlockNode GetUnderNode()
     {
-        BlockNode blockNode = null;
-
-
-
-        return blockNode;
+        return m_Controller.GetUnderNode(m_ID);
     }
+
+
 }
