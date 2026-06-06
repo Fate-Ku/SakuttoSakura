@@ -5,6 +5,7 @@
 // 2026/05/30 Updated By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
 // 2026/06/02 Updated By Man-Yi, Yeh
+// 2026/06/06 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -65,12 +66,10 @@ public class InGameSystem : IGameSystem
     //-------------------
     //blocks
     //-------------------
-    private BlocksController m_BlockController;
-
-    //-------------------
+    //blocks
+    private BlocksController m_BlocksController;
     //combine sets
-    //-------------------
-
+    private CombineSetsController m_CombineSetsController;
 
     //-------------------
     //operate
@@ -110,8 +109,13 @@ public class InGameSystem : IGameSystem
         //-------------------
         //blocks
         //-------------------
-        m_BlockController = new(m_GameInfo);
+        //blocks
+        m_BlocksController = new(m_GameInfo);
         SetNextBlock();
+        //combine sets
+        m_CombineSetsController = new(
+            m_GameInfo.GetCombineTime(), 
+            m_GameInfo.GetCombineSize());
 
         //-------------------
         //operate
@@ -131,7 +135,12 @@ public class InGameSystem : IGameSystem
     {
         ControlOperate();
 
-        m_BlockController.Update();
+        m_BlocksController.Update();
+        m_BlocksController.CombineCheck(m_CombineSetsController);
+
+        m_CombineSetsController.Update();
+
+
 
         TestOprate();
     }
@@ -144,7 +153,7 @@ public class InGameSystem : IGameSystem
         if (m_CanOperate)
         {
             SetCantControl();
-            if (m_BlockController.FallBlock(id))
+            if (m_BlocksController.FallBlock(id))
             {
                 SetNextBlock();
             }
@@ -179,7 +188,7 @@ public class InGameSystem : IGameSystem
         block = CreateBlock((BlockType)id);
         Debug.Log("type of next block " + id.ToString());
 
-        m_BlockController.SetNextBlock(block);
+        m_BlocksController.SetNextBlock(block);
     }
 
     //-------------------

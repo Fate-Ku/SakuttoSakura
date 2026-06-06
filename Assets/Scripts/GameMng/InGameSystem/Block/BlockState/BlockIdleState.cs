@@ -3,6 +3,7 @@
 // 
 // 2026/06/03 Created By Man-Yi, Yeh
 // 2026/06/04 Updated By Man-Yi, Yeh
+// 2026/06/06 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -21,5 +22,10 @@ public class BlockIdleState : IBlockState
         {
             m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
         }
+    }
+
+    public override void StateCombineCheck(CombineSetsController controller)
+    {
+        m_Block.CombineCheckStartegy.Do(m_Block, controller);
     }
 }

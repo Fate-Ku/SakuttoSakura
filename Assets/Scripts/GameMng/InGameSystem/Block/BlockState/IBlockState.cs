@@ -37,6 +37,10 @@ public class IBlockState
     //update
     public virtual void StateUpdate() { }
 
+    //combine check
+    public virtual void StateCombineCheck(CombineSetsController controller) { }
+
+
     public override string ToString()
     {
         return string.Format(

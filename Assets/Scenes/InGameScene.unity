@@ -7332,6 +7332,14 @@ PrefabInstance:
       propertyPath: rowNum
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: combineSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: combineTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1188506851340322029, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: m_Name
       value: GameInfo

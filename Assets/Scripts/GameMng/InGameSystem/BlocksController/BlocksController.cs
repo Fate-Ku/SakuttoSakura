@@ -4,6 +4,7 @@
 // 2026/06/02 Created By Man-Yi, Yeh
 // 2026/06/03 Updated By Man-Yi, Yeh
 // 2026/06/04 Updated By Man-Yi, Yeh
+// 2026/06/06 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -54,6 +55,10 @@ public class BlocksController
 
     }
 
+    //-------------------
+    //update
+    //-------------------
+    //update
     public void Update()
     {
         //cols: 0 ~ m_ColNum - 1
@@ -68,6 +73,22 @@ public class BlocksController
             }
         }
     }
+    //combine check
+    public void CombineCheck(CombineSetsController controller)
+    {
+        //cols: 0 ~ m_ColNum - 1
+        for (int i = 0; i < m_ColNum; ++i)
+        {
+            //rows: m_RowNum, m_RowNum - 1 ~ 0, -1
+            //update start from under
+            for (int j = m_RowNum; j >= -1; --j)
+            {
+                BlockNode blockNode = GetNode(new Vector2Int(i, j));
+                blockNode?.Block?.CombineCheck(controller);
+            }
+        }
+    }
+
 
     //-------------------
     //game

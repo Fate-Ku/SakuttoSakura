@@ -2,6 +2,7 @@
 // SceneStateController.cs
 // 
 // 2026/06/03 Created By Man-Yi, Yeh
+// 2026/06/06 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -27,22 +28,21 @@ public class BlockStateController
         m_State?.StateBegin();
     }
 
+    //-------------------
+    //update
+    //-------------------
     //block update
     public void BlockUpdate()
     {
-        if (m_State == null)
-        {
-            return;
-        }
-
         //state update
-        m_State.StateUpdate();
+        m_State?.StateUpdate();
     }
 
     //check combine
-    public void CombineCheck()
+    public void CombineCheck(CombineSetsController controller)
     {
-
+        //state combine check
+        m_State?.StateCombineCheck(controller);
     }
 
     //check is go destroy
@@ -57,5 +57,25 @@ public class BlockStateController
 
     }
 
-    
+    //-------------------
+    //change state
+    //-------------------
+    //go combine state
+    public void GoCombine()
+    {
+        if (m_State.StateName != "CombineState")
+        {
+
+        }
+    }
+
+    //go destroy state
+    public void GoDestroy()
+    {
+        if (m_State.StateName != "DestroyState")
+        {
+
+        }
+    }
+
 }

@@ -4,6 +4,7 @@
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/05/30 Updated By Man-Yi, Yeh
 // 2026/06/02 Updated By Man-Yi, Yeh
+// 2026/06/06 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -20,8 +21,13 @@ public class GameInfo : MonoBehaviour
     [Header("Block")]
     [SerializeField] private GameObject[] blocks;
 
-    [Header("Time")]
+    [Header("Operate Time")]
     [SerializeField] private float nextOperateTime;
+
+    [Header("Combine Info")]
+    [SerializeField] private float combineTime;
+    [SerializeField] private int combineSize;
+
 
     //x :col, y :row
     public Vector2Int GetScale()
@@ -51,6 +57,16 @@ public class GameInfo : MonoBehaviour
     public float GetNextOperateTime()
     {
         return nextOperateTime;
+    }
+
+    public float GetCombineTime()
+    {
+        return combineTime;
+    }
+
+    public int GetCombineSize()
+    {
+        return combineSize;
     }
 
 }

@@ -4,10 +4,12 @@
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/06/02 Updated By Man-Yi, Yeh
 // 2026/06/04 Updated By Man-Yi, Yeh
+// 2026/06/06 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public abstract class IBlock
 {
@@ -20,6 +22,7 @@ public abstract class IBlock
     //-------------------
     //oner
     //-------------------
+    //oner block node 
     private BlockNode m_BlockNode;
     public BlockNode BlockNode
     {
@@ -27,6 +30,12 @@ public abstract class IBlock
     }
 
     //oner combine set
+    private CombineSet m_CombineSet = null;
+    public CombineSet CombineSet
+    {
+        get {  return m_CombineSet; }
+        set { m_CombineSet = value; }
+    }
 
     //-------------------
     //info
@@ -68,8 +77,8 @@ public abstract class IBlock
     }
 
     //startegys
-    protected IBlockStrategy m_CombineCheckStartegy;
-    public IBlockStrategy CombineCheckStartegy
+    protected NormalCombineCheck m_CombineCheckStartegy;
+    public NormalCombineCheck CombineCheckStartegy
     {
         get { return m_CombineCheckStartegy; }
     }
@@ -110,9 +119,9 @@ public abstract class IBlock
     }
 
     //check combine
-    public void CombineCheck()
+    public void CombineCheck(CombineSetsController controller)
     {
-        m_BlockStateController.CombineCheck();
+        m_BlockStateController.CombineCheck(controller);
     }
 
     //check is go destroy
@@ -125,6 +134,22 @@ public abstract class IBlock
     public void NearDestroy()
     {
         m_BlockStateController.NearDestroy();
+    }
+
+
+    //-------------------
+    //change state
+    //-------------------
+    //go combine state
+    public void GoCombine()
+    {
+        m_BlockStateController.GoCombine();
+    }
+
+    //go destroy state
+    public void GoDestroy()
+    {
+        m_BlockStateController.GoDestroy();
     }
 
     //-------------------
