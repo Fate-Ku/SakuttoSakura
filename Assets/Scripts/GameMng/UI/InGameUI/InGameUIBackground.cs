@@ -21,7 +21,7 @@ public class InGameUIBackground
 
         if (texWhite == null || texBlack == null)
         {
-            Debug.LogError("背景圖片載入失敗！請確認路徑：Assets/Resources/UI/InGame/");
+            Debug.LogError("Load error！plz check route：Assets/Resources/UI/InGame/");
         }
 
         CreateBgCube();

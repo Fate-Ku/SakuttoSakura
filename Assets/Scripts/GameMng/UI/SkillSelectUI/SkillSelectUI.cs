@@ -8,13 +8,19 @@ using UnityEngine;
 
 public class SkillSelectUI : UISystem
 {
+    private SkilliconUI skilliconUI;
+
     public SkillSelectUI(GameMng gameMng)
         : base(gameMng)
     {
+        skilliconUI = new SkilliconUI();
+
     }
 
     public override void Init()
     {
+        skilliconUI.Init();
+
         Debug.Log("SkillSelectUI Init");
         
     }
