@@ -6,6 +6,7 @@
 // 2026/05/31 Updated By Man-Yi, Yeh
 // 2026/06/02 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -187,7 +188,7 @@ public class InGameSystem : IGameSystem
     {
         IBlock block;
 
-        int id = Random.Range(4, 7);
+        int id = Random.Range(3, 7);
         block = CreateBlock((BlockType)id);
         Debug.Log("type of next block " + id.ToString());
 
