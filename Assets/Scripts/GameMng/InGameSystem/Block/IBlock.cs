@@ -5,6 +5,7 @@
 // 2026/06/02 Updated By Man-Yi, Yeh
 // 2026/06/04 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
@@ -17,6 +18,10 @@ public abstract class IBlock
     //game object
     //-------------------
     private GameObject m_BlockOb;
+    public GameObject BlockOb
+    {
+        get { return m_BlockOb; }
+    }
 
 
     //-------------------
@@ -83,8 +88,8 @@ public abstract class IBlock
         get { return m_CombineCheckStartegy; }
     }
 
-    protected IBlockStrategy m_DestroyStrategy;
-    public IBlockStrategy DestroyStrategy
+    protected IDestroyStrategy m_DestroyStrategy;
+    public IDestroyStrategy DestroyStrategy
     {
         get { return m_DestroyStrategy; }
     }
@@ -124,16 +129,16 @@ public abstract class IBlock
         m_BlockStateController.CombineCheck(controller);
     }
 
-    //check is go destroy
-    public void DestroyCheck()
-    {
-        m_BlockStateController.DestroyCheck();
-    }
-
     //near destroy
     public void NearDestroy()
     {
         m_BlockStateController.NearDestroy();
+    }
+
+    //be destroyed
+    public void BeDestroyed()
+    {
+        m_BlockStateController.BeDestroyed();
     }
 
 
@@ -143,13 +148,21 @@ public abstract class IBlock
     //go combine state
     public void GoCombine()
     {
-        m_BlockStateController.GoCombine();
+        if (m_BlockStateController.GetStateName() != "BlockCombineState")
+        {
+            m_BlockStateController.SetState(
+                new BlockCombineState(this, m_BlockStateController));
+        }
     }
 
     //go destroy state
     public void GoDestroy()
     {
-        m_BlockStateController.GoDestroy();
+        if (m_BlockStateController.GetStateName() != "BlockDestroyState")
+        {
+            m_BlockStateController.SetState(
+                new BlockCombineState(this, m_BlockStateController));
+        }
     }
 
     //-------------------
@@ -203,7 +216,11 @@ public abstract class IBlock
 
     public void BlockDestroy()
     {
+        //game object destroy
         Object.Destroy(m_BlockOb);
+
+        //remove from node 
+        m_BlockNode.RemoveBlock();
     }
 
     //-------------------
