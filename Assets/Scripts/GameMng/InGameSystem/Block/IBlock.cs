@@ -5,11 +5,22 @@
 // 2026/06/02 Updated By Man-Yi, Yeh
 // 2026/06/04 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+
+public enum BlockNearPos
+{
+    Above,
+    Below,
+    Left,
+    Right,
+
+    Count
+}
 
 public abstract class IBlock
 {
@@ -17,6 +28,10 @@ public abstract class IBlock
     //game object
     //-------------------
     private GameObject m_BlockOb;
+    public GameObject BlockOb
+    {
+        get { return m_BlockOb; }
+    }
 
 
     //-------------------
@@ -83,8 +98,8 @@ public abstract class IBlock
         get { return m_CombineCheckStartegy; }
     }
 
-    protected IBlockStrategy m_DestroyStrategy;
-    public IBlockStrategy DestroyStrategy
+    protected IDestroyStrategy m_DestroyStrategy;
+    public IDestroyStrategy DestroyStrategy
     {
         get { return m_DestroyStrategy; }
     }
@@ -118,22 +133,28 @@ public abstract class IBlock
         m_BlockStateController.BlockUpdate();
     }
 
-    //check combine
-    public void CombineCheck(CombineSetsController controller)
+    //do combine check
+    public void DoCombineCheck(CombineSetsController controller)
     {
-        m_BlockStateController.CombineCheck(controller);
+        m_BlockStateController.DoCombineCheck(controller);
     }
 
-    //check is go destroy
-    public void DestroyCheck()
+    //be combined check
+    public void BeCombinedCheck(IBlock block, CombineSetsController controller)
     {
-        m_BlockStateController.DestroyCheck();
+        m_BlockStateController.BeCombinedCheck(block, controller);
     }
 
     //near destroy
     public void NearDestroy()
     {
         m_BlockStateController.NearDestroy();
+    }
+
+    //be destroyed
+    public void BeDestroyed()
+    {
+        m_BlockStateController.BeDestroyed();
     }
 
 
@@ -143,13 +164,21 @@ public abstract class IBlock
     //go combine state
     public void GoCombine()
     {
-        m_BlockStateController.GoCombine();
+        if (m_BlockStateController.GetStateName() != "BlockCombineState")
+        {
+            m_BlockStateController.SetState(
+                new BlockCombineState(this, m_BlockStateController));
+        }
     }
 
     //go destroy state
     public void GoDestroy()
     {
-        m_BlockStateController.GoDestroy();
+        if (m_BlockStateController.GetStateName() != "BlockDestroyState")
+        {
+            m_BlockStateController.SetState(
+                new BlockDestroyState(this, m_BlockStateController));
+        }
     }
 
     //-------------------
@@ -203,20 +232,51 @@ public abstract class IBlock
 
     public void BlockDestroy()
     {
+        //game object destroy
         Object.Destroy(m_BlockOb);
+
+        //remove from node 
+        m_BlockNode?.RemoveBlock();
     }
 
     //-------------------
-    //basic method of node
+    //get node
     //-------------------
-    public BlockNode GetUnderNode()
+    public BlockNode GetNearNode(BlockNearPos pos)
     {
-        return m_BlockNode.GetUnderNode();
+        BlockNode blockNode = null;
+
+        switch (pos) 
+        {
+            case BlockNearPos.Above:
+                blockNode = m_BlockNode.GetAboveNode();
+                break;
+
+            case BlockNearPos.Below:
+                blockNode = m_BlockNode.GetBelowNode();
+                break;
+
+            case BlockNearPos.Left:
+                blockNode = m_BlockNode.GetLeftNode();
+                break;
+
+            case BlockNearPos.Right:
+                blockNode = m_BlockNode.GetRightNode();
+                break;
+
+            default:
+                break;
+        }
+
+        return blockNode;
     }
 
-    public void GoUnderNode()
+    //-------------------
+    //go node
+    //-------------------
+    public void GoBelowNode()
     {
-        m_BlockNode.BlockGoUnderNode();
+        m_BlockNode.BlockGoBelowNode();
     }
 
     //-------------------

@@ -2,6 +2,7 @@
 // CombineSet.cs
 // 
 // 2026/06/06 Created By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 //
 
 using System;
@@ -122,6 +123,9 @@ public class CombineSet
                 //call score mng
                 //call game log mng
             }
+
+            //remove this from controller
+            m_Controller.RemoveCombineSet(this);
         }
     }
 

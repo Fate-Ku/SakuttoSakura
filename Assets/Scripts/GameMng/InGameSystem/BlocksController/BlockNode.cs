@@ -2,6 +2,7 @@
 // BlockNode.cs
 // 
 // 2026/06/02 Created By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 // 
 
 using NUnit.Framework.Interfaces;
@@ -62,18 +63,38 @@ public class BlockNode
 
 
     //-------------------
-    //under
+    //get node
     //-------------------
-    public void BlockGoUnderNode()
+    public BlockNode GetAboveNode()
+    {
+        return m_Controller.GetAboveNode(m_ID);
+    }
+
+    public BlockNode GetBelowNode()
+    {
+        return m_Controller.GetUnderNode(m_ID);
+    }
+    public BlockNode GetLeftNode()
+    {
+        return m_Controller.GetLeftNode(m_ID);
+    }
+
+    public BlockNode GetRightNode()
+    {
+        return m_Controller.GetRightNode(m_ID);
+    }
+
+
+    //-------------------
+    //go node
+    //-------------------
+    public void BlockGoBelowNode()
     {
         Vector2Int id = new(m_ID.x, m_ID.y + 1);
         BlockChangeNode(id);
     }
 
-    public BlockNode GetUnderNode()
-    {
-        return m_Controller.GetUnderNode(m_ID);
-    }
+    
 
 
 }

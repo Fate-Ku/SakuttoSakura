@@ -3,6 +3,7 @@
 // 
 // 2026/06/03 Created By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -28,6 +29,12 @@ public class BlockStateController
         m_State?.StateBegin();
     }
 
+    //get state name
+    public string GetStateName()
+    {
+        return m_State.ToString();
+    }
+
     //-------------------
     //update
     //-------------------
@@ -38,17 +45,18 @@ public class BlockStateController
         m_State?.StateUpdate();
     }
 
-    //check combine
-    public void CombineCheck(CombineSetsController controller)
+    //do combine check
+    public void DoCombineCheck(CombineSetsController controller)
     {
-        //state combine check
-        m_State?.StateCombineCheck(controller);
+        //state do combine check
+        m_State?.DoCombineCheck(controller);
     }
 
-    //check is go destroy
-    public void DestroyCheck()
+    //be combined check
+    public void BeCombinedCheck(IBlock block,CombineSetsController controller)
     {
-
+        //state be combined check
+        m_State?.BeCombinedCheck(block, controller);
     }
 
     //near destroy
@@ -57,25 +65,11 @@ public class BlockStateController
 
     }
 
-    //-------------------
-    //change state
-    //-------------------
-    //go combine state
-    public void GoCombine()
+
+    //be destroyed
+    public void BeDestroyed()
     {
-        if (m_State.StateName != "CombineState")
-        {
 
-        }
-    }
-
-    //go destroy state
-    public void GoDestroy()
-    {
-        if (m_State.StateName != "DestroyState")
-        {
-
-        }
     }
 
 }

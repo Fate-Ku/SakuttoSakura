@@ -5,6 +5,7 @@
 // 2026/06/03 Updated By Man-Yi, Yeh
 // 2026/06/04 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -84,7 +85,7 @@ public class BlocksController
             for (int j = m_RowNum; j >= -1; --j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
-                blockNode?.Block?.CombineCheck(controller);
+                blockNode?.Block?.DoCombineCheck(controller);
             }
         }
     }
@@ -174,6 +175,23 @@ public class BlocksController
         return res;
     }
 
+    //-------------------
+    //get node
+    //-------------------
+    public BlockNode GetAboveNode(Vector2Int id)
+    {
+        BlockNode blockNode = null;
+
+        //if isn't cover
+        if (id.y - 1 >= 0)
+        {
+            //get above node
+            blockNode = GetNode(new Vector2Int(id.x, id.y - 1));
+        }
+
+        return blockNode;
+    }
+
     public BlockNode GetUnderNode(Vector2Int id)
     {
         BlockNode blockNode = null;
@@ -188,6 +206,33 @@ public class BlocksController
         return blockNode;
     }
 
+    public BlockNode GetLeftNode(Vector2Int id)
+    {
+        BlockNode blockNode = null;
+
+        //if isn't left wall
+        if (id.x - 1 >= 0)
+        {
+            //get left node
+            blockNode = GetNode(new Vector2Int(id.x - 1, id.y));
+        }
+
+        return blockNode;
+    }
+
+    public BlockNode GetRightNode(Vector2Int id)
+    {
+        BlockNode blockNode = null;
+
+        //if isn't right wall
+        if (id.x + 1 < m_ColNum)
+        {
+            //get right node
+            blockNode = GetNode(new Vector2Int(id.x + 1, id.y));
+        }
+
+        return blockNode;
+    }
 
     //-------------------
     //basic method of block

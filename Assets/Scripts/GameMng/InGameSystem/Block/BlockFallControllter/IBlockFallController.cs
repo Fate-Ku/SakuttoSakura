@@ -2,6 +2,7 @@
 // IBlockFallController.cs
 // 
 // 2026/06/04 Created By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -41,16 +42,16 @@ public class IBlockFallController
     {
         bool res = false;
 
-        BlockNode underNode = m_Block.GetUnderNode();
-        if (underNode != null)
+        BlockNode belowNode = m_Block.GetNearNode(BlockNearPos.Below);
+        if (belowNode != null)
         {
-            if (underNode.Block == null)
+            if (belowNode.Block == null)
             {
                 res = true;
             }
             else
             {
-                res = underNode.Block.IsFalling();
+                res = belowNode.Block.IsFalling();
             }
         }
 
