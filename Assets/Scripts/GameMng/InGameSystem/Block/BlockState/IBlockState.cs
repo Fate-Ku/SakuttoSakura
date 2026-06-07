@@ -40,8 +40,11 @@ public class IBlockState
     //update
     public virtual void StateUpdate() { }
 
-    //combine check
-    public virtual void StateCombineCheck(CombineSetsController controller) { }
+    //do combine check
+    public virtual void DoCombineCheck(CombineSetsController controller) { }
+
+    //be combined check
+    public virtual void BeCombinedCheck(IBlock block, CombineSetsController controller) { }
 
     //near destroy
     public virtual void NearDestroy() { }

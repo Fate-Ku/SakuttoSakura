@@ -170,7 +170,10 @@ public class InGameSystem : IGameSystem
         if (m_BlockObs.TryGetValue(type, out var blockOb))
         {
             float size = GameInfo.GetSize();
-            res = new FlowerBlock(blockOb, size);
+            res = new FlowerBlock(blockOb, size)
+            {
+                Type = type
+            };
         }
         else
         {
@@ -184,7 +187,7 @@ public class InGameSystem : IGameSystem
     {
         IBlock block;
 
-        int id = Random.Range(0, 7);
+        int id = Random.Range(4, 7);
         block = CreateBlock((BlockType)id);
         Debug.Log("type of next block " + id.ToString());
 

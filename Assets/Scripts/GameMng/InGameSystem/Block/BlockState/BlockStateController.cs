@@ -45,11 +45,18 @@ public class BlockStateController
         m_State?.StateUpdate();
     }
 
-    //check combine
-    public void CombineCheck(CombineSetsController controller)
+    //do combine check
+    public void DoCombineCheck(CombineSetsController controller)
     {
-        //state combine check
-        m_State?.StateCombineCheck(controller);
+        //state do combine check
+        m_State?.DoCombineCheck(controller);
+    }
+
+    //be combined check
+    public void BeCombinedCheck(IBlock block,CombineSetsController controller)
+    {
+        //state be combined check
+        m_State?.BeCombinedCheck(block, controller);
     }
 
     //near destroy

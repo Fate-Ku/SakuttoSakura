@@ -21,8 +21,8 @@ public class BlockFallState : IBlockState
 
         //falling
         m_Block.FallController.SetFalling(true);
-        //set target pos as under node's pos
-        Vector2 pos = m_Block.GetUnderNode().Pos;
+        //set target pos as below node's pos
+        Vector2 pos = m_Block.GetNearNode(BlockNearPos.Below).Pos;
         m_Block.SetFallTargetPos(pos);
     }
 

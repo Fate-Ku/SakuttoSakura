@@ -24,14 +24,14 @@ public class NormalFallController : IBlockFallController
         if (newY <= targetY)
         {
             //finish fall
-            m_Block.GoUnderNode();
+            m_Block.GoBelowNode();
             //check for continue fall
             if (m_Block.IsGoFall())
             {
                 //move to newY
                 m_Block.SetPos(new Vector2(m_Block.Pos.x, newY));
-                //set target pos as under node's pos
-                Vector2 pos = m_Block.GetUnderNode().Pos;
+                //set target pos as below node's pos
+                Vector2 pos = m_Block.GetNearNode(BlockNearPos.Below).Pos;
                 m_Block.SetFallTargetPos(pos);
             }
             else

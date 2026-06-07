@@ -2,6 +2,7 @@
 // IDestroyStrategy.cs
 // 
 // 2026/06/06 Created By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 //
 
 
@@ -16,7 +17,7 @@ public abstract class IDestroyStrategy
         set { m_CreateBlock = value; }
     }
 
-    public abstract void DestroyStart(IBlock block);
-    public abstract void DestroyEnd(IBlock block);
-    public abstract void DestroyUpdate(IBlock block);
+    public abstract void DestroyStart(IBlock onerBlock);
+    public abstract void DestroyEnd(IBlock onerBlock);
+    public abstract void DestroyUpdate(IBlock onerBlock);
 }

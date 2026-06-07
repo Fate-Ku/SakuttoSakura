@@ -12,6 +12,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
+public enum BlockNearPos
+{
+    Above,
+    Below,
+    Left,
+    Right,
+
+    Count
+}
+
 public abstract class IBlock
 {
     //-------------------
@@ -123,10 +133,16 @@ public abstract class IBlock
         m_BlockStateController.BlockUpdate();
     }
 
-    //check combine
-    public void CombineCheck(CombineSetsController controller)
+    //do combine check
+    public void DoCombineCheck(CombineSetsController controller)
     {
-        m_BlockStateController.CombineCheck(controller);
+        m_BlockStateController.DoCombineCheck(controller);
+    }
+
+    //be combined check
+    public void BeCombinedCheck(IBlock block, CombineSetsController controller)
+    {
+        m_BlockStateController.BeCombinedCheck(block, controller);
     }
 
     //near destroy
@@ -161,7 +177,7 @@ public abstract class IBlock
         if (m_BlockStateController.GetStateName() != "BlockDestroyState")
         {
             m_BlockStateController.SetState(
-                new BlockCombineState(this, m_BlockStateController));
+                new BlockDestroyState(this, m_BlockStateController));
         }
     }
 
@@ -220,20 +236,47 @@ public abstract class IBlock
         Object.Destroy(m_BlockOb);
 
         //remove from node 
-        m_BlockNode.RemoveBlock();
+        m_BlockNode?.RemoveBlock();
     }
 
     //-------------------
-    //basic method of node
+    //get node
     //-------------------
-    public BlockNode GetUnderNode()
+    public BlockNode GetNearNode(BlockNearPos pos)
     {
-        return m_BlockNode.GetUnderNode();
+        BlockNode blockNode = null;
+
+        switch (pos) 
+        {
+            case BlockNearPos.Above:
+                blockNode = m_BlockNode.GetAboveNode();
+                break;
+
+            case BlockNearPos.Below:
+                blockNode = m_BlockNode.GetBelowNode();
+                break;
+
+            case BlockNearPos.Left:
+                blockNode = m_BlockNode.GetLeftNode();
+                break;
+
+            case BlockNearPos.Right:
+                blockNode = m_BlockNode.GetRightNode();
+                break;
+
+            default:
+                break;
+        }
+
+        return blockNode;
     }
 
-    public void GoUnderNode()
+    //-------------------
+    //go node
+    //-------------------
+    public void GoBelowNode()
     {
-        m_BlockNode.BlockGoUnderNode();
+        m_BlockNode.BlockGoBelowNode();
     }
 
     //-------------------

@@ -18,9 +18,15 @@ public class BlockCombineState : IBlockState
     {
         //adjust size
         Vector3 scale = m_Block.BlockOb.transform.localScale;
-        scale.x *= 0.8f;
-        scale.y *= 0.8f;
+        scale.x = 0.5f;
+        scale.y = 0.5f;
 
         m_Block.BlockOb.transform.localScale = scale;
     }
+
+    public override void BeCombinedCheck(IBlock block, CombineSetsController controller)
+    {
+        m_Block.CombineCheckStartegy.BeCombined(block, m_Block, controller);
+    }
+
 }

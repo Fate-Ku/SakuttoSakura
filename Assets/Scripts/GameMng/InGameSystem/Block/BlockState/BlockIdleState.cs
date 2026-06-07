@@ -25,9 +25,14 @@ public class BlockIdleState : IBlockState
         }
     }
 
-    public override void StateCombineCheck(CombineSetsController controller)
+    public override void DoCombineCheck(CombineSetsController controller)
     {
-        m_Block.CombineCheckStartegy.Do(m_Block, controller);
+        m_Block.CombineCheckStartegy.DoCombine(m_Block, controller);
+    }
+
+    public override void BeCombinedCheck(IBlock block, CombineSetsController controller)
+    {
+        m_Block.CombineCheckStartegy.BeCombined(block, m_Block, controller);
     }
 
     public override void NearDestroy()

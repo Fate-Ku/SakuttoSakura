@@ -2,6 +2,7 @@
 // CombineSetsController.cs
 // 
 // 2026/06/06 Created By Man-Yi, Yeh
+// 2026/06/07 Updated By Man-Yi, Yeh
 //
 
 
@@ -27,7 +28,14 @@ public class CombineSetsController
 
     public void Update()
     {
+        //create list for update
+        List<CombineSet> list = new();
         foreach (CombineSet set in m_Sets)
+        {
+            list.Add(set);
+        }
+        //update
+        foreach(CombineSet set in list)
         {
             set.Update();
         }
