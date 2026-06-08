@@ -2,43 +2,41 @@
 // SkillDetailUI.cs
 // 
 // 2026/06/07 Created By Fate Ku
+// 2026/06/08 Updateed By Fate Ku
 //
-using Unity.VisualScripting;
+
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillDetailUI : MonoBehaviour
+public class SkillDetailUI : SkillDetailFrameUI
 {
-    private RectTransform rect; // skill frame
-    private RectTransform canvasRect; // canvas frame
+    [SerializeField] private TextMeshProUGUI cost;
+    [SerializeField] private Image skillIcon;
+    [SerializeField] private TextMeshProUGUI skillName;
+    [SerializeField] private TextMeshProUGUI skillDescription;
 
-    public void Awake()
+
+    public override void showSkillDetail(bool show, RectTransform targetRect)
     {
-        rect = GetComponent<RectTransform>();
-        canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        base.showSkillDetail(show, targetRect);
     }
 
-    public void showSkillDetail(bool show, RectTransform targetRect)
+    public void showSkillDetail(bool show, RectTransform targetRect,SkillDataSO skillData)
     {
-        if (show ==false)
+        base.showSkillDetail(show, targetRect);
+
+        if(show == false)
         {
-            hideSkillDetail();
             return;
         }
 
-        UpdatePosition(targetRect);
-    }
+        cost.text = "Cost " + skillData.cost.ToString();
+        skillIcon.sprite = skillData.icon;
+        skillName.text = skillData.skillName;
+        skillDescription.text = skillData.description;
 
-    private void UpdatePosition(RectTransform targetRect)
-    {
 
-        rect.position = new Vector2(canvasRect.position.x, canvasRect.position.y);
-
-    }
-
-    public void hideSkillDetail()
-    {
-        rect.position = new Vector2(canvasRect.position.x + canvasRect.rect.width * 5f, canvasRect.position.y);
     }
 
 

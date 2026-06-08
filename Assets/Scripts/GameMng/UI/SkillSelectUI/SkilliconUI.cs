@@ -49,7 +49,7 @@ public class SkilliconUI : MonoBehaviour, IPointerDownHandler
 
     private void UpdateIconColor(Color color)
     {
-        if(skillIcon == null)
+        if (skillIcon == null)
         {
             return;
         }
@@ -62,6 +62,8 @@ public class SkilliconUI : MonoBehaviour, IPointerDownHandler
     // -------------------------
     public void OnPointerDown(PointerEventData eventData)
     {
+        skillUI.skillDetail.showSkillDetail(true, rect, skillData);
+
         if (CanBeUnlocked())
         {
             Unlock();
@@ -73,7 +75,6 @@ public class SkilliconUI : MonoBehaviour, IPointerDownHandler
 
         Debug.Log("Click Skill to show detail");
 
-        skillUI.skillDetail.showSkillDetail(true, rect);
     }
 
     private Color GetColorByHex(string hexNumber)
