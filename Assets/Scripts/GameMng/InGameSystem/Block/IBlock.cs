@@ -6,6 +6,7 @@
 // 2026/06/04 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/08 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
@@ -61,7 +62,6 @@ public abstract class IBlock
     public BlockType Type
     {
         get { return m_Type; }
-        set { m_Type = value; }
     }
 
     //is idle
@@ -113,8 +113,10 @@ public abstract class IBlock
     }
 
     
-    public IBlock(GameObject block, float size) 
+    public IBlock(BlockType type, GameObject block, float size) 
     {
+        m_Type = type;
+
         m_BlockOb = Object.Instantiate(block);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
 

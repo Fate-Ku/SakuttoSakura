@@ -11,10 +11,7 @@
 // 
 
 using System.Collections.Generic;
-using System.Numerics;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public enum BlockType
 {
@@ -170,10 +167,7 @@ public class InGameSystem : IGameSystem
         if (m_BlockObs.TryGetValue(type, out var blockOb))
         {
             float size = GameInfo.GetSize();
-            res = new FlowerBlock(blockOb, size)
-            {
-                Type = type
-            };
+            res = new FlowerBlock(type, blockOb, size);
         }
         else
         {

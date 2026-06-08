@@ -9,8 +9,8 @@ using UnityEngine;
 
 public class FlowerBlock : IBlock
 {
-    public FlowerBlock(GameObject block, float size) 
-        : base(block, size)
+    public FlowerBlock(BlockType type, GameObject block, float size) 
+        : base(type, block, size)
     {
         m_FallController = new NormalFallController(this);
 
