@@ -3,6 +3,7 @@
 // 
 // 2026/06/04 Created By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/08 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -18,6 +19,9 @@ public class BlockFallState : IBlockState
     public override void StateBegin()
     {
         Debug.Log("block start fall");
+
+        //remove combine set
+        m_Block.RemoveCombineSet();
 
         //falling
         m_Block.FallController.SetFalling(true);

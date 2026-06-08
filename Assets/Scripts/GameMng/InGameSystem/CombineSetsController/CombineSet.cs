@@ -98,6 +98,17 @@ public class CombineSet
         }
     }
 
+    public void Remove()
+    {
+        foreach (IBlock block in m_Blocks)
+        {
+            //remove combine set
+            block.CombineSet = null;
+        }
+        //remove this from controller
+        m_Controller.RemoveCombineSet(this);
+    }
+
 
     //-------------------
     //update method

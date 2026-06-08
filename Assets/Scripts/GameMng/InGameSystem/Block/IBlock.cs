@@ -216,15 +216,11 @@ public abstract class IBlock
     }
 
     //-------------------
-    //basic method
+    //update method
     //-------------------
-    public void BlockDestroy()
+    public void RemoveCombineSet()
     {
-        //game object destroy
-        Object.Destroy(m_BlockOb);
-
-        //remove from node 
-        m_BlockNode?.RemoveBlock();
+        m_CombineSet?.Remove();
     }
 
     public void SetCreateBlock(IBlock block)
@@ -233,6 +229,15 @@ public abstract class IBlock
         m_DestroyStrategy.SetCreateBlock(block);
     }
 
+    public void BlockDestroy()
+    {
+        //game object destroy
+        Object.Destroy(m_BlockOb);
+
+        //remove from node 
+        m_BlockNode?.RemoveBlock();
+    }
+    
 
     //-------------------
     //basic method
