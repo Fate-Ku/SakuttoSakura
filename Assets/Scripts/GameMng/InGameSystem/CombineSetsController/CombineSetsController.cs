@@ -3,6 +3,7 @@
 // 
 // 2026/06/06 Created By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/08 Updated By Man-Yi, Yeh
 //
 
 
@@ -13,6 +14,9 @@ using UnityEngine;
 
 public class CombineSetsController
 {
+    //oner
+    private InGameSystem m_InGameSystem;
+
     //sets
     private List<CombineSet> m_Sets = new();
 
@@ -20,8 +24,9 @@ public class CombineSetsController
     private float m_CombineTimer;
     private int m_CombineSize;
 
-    public CombineSetsController(float combineTime, int combineSize)
+    public CombineSetsController(InGameSystem inGameSystemfloat,float combineTime, int combineSize)
     {
+        m_InGameSystem = inGameSystemfloat;
         m_CombineTimer = combineTime;
         m_CombineSize = combineSize;
     }
@@ -63,4 +68,15 @@ public class CombineSetsController
         }
     }
 
+    public IBlock GetCreateBlock(BlockType type)
+    {
+        IBlock block = null;
+
+        if ((int)type >= 0 && (int)type < 6)
+        {
+            block = m_InGameSystem.CreateBlock((BlockType)((int)type + 1));
+        }
+        
+        return block;
+    }
 }

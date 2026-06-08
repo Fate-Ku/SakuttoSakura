@@ -6,6 +6,7 @@
 // 2026/06/04 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/08 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -16,6 +17,9 @@ using static UnityEditor.PlayerSettings;
 
 public class BlocksController
 {
+    //oner
+    private InGameSystem m_InGameSystem;
+
     //nodes
     private Dictionary<Vector2Int, BlockNode> m_Nodes = new();
     private Vector2Int m_NextNodeID;
@@ -24,8 +28,10 @@ public class BlocksController
     private int m_ColNum;
     private int m_RowNum;
 
-    public BlocksController(GameInfo gameInfo)
+    public BlocksController(InGameSystem inGameSystemfloat, GameInfo gameInfo)
     {
+        m_InGameSystem = inGameSystemfloat;
+
         m_ColNum = gameInfo.GetScale().x;
         m_RowNum = gameInfo.GetScale().y;
         Vector2 referPos = gameInfo.GetReferPos();
@@ -101,7 +107,7 @@ public class BlocksController
         block.SetPos(blockNode.Pos);
     }
 
-    public bool FallBlock(int col)
+    public void FallBlock(int col)
     {
         if (CanFall(col))
         {
@@ -110,9 +116,8 @@ public class BlocksController
             GetNode(m_NextNodeID).Block.SetPos(GetNodePos(id));
             GetNode(m_NextNodeID).BlockChangeNode(id);
 
-            return true;
+            m_InGameSystem.SetNextBlock();
         }
-        return false;
     }
 
     private bool CanFall(int col)

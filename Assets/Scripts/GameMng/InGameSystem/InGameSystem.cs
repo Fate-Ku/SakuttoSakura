@@ -7,6 +7,7 @@
 // 2026/06/02 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/08 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -111,10 +112,11 @@ public class InGameSystem : IGameSystem
         //blocks
         //-------------------
         //blocks
-        m_BlocksController = new(m_GameInfo);
+        m_BlocksController = new(this, m_GameInfo);
         SetNextBlock();
         //combine sets
         m_CombineSetsController = new(
+            this,
             m_GameInfo.GetCombineTime(), 
             m_GameInfo.GetCombineSize());
 
@@ -154,17 +156,14 @@ public class InGameSystem : IGameSystem
         if (m_CanOperate)
         {
             SetCantControl();
-            if (m_BlocksController.FallBlock(id))
-            {
-                SetNextBlock();
-            }
+            m_BlocksController.FallBlock(id);
         }
     }
 
     //-------------------
     //method of blocks
     //-------------------
-    private IBlock CreateBlock(BlockType type)
+    public IBlock CreateBlock(BlockType type)
     {
         IBlock res = null;
 
@@ -184,7 +183,7 @@ public class InGameSystem : IGameSystem
         return res;
     }
 
-    private void SetNextBlock()
+    public void SetNextBlock()
     {
         IBlock block;
 

@@ -3,6 +3,7 @@
 // 
 // 2026/06/06 Created By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/08 Updated By Man-Yi, Yeh
 //
 
 using System;
@@ -46,6 +47,11 @@ public class CombineSet
     {
         CombineSet set1 = block1.CombineSet;
         CombineSet set2 = block2.CombineSet;
+
+        if (set1 != null && set1 == set2)
+        {
+            return;
+        }
 
         //block1 lonely
         if (set1 == null)
@@ -116,6 +122,11 @@ public class CombineSet
 
         if (m_CombineTimer <= 0)
         {
+            //set create block to one block
+            int id = 0;
+            IBlock firstBlock = m_Blocks[id];
+            firstBlock.SetCreateBlock(m_Controller.GetCreateBlock(m_Type));
+
             //all blocks go destroy
             foreach (IBlock block in m_Blocks)
             {

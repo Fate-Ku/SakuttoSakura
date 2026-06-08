@@ -41,6 +41,7 @@ public abstract class IBlock
     private BlockNode m_BlockNode;
     public BlockNode BlockNode
     {
+        get { return m_BlockNode; }
         set { m_BlockNode = value; }
     }
 
@@ -217,6 +218,25 @@ public abstract class IBlock
     //-------------------
     //basic method
     //-------------------
+    public void BlockDestroy()
+    {
+        //game object destroy
+        Object.Destroy(m_BlockOb);
+
+        //remove from node 
+        m_BlockNode?.RemoveBlock();
+    }
+
+    public void SetCreateBlock(IBlock block)
+    {
+
+        m_DestroyStrategy.SetCreateBlock(block);
+    }
+
+
+    //-------------------
+    //basic method
+    //-------------------
     public void SetPos(Vector2 pos)
     {
         m_Pos = pos;
@@ -230,14 +250,6 @@ public abstract class IBlock
         }
     }
 
-    public void BlockDestroy()
-    {
-        //game object destroy
-        Object.Destroy(m_BlockOb);
-
-        //remove from node 
-        m_BlockNode?.RemoveBlock();
-    }
 
     //-------------------
     //get node
@@ -280,9 +292,9 @@ public abstract class IBlock
     }
 
     //-------------------
-    //test
+    //set active
     //-------------------
-    public void Test(bool active)
+    public void SetActive(bool active)
     {
         m_BlockOb.SetActive(active);
     }
