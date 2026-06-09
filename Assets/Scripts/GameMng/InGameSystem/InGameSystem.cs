@@ -8,6 +8,7 @@
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
+// 2026/06/09 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -135,13 +136,12 @@ public class InGameSystem : IGameSystem
     {
         ControlOperate();
 
-        m_BlocksController.Update();
-        m_BlocksController.CombineCheck(m_CombineSetsController);
-
+        //combine update
         m_CombineSetsController.Update();
-
-
-
+        m_BlocksController.CombineCheck(m_CombineSetsController);
+        //block update
+        m_BlocksController.Update();
+        
         TestOprate();
     }
 
@@ -181,7 +181,7 @@ public class InGameSystem : IGameSystem
     {
         IBlock block;
 
-        int id = Random.Range(0, 7);
+        int id = Random.Range(4, 7);
         block = CreateBlock((BlockType)id);
         Debug.Log("type of next block " + id.ToString());
 
