@@ -162,7 +162,7 @@ public abstract class IBlock
 
 
     //-------------------
-    //change state
+    //state
     //-------------------
     //go combine state
     public void GoCombine()

@@ -5,6 +5,7 @@
 // 2026/05/26 Updated By Man-Yi, Yeh 
 // 2026/05/31 Updated By Man-Yi, Yeh
 // 2026/06/02 Updated By Man-Yi, Yeh
+// 2026/06/09 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -63,6 +64,13 @@ public class GameMng
 
     //skill data
     private SkillDataSystem m_SkillDataSystem;
+
+    //score system
+    private ScoreSystem m_ScoreSystem;
+
+    //game log system
+    private GameLogSystem m_GameLogSystem;
+
 
     public void Init()
     {
@@ -131,23 +139,33 @@ public class GameMng
     //-------------------
     //method of InGameSystem
     //-------------------
-    public void InGameSystemInit()
+    public void InGameInit()
     {
         //renew
         m_InGameSystem = new InGameSystem(this);
+        m_ScoreSystem = new ScoreSystem(this);
+        m_GameLogSystem = new GameLogSystem(this);
 
         //init
-        m_InGameSystem.Init();
+        m_InGameSystem?.Init();
+        m_ScoreSystem?.Init();
+        m_GameLogSystem?.Init();
     }
 
-    public void InGameSystemTerm()
+    public void InGameTerm()
     {
-        m_InGameSystem.Term();
+        m_InGameSystem?.Term();
+        m_ScoreSystem?.Term();
+        m_GameLogSystem?.Term();
+
+        m_InGameSystem = null;
     }
 
-    public void InGameSystemUpdate()
+    public void InGameUpdate()
     {
-        m_InGameSystem.Update();
+        m_InGameSystem?.Update();
+        m_ScoreSystem?.Update();
+        m_GameLogSystem?.Update();
     }
 
     public bool IsInGameEnd()
@@ -210,5 +228,58 @@ public class GameMng
         Debug.Log("click col: " + id.ToString());
         m_InGameSystem.ColumnOnClick(id);
     }
+
+    //2026/06/09 Updated By Man-Yi, Yeh
+    //-------------------
+    //InGame
+    //-------------------
+    public float GetGameTime()
+    {
+        float res = 0;
+        if (m_InGameSystem != null) 
+        {
+            res = m_InGameSystem.GameTimer;
+        }
+        return res;
+    }
+
+    //2026/06/09 Updated By Man-Yi, Yeh
+    //-------------------
+    //game log
+    //-------------------
+    public int GetBlockDestroyNum(BlockType type)
+    {
+        int res = 0;
+
+        //res = m_GameLogSystem?.GetBlockDestroyNum(type);
+
+        return res;
+    }
+
+    public void SetBlockDestroy(BlockType type)
+    {
+        //m_GameLogSystem?.SetBlockDestroy(type);
+    }
+
+
+    //2026/06/09 Updated By Man-Yi, Yeh
+    //-------------------
+    //score
+    //-------------------
+    public int GetScore()
+    {
+        int res = 0;
+
+        //res = m_ScoreSystem?.GetScore();
+
+        return res;
+    }
+
+    public void SetDestroyInfo(BlockType type,int num)
+    {
+        //m_ScoreSystem?.SetDestroyInfo(type, num);
+    }
+
+ 
 
 }

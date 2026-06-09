@@ -4,6 +4,7 @@
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
 // 2026/06/02 Updated By Fate Ku
+// 2026/06/09 Updated By Man-Yi, Yeh
 // 
 
 
@@ -24,7 +25,7 @@ public class InGamePhase : Phase
 
     public override void Init()
     {
-        m_GameMng.InGameSystemInit();
+        m_GameMng.InGameInit();
 
         // 2026/06/02 Updated By Fate Ku
         m_InGameUI = new InGameUI(m_GameMng);
@@ -34,7 +35,7 @@ public class InGamePhase : Phase
 
     public override void Term()
     {
-        m_GameMng.InGameSystemTerm();
+        m_GameMng.InGameTerm();
 
         // 2026/06/02 Updated By Fate Ku
         if (m_InGameUI != null)
@@ -47,7 +48,7 @@ public class InGamePhase : Phase
 
     public override void Update()
     {
-        m_GameMng.InGameSystemUpdate();
+        m_GameMng.InGameUpdate();
 
         // 2026/06/02 Updated By Fate Ku
         if (m_InGameUI != null)

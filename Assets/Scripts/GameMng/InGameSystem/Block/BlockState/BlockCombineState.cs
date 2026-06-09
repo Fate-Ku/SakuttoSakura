@@ -18,8 +18,8 @@ public class BlockCombineState : IBlockState
     {
         //adjust size
         Vector3 scale = m_Block.BlockOb.transform.localScale;
-        scale.x = 0.5f;
-        scale.y = 0.5f;
+        scale.x = 0.45f;
+        scale.y = 0.45f;
 
         m_Block.BlockOb.transform.localScale = scale;
     }

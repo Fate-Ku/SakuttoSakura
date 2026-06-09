@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class BlocksController
 {
@@ -84,9 +85,9 @@ public class BlocksController
         //cols: 0 ~ m_ColNum - 1
         for (int i = 0; i < m_ColNum; ++i)
         {
-            //rows: m_RowNum, m_RowNum - 1 ~ 0, -1
+            //rows: m_RowNum - 1 ~ 0
             //update start from under
-            for (int j = m_RowNum; j >= -1; --j)
+            for (int j = m_RowNum - 1; j >= 0; --j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 blockNode?.Block?.DoCombineCheck(controller);
@@ -133,6 +134,37 @@ public class BlocksController
             else
             {
                 res = GetNode(underID).Block.IsFalling();
+            }
+        }
+
+        return res;
+    }
+
+    public bool IsFull()
+    {
+        bool res = true;
+
+        //cols: 0 ~ m_ColNum - 1
+        for (int i = 0; i < m_ColNum; ++i)
+        {
+            //rows: 0 ~ m_RowNum - 1
+            //update start from under
+            for (int j = 0; j < m_RowNum; ++j)
+            {
+                BlockNode blockNode = GetNode(new Vector2Int(i, j));
+                if (blockNode?.Block == null)
+                {
+                    res = false;
+                    break;
+                }
+                else
+                {
+                    if (!blockNode.Block.IsIdle)
+                    {
+                        res = false;
+                        break;
+                    }
+                }
             }
         }
 
