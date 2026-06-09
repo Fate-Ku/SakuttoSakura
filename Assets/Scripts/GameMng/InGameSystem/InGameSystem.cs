@@ -181,7 +181,7 @@ public class InGameSystem : IGameSystem
     {
         IBlock block;
 
-        int id = Random.Range(3, 7);
+        int id = Random.Range(0, 7);
         block = CreateBlock((BlockType)id);
         Debug.Log("type of next block " + id.ToString());
 
