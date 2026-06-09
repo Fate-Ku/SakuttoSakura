@@ -156,9 +156,12 @@ public class InGameSystem : IGameSystem
     {
         ControlOperate();
 
+        //-------------------
+        //game basic update
+        //-------------------
         //combine update
-        m_CombineSetsController.Update();
         m_BlocksController.CombineCheck(m_CombineSetsController);
+        m_CombineSetsController.Update();
         //block update
         m_BlocksController.Update();
         
