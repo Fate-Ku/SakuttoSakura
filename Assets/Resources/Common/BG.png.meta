@@ -43,17 +43,17 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 9
   spritePivot: {x: 0.49835083, y: 0.47901365}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 434, y: 239, z: 483, w: 603}
+  spriteBorder: {x: 455, y: 275, z: 495, w: 615}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -95,8 +95,36 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
-    outline: []
+    sprites:
+    - serializedVersion: 2
+      name: BG_0
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 291
+        width: 1510
+        height: 2599
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4675ae4a35bb7fe4e858d2b426bd430c
+      internalID: 1430674035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: 753.5912, y: -25.69336}
+      - {x: 745.02765, y: 1147.6367}
+      - {x: -787.84534, y: 1147.6367}
+      - {x: -792.98346, y: -347.7168}
+      - {x: -792.98346, y: -1486.7891}
+      - {x: 753.5912, y: -1486.7891}
     customData: 
     physicsShape: []
     bones: []
@@ -109,7 +137,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BG_0: 1430674035
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
