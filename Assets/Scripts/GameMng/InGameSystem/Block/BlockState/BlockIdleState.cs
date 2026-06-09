@@ -17,6 +17,16 @@ public class BlockIdleState : IBlockState
         StateName = "BlockIdleState";
     }
 
+    public override void StateBegin()
+    {
+        m_Block.IsIdle = true;
+    }
+
+    public override void StateEnd()
+    {
+        m_Block.IsIdle = false;
+    }
+
     public override void StateUpdate()
     {
         if (m_Block.IsGoFall())

@@ -40,13 +40,13 @@ public class NormalDestroy : IDestroyStrategy
         {
             //adjust size
             float rate = m_Timer / m_DestroyTime;
-            if (rate > 0.4f)
+            if (rate > 0.3f)
             {
-                rate = 0.4f;
+                rate = 0.3f;
             }
-            if (rate < 0.2f)
+            if (rate < 0.1f)
             {
-                rate = 0.2f;
+                rate = 0.1f;
             }
 
             Vector3 scale = onerBlock.BlockOb.transform.localScale;

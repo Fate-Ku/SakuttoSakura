@@ -12,6 +12,7 @@
 // 
 
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum BlockType
@@ -77,6 +78,21 @@ public class InGameSystem : IGameSystem
     private bool m_CanOperate;
     private float m_OperateTimer;
 
+    //-------------------
+    //time
+    //-------------------
+    private float m_GameTimer;
+    public float GameTimer
+    {
+        get { return m_GameTimer; }
+    }
+
+    //-------------------
+    //test
+    //-------------------
+    private TextMeshProUGUI m_TestInGameStateText;
+    private TextMeshProUGUI m_TestTimeText;
+
 
     public override void Init()
     {
@@ -123,13 +139,17 @@ public class InGameSystem : IGameSystem
         //-------------------
         m_CanOperate = true;
 
-    }
+        //-------------------
+        //time
+        //-------------------
+        m_GameTimer = m_GameInfo.GetGameTime();
 
-    public override void Term()
-    {
-        Debug.Log("InGameSystem Term");
+        //-------------------
+        //test
+        //-------------------
+        m_TestInGameStateText = m_GameInfo.GetTestInGameStateText();
+        m_TestTimeText = m_GameInfo.GetTestTimeText();
 
-        m_GameInfo = null;
     }
 
     public override void Update()
@@ -143,6 +163,10 @@ public class InGameSystem : IGameSystem
         m_BlocksController.Update();
         
         TestOprate();
+
+        //game end check
+        TimeControl();
+        BlockFullCheck();
     }
 
     //-------------------
@@ -181,7 +205,8 @@ public class InGameSystem : IGameSystem
     {
         IBlock block;
 
-        int id = Random.Range(4, 7);
+        int qty = m_GameInfo.GetBlockTypeQty();
+        int id = Random.Range(7 - qty, 7);
         block = CreateBlock((BlockType)id);
         Debug.Log("type of next block " + id.ToString());
 
@@ -207,6 +232,29 @@ public class InGameSystem : IGameSystem
     {
         m_CanOperate = false;
         m_OperateTimer = GameInfo.GetNextOperateTime();
+    }
+
+    //-------------------
+    //method of game end
+    //-------------------
+    private void TimeControl()
+    {
+        m_GameTimer -= Time.deltaTime;
+        if (m_GameTimer <= 0)
+        {
+            m_GameTimer = 0;
+            m_IsGameEnd = true;
+        }
+
+        m_TestTimeText.text = ((int)m_GameTimer).ToString();
+    }
+
+    private void BlockFullCheck()
+    {
+        if (m_BlocksController.IsFull())
+        {
+            m_IsGameEnd = true;
+        }
     }
 
     //-------------------
