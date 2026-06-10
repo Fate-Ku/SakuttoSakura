@@ -7,6 +7,7 @@
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
@@ -133,7 +134,7 @@ public abstract class IBlock
     //update
     public void Update()
     {
-        m_BlockStateController.BlockUpdate();
+        m_BlockStateController.StateUpdate();
     }
 
     //do combine check
@@ -167,7 +168,7 @@ public abstract class IBlock
     //go combine state
     public void GoCombine()
     {
-        if (m_BlockStateController.GetStateName() != "BlockCombineState")
+        if (m_BlockStateController.GetStateType() != BlockStateType.Combine)
         {
             m_BlockStateController.SetState(
                 new BlockCombineState(this, m_BlockStateController));
@@ -177,7 +178,7 @@ public abstract class IBlock
     //go destroy state
     public void GoDestroy()
     {
-        if (m_BlockStateController.GetStateName() != "BlockDestroyState")
+        if (m_BlockStateController.GetStateType() != BlockStateType.Destroy)
         {
             m_BlockStateController.SetState(
                 new BlockDestroyState(this, m_BlockStateController));

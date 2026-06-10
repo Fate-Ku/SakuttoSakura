@@ -140,31 +140,77 @@ public class BlocksController
         return res;
     }
 
-    public bool IsFull()
+    public bool IsFullBlocks()
+    {
+        bool res = true;
+
+        if (!IsAllBlocksIdle())
+        {
+            //if not all block idle
+            //false
+            res = false;
+        }
+        else
+        {
+            //cols: 0 ~ m_ColNum - 1
+            for (int i = 0; i < m_ColNum; ++i)
+            {
+                bool goBreak = false;
+
+                //rows: 0 ~ m_RowNum - 1
+                //update start from under
+                for (int j = 0; j < m_RowNum; ++j)
+                {
+                    if (IsNodeEmpty(new Vector2Int(i, j)))
+                    {
+                        //if has one empty node
+                        //false
+                        res = false;
+                        goBreak = true;
+                        break;
+                    }
+                }
+
+                if (goBreak)
+                {
+                    break;
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public bool IsAllBlocksIdle()
     {
         bool res = true;
 
         //cols: 0 ~ m_ColNum - 1
         for (int i = 0; i < m_ColNum; ++i)
         {
+            bool goBreak = false;
+
             //rows: 0 ~ m_RowNum - 1
             //update start from under
             for (int j = 0; j < m_RowNum; ++j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
-                if (blockNode?.Block == null)
-                {
-                    res = false;
-                    break;
-                }
-                else
+                if (!blockNode.IsEmpty())
                 {
                     if (!blockNode.Block.IsIdle)
                     {
+                        //if has one not idle block
+                        //false
                         res = false;
+                        goBreak = true;
                         break;
                     }
                 }
+            }
+
+            if (goBreak)
+            {
+                break;
             }
         }
 
@@ -227,7 +273,7 @@ public class BlocksController
         return blockNode;
     }
 
-    public BlockNode GetUnderNode(Vector2Int id)
+    public BlockNode GetBelowNode(Vector2Int id)
     {
         BlockNode blockNode = null;
 

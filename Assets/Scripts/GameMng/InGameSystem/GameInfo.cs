@@ -7,6 +7,7 @@
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/09 Updated By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -34,7 +35,9 @@ public class GameInfo : MonoBehaviour
     [SerializeField, Range(1, 7)] private int blockTypeQty;
     [SerializeField] private TextMeshProUGUI testInGameStateText;
     [SerializeField] private TextMeshProUGUI testTimeText;
-    [SerializeField] private float gameTime;
+    [SerializeField] private float startTime;
+    [SerializeField] private float playTime;
+    [SerializeField] private float gameOverTime;
 
 
     //x :col, y :row
@@ -95,8 +98,18 @@ public class GameInfo : MonoBehaviour
         return testTimeText;
     }
 
-    public float GetGameTime()
+    public float GetStartTime()
     {
-        return gameTime;
+        return startTime;
+    }
+
+    public float GetPlayTime()
+    {
+        return playTime;
+    }
+
+    public float GetGameOverTime()
+    {
+        return gameOverTime;
     }
 }

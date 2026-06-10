@@ -4,6 +4,7 @@
 // 2026/06/03 Created By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -29,17 +30,17 @@ public class BlockStateController
         m_State?.StateBegin();
     }
 
-    //get state name
-    public string GetStateName()
+    //get state type
+    public BlockStateType GetStateType()
     {
-        return m_State.ToString();
+        return m_State.StateType;
     }
 
     //-------------------
     //update
     //-------------------
     //block update
-    public void BlockUpdate()
+    public void StateUpdate()
     {
         //state update
         m_State?.StateUpdate();

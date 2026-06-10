@@ -5,6 +5,7 @@
 // 2026/06/04 Updated By Man-Yi, Yeh
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -14,6 +15,7 @@ public class BlockIdleState : IBlockState
     public BlockIdleState(IBlock block, BlockStateController controller) 
         : base(block, controller)
     {
+        StateType = BlockStateType.Idle;
         StateName = "BlockIdleState";
     }
 

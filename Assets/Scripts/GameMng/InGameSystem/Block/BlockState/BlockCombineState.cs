@@ -2,6 +2,7 @@
 // BlockCombineState.cs
 // 
 // 2026/06/07 Created By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -11,6 +12,7 @@ public class BlockCombineState : IBlockState
     public BlockCombineState(IBlock block, BlockStateController controller) 
         : base(block, controller)
     {
+        StateType = BlockStateType.Combine;
         StateName = "BlockCombineState";
     }
 

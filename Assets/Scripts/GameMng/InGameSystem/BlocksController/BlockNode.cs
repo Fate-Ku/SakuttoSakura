@@ -4,6 +4,7 @@
 // 2026/06/02 Created By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using NUnit.Framework.Interfaces;
@@ -73,7 +74,7 @@ public class BlockNode
 
     public BlockNode GetBelowNode()
     {
-        return m_Controller.GetUnderNode(m_ID);
+        return m_Controller.GetBelowNode(m_ID);
     }
     public BlockNode GetLeftNode()
     {

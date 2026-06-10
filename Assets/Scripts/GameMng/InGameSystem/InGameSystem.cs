@@ -9,6 +9,7 @@
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/09 Updated By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -38,18 +39,14 @@ public enum BlockType
 
 public class InGameSystem : IGameSystem
 {
-    public InGameSystem(GameMng gameMng) 
-        : base(gameMng)
-    {
-    }
-
     //-------------------
     //game end
     //-------------------
-    private bool m_IsGameEnd;
+    private bool m_IsGameEnd = false;
     public bool IsGameEnd
     {
         get { return m_IsGameEnd; }
+        set { m_IsGameEnd = value; }
     }
 
     //-------------------
@@ -73,9 +70,15 @@ public class InGameSystem : IGameSystem
     private CombineSetsController m_CombineSetsController;
 
     //-------------------
-    //operate
+    //play
     //-------------------
-    private bool m_CanOperate;
+    private bool m_IsPlaying = false;
+    public bool IsPlaying
+    {
+        set { m_IsPlaying = value; }
+    }
+
+    private bool m_CanOperate = false;
     private float m_OperateTimer;
 
     //-------------------
@@ -87,11 +90,28 @@ public class InGameSystem : IGameSystem
         get { return m_GameTimer; }
     }
 
+
+    //-------------------
+    //controller
+    //-------------------
+    //state
+    private InGameStateController m_InGameSystemStateController = new();
+
+
     //-------------------
     //test
     //-------------------
     private TextMeshProUGUI m_TestInGameStateText;
+    public TextMeshProUGUI TestInGameStateText
+    {
+        get { return m_TestInGameStateText; }
+    }
     private TextMeshProUGUI m_TestTimeText;
+
+    public InGameSystem(GameMng gameMng)
+        : base(gameMng)
+    { 
+    }
 
 
     public override void Init()
@@ -135,14 +155,16 @@ public class InGameSystem : IGameSystem
             m_GameInfo.GetCombineSize());
 
         //-------------------
-        //operate
-        //-------------------
-        m_CanOperate = true;
-
-        //-------------------
         //time
         //-------------------
-        m_GameTimer = m_GameInfo.GetGameTime();
+        m_GameTimer = m_GameInfo.GetPlayTime();
+
+        //-------------------
+        //controller
+        //-------------------
+        m_InGameSystemStateController.SetState(
+            new InGameSystemStartState(this, m_InGameSystemStateController));
+
 
         //-------------------
         //test
@@ -154,8 +176,15 @@ public class InGameSystem : IGameSystem
 
     public override void Update()
     {
-        ControlOperate();
+        m_InGameSystemStateController.StateUpdate();
+    }
 
+    //-------------------
+    //method of update
+    //-------------------
+    //game basic update
+    public void GameRun()
+    {
         //-------------------
         //game basic update
         //-------------------
@@ -164,19 +193,54 @@ public class InGameSystem : IGameSystem
         m_CombineSetsController.Update();
         //block update
         m_BlocksController.Update();
-        
-        TestOprate();
+    }
 
-        //game end check
-        TimeControl();
-        BlockFullCheck();
+    public void TimeControl()
+    {
+        m_GameTimer -= Time.deltaTime;
+        if (m_GameTimer <= 0)
+        {
+            m_GameTimer = 0;
+        }
+
+        m_TestTimeText.text = ((int)m_GameTimer).ToString();
     }
 
     //-------------------
-    //column button callBack
+    //method of play
     //-------------------
+    //set play
+    public void StartPlay()
+    {
+        m_IsPlaying = true;
+        m_CanOperate = true;
+    }
+
+    public void OperateControl()
+    {
+        if (!m_IsPlaying)
+        {
+            return;
+        }
+
+        if (!m_CanOperate)
+        {
+            m_OperateTimer -= Time.deltaTime;
+            if (m_OperateTimer <= 0)
+            {
+                m_CanOperate = true;
+            }
+        }
+    }
+
+    //column button callBack
     public void ColumnOnClick(int id)
     {
+        if (!m_IsPlaying)
+        {
+            return;
+        }
+
         if (m_CanOperate)
         {
             SetCantControl();
@@ -216,54 +280,30 @@ public class InGameSystem : IGameSystem
         m_BlocksController.SetNextBlock(block);
     }
 
+    public bool IsFullBlocks()
+    {
+        return m_BlocksController.IsFullBlocks();
+    }
+
+    public bool IsAllBlocksIdle()
+    {
+        return m_BlocksController.IsAllBlocksIdle();
+    }
+
     //-------------------
     //method of operate
     //-------------------
-    private void ControlOperate()
-    {
-        if (!m_CanOperate)
-        {
-            m_OperateTimer -= Time.deltaTime;
-            if (m_OperateTimer <= 0)
-            {
-                m_CanOperate = true;
-            }
-        }
-    }
-
     private void SetCantControl()
     {
         m_CanOperate = false;
         m_OperateTimer = GameInfo.GetNextOperateTime();
     }
-
-    //-------------------
-    //method of game end
-    //-------------------
-    private void TimeControl()
-    {
-        m_GameTimer -= Time.deltaTime;
-        if (m_GameTimer <= 0)
-        {
-            m_GameTimer = 0;
-            m_IsGameEnd = true;
-        }
-
-        m_TestTimeText.text = ((int)m_GameTimer).ToString();
-    }
-
-    private void BlockFullCheck()
-    {
-        if (m_BlocksController.IsFull())
-        {
-            m_IsGameEnd = true;
-        }
-    }
+    
 
     //-------------------
     //test
     //-------------------
-    private void TestOprate()
+    private void TestOperate()
     {
         //test
         if (Input.GetKeyDown(KeyCode.Alpha1))

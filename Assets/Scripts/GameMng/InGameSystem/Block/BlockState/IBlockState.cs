@@ -2,22 +2,41 @@
 // IBlockState.cs
 // 
 // 2026/06/03 Created By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
 
+public enum BlockStateType
+{
+    None = -1,
+
+    Idle,
+    Fall,
+    Combine,
+    Destroy,
+    Create
+}
+
 public class IBlockState
 {
-    //block
-    protected IBlock m_Block;
+    //StateType
+    protected BlockStateType m_StateType = BlockStateType.None;
+    public BlockStateType StateType
+    {
+        get { return m_StateType; }
+        set { m_StateType = value; }
+    }
 
     //StateName
     private string m_StateName = "IBlockState";
     public string StateName
     {
-        get { return m_StateName; }
         set { m_StateName = value; }
     }
+
+    //block
+    protected IBlock m_Block;
 
     //Controller
     protected BlockStateController m_Controller = null;
@@ -57,6 +76,6 @@ public class IBlockState
     {
         return string.Format(
             "I_BlockState: StateName={0}",
-            StateName);
+            m_StateName);
     }
 }

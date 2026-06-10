@@ -1075,7 +1075,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000022888, y: 1037.2986}
-  m_SizeDelta: {x: 457.502, y: 152.739}
+  m_SizeDelta: {x: 800, y: 152.739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &311929540
 MonoBehaviour:
@@ -5914,7 +5914,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000022888, y: 885}
-  m_SizeDelta: {x: 600, y: 152.739}
+  m_SizeDelta: {x: 800, y: 152.739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1728572895
 GameObject:
@@ -7475,6 +7475,14 @@ PrefabInstance:
       value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: playTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: startTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: combineSize
       value: 3
       objectReference: {fileID: 0}
@@ -7484,14 +7492,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: blockTypeQty
-      value: 4
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: gameOverTime
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: testTimeText
       value: 
       objectReference: {fileID: 1728332166}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: nextOperateTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: testInGameState
+      value: 
+      objectReference: {fileID: 311929540}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: testInGameStateText
       value: 
       objectReference: {fileID: 311929540}
     - target: {fileID: 1188506851340322029, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
