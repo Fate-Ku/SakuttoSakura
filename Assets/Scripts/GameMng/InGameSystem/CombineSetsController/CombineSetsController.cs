@@ -74,7 +74,7 @@ public class CombineSetsController
 
         if ((int)type >= 0 && (int)type < 6)
         {
-            block = m_InGameSystem.CreateBlock((BlockType)((int)type + 1));
+            block = m_InGameSystem.CreateBlock((BlockType)((int)type + 1), true);
         }
         
         return block;

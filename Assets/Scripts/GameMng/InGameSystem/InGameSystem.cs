@@ -278,14 +278,14 @@ public class InGameSystem : IGameSystem
     //-------------------
     //method of blocks
     //-------------------
-    public IBlock CreateBlock(BlockType type)
+    public IBlock CreateBlock(BlockType type, bool isCreate = false)
     {
         IBlock res = null;
 
         if (m_BlockObs.TryGetValue(type, out var blockOb))
         {
             float size = GameInfo.GetSize();
-            res = new FlowerBlock(type, blockOb, size);
+            res = new FlowerBlock(type, blockOb, size, isCreate);
         }
         else
         {

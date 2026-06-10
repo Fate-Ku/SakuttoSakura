@@ -65,14 +65,6 @@ public abstract class IBlock
         get { return m_Type; }
     }
 
-    //is idle
-    private bool m_IsIdle = false;
-    public bool IsIdle
-    {
-        get { return m_IsIdle; }
-        set {  m_IsIdle = value; }
-    }
-
     //pos
     private Vector2 m_Pos;
     public Vector2 Pos
@@ -114,14 +106,23 @@ public abstract class IBlock
     }
 
     
-    public IBlock(BlockType type, GameObject block, float size) 
+    public IBlock(
+        BlockType type, GameObject block, float size, 
+        bool isCreate = false) 
     {
         m_Type = type;
 
         m_BlockOb = Object.Instantiate(block);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
 
-        m_BlockStateController.SetState(new BlockIdleState(this, m_BlockStateController));
+        if (isCreate)
+        {
+            m_BlockStateController.SetState(new BlockCreateState(this, m_BlockStateController));
+        }
+        else
+        {
+            m_BlockStateController.SetState(new BlockIdleState(this, m_BlockStateController));
+        }
     }
     ~IBlock()
     {
@@ -258,6 +259,10 @@ public abstract class IBlock
         }
     }
 
+    public bool IsIdle()
+    {
+        return m_BlockStateController.GetStateType() == BlockStateType.Idle;
+    }
 
     //-------------------
     //get node

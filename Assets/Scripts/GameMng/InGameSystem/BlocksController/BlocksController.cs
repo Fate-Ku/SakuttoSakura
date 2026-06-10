@@ -197,7 +197,7 @@ public class BlocksController
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 if (!blockNode.IsEmpty())
                 {
-                    if (!blockNode.Block.IsIdle)
+                    if (!blockNode.Block.IsIdle())
                     {
                         //if has one not idle block
                         //false
