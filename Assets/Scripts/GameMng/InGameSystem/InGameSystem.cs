@@ -72,6 +72,12 @@ public class InGameSystem : IGameSystem
     //-------------------
     //play
     //-------------------
+    private bool m_IsPause = false;
+    public bool IsPause
+    {
+        set { m_IsPause = value; }
+    }
+
     private bool m_IsPlaying = false;
     public bool IsPlaying
     {
@@ -176,7 +182,13 @@ public class InGameSystem : IGameSystem
 
     public override void Update()
     {
-        m_InGameSystemStateController.StateUpdate();
+        if (!m_IsPause)
+        {
+            m_InGameSystemStateController.StateUpdate();
+        }
+
+        TestOperate();
+
     }
 
     //-------------------
@@ -209,7 +221,7 @@ public class InGameSystem : IGameSystem
     //-------------------
     //method of play
     //-------------------
-    //set play
+    //start play
     public void StartPlay()
     {
         m_IsPlaying = true;
@@ -218,6 +230,10 @@ public class InGameSystem : IGameSystem
 
     public void OperateControl()
     {
+        if (m_IsPause)
+        {
+            return;
+        }
         if (!m_IsPlaying)
         {
             return;
@@ -233,9 +249,15 @@ public class InGameSystem : IGameSystem
         }
     }
 
-    //column button callBack
+    //-------------------
+    //method for call back
+    //-------------------
     public void ColumnOnClick(int id)
     {
+        if (m_IsPause)
+        {
+            return;
+        }
         if (!m_IsPlaying)
         {
             return;
@@ -246,6 +268,11 @@ public class InGameSystem : IGameSystem
             SetCantControl();
             m_BlocksController.FallBlock(id);
         }
+    }
+
+    public void ReversePause()
+    {
+        m_IsPause = !m_IsPause;
     }
 
     //-------------------
@@ -342,6 +369,14 @@ public class InGameSystem : IGameSystem
             Debug.Log("Test End Game");
 
             m_IsGameEnd = true;
+        }
+
+        //pause
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("Test Pause");
+
+            ReversePause();
         }
     }
 }

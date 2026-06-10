@@ -6,6 +6,7 @@
 // 2026/05/31 Updated By Man-Yi, Yeh
 // 2026/06/02 Updated By Man-Yi, Yeh
 // 2026/06/09 Updated By Man-Yi, Yeh
+// 2026/06/10 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -220,18 +221,25 @@ public class GameMng
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
+    //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------
-    //ingame click column
+    //inGame operate
     //-------------------
     public void InGameColumnOnClick(int id)
     {
         Debug.Log("click col: " + id.ToString());
-        m_InGameSystem.ColumnOnClick(id);
+        m_InGameSystem?.ColumnOnClick(id);
     }
+
+    public void InGameReversePause()
+    {
+        m_InGameSystem?.ReversePause();
+    }
+
 
     //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------
-    //InGame
+    //inGame
     //-------------------
     public float GetGameTime()
     {
