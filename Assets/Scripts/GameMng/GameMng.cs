@@ -220,7 +220,7 @@ public class GameMng
         return res;
     }
 
-    //2026/05/26 Update By Man-Yi, Yeh 
+    //2026/05/26 Updated By Man-Yi, Yeh 
     //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------
     //inGame operate

@@ -37,6 +37,7 @@ public class GameInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI testTimeText;
     [SerializeField] private float startTime;
     [SerializeField] private float playTime;
+    [SerializeField] private float timeUpTime;
     [SerializeField] private float gameOverTime;
 
 
@@ -106,6 +107,11 @@ public class GameInfo : MonoBehaviour
     public float GetPlayTime()
     {
         return playTime;
+    }
+
+    public float GetTimeUpTime()
+    {
+        return timeUpTime;
     }
 
     public float GetGameOverTime()
