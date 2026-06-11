@@ -251,6 +251,11 @@ public class GameMng
         return res;
     }
 
+    public void AddGameTime(float time)
+    {
+        m_InGameSystem?.AddGameTime(time);
+    }
+
     //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------
     //game log

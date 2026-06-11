@@ -7575,6 +7575,10 @@ PrefabInstance:
       propertyPath: testInGameStateText
       value: 
       objectReference: {fileID: 311929540}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocks.Array.data[8]'
+      value: 
+      objectReference: {fileID: 1651042190426343695, guid: 079a7631a5aa7ee40ae25474558eaaf6, type: 3}
     - target: {fileID: 1188506851340322029, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: m_Name
       value: GameInfo
