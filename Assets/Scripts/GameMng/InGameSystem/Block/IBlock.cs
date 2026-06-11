@@ -8,13 +8,10 @@
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 // 
 
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-
-
 
 public abstract class IBlock
 {
@@ -78,8 +75,8 @@ public abstract class IBlock
     }
 
     //startegys
-    protected NormalCombineCheck m_CombineCheckStartegy;
-    public NormalCombineCheck CombineCheckStartegy
+    protected ICombineCheckStrategy m_CombineCheckStartegy;
+    public ICombineCheckStrategy CombineCheckStartegy
     {
         get { return m_CombineCheckStartegy; }
     }
@@ -91,10 +88,10 @@ public abstract class IBlock
     }
 
 
-    protected IBlockStrategy m_NearDestroyStrategy;
-    public IBlockStrategy NearDestroyStrategy
+    protected INearCombineStrategy m_NearCombineStrategy;
+    public INearCombineStrategy NearCombineStrategy
     {
-        get { return m_NearDestroyStrategy; }
+        get { return m_NearCombineStrategy; }
     }
 
     
@@ -143,9 +140,9 @@ public abstract class IBlock
     }
 
     //near destroy
-    public void NearDestroy()
+    public void NearDestroy(IBlock destroyBlock)
     {
-        m_BlockStateController.NearDestroy();
+        m_BlockStateController.NearDestroy(destroyBlock);
     }
 
     //be destroyed

@@ -144,8 +144,7 @@ public class CombineSet
             //all blocks go destroy
             foreach (IBlock block in m_Blocks)
             {
-                //destroy
-                block.GoDestroy();
+                DestroyBlock(block);
             }
 
             //remove this from controller
@@ -163,6 +162,18 @@ public class CombineSet
             m_Blocks.Add(block);
             block.CombineSet = this;
         }
+    }
+
+    private void DestroyBlock(IBlock block)
+    {
+        //near block near combine
+        for (int i = 0; i < (int)BlockNearPos.Count; ++i)
+        {
+            BlockNode blockNode = block.GetNearNode((BlockNearPos)i);
+            blockNode?.Block?.NearDestroy(block);
+        }
+        //destroy
+        block.GoDestroy();
     }
 
 }

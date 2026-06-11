@@ -3,6 +3,7 @@
 // 
 // 2026/06/03 Created By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -63,10 +64,10 @@ public class IBlockState
     public virtual void DoCombineCheck(CombineSetsController controller) { }
 
     //be combined check
-    public virtual void BeCombinedCheck(IBlock block, CombineSetsController controller) { }
+    public virtual void BeCombinedCheck(IBlock nearBlock, CombineSetsController controller) { }
 
     //near destroy
-    public virtual void NearDestroy() { }
+    public virtual void NearDestroy(IBlock destroyBlock) { }
 
     //be destroyed
     public virtual void BeDestroyed() { }

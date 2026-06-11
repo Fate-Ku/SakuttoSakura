@@ -3,6 +3,7 @@
 // 
 // 2026/06/07 Created By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -26,9 +27,9 @@ public class BlockCombineState : IBlockState
         m_Block.BlockOb.transform.localScale = scale;
     }
 
-    public override void BeCombinedCheck(IBlock block, CombineSetsController controller)
+    public override void BeCombinedCheck(IBlock nearBlock, CombineSetsController controller)
     {
-        m_Block.CombineCheckStartegy.BeCombined(block, m_Block, controller);
+        m_Block.CombineCheckStartegy.BeCombined(nearBlock, m_Block, controller);
     }
 
 }

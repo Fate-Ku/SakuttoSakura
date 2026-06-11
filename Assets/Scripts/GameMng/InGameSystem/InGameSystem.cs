@@ -275,6 +275,11 @@ public class InGameSystem : IGameSystem
         m_IsPause = !m_IsPause;
     }
 
+    public void AddGameTime(float time)
+    {
+        m_GameTimer += time;
+    }
+
     //-------------------
     //method of blocks
     //-------------------
@@ -285,7 +290,15 @@ public class InGameSystem : IGameSystem
         if (m_BlockObs.TryGetValue(type, out var blockOb))
         {
             float size = GameInfo.GetSize();
-            res = new FlowerBlock(type, blockOb, size, isCreate);
+
+            if ((int)type >= 0 && (int)type < 7)
+            {
+                res = new FlowerBlock(type, blockOb, size, isCreate);
+            }
+            else if (type == BlockType.TimeItem)
+            {
+                res = new TimeItemBlock(blockOb, size, isCreate);
+            }
         }
         else
         {
@@ -299,10 +312,19 @@ public class InGameSystem : IGameSystem
     {
         IBlock block;
 
-        int qty = m_GameInfo.GetBlockTypeQty();
-        int id = Random.Range(7 - qty, 7);
-        block = CreateBlock((BlockType)id);
-        Debug.Log("type of next block " + id.ToString());
+        int isItem = Random.Range(0, 5);
+        if (isItem == 0)
+        {
+            block = CreateBlock(BlockType.TimeItem);
+            Debug.Log("type of next block " + BlockType.TimeItem.ToString());
+        }
+        else
+        {
+            int qty = m_GameInfo.GetBlockTypeQty();
+            int id = Random.Range(7 - qty, 7);
+            block = CreateBlock((BlockType)id);
+            Debug.Log("type of next block " + ((BlockType)id).ToString());
+        }
 
         m_BlocksController.SetNextBlock(block);
     }
@@ -325,6 +347,7 @@ public class InGameSystem : IGameSystem
         m_CanOperate = false;
         m_OperateTimer = GameInfo.GetNextOperateTime();
     }
+
 
     //-------------------
     //test

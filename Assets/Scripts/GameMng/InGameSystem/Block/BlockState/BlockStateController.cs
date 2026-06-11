@@ -62,10 +62,10 @@ public class BlockStateController
     }
 
     //near destroy
-    public void NearDestroy()
+    public void NearDestroy(IBlock destroyBlock)
     {
         //state near destroy
-        m_State.NearDestroy();
+        m_State.NearDestroy(destroyBlock);
     }
 
 
