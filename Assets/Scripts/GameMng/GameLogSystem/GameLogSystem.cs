@@ -29,4 +29,16 @@ public class GameLogSystem : IGameSystem
         
     }
 
+    public int GetBlockDestroyNum(BlockType type)
+    {
+        int res=1;
+
+        return res;
+    }
+
+    public void RecordBlockDestroy(BlockType type)
+    {
+
+    }
+
 }

@@ -18,10 +18,15 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private int SakuraScore;
 
     [Header("Plus Buff%")]
-    [SerializeField] private int Destory3base = 1;
-    [SerializeField] private double Destory4Buff;
-    [SerializeField] private double Destory5Buff;
-    [SerializeField] private double Destory6Buff;
+    [SerializeField] private int Destory3Base = 1;
+    [SerializeField] private int Destory4Buff;
+    [SerializeField] private int Destory5Buff;
+    [SerializeField] private int Destory6Buff;
+    [SerializeField] private int Destory7Buff;
+    [SerializeField] private int Destory8Buff;
+
+    [Header("Combo Buff%")]
+    [SerializeField] private int Combo3Base;//start from 3 combo
 
 
 }
