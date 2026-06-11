@@ -4,6 +4,7 @@
 // 2026/06/06 Created By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 //
 
 
@@ -46,6 +47,11 @@ public class CombineSetsController
         }
     }
 
+
+
+    //-------------------
+    //method of controller
+    //-------------------
     //create new combine set
     public void CreateCombineSet(BlockType type, IBlock block1, IBlock block2)
     {
@@ -68,6 +74,9 @@ public class CombineSetsController
         }
     }
 
+    //-------------------
+    //method of combine set
+    //-------------------
     public IBlock GetCreateBlock(BlockType type)
     {
         IBlock block = null;
@@ -79,4 +88,5 @@ public class CombineSetsController
         
         return block;
     }
+
 }

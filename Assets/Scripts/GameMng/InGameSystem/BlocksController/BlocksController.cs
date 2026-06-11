@@ -8,11 +8,22 @@
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 // 
 
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum BlockNearPos
+{
+    Above,
+    Below,
+    Left,
+    Right,
+
+    Count
+}
 
 public class BlocksController
 {
@@ -259,7 +270,37 @@ public class BlocksController
     //-------------------
     //get node
     //-------------------
-    public BlockNode GetAboveNode(Vector2Int id)
+    public BlockNode GetNearNode(BlockNearPos nearPos, Vector2Int id)
+    {
+        BlockNode blockNode = null;
+
+        switch (nearPos)
+        {
+            case BlockNearPos.Above:
+                blockNode = GetAboveNode(id);
+                break;
+
+            case BlockNearPos.Below:
+                blockNode = GetBelowNode(id);
+                break;
+
+            case BlockNearPos.Left:
+                blockNode = GetLeftNode(id);
+                break;
+
+            case BlockNearPos.Right:
+                blockNode = GetRightNode(id);
+                break;
+
+            default: 
+                break;
+
+        }
+
+        return blockNode;
+    }
+
+    private BlockNode GetAboveNode(Vector2Int id)
     {
         BlockNode blockNode = null;
 
@@ -273,7 +314,7 @@ public class BlocksController
         return blockNode;
     }
 
-    public BlockNode GetBelowNode(Vector2Int id)
+    private BlockNode GetBelowNode(Vector2Int id)
     {
         BlockNode blockNode = null;
 
@@ -287,7 +328,7 @@ public class BlocksController
         return blockNode;
     }
 
-    public BlockNode GetLeftNode(Vector2Int id)
+    private BlockNode GetLeftNode(Vector2Int id)
     {
         BlockNode blockNode = null;
 
@@ -301,7 +342,7 @@ public class BlocksController
         return blockNode;
     }
 
-    public BlockNode GetRightNode(Vector2Int id)
+    private BlockNode GetRightNode(Vector2Int id)
     {
         BlockNode blockNode = null;
 

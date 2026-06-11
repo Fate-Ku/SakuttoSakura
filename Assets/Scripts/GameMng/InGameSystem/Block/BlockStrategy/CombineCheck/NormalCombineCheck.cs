@@ -11,8 +11,6 @@ public class NormalCombineCheck : ICombineCheckStrategy
 {
     public override void DoCombine(IBlock onerBlock, CombineSetsController controller)
     {
-        Debug.Log("normal combine check");
-
         for (int i = 0; i < (int)BlockNearPos.Count; ++i)
         {
             BlockNode nearBlockNode = onerBlock.GetNearNode((BlockNearPos)i);

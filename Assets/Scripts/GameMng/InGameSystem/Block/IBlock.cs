@@ -14,15 +14,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
-public enum BlockNearPos
-{
-    Above,
-    Below,
-    Left,
-    Right,
 
-    Count
-}
 
 public abstract class IBlock
 {
@@ -267,33 +259,9 @@ public abstract class IBlock
     //-------------------
     //get node
     //-------------------
-    public BlockNode GetNearNode(BlockNearPos pos)
+    public BlockNode GetNearNode(BlockNearPos nearPos)
     {
-        BlockNode blockNode = null;
-
-        switch (pos) 
-        {
-            case BlockNearPos.Above:
-                blockNode = m_BlockNode.GetAboveNode();
-                break;
-
-            case BlockNearPos.Below:
-                blockNode = m_BlockNode.GetBelowNode();
-                break;
-
-            case BlockNearPos.Left:
-                blockNode = m_BlockNode.GetLeftNode();
-                break;
-
-            case BlockNearPos.Right:
-                blockNode = m_BlockNode.GetRightNode();
-                break;
-
-            default:
-                break;
-        }
-
-        return blockNode;
+        return m_BlockNode.GetNearNode(nearPos);
     }
 
     //-------------------
