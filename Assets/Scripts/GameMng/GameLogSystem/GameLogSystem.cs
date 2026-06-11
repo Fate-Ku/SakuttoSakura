@@ -2,7 +2,8 @@
 // GameLogSystem.cs
 // 
 // 2026/06/09 Created By Man-Yi, Yeh
-// 
+// 2026/06/11 Added By Fate Ku 
+//
 
 using UnityEngine;
 
@@ -12,4 +13,20 @@ public class GameLogSystem : IGameSystem
         : base(gameMng)
     {
     }
+
+    public override void Init()
+    {
+        
+    }
+
+    public override void Update()
+    {
+        
+    }
+
+    public override void Term()
+    {
+        
+    }
+
 }

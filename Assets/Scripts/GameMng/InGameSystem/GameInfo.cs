@@ -12,6 +12,7 @@
 
 using UnityEngine;
 using TMPro;
+using System;
 
 
 public class GameInfo : MonoBehaviour
@@ -39,7 +40,6 @@ public class GameInfo : MonoBehaviour
     [SerializeField] private float playTime;
     [SerializeField] private float timeUpTime;
     [SerializeField] private float gameOverTime;
-
 
     //x :col, y :row
     public Vector2Int GetScale()
