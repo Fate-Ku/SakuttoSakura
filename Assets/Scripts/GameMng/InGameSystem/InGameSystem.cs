@@ -325,7 +325,6 @@ public class InGameSystem : IGameSystem
         m_CanOperate = false;
         m_OperateTimer = GameInfo.GetNextOperateTime();
     }
-    
 
     //-------------------
     //test

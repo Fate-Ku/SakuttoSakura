@@ -3,9 +3,11 @@
 // 
 // 2026/06/07 Created By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 //
 
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 
 public class NormalDestroy : IDestroyStrategy
@@ -22,7 +24,17 @@ public class NormalDestroy : IDestroyStrategy
     public override void DestroyEnd(IBlock onerBlock)
     {
         Debug.Log("DestroyEnd");
-        
+
+        //record block destroy
+        GameMng.Instance.RecordBlockDestroy(onerBlock.Type);
+
+        //near block near destory
+        for (int i = 0; i < (int)BlockNearPos.Count; ++i)
+        {
+            BlockNode blockNode = onerBlock.GetNearNode((BlockNearPos)i);
+            blockNode?.Block?.NearDestroy();
+        }
+
         CreateBlockAfterDestroy(onerBlock);
         onerBlock.BlockDestroy();
     }

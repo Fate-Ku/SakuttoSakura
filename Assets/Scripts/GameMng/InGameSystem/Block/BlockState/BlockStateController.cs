@@ -5,6 +5,7 @@
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -63,14 +64,16 @@ public class BlockStateController
     //near destroy
     public void NearDestroy()
     {
-
+        //state near destroy
+        m_State.NearDestroy();
     }
 
 
     //be destroyed
     public void BeDestroyed()
     {
-
+        //state be destroyed
+        m_State.BeDestroyed();
     }
 
 }

@@ -7,6 +7,7 @@
 // 2026/06/02 Updated By Man-Yi, Yeh
 // 2026/06/09 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/11 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -227,7 +228,6 @@ public class GameMng
     //-------------------
     public void InGameColumnOnClick(int id)
     {
-        Debug.Log("click col: " + id.ToString());
         m_InGameSystem?.ColumnOnClick(id);
     }
 
@@ -264,9 +264,10 @@ public class GameMng
         return res;
     }
 
-    public void SetBlockDestroy(BlockType type)
+    public void RecordBlockDestroy(BlockType type)
     {
-        //m_GameLogSystem?.SetBlockDestroy(type);
+        Debug.Log("record block destroy: "+ type.ToString());
+        //m_GameLogSystem?.RecordBlockDestroy(type);
     }
 
 
@@ -283,8 +284,9 @@ public class GameMng
         return res;
     }
 
-    public void SetDestroyInfo(BlockType type,int num)
+    public void RecordCombineDestroyInfo(BlockType type,int num)
     {
+        Debug.Log("record combine destroy info: " + type.ToString() + " " + num);
         //m_ScoreSystem?.SetDestroyInfo(type, num);
     }
 

@@ -133,6 +133,9 @@ public class CombineSet
 
         if (m_CombineTimer <= 0)
         {
+            //record combine destroy info
+            GameMng.Instance.RecordCombineDestroyInfo(m_Type, m_Blocks.Count);
+
             //set create block to one block
             int id = 0;
             IBlock firstBlock = m_Blocks[id];
@@ -141,9 +144,8 @@ public class CombineSet
             //all blocks go destroy
             foreach (IBlock block in m_Blocks)
             {
+                //destroy
                 block.GoDestroy();
-                //call score mng
-                //call game log mng
             }
 
             //remove this from controller
@@ -163,5 +165,4 @@ public class CombineSet
         }
     }
 
-    
 }

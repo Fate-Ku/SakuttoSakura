@@ -67,25 +67,10 @@ public class BlockNode
     //-------------------
     //get node
     //-------------------
-    public BlockNode GetAboveNode()
+    public BlockNode GetNearNode(BlockNearPos nearPos)
     {
-        return m_Controller.GetAboveNode(m_ID);
+        return m_Controller.GetNearNode(nearPos, m_ID);
     }
-
-    public BlockNode GetBelowNode()
-    {
-        return m_Controller.GetBelowNode(m_ID);
-    }
-    public BlockNode GetLeftNode()
-    {
-        return m_Controller.GetLeftNode(m_ID);
-    }
-
-    public BlockNode GetRightNode()
-    {
-        return m_Controller.GetRightNode(m_ID);
-    }
-
 
     //-------------------
     //go node
