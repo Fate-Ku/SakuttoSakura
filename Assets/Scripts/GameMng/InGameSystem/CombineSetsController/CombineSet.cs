@@ -166,5 +166,16 @@ public class CombineSet
         }
     }
 
+    private void DestroyBlock(IBlock block)
+    {
+        //near block near combine
+        for (int i = 0; i < (int)BlockNearPos.Count; ++i)
+        {
+            BlockNode blockNode = block.GetNearNode((BlockNearPos)i);
+            blockNode?.Block?.NearDestroy(block);
+        }
+        //destroy
+        block.GoDestroy();
+    }
 
 }
