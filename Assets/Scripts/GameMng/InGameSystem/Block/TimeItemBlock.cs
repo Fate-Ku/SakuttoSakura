@@ -13,7 +13,7 @@ public class TimeItemBlock : IBlock
     {
         m_FallController = new NormalFallController(this);
 
-        m_CombineCheckStartegy = new NormalCombineCheck();
+        m_CombineStartegy = new NormalCombine();
         m_DestroyStrategy = new TimeItemDestroy();
         m_NearCombineStrategy = new NonFlowerNearCombine();
     }

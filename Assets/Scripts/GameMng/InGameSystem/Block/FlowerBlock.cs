@@ -17,7 +17,7 @@ public class FlowerBlock : IBlock
     {
         m_FallController = new NormalFallController(this);
 
-        m_CombineCheckStartegy = new FlowerCombineCheck();
+        m_CombineStartegy = new FlowerCombine();
         m_DestroyStrategy = new NormalDestroy();
         m_NearCombineStrategy = new NormalNearCombine();
     }

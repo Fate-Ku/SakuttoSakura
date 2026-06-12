@@ -29,7 +29,7 @@ public class BlockCombineState : IBlockState
 
     public override void BeCombinedCheck(IBlock nearBlock, CombineSetsController controller)
     {
-        m_Block.CombineCheckStartegy.BeCombined(nearBlock, m_Block, controller);
+        m_Block.CombineStartegy.BeCombinedCheck(nearBlock, m_Block, controller);
     }
 
 }

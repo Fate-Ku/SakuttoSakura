@@ -75,10 +75,10 @@ public abstract class IBlock
     }
 
     //startegys
-    protected ICombineCheckStrategy m_CombineCheckStartegy;
-    public ICombineCheckStrategy CombineCheckStartegy
+    protected ICombineStrategy m_CombineStartegy;
+    public ICombineStrategy CombineStartegy
     {
-        get { return m_CombineCheckStartegy; }
+        get { return m_CombineStartegy; }
     }
 
     protected IDestroyStrategy m_DestroyStrategy;
@@ -206,6 +206,15 @@ public abstract class IBlock
     public void SetSpeed(float speed)
     {
         m_FallController.SetSpeed(speed);
+    }
+
+    //-------------------
+    //combine
+    //-------------------
+    //end combine
+    public void EndCombine()
+    {
+        m_CombineStartegy.EndCombine(this);
     }
 
     //-------------------

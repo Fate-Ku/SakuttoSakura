@@ -1,16 +1,17 @@
 //
-// FlowerCombineCheck.cs
+// FlowerCombine.cs
 // 
 // 2026/06/07 Created By Man-Yi, Yeh
 // 2026/06/11 Updated By Man-Yi, Yeh
+// 2026/06/12 Updated By Man-Yi, Yeh
 //
 
 
 using UnityEngine;
 
-public class FlowerCombineCheck : ICombineCheckStrategy
+public class FlowerCombine : ICombineStrategy
 {
-    public override void DoCombine(IBlock onerBlock, CombineSetsController controller)
+    public override void DoCombineCheck(IBlock onerBlock, CombineSetsController controller)
     {
         for (int i = 0; i < (int)BlockNearPos.Count; ++i)
         {
@@ -21,7 +22,7 @@ public class FlowerCombineCheck : ICombineCheckStrategy
         }
     }
 
-    public override void BeCombined(IBlock nearBlock, IBlock onerBlock, CombineSetsController controller)
+    public override void BeCombinedCheck(IBlock nearBlock, IBlock onerBlock, CombineSetsController controller)
     {
         if (nearBlock.Type == onerBlock.Type)
         {
@@ -29,4 +30,8 @@ public class FlowerCombineCheck : ICombineCheckStrategy
         }
     }
 
+    public override void EndCombine(IBlock onerBlock)
+    {
+        onerBlock.GoDestroy();
+    }
 }
