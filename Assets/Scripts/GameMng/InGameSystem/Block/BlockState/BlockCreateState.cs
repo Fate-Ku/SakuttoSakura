@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class BlockCreateState : IBlockState
 {
-    private float timer = 1;
+    private float timer = 0.5f;
     private float size;
 
     public BlockCreateState(IBlock block, BlockStateController controller) 

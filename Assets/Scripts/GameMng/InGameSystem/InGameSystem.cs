@@ -28,7 +28,8 @@ public enum BlockType
     Sakura,
 
     //rock
-    Ishi,
+    SoftRock,
+    HardRock,
 
     //item
     TimeItem,
@@ -295,6 +296,14 @@ public class InGameSystem : IGameSystem
             {
                 res = new FlowerBlock(type, blockOb, size, isCreate);
             }
+            else if (type == BlockType.SoftRock)
+            {
+                res = new SoftRockBlock(blockOb, size, isCreate);
+            }
+            else if (type == BlockType.HardRock)
+            {
+                res = new HardRockBlock(this, blockOb, size, isCreate);
+            }
             else if (type == BlockType.TimeItem)
             {
                 res = new TimeItemBlock(blockOb, size, isCreate);
@@ -311,20 +320,32 @@ public class InGameSystem : IGameSystem
     public void SetNextBlock()
     {
         IBlock block;
+        BlockType type;
 
-        int isItem = Random.Range(0, 5);
-        if (isItem == 0)
+        int pattern = Random.Range(0, 10);
+        if (pattern == 0)
         {
-            block = CreateBlock(BlockType.TimeItem);
+            type = BlockType.TimeItem;
             Debug.Log("type of next block " + BlockType.TimeItem.ToString());
+        }
+        else if (pattern == 1)
+        {
+            type = BlockType.SoftRock;
+        }
+        else if (pattern == 2)
+        {
+            type = BlockType.HardRock;
         }
         else
         {
             int qty = m_GameInfo.GetBlockTypeQty();
             int id = Random.Range(7 - qty, 7);
-            block = CreateBlock((BlockType)id);
-            Debug.Log("type of next block " + ((BlockType)id).ToString());
+            type = (BlockType)id;
+            
         }
+
+        block = CreateBlock(type);
+        Debug.Log("type of next block " + type.ToString());
 
         m_BlocksController.SetNextBlock(block);
     }

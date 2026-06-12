@@ -15,6 +15,6 @@ public class TimeItemBlock : IBlock
 
         m_CombineCheckStartegy = new NormalCombineCheck();
         m_DestroyStrategy = new TimeItemDestroy();
-        m_NearCombineStrategy = new TimeItemNearCombine();
+        m_NearCombineStrategy = new NonFlowerNearCombine();
     }
 }

@@ -144,9 +144,8 @@ public class CombineSet
             //all blocks go destroy
             foreach (IBlock block in m_Blocks)
             {
-
+                //destroy block
                 DestroyBlock(block);
-
             }
 
             //remove this from controller
