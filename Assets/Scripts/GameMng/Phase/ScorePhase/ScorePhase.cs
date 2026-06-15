@@ -3,19 +3,48 @@
 // 
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
+// 2026/06/15 Updated By Man-Yi, Yeh
 //
 
+using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ScorePhase : Phase
 {
+    private ScoreInfo m_ScoreInfo;
+    public ScoreInfo ScoreInfo
+    {
+        get { return m_ScoreInfo; }
+    }
+
+    private InGameUIScore m_ScoreUI;
+
     public ScorePhase(GameMng gameMng) 
         : base(gameMng)
     {
     }
 
+
+    public override void Init()
+    {
+        GameObject scoreInfo = GameObject.Find("ScoreInfo");
+        if (scoreInfo != null)
+        {
+            m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
+        }
+        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText());
+        m_ScoreUI.Init();
+
+    }
+
     public override void Update()
     {
-        Debug.Log("score update");
+        m_ScoreUI.Update();
+    }
+
+    public override void Term()
+    {
+        m_ScoreUI.Term();
     }
 }

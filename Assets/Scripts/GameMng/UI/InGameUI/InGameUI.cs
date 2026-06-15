@@ -4,14 +4,23 @@
 // 2026/05/31 Created By Fate Ku
 // 2026/06/02 Updated By Fate Ku
 // 2026/06/06 Added InGameUIBackground By Fate Ku
+// 2026/06/14 Added By Fate Ku
 //
+
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class InGameUI : UISystem
 {
+    private ScoreInfo m_ScoreInfo;
+    public ScoreInfo ScoreInfo
+    {
+        get { return m_ScoreInfo; }
+    }
+
     private InGameUIButton m_ButtonSystem;
     private InGameUIBackground m_Background;
+    private InGameUIScore m_ScoreUI;
+
 
     public InGameUI(GameMng gameMng)
         : base(gameMng)
@@ -22,16 +31,25 @@ public class InGameUI : UISystem
 
     public override void Init()
     {
-
         m_ButtonSystem.Init();
         m_Background.Init();
-        Debug.Log("InGameUI Init");
 
+
+        GameObject scoreInfo = GameObject.Find("ScoreInfo");
+        if (scoreInfo != null)
+        {
+            m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
+        }
+        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText());
+        m_ScoreUI.Init();
+
+        Debug.Log("InGameUI Init");
     }
 
     public override void Update()
     {
         m_ButtonSystem.Update();
+        m_ScoreUI.Update();
         Debug.Log("InGameUI Update");
     }
 
@@ -39,6 +57,7 @@ public class InGameUI : UISystem
     {
         m_ButtonSystem.Term();
         m_Background.Term();
+        m_ScoreUI.Term();
         Debug.Log("InGameUI Term");
     }
 }

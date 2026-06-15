@@ -5,10 +5,9 @@
 // 2026/06/02 Updated By Fate Ku
 //
 using UnityEngine;
-
 public class ScoreUI : UISystem
 {
-    public ScoreUI(GameMng gameMng)
+   public ScoreUI(GameMng gameMng)
         : base(gameMng)
     {
     }

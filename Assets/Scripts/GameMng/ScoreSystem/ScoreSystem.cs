@@ -3,12 +3,25 @@
 // 
 // 2026/06/09 Created By Man-Yi, Yeh
 // 2026/06/11 Added By Fate Ku 
+// 2026/06/14 Added By Fate Ku 
 // 
 
+using TMPro;
 using UnityEngine;
 
 public class ScoreSystem : IGameSystem
 {
+
+    // total socre
+    public int TotalScore;
+
+    //private TextMeshProUGUI m_ScoreText;
+
+    //public TextMeshProUGUI TestInGameScoreText
+    //{
+    //    get { return m_ScoreText; }
+    //}
+
     //-------------------
     //Info
     //-------------------
@@ -20,40 +33,118 @@ public class ScoreSystem : IGameSystem
         get { return m_ScoreInfo; }
     }
 
-    public ScoreSystem(GameMng gameMng) 
+    public ScoreSystem(GameMng gameMng)
         : base(gameMng)
     {
     }
 
     public override void Init()
     {
-        
+        TotalScore = 0;
+
+        //-------------------
+        //Info
+        //-------------------
+        //game info
+        GameObject scoreInfo = GameObject.Find("ScoreInfo");
+        if (scoreInfo != null)
+        {
+            m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
+        }
+
+       //m_ScoreText = m_ScoreInfo.GetScoreText();
+
+
     }
 
     public override void Update()
     {
-        
+
     }
 
     public override void Term()
     {
-        
+
     }
 
     //-------------------------
     //return score to game mgr
     //-------------------------
-    public void GetScore()
+    public int GetScore()
     {
-
+        return TotalScore;
     }
 
 
     //-------------------------
     //get bloacktype and num from game mgr
     //-------------------------
-    public void SetDestroyInfo(BlockType type, int num)
+    public void SetDestroyInfo(BlockType type, int qty)
     {
+        CalculateScoreByFlowerType(type, qty);
+        //if (m_ScoreText != null)
+        //{
+        //    m_ScoreText.text = $"Score : {TotalScore}";
+        //}
+    }
+
+    public void CalculateScoreByFlowerType(BlockType type, int qty)
+    {
+        int baseScore = 0;
+        int destoryBuff = 0;
+        //int comboBuff = 0;
+
+        switch (type)
+        {
+            case BlockType.Tsubaki:
+                baseScore = m_ScoreInfo.GetTsubakiScore();
+                break;
+            case BlockType.Kaede:
+                baseScore = m_ScoreInfo.GetKaedeScore();
+                break;
+            case BlockType.Himawari:
+                baseScore = m_ScoreInfo.GetHimawariScore();
+                break;
+            case BlockType.Clover:
+                baseScore = m_ScoreInfo.GetCloverScore();
+                break;
+            case BlockType.Asagao:
+                baseScore = m_ScoreInfo.GetAsagaoScore();
+                break;
+            case BlockType.Kikyou:
+                baseScore = m_ScoreInfo.GetKikyouScore();
+                break;
+            case BlockType.Sakura:
+                baseScore = m_ScoreInfo.GetSakuraScore();
+                break;
+        }
+
+        switch (qty)
+        {
+            case 3:
+                destoryBuff = m_ScoreInfo.GetDestory3Base();
+                break;
+            case 4:
+                destoryBuff = m_ScoreInfo.GetDestory4Buff();
+                break;
+            case 5:
+                destoryBuff = m_ScoreInfo.GetDestory5Buff();
+                break;
+            case 6:
+                destoryBuff = m_ScoreInfo.GetDestory6Buff();
+                break;
+            case 7:
+                destoryBuff = m_ScoreInfo.GetDestory7Buff();
+                break;
+            case 8:
+                destoryBuff = m_ScoreInfo.GetDestory8Buff();
+                break;
+
+        }
+
+        TotalScore += baseScore * destoryBuff;
+
+        Debug.Log($"[ScoreSystem] (block type={type}, block qty={qty}),(baseScore ={baseScore} * destoryBuff = {destoryBuff}) → TotalScore = {TotalScore}");
 
     }
 

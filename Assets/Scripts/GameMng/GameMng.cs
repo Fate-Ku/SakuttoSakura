@@ -8,6 +8,7 @@
 // 2026/06/09 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/11 Updated By Man-Yi, Yeh
+// 2026/06/15 Updated By Fate Ku
 // 
 
 using UnityEngine;
@@ -264,7 +265,7 @@ public class GameMng
     {
         int res = 0;
 
-        //res = m_GameLogSystem?.GetBlockDestroyNum(type);
+        res = m_GameLogSystem.GetBlockDestroyNum(type);
 
         return res;
     }
@@ -272,8 +273,10 @@ public class GameMng
     public void RecordBlockDestroy(BlockType type)
     {
         Debug.Log("record block destroy: "+ type.ToString());
-        //m_GameLogSystem?.RecordBlockDestroy(type);
+        m_GameLogSystem?.RecordBlockDestroy(type);
     }
+
+
 
 
     //2026/06/09 Updated By Man-Yi, Yeh
@@ -284,7 +287,7 @@ public class GameMng
     {
         int res = 0;
 
-        //res = m_ScoreSystem?.GetScore();
+        res = m_ScoreSystem.GetScore();
 
         return res;
     }
@@ -292,9 +295,17 @@ public class GameMng
     public void RecordCombineDestroyInfo(BlockType type,int num)
     {
         Debug.Log("record combine destroy info: " + type.ToString() + " " + num);
-        //m_ScoreSystem?.SetDestroyInfo(type, num);
+        m_ScoreSystem?.SetDestroyInfo(type, num);
     }
 
- 
+    //2026/06/15 Updated By Fate Ku
+    //-------------------
+    //pause
+    //-------------------
+    public void Pause()
+    {
+        m_InGameSystem.ReversePause();
+    }
+
 
 }
