@@ -13,10 +13,11 @@ public enum BlockStateType
     None = -1,
 
     Idle,
+    Rise,
     Fall,
     Combine,
     Destroy,
-    Create
+    Create,
 }
 
 public class IBlockState

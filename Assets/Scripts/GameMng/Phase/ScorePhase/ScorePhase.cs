@@ -7,9 +7,7 @@
 // 2026/06/16 Updated By Man-Yi, Yeh
 //
 
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ScorePhase : Phase
 {

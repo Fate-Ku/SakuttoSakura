@@ -9,10 +9,12 @@
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/11 Updated By Man-Yi, Yeh
+// 2026/06/16 Updated By Man-Yi, Yeh
 // 
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public enum BlockNearPos
@@ -117,40 +119,6 @@ public class BlocksController
         block.SetPos(blockNode.Pos);
     }
 
-    public void FallBlock(int col)
-    {
-        if (CanFall(col))
-        {
-            Vector2Int id = new(col, -1);
-
-            GetNode(m_NextNodeID).Block.SetPos(GetNodePos(id));
-            GetNode(m_NextNodeID).BlockChangeNode(id);
-
-            m_InGameSystem.SetNextBlock();
-        }
-    }
-
-    private bool CanFall(int col)
-    {
-        bool res = false;
-
-        Vector2Int id = new(col, -1);
-        Vector2Int underID= new(col, 0);
-        if (IsNodeEmpty(id))
-        {
-            if (IsNodeEmpty(underID))
-            {
-                res = true;
-            }
-            else
-            {
-                res = GetNode(underID).Block.IsFalling();
-            }
-        }
-
-        return res;
-    }
-
     public bool IsFullBlocks()
     {
         bool res = true;
@@ -208,7 +176,7 @@ public class BlocksController
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 if (!blockNode.IsEmpty())
                 {
-                    if (!blockNode.Block.IsIdle())
+                    if (!blockNode.Block.IsStateType(BlockStateType.Idle))
                     {
                         //if has one not idle block
                         //false
@@ -222,6 +190,114 @@ public class BlocksController
             if (goBreak)
             {
                 break;
+            }
+        }
+
+        return res;
+    }
+
+    //-------------------
+    //game for rise
+    //-------------------
+    public void RiseBlock(IBlock block,int col)
+    {
+        if (CanRise(col))
+        {
+            Vector2Int id = new(col, m_RowNum);
+            Vector2 targetPos = GetNodePos(id + new Vector2Int(0, -1));
+
+            GetNode(id).SetBlock(block);
+            block.SetPos(GetNodePos(id));
+            block.StartRise(targetPos);
+
+            //check from buttom
+            for (int i = m_RowNum - 1; i >= 0; --i)
+            {
+                Vector2Int upperID = new(col, i);
+                if (IsNodeEmpty(upperID))
+                {
+                    //upper empty, break
+                    break;
+                }
+
+                IBlock upperBlock = GetNode(upperID).Block;
+                if (upperBlock.IsStateType(BlockStateType.Rise) ||
+                    !upperBlock.IsStateType(BlockStateType.Idle))
+                {
+                    //upper rise or not idle, break
+                    break;
+                }
+                //upper start rise
+                upperBlock.StartRise(GetNodePos(upperID + new Vector2Int(0, -1)));
+
+
+
+            }
+        }
+    }
+
+    public bool CanRise(int col)
+    {
+        bool res = false;
+
+        //check from buttom
+        for (int i = m_RowNum - 1; i >= 0; --i)
+        {
+            Vector2Int upperID = new(col, i);
+            if (IsNodeEmpty(upperID))
+            {
+                res = true;
+            }
+            else
+            {
+                IBlock upperBlock = GetNode(upperID).Block;
+                if (upperBlock.IsStateType(BlockStateType.Rise))
+                {
+                    res = true;
+                    break;
+                }
+                if (!upperBlock.IsStateType(BlockStateType.Idle))
+                {
+                    break;
+                }
+            }
+        }
+
+        return res;
+    }
+
+
+    //-------------------
+    //game for fall
+    //-------------------
+    public void FallBlock(int col)
+    {
+        if (CanFall(col))
+        {
+            Vector2Int id = new(col, -1);
+
+            GetNode(m_NextNodeID).Block.SetPos(GetNodePos(id));
+            GetNode(m_NextNodeID).BlockChangeNode(id);
+
+            m_InGameSystem.SetNextBlock();
+        }
+    }
+
+    private bool CanFall(int col)
+    {
+        bool res = false;
+
+        Vector2Int id = new(col, -1);
+        Vector2Int underID = new(col, 0);
+        if (IsNodeEmpty(id))
+        {
+            if (IsNodeEmpty(underID))
+            {
+                res = true;
+            }
+            else
+            {
+                res = GetNode(underID).Block.FallController.IsFalling();
             }
         }
 

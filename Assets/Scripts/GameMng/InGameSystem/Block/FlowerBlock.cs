@@ -4,6 +4,7 @@
 // 2026/05/30 Created By Man-Yi, Yeh
 // 2026/06/04 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/16 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -11,11 +12,11 @@ using UnityEngine;
 public class FlowerBlock : IBlock
 {
     public FlowerBlock(
-        BlockType type, GameObject block, float size, 
+         GameObject block, BlockType type, float size, 
         bool isCreate = false) 
-        : base(type, block, size, isCreate)
+        : base(block, type, size, isCreate)
     {
-        m_FallController = new NormalFallController(this);
+        m_FallController = new NormalFallController(this, 2.5f);
 
         m_CombineStartegy = new FlowerCombine();
         m_DestroyStrategy = new NormalDestroy();

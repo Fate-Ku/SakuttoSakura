@@ -19,12 +19,18 @@ public class BlockIdleState : IBlockState
         StateName = "BlockIdleState";
     }
 
+    public override void StateBegin()
+    {
+        Debug.Log("test block start idle: " + m_Block.Type.ToString());
+    }
+
     public override void StateUpdate()
     {
         if (m_Block.IsGoFall())
         {
             m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
-        }
+            return;
+        } 
     }
 
     public override void DoCombineCheck(CombineSetsController controller)

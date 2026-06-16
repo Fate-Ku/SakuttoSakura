@@ -7,10 +7,18 @@
 
 using UnityEngine;
 
+public enum FallDirection
+{
+    Down,
+    Left,
+    Right,
+}
+
 public struct FallInfo
 {
     public bool IsFalling;
     public Vector2 TargetPos;
+    public FallDirection Direction;
     public float Speed;
 }
 
@@ -51,7 +59,7 @@ public class IBlockFallController
             }
             else
             {
-                res = belowNode.Block.IsFalling();
+                res = belowNode.Block.FallController.IsFalling();
             }
         }
 

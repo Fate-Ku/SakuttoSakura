@@ -20,7 +20,7 @@ public class BlockFallState : IBlockState
 
     public override void StateBegin()
     {
-        Debug.Log("block start fall");
+        Debug.Log("test block start fall: " + m_Block.Type.ToString());
 
         //remove combine set
         m_Block.RemoveCombineSet();

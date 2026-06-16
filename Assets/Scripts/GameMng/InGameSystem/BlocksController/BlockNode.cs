@@ -38,7 +38,6 @@ public class BlockNode
         m_Pos = pos;
     }
 
-
     //-------------------
     //basic
     //-------------------
@@ -63,7 +62,6 @@ public class BlockNode
         }
     }
 
-
     //-------------------
     //get node
     //-------------------
@@ -75,9 +73,33 @@ public class BlockNode
     //-------------------
     //go node
     //-------------------
-    public void BlockGoBelowNode()
+    public void BlockGoNearNode(BlockNearPos nearPos)
     {
-        Vector2Int id = new(m_ID.x, m_ID.y + 1);
+        Vector2Int id = new(m_ID.x, m_ID.y);
+
+        switch (nearPos)
+        {
+            case BlockNearPos.Above:
+                id += new Vector2Int(0, -1);
+                break;
+
+            case BlockNearPos.Below:
+                id += new Vector2Int(0, 1);
+                break;
+
+            case BlockNearPos.Left:
+                id += new Vector2Int(-1, 0);
+                break;
+
+            case BlockNearPos.Right:
+                id += new Vector2Int(1, 0);
+                break;
+
+            default:
+                break;
+        }
+        Debug.Log("test near id: " + id.ToString());
+
         BlockChangeNode(id);
     }
 

@@ -9,6 +9,7 @@
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/11 Updated By Man-Yi, Yeh
+// 2026/06/16 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -54,6 +55,13 @@ public abstract class IBlock
         get { return m_Type; }
     }
 
+    //size
+    private float m_Size;
+    public float Size
+    {
+        get { return m_Size; }
+    }
+
     //pos
     private Vector2 m_Pos;
     public Vector2 Pos
@@ -66,6 +74,13 @@ public abstract class IBlock
     //-------------------
     //state
     private BlockStateController m_BlockStateController = new();
+
+    //rise controller
+    protected BlockRiseController m_RiseController;
+    public BlockRiseController RiseController
+    {
+        get { return m_RiseController; }
+    }
 
     //fall controller
     protected IBlockFallController m_FallController;
@@ -96,13 +111,16 @@ public abstract class IBlock
 
     
     public IBlock(
-        BlockType type, GameObject block, float size, 
+        GameObject block, BlockType type,  float size, 
         bool isCreate = false) 
     {
-        m_Type = type;
-
         m_BlockOb = Object.Instantiate(block);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
+
+        m_Type = type;
+        m_Size = size;
+
+        m_RiseController = new(this, 2);
 
         if (isCreate)
         {
@@ -155,6 +173,16 @@ public abstract class IBlock
     //-------------------
     //state
     //-------------------
+    //go rise
+    private void GoRise()
+    {
+        if (m_BlockStateController.GetStateType() != BlockStateType.Rise)
+        {
+            m_BlockStateController.SetState(
+                new BlockRiseState(this, m_BlockStateController));
+        }
+    }
+
     //go combine state
     public void GoCombine()
     {
@@ -176,18 +204,33 @@ public abstract class IBlock
     }
 
     //-------------------
+    //rise
+    //-------------------
+    public void StartRise(Vector2 pos)
+    {
+        m_RiseController.StartRise(pos);
+        GoRise();
+    }
+
+    public bool IsGoRise()
+    {
+        bool res = false;
+
+        if (GetNearNode(BlockNearPos.Below) != null) 
+        {
+            
+        }
+
+        return res;
+    }
+
+    //-------------------
     //fall
     //-------------------
     //is go fall
     public bool IsGoFall()
     {
         return m_FallController.IsGoFall();
-    }
-
-    //is falling
-    public bool IsFalling()
-    {
-        return m_FallController.IsFalling();
     }
 
     //fall info
@@ -257,9 +300,9 @@ public abstract class IBlock
         }
     }
 
-    public bool IsIdle()
+    public bool IsStateType(BlockStateType type)
     {
-        return m_BlockStateController.GetStateType() == BlockStateType.Idle;
+        return m_BlockStateController.GetStateType() == type;
     }
 
     //-------------------
@@ -273,9 +316,9 @@ public abstract class IBlock
     //-------------------
     //go node
     //-------------------
-    public void GoBelowNode()
+    public void GoNearNode(BlockNearPos nearPos)
     {
-        m_BlockNode.BlockGoBelowNode();
+        m_BlockNode.BlockGoNearNode(nearPos);
     }
 
     //-------------------

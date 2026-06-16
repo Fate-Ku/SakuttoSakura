@@ -296,7 +296,7 @@ public class InGameSystem : IGameSystem
 
             if ((int)type >= 0 && (int)type < 7)
             {
-                res = new FlowerBlock(type, blockOb, size, isCreate);
+                res = new FlowerBlock(blockOb, type, size, isCreate);
             }
             else if (type == BlockType.SoftRock)
             {
@@ -422,6 +422,12 @@ public class InGameSystem : IGameSystem
             Debug.Log("Test Pause");
 
             ReversePause();
+        }
+
+        //rise
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            m_BlocksController.RiseBlock(CreateBlock(BlockType.SoftRock), 0);
         }
     }
 }
