@@ -18,6 +18,8 @@ using UnityEngine;
 
 public enum BlockType
 {
+    None = -1,
+
     //flower
     Tsubaki,
     Kaede,

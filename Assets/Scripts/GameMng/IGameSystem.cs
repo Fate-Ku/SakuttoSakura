@@ -1,8 +1,8 @@
 //
 // IGameSystem.cs
 // 
-// 2026/05/21 Update By Man-Yi, Yeh 
-// 2026/05/26 Update By Man-Yi, Yeh 
+// 2026/05/21 Updated By Man-Yi, Yeh 
+// 2026/05/26 Updated By Man-Yi, Yeh 
 // 
 
 using UnityEngine;

@@ -4,6 +4,7 @@
 // 2026/05/26 Created By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
 // 2026/06/15 Updated By Man-Yi, Yeh
+// 2026/06/16 Updated By Man-Yi, Yeh
 //
 
 using TMPro;
@@ -45,6 +46,7 @@ public class ScorePhase : Phase
 
     public override void Term()
     {
+        m_GameMng.InGameTerm();
         m_ScoreUI.Term();
     }
 }

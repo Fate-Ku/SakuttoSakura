@@ -5,6 +5,7 @@
 // 2026/05/31 Updated By Man-Yi, Yeh
 // 2026/06/02 Updated By Fate Ku
 // 2026/06/09 Updated By Man-Yi, Yeh
+// 2026/06/16 Updated By Man-Yi, Yeh
 // 
 
 
@@ -35,8 +36,6 @@ public class InGamePhase : Phase
 
     public override void Term()
     {
-        m_GameMng.InGameTerm();
-
         // 2026/06/02 Updated By Fate Ku
         if (m_InGameUI != null)
         {

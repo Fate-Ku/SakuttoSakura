@@ -9,8 +9,11 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/11 Updated By Man-Yi, Yeh
 // 2026/06/15 Updated By Fate Ku
+// 2026/06/16 Updated By Man-Yi, Yeh
 // 
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMng
@@ -74,11 +77,14 @@ public class GameMng
     //game log system
     private GameLogSystem m_GameLogSystem;
 
+    //effect system
+    private EffectSystem m_EffectSystem;
+
 
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);
-
+        m_EffectSystem = new EffectSystem(this);
     }
 
     public void Term()
@@ -153,6 +159,7 @@ public class GameMng
         m_InGameSystem?.Init();
         m_ScoreSystem?.Init();
         m_GameLogSystem?.Init();
+        m_EffectSystem?.Init();
     }
 
     public void InGameTerm()
@@ -160,6 +167,7 @@ public class GameMng
         m_InGameSystem?.Term();
         m_ScoreSystem?.Term();
         m_GameLogSystem?.Term();
+        m_EffectSystem?.Term();
 
         m_InGameSystem = null;
     }
@@ -169,6 +177,7 @@ public class GameMng
         m_InGameSystem?.Update();
         m_ScoreSystem?.Update();
         m_GameLogSystem?.Update();
+        m_EffectSystem?.Update();
     }
 
     public bool IsInGameEnd()
@@ -257,6 +266,23 @@ public class GameMng
         m_InGameSystem?.AddGameTime(time);
     }
 
+
+    //2026/06/09 Updated By Man-Yi, Yeh
+    //-------------------
+    //score
+    //-------------------
+    public int GetScore()
+    {
+        int res = 0;
+
+        if (m_InGameSystem != null)
+        {
+            res = m_ScoreSystem.GetScore();
+        }
+        return res;
+    }
+
+
     //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------
     //game log
@@ -277,20 +303,34 @@ public class GameMng
     }
 
 
-
-
-    //2026/06/09 Updated By Man-Yi, Yeh
+    //2026/06/16 Updated By Man-Yi, Yeh
     //-------------------
-    //score
+    //effect
     //-------------------
-    public int GetScore()
+    public Effect SetCombineEffect(BlockType type,List<Vector2> pos)
     {
-        int res = 0;
+        Effect res = null;
 
-        res = m_ScoreSystem.GetScore();
+        Debug.Log(
+            "set combine effect type: " + type.ToString() + 
+            ", qty: " + pos.Count.ToString());
+        //res = m_EffectSystem.SetCombineEffect(type, pos);
 
         return res;
     }
+
+    public Effect SetDestroyEffect(BlockType type, List<Vector2> pos)
+    {
+        Effect res = null;
+
+        Debug.Log(
+            "set destroy effect type: " + type.ToString() +
+            ", qty: " + pos.Count.ToString());
+        //res = m_EffectSystem.SetDestroyEffect(type, pos);
+
+        return res;
+    }
+
 
     public void RecordCombineDestroyInfo(BlockType type,int num)
     {
