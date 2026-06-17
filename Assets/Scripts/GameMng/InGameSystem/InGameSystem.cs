@@ -427,7 +427,10 @@ public class InGameSystem : IGameSystem
         //rise
         if (Input.GetKeyDown(KeyCode.R))
         {
-            m_BlocksController.RiseBlock(CreateBlock(BlockType.SoftRock), 0);
+            if (m_BlocksController.CanRise(0))
+            {
+                m_BlocksController.RiseBlock(CreateBlock(BlockType.SoftRock), 0);
+            }
         }
     }
 }

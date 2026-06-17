@@ -3,6 +3,7 @@
 // 
 // 2026/06/04 Created By Man-Yi, Yeh
 // 2026/06/16 Updated By Man-Yi, Yeh
+// 2026/06/17 Updated By Man-Yi, Yeh
 // 
 
 
@@ -24,31 +25,26 @@ public class NormalFallController : IBlockFallController
         float newY = m_Block.Pos.y - moveY;
         float targetY = m_FallInfo.TargetPos.y;
 
-        //check under rising
+        //check is under rising
         BlockNode underBlockNode = m_Block.GetNearNode(BlockNearPos.Below);
         if (underBlockNode != null)
         {
-            //under under block
-            BlockNode riseBlockNode = underBlockNode.GetNearNode(BlockNearPos.Below);
-            if (riseBlockNode != null)
+            IBlock underBlock = underBlockNode.Block;
+            if (underBlock != null)
             {
-                IBlock riseBlock = riseBlockNode.Block;
-                if (riseBlock != null)
+                if (underBlock.IsStateType(BlockStateType.Rise))
                 {
-                    if (riseBlock.IsStateType(BlockStateType.Rise))
+                    //if under rising
+                    float riseBlockY = underBlock.Pos.y;
+                    if (newY - riseBlockY < m_Block.Size)
                     {
-                        //if under rising
-                        float riseBlockY = riseBlock.Pos.y;
-                        if (newY - riseBlockY < m_Block.Size)
-                        {
-                            //if collision
-                            Vector2 pos = m_Block.BlockNode.Pos;
-                            //start rise
-                            m_Block.StartRise(pos);
-                            //end fall
-                            SetFalling(false);
-                            return;
-                        }
+                        //if collision
+                        Vector2 pos = m_Block.BlockNode.Pos;
+                        //end falling
+                        SetFalling(false);
+                        //start rise
+                        m_Block.StartRise(pos);
+                        return;
                     }
                 }
             }
@@ -73,8 +69,10 @@ public class NormalFallController : IBlockFallController
             {
                 //move to targetY
                 m_Block.SetPos(new Vector2(m_Block.Pos.x, targetY));
-                //end fall
+                //end falling
                 SetFalling(false);
+                //end fall
+                m_IsEndFall = true;
             }
         }
         else

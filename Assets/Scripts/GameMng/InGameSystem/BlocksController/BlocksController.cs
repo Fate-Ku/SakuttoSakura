@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public enum BlockNearPos
 {
@@ -203,36 +204,36 @@ public class BlocksController
     {
         if (CanRise(col))
         {
-            Vector2Int id = new(col, m_RowNum);
-            Vector2 targetPos = GetNodePos(id + new Vector2Int(0, -1));
-
-            GetNode(id).SetBlock(block);
-            block.SetPos(GetNodePos(id));
-            block.StartRise(targetPos);
-
+            int idY = 0;
             //check from buttom
+            //find first empty node
             for (int i = m_RowNum - 1; i >= 0; --i)
             {
                 Vector2Int upperID = new(col, i);
                 if (IsNodeEmpty(upperID))
                 {
                     //upper empty, break
+                    idY = i;
                     break;
                 }
-
-                IBlock upperBlock = GetNode(upperID).Block;
-                if (upperBlock.IsStateType(BlockStateType.Rise) ||
-                    !upperBlock.IsStateType(BlockStateType.Idle))
-                {
-                    //upper rise or not idle, break
-                    break;
-                }
-                //upper start rise
-                upperBlock.StartRise(GetNodePos(upperID + new Vector2Int(0, -1)));
-
-
-
             }
+            //all blocks under the empty node
+            //rise
+            for (int i = idY + 1; i <= m_RowNum - 1; ++i)
+            {
+                Vector2Int upperID = new(col, i);
+                IBlock upperBlock = GetNode(upperID).Block;
+                //start rise
+                upperBlock.StartRise(GetNodePos(upperID + new Vector2Int(0, -1)));
+                upperBlock.GoNearNode(BlockNearPos.Above);
+            }
+
+            //id: target node's id
+            //start pos: node that under target node
+            Vector2Int id = new(col, m_RowNum - 1);
+            GetNode(id).SetBlock(block);
+            block.SetPos(GetNodePos(id + new Vector2Int(0, 1)));
+            block.StartRise(GetNodePos(id));
         }
     }
 
@@ -247,19 +248,6 @@ public class BlocksController
             if (IsNodeEmpty(upperID))
             {
                 res = true;
-            }
-            else
-            {
-                IBlock upperBlock = GetNode(upperID).Block;
-                if (upperBlock.IsStateType(BlockStateType.Rise))
-                {
-                    res = true;
-                    break;
-                }
-                if (!upperBlock.IsStateType(BlockStateType.Idle))
-                {
-                    break;
-                }
             }
         }
 

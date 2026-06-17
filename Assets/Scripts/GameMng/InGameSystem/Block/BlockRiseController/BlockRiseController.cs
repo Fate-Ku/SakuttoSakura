@@ -36,9 +36,7 @@ public class BlockRiseController
         if (newY >= targetY)
         {
             //finish rise
-            m_Block.GoNearNode(BlockNearPos.Above);
             m_IsRising = false;
-            Debug.Log("test isFalling:" + m_Block.FallController.IsFalling().ToString() + m_Block.Type.ToString());
             
             //move to targetY
             m_Block.SetPos(new Vector2(m_Block.Pos.x, targetY));

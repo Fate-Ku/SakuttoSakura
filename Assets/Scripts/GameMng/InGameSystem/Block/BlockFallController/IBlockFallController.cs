@@ -3,6 +3,7 @@
 // 
 // 2026/06/04 Created By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
+// 2026/06/17 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -33,6 +34,13 @@ public class IBlockFallController
         get { return m_FallInfo; }
     }
 
+    protected bool m_IsEndFall = false;
+    public bool IsEndFall
+    {
+        get { return m_IsEndFall; }
+        set { m_IsEndFall = value; }
+    }
+
     public IBlockFallController(IBlock block)
     {
         m_Block = block;
@@ -53,13 +61,18 @@ public class IBlockFallController
         BlockNode belowNode = m_Block.GetNearNode(BlockNearPos.Below);
         if (belowNode != null)
         {
-            if (belowNode.Block == null)
+            IBlock belowBlock = belowNode.Block;
+            if (belowBlock == null)
             {
                 res = true;
             }
             else
             {
-                res = belowNode.Block.FallController.IsFalling();
+                if (belowBlock.IsStateType(BlockStateType.Fall) ||
+                    belowBlock.IsStateType(BlockStateType.Rise))
+                {
+                    res = true;
+                }
             }
         }
 
