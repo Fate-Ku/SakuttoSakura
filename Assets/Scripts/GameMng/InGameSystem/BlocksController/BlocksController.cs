@@ -263,6 +263,36 @@ public class BlocksController
         return res;
     }
 
+    //id = target id
+    private void StartRise(IBlock block, Vector2Int nowID)
+    {
+        block.StartRise(GetNodePos(nowID + new Vector2Int(0, -1)));
+        block.GoNearNode(BlockNearPos.Above);
+
+        BlockNode belowBlockNode = GetNode(nowID);
+        if (belowBlockNode != null)
+        {
+            if (belowBlockNode.IsEmpty())
+            {
+                belowBlockNode.State = BlockNodeState.VerticalMoving;
+            }
+        }
+    }
+
+    //id = target id
+    public void EndRise(Vector2Int id)
+    {
+        Vector2Int belowID = id + new Vector2Int(0, 1);
+        BlockNode belowBlockNode = GetNode(belowID);
+        if (belowBlockNode != null)
+        {
+            if (belowBlockNode.IsEmpty())
+            {
+                belowBlockNode.State = BlockNodeState.Empty;
+            }
+        }
+    }
+
 
     //-------------------
     //game for fall
@@ -301,28 +331,8 @@ public class BlocksController
         return res;
     }
 
-
-    //-------------------
-    //game method of node
-    //-------------------
-    //id = target id
-    private void StartRise(IBlock block, Vector2Int nowID)
-    {
-        block.StartRise(GetNodePos(nowID + new Vector2Int(0, -1)));
-        block.GoNearNode(BlockNearPos.Above);
-        
-        BlockNode belowBlockNode = GetNode(nowID);
-        if (belowBlockNode != null)
-        {
-            if (belowBlockNode.IsEmpty())
-            {
-                belowBlockNode.State = BlockNodeState.VerticalMoving;
-            }
-        }
-    }
-
-    //id = target id
-    public void EndRise(Vector2Int id)
+    //id = start id
+    public void StartFall(Vector2Int id)
     {
         Vector2Int belowID = id + new Vector2Int(0, 1);
         BlockNode belowBlockNode = GetNode(belowID);
@@ -330,7 +340,7 @@ public class BlocksController
         {
             if (belowBlockNode.IsEmpty())
             {
-                belowBlockNode.State = BlockNodeState.Empty;
+                belowBlockNode.State = BlockNodeState.VerticalMoving;
             }
         }
     }

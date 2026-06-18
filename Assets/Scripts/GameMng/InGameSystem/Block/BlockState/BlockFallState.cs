@@ -28,15 +28,13 @@ public class BlockFallState : IBlockState
         //remove combine set
         m_Block.RemoveCombineSet();
 
-        //falling
+        //start fall
+        m_Block.StartFall();
         m_Block.FallController.SetFalling(true);
         m_Block.FallController.IsEndFall = false;
 
-        BlockNode belowBlockNode = m_Block.GetNearNode(BlockNearPos.Below);
-        //set below node vertical moving
-        belowBlockNode.State = BlockNodeState.VerticalMoving;
         //set target pos as below node's pos 
-        Vector2 pos = belowBlockNode.Pos;
+        Vector2 pos = m_Block.GetNearNode(BlockNearPos.Below).Pos;
         m_Block.SetFallTargetPos(pos);
         
     }

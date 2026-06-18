@@ -61,6 +61,8 @@ public class NormalFallController : IBlockFallController
             {
                 //move to newY
                 m_Block.SetPos(new Vector2(m_Block.Pos.x, newY));
+                //start fall
+                m_Block.StartFall();
                 //set target pos as below node's pos
                 Vector2 pos = m_Block.GetNearNode(BlockNearPos.Below).Pos;
                 m_Block.SetFallTargetPos(pos);

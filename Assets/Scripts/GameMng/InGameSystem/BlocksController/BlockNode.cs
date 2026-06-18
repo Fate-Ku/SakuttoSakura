@@ -56,6 +56,10 @@ public class BlockNode
         m_Controller.EndRise(m_ID);
     }
 
+    public void StartFall()
+    {
+        m_Controller.StartFall(m_ID);
+    }
 
     //-------------------
     //basic

@@ -207,23 +207,19 @@ public abstract class IBlock
     //-------------------
     //rise
     //-------------------
+    //start rise
     public void StartRise(Vector2 pos)
     {
         m_RiseController.StartRise(pos);
         GoRise();
     }
 
-    public bool IsGoRise()
+    //end rise
+    public void EndRise()
     {
-        bool res = false;
-
-        if (GetNearNode(BlockNearPos.Below) != null) 
-        {
-            
-        }
-
-        return res;
+        m_BlockNode.EndRise();
     }
+
 
     //-------------------
     //fall
@@ -233,6 +229,13 @@ public abstract class IBlock
     {
         return m_FallController.IsGoFall();
     }
+
+    //start fall
+    public void StartFall()
+    {
+        m_BlockNode.StartFall();
+    }
+
 
     //fall info
     public FallInfo GetFallInfo()
@@ -306,13 +309,6 @@ public abstract class IBlock
         return m_BlockStateController.GetStateType() == type;
     }
 
-    //-------------------
-    //game method for node
-    //-------------------
-    public void EndRise()
-    {
-        m_BlockNode.EndRise();
-    }
 
     //-------------------
     //get node
