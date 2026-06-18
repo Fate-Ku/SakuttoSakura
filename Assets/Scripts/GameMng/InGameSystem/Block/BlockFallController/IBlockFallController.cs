@@ -4,6 +4,7 @@
 // 2026/06/04 Created By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/17 Updated By Man-Yi, Yeh
+// 2026/06/18 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -61,19 +62,7 @@ public class IBlockFallController
         BlockNode belowNode = m_Block.GetNearNode(BlockNearPos.Below);
         if (belowNode != null)
         {
-            IBlock belowBlock = belowNode.Block;
-            if (belowBlock == null)
-            {
-                res = true;
-            }
-            else
-            {
-                if (belowBlock.IsStateType(BlockStateType.Fall) ||
-                    belowBlock.IsStateType(BlockStateType.Rise))
-                {
-                    res = true;
-                }
-            }
+            res = belowNode.CanVerticalMoveTo();
         }
 
         return res;

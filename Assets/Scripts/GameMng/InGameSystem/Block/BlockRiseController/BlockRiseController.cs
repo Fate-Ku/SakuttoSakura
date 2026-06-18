@@ -37,6 +37,7 @@ public class BlockRiseController
         {
             //finish rise
             m_IsRising = false;
+            m_Block.EndRise();
             
             //move to targetY
             m_Block.SetPos(new Vector2(m_Block.Pos.x, targetY));

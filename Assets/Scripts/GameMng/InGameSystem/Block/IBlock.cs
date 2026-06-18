@@ -10,6 +10,7 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/11 Updated By Man-Yi, Yeh
 // 2026/06/16 Updated By Man-Yi, Yeh
+// 2026/06/18 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -303,6 +304,14 @@ public abstract class IBlock
     public bool IsStateType(BlockStateType type)
     {
         return m_BlockStateController.GetStateType() == type;
+    }
+
+    //-------------------
+    //game method for node
+    //-------------------
+    public void EndRise()
+    {
+        m_BlockNode.EndRise();
     }
 
     //-------------------

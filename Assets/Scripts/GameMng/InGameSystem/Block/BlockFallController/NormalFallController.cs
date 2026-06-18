@@ -29,9 +29,9 @@ public class NormalFallController : IBlockFallController
         BlockNode underBlockNode = m_Block.GetNearNode(BlockNearPos.Below);
         if (underBlockNode != null)
         {
-            IBlock underBlock = underBlockNode.Block;
-            if (underBlock != null)
+            if (!underBlockNode.IsEmpty())
             {
+                IBlock underBlock = underBlockNode.Block;
                 if (underBlock.IsStateType(BlockStateType.Rise))
                 {
                     //if under rising

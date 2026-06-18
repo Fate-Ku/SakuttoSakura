@@ -10,6 +10,8 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/11 Updated By Man-Yi, Yeh
 // 2026/06/16 Updated By Man-Yi, Yeh
+// 2026/06/17 Updated By Man-Yi, Yeh
+// 2026/06/18 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -223,16 +225,15 @@ public class BlocksController
                 Vector2Int upperID = new(col, i);
                 IBlock upperBlock = GetNode(upperID).Block;
                 //start rise
-                upperBlock.StartRise(GetNodePos(upperID + new Vector2Int(0, -1)));
-                upperBlock.GoNearNode(BlockNearPos.Above);
+                StartRise(upperBlock, upperID);
             }
 
             //id: target node's id
             //start pos: node that under target node
-            Vector2Int id = new(col, m_RowNum - 1);
+            Vector2Int id = new(col, m_RowNum);
             GetNode(id).SetBlock(block);
-            block.SetPos(GetNodePos(id + new Vector2Int(0, 1)));
-            block.StartRise(GetNodePos(id));
+            block.SetPos(GetNodePos(id));
+            StartRise(block, id);
         }
     }
 
@@ -247,6 +248,15 @@ public class BlocksController
             if (IsNodeEmpty(upperID))
             {
                 res = true;
+                break;
+            }
+            else
+            {
+                IBlock block = GetNode(upperID).Block;
+                if (!block.IsStateType(BlockStateType.Idle))
+                {
+                    break;
+                }
             }
         }
 
@@ -291,6 +301,39 @@ public class BlocksController
         return res;
     }
 
+
+    //-------------------
+    //game method of node
+    //-------------------
+    //id = target id
+    private void StartRise(IBlock block, Vector2Int nowID)
+    {
+        block.StartRise(GetNodePos(nowID + new Vector2Int(0, -1)));
+        block.GoNearNode(BlockNearPos.Above);
+        
+        BlockNode belowBlockNode = GetNode(nowID);
+        if (belowBlockNode != null)
+        {
+            if (belowBlockNode.IsEmpty())
+            {
+                belowBlockNode.State = BlockNodeState.VerticalMoving;
+            }
+        }
+    }
+
+    //id = target id
+    public void EndRise(Vector2Int id)
+    {
+        Vector2Int belowID = id + new Vector2Int(0, 1);
+        BlockNode belowBlockNode = GetNode(belowID);
+        if (belowBlockNode != null)
+        {
+            if (belowBlockNode.IsEmpty())
+            {
+                belowBlockNode.State = BlockNodeState.Empty;
+            }
+        }
+    }
 
     //-------------------
     //basic method of node

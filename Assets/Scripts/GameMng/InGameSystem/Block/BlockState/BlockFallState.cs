@@ -6,6 +6,7 @@
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/17 Updated By Man-Yi, Yeh
+// 2026/06/18 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -30,9 +31,14 @@ public class BlockFallState : IBlockState
         //falling
         m_Block.FallController.SetFalling(true);
         m_Block.FallController.IsEndFall = false;
-        //set target pos as below node's pos
-        Vector2 pos = m_Block.GetNearNode(BlockNearPos.Below).Pos;
+
+        BlockNode belowBlockNode = m_Block.GetNearNode(BlockNearPos.Below);
+        //set below node vertical moving
+        belowBlockNode.State = BlockNodeState.VerticalMoving;
+        //set target pos as below node's pos 
+        Vector2 pos = belowBlockNode.Pos;
         m_Block.SetFallTargetPos(pos);
+        
     }
 
     public override void StateUpdate()

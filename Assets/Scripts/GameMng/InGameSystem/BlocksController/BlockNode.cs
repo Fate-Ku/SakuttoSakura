@@ -5,9 +5,18 @@
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/18 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
+
+public enum BlockNodeState
+{
+    Empty,
+    Occupied,
+    VerticalMoving,
+    HorizontalMoving
+}
 
 public class BlockNode
 {
@@ -16,9 +25,11 @@ public class BlockNode
     {
         get { return m_Block; }
     }
-    public bool IsEmpty()
+
+    private BlockNodeState m_State = BlockNodeState.Empty;
+    public BlockNodeState State
     {
-        return m_Block == null;
+        set { m_State = value; }
     }
 
     //fixed info
@@ -38,18 +49,60 @@ public class BlockNode
     }
 
     //-------------------
+    //game
+    //-------------------
+    public void EndRise()
+    {
+        m_Controller.EndRise(m_ID);
+    }
+
+
+    //-------------------
     //basic
     //-------------------
+    public bool IsEmpty()
+    {
+        return m_Block == null;
+    }
+
+    public bool CanVerticalMoveTo()
+    {
+        bool res;
+        if (m_Block == null) 
+        {
+            res = m_State == BlockNodeState.Empty ||
+                  m_State == BlockNodeState.VerticalMoving;
+        }
+        else
+        {
+            res = m_Block.IsStateType(BlockStateType.Fall) ||
+                  m_Block.IsStateType(BlockStateType.Rise);
+        }
+       
+        return res;
+    }
+
+
+public bool CanHorizontalMoveTo()
+    {
+        bool res =
+            (m_State == BlockNodeState.Empty ||
+             m_State == BlockNodeState.HorizontalMoving);
+        return res;
+    }
+
     public void SetBlock(IBlock block)
     {
         m_Block = block;
         m_Block.BlockNode = this;
+        m_State = BlockNodeState.Occupied;
     }
 
     public void RemoveBlock()
     {
         m_Block.BlockNode = null;
         m_Block = null;
+        m_State = BlockNodeState.Empty;
     }
 
     public void BlockChangeNode(Vector2Int id)
@@ -58,6 +111,7 @@ public class BlockNode
         {
             m_Controller.GetNode(id).SetBlock(m_Block);
             m_Block = null;
+            m_State = BlockNodeState.Empty;
         }
     }
 
