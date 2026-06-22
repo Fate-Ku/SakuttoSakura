@@ -2,6 +2,7 @@
 // IFallStrategy.cs
 // 
 // 2026/06/18 Created By Man-Yi, Yeh
+// 2026/06/22 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -9,14 +10,22 @@ using UnityEngine;
 public class IFallStrategy
 {
     protected FallDirection m_Direction;
+    public FallDirection Direction
+    {
+        get { return m_Direction; }
+    }
     protected float m_Speed;
+    public float Speed
+    {
+        get { return m_Speed; }
+    }
 
     protected Vector2 m_TargetPos;
 
-    protected bool m_IsEndFall;
-    public bool IsEndFall
+    protected bool m_GoNextFall = false;
+    public bool GoNextFall
     {
-        get { return m_IsEndFall; }
+        get { return m_GoNextFall; }
     }
 
     public IFallStrategy(FallDirection direction, float speed)
@@ -32,7 +41,7 @@ public class IFallStrategy
 
     public void StartFall(IBlock block) 
     {
-        m_IsEndFall = false;
+        m_GoNextFall = false;
         SetTargetPos(block);
     }
 
