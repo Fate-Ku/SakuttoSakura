@@ -7,10 +7,14 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class ScoreInfo : MonoBehaviour
 {
+    [Header("Timer")]
+    [SerializeField]private Slider TimeSlider;
+
     [Header("Score")]
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI MaxSakuraText;
@@ -39,6 +43,11 @@ public class ScoreInfo : MonoBehaviour
     public TextMeshProUGUI GetScoreText()
     {
         return ScoreText;
+    }
+
+    public Slider GetTimerSlider()
+    {
+        return TimeSlider;
     }
 
     public int GetTsubakiScore()

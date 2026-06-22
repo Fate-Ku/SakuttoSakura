@@ -338,14 +338,5 @@ public class GameMng
         m_ScoreSystem?.SetDestroyInfo(type, num);
     }
 
-    //2026/06/15 Updated By Fate Ku
-    //-------------------
-    //pause
-    //-------------------
-    public void Pause()
-    {
-        m_InGameSystem.ReversePause();
-    }
-
 
 }

@@ -22,7 +22,7 @@ public class PauseUI : MonoBehaviour
 
     public void Pause()
     {
-        GameMng.Instance.Pause();
+        GameMng.Instance.InGameReversePause();
     }
 
 }

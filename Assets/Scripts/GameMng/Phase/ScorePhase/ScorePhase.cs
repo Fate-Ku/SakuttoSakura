@@ -39,7 +39,7 @@ public class ScorePhase : Phase
 
     public override void Update()
     {
-        m_ScoreUI.Update();
+        //m_ScoreUI.Update();
     }
 
     public override void Term()
