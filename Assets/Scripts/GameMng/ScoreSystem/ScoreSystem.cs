@@ -75,6 +75,7 @@ public class ScoreSystem : IGameSystem
 
     public override void Init()
     {
+        MaxCombo = 0;
         TotalScore = 0;
         TotalCombo = 0;
         comboBonus = 1;
@@ -99,7 +100,8 @@ public class ScoreSystem : IGameSystem
 
     public override void Update()
     {
-        CheckOverTime();
+        CheckOverTime();// check in combo time or not 
+        CheckMaxCombo();// check max combo
     }
 
     public override void Term()
@@ -149,17 +151,24 @@ public class ScoreSystem : IGameSystem
         TotalCombo++;
     }
 
-    private void CalculateComboBonus()
+    private int CalculateComboBonus()
     {
+        int res = 1;
+        int quotient = TotalCombo / m_ComboBase; // combo /3
+        if (quotient > 0)
+        {
+            res = m_ComboBaseBonus * quotient;
+        }
 
-
-
-
+        return res;
     }
 
     private void CheckMaxCombo()
     {
-
+        if (TotalCombo > MaxCombo)
+        {
+            MaxCombo = TotalCombo;
+        }
     }
 
     private void CalculateScoreByFlowerType(BlockType type, int qty)
@@ -167,6 +176,9 @@ public class ScoreSystem : IGameSystem
         // combo
         CanCombo = true;
         AddCombo();
+        // combo bonus
+        comboBonus = CalculateComboBonus();
+
         // renew lastCallTime
         lastCallTime = 0;
 
