@@ -17,7 +17,13 @@ public class InGameUIScore
 
     public void Init()
     {
-
+        if (m_ScoreText != null)
+        {
+            int score = GameMng.Instance.GetScore();
+            m_ScoreText.text = "Score : " + score.ToString();
+            Debug.Log("Score : " + score.ToString());
+            Debug.Log("InGameUIScore Init");
+        }
     }
 
     public void Update()
