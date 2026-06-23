@@ -16,7 +16,7 @@ public class TogetherDownFallController : IBlockFallController
         m_FallStrategys[0].TargetPos = targetPos;
     }
 
-    protected override void ResetlFallController()
+    public override void ResetlFallController()
     {
         m_Block.SetFallController(new NormalFallController(m_Block, m_BasicSpeed));
     }

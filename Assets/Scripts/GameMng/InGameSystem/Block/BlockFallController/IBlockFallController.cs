@@ -57,6 +57,7 @@ public  abstract class IBlockFallController
     //fall init
     public void FallInit()
     {
+        m_IsEndFall = false;
         m_NowFallStrategyID = 0;
         StartFall();
     }
@@ -129,6 +130,7 @@ public  abstract class IBlockFallController
         return res;
     }
 
+
     //-------------------
     //basic method
     //-------------------
@@ -143,20 +145,19 @@ public  abstract class IBlockFallController
 
     private void StartFall()
     {
-        m_IsEndFall = false;
         m_GoNextFall = false;
         m_FallStrategys[m_NowFallStrategyID].StartFall(m_Block);
     }
 
-    public void EndFall(bool resetFallController = true)
+    private void EndFall()
     {
-        IsEndFall = true;
-        if (resetFallController)
-        {
-            ResetlFallController();
-        }
+        ResetlFallController();
+        m_Block.FallController.IsEndFall = true;
     }
 
-    protected virtual void ResetlFallController() { }
+    //-------------------
+    //method of update
+    //-------------------
+    public virtual void ResetlFallController() { }
 
 }

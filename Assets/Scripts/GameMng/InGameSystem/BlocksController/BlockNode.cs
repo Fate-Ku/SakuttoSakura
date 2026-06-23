@@ -6,6 +6,7 @@
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/18 Updated By Man-Yi, Yeh
+// 2026/06/22 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -35,6 +36,12 @@ public class BlockNode
     //fixed info
     private BlocksController m_Controller;  //oner
     private Vector2Int m_ID;
+    //for test
+    public Vector2Int ID
+    {
+        get { return m_ID; }
+    }
+
     private Vector2 m_Pos;
     public Vector2 Pos
     {
