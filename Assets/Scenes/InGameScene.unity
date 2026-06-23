@@ -9735,6 +9735,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: ComboBase
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
       propertyPath: ScoreText
       value: 
       objectReference: {fileID: 671883955}
@@ -9746,6 +9750,38 @@ PrefabInstance:
       propertyPath: mTimeSlider
       value: 
       objectReference: {fileID: 676994060}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: CanComboTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: Destory4Bonus
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: Destory5Bonus
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: Destory6Bonus
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: Destory7Bonus
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: Destory8Bonus
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: ShowComboTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
+      propertyPath: ComboBaseBonus
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8133162619072379616, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
       propertyPath: m_Name
       value: ScoreInfo

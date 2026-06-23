@@ -3,6 +3,7 @@
 // 
 // 2026/06/11 Created By Fate Ku 
 // 2026/06/14 Added By Fate Ku 
+// 2026/06/23 Added By Fate Ku 
 // 
 
 using TMPro;
@@ -15,12 +16,12 @@ public class ScoreInfo : MonoBehaviour
     [Header("Timer")]
     [SerializeField]private Slider TimeSlider;
 
-    [Header("Score")]
+    [Header("Show Score")]
     [SerializeField] private TextMeshProUGUI ScoreText;
-    [SerializeField] private TextMeshProUGUI MaxSakuraText;
-    [SerializeField] private TextMeshProUGUI MaxComboText;
+    [SerializeField] private TextMeshProUGUI SakuraText;
+    [SerializeField] private TextMeshProUGUI ComboText;
 
-    [Header("Score Setting")]
+    [Header("Base Score")]
     [SerializeField] private int TsubakiScore;
     [SerializeField] private int KaedeScore;
     [SerializeField] private int HimawariScore;
@@ -29,16 +30,19 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private int KikyouScore;
     [SerializeField] private int SakuraScore;
 
-    [Header("Plus Buff")]
+    [Header("Destory Bonus")]
     [SerializeField] private int Destory3Base;
-    [SerializeField] private int Destory4Buff;
-    [SerializeField] private int Destory5Buff;
-    [SerializeField] private int Destory6Buff;
-    [SerializeField] private int Destory7Buff;
-    [SerializeField] private int Destory8Buff;
+    [SerializeField] private int Destory4Bonus;
+    [SerializeField] private int Destory5Bonus;
+    [SerializeField] private int Destory6Bonus;
+    [SerializeField] private int Destory7Bonus;
+    [SerializeField] private int Destory8Bonus;
 
-    [Header("Combo Buff")]
-    [SerializeField] private int Combo3Base;//bonus start from 3 combo
+    [Header("Combo Bonus")]
+    [SerializeField] private int CanComboTime;
+    [SerializeField] private int ShowComboTime;
+    [SerializeField] private int ComboBase;//base combo
+    [SerializeField] private int ComboBaseBonus;//bonus
 
     public TextMeshProUGUI GetScoreText()
     {
@@ -90,34 +94,47 @@ public class ScoreInfo : MonoBehaviour
 
     public int GetDestory4Buff()
     {
-        return Destory4Buff;
+        return Destory4Bonus;
     }
 
     public int GetDestory5Buff()
     {
-        return Destory4Buff;
+        return Destory5Bonus;
     }
 
     public int GetDestory6Buff()
     {
-        return Destory4Buff;
+        return Destory6Bonus;
     }
 
     public int GetDestory7Buff()
     {
-        return Destory4Buff;
+        return Destory7Bonus;
     }
 
     public int GetDestory8Buff()
     {
-        return Destory4Buff;
+        return Destory8Bonus;
     }
 
-    public int GetCombo3Base()
+    public int GetComboBase()
     {
-        return Combo3Base;
+        return ComboBase;
     }
 
+    public int GetInComboTime()
+    {
+        return CanComboTime;
+    }
 
+    public int GetShowComboTime()
+    {
+        return ShowComboTime;
+    }
+
+    public int GetComboBaseBonus()
+    {
+        return ComboBaseBonus;
+    }
 
 }

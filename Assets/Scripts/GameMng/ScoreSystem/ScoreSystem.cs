@@ -4,6 +4,7 @@
 // 2026/06/09 Created By Man-Yi, Yeh
 // 2026/06/11 Added By Fate Ku 
 // 2026/06/14 Added By Fate Ku 
+// 2026/06/23 Added By Fate Ku 
 // 
 
 using TMPro;
@@ -14,6 +15,8 @@ public class ScoreSystem : IGameSystem
 
     // total socre
     public int TotalScore;
+    // total combo qty
+    public int TotalCombo;
 
     //private TextMeshProUGUI m_ScoreText;
 
@@ -88,11 +91,11 @@ public class ScoreSystem : IGameSystem
         //}
     }
 
-    public void CalculateScoreByFlowerType(BlockType type, int qty)
+    private void CalculateScoreByFlowerType(BlockType type, int qty)
     {
         int baseScore = 0;
-        int destoryBuff = 0;
-        //int comboBuff = 0;
+        int destoryBonus = 0;
+        //int comboBonus = 0;
 
         switch (type)
         {
@@ -122,29 +125,29 @@ public class ScoreSystem : IGameSystem
         switch (qty)
         {
             case 3:
-                destoryBuff = m_ScoreInfo.GetDestory3Base();
+                destoryBonus = m_ScoreInfo.GetDestory3Base();
                 break;
             case 4:
-                destoryBuff = m_ScoreInfo.GetDestory4Buff();
+                destoryBonus = m_ScoreInfo.GetDestory4Buff();
                 break;
             case 5:
-                destoryBuff = m_ScoreInfo.GetDestory5Buff();
+                destoryBonus = m_ScoreInfo.GetDestory5Buff();
                 break;
             case 6:
-                destoryBuff = m_ScoreInfo.GetDestory6Buff();
+                destoryBonus = m_ScoreInfo.GetDestory6Buff();
                 break;
             case 7:
-                destoryBuff = m_ScoreInfo.GetDestory7Buff();
+                destoryBonus = m_ScoreInfo.GetDestory7Buff();
                 break;
             case 8:
-                destoryBuff = m_ScoreInfo.GetDestory8Buff();
+                destoryBonus = m_ScoreInfo.GetDestory8Buff();
                 break;
 
         }
 
-        TotalScore += baseScore * destoryBuff;
+        TotalScore += baseScore * destoryBonus;
 
-        Debug.Log($"[ScoreSystem] (block type={type}, block qty={qty}),(baseScore ={baseScore} * destoryBuff = {destoryBuff}) → TotalScore = {TotalScore}");
+        Debug.Log($"[ScoreSystem] (block type={type}, block qty={qty}),(baseScore ={baseScore} * destoryBuff = {destoryBonus}) → TotalScore = {TotalScore}");
 
     }
 
