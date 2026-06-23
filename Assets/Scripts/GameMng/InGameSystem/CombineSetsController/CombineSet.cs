@@ -134,7 +134,7 @@ public class CombineSet
         if (m_CombineTimer <= 0)
         {
             //record combine destroy info
-            GameMng.Instance.RecordCombineDestroyInfo(m_Type, m_Blocks.Count);
+            GameMng.Instance.RecordCombineDestroyInfo(m_Type, m_Blocks.Count, m_Blocks[0].Pos);
 
             //set create block to one block
             int id = 0;
