@@ -8,6 +8,7 @@
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/09 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/23 Updated By Fate Ku 
 // 
 
 using UnityEngine;
@@ -35,7 +36,6 @@ public class GameInfo : MonoBehaviour
     [Header("Test")]
     [SerializeField, Range(1, 7)] private int blockTypeQty;
     [SerializeField] private TextMeshProUGUI testInGameStateText;
-    [SerializeField] private TextMeshProUGUI testTimeText;
     [SerializeField] private float startTime;
     [SerializeField] private float playTime;
     [SerializeField] private float timeUpTime;
@@ -92,11 +92,6 @@ public class GameInfo : MonoBehaviour
     public TextMeshProUGUI GetTestInGameStateText()
     {
         return testInGameStateText;
-    }
-
-    public TextMeshProUGUI GetTestTimeText()
-    {
-        return testTimeText;
     }
 
     public float GetStartTime()

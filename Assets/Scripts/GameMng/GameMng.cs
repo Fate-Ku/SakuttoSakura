@@ -282,6 +282,21 @@ public class GameMng
         return res;
     }
 
+    //2026/06/23 Updated By Fate Ku
+    //-------------------
+    //combo
+    //-------------------
+    public int GetTotalCombo()
+    {
+        int res = 0;
+
+        if (m_InGameSystem != null)
+        {
+            res = m_ScoreSystem.GetCombo();
+        }
+        return res;
+
+    }
 
     //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------

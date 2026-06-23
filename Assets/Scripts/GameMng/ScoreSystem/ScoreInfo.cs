@@ -15,6 +15,7 @@ public class ScoreInfo : MonoBehaviour
 {
     [Header("Timer")]
     [SerializeField]private Slider TimeSlider;
+    [SerializeField] private TextMeshProUGUI TimeText;
 
     [Header("Show Score")]
     [SerializeField] private TextMeshProUGUI ScoreText;
@@ -52,6 +53,16 @@ public class ScoreInfo : MonoBehaviour
     public Slider GetTimerSlider()
     {
         return TimeSlider;
+    }
+
+    public TextMeshProUGUI GetTimeText()
+    {
+        return TimeText;
+    }
+
+    public TextMeshProUGUI GetComboText()
+    {
+        return ComboText;
     }
 
     public int GetTsubakiScore()
