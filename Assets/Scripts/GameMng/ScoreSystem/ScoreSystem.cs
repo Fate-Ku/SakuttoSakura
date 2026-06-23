@@ -9,17 +9,21 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreSystem : IGameSystem
 {
 
     // total socre
     public int TotalScore;
+    // max combo qty
+    public int MaxCombo;
+
     // total combo qty
     public int TotalCombo;
     public int comboBonus;
 
-    private float lastCallTime = -999f; //inital time
+    private float lastCallTime = 0f; //inital time
 
     //private TextMeshProUGUI m_ScoreText;
 
@@ -95,7 +99,7 @@ public class ScoreSystem : IGameSystem
 
     public override void Update()
     {
-
+        CheckOverTime();
     }
 
     public override void Term()
@@ -129,6 +133,17 @@ public class ScoreSystem : IGameSystem
         //}
     }
 
+    private void CheckOverTime()
+    {
+        lastCallTime += Time.deltaTime;
+        Debug.Log("lastCallTime : " + lastCallTime);
+        if (lastCallTime > m_ComboTimer)
+        {
+            TotalCombo = 0;
+            CanCombo = false;
+        }
+    }
+
     private void AddCombo()
     {
         TotalCombo++;
@@ -142,18 +157,23 @@ public class ScoreSystem : IGameSystem
 
     }
 
+    private void CheckMaxCombo()
+    {
+
+    }
 
     private void CalculateScoreByFlowerType(BlockType type, int qty)
     {
-        float now = Time.time;//now
-
-        bool isWithinCanComboSec = (now - lastCallTime) <= m_ComboTimer;
-
+        // combo
+        CanCombo = true;
         AddCombo();
+        // renew lastCallTime
+        lastCallTime = 0;
 
         int baseScore = 0;
         int destoryBonus = 0;
 
+        //base score
         switch (type)
         {
             case BlockType.Tsubaki:
@@ -179,6 +199,7 @@ public class ScoreSystem : IGameSystem
                 break;
         }
 
+        //destory bonus
         switch (qty)
         {
             case 3:
