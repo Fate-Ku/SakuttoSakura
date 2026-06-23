@@ -332,7 +332,7 @@ public class GameMng
     }
 
 
-    public void RecordCombineDestroyInfo(BlockType type,int num)
+    public void RecordCombineDestroyInfo(BlockType type, int num, Vector2 pos)
     {
         Debug.Log("record combine destroy info: " + type.ToString() + " " + num);
         m_ScoreSystem?.SetDestroyInfo(type, num);

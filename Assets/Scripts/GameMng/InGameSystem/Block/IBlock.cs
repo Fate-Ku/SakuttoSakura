@@ -11,6 +11,7 @@
 // 2026/06/11 Updated By Man-Yi, Yeh
 // 2026/06/16 Updated By Man-Yi, Yeh
 // 2026/06/18 Updated By Man-Yi, Yeh
+// 2026/06/22 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -225,9 +226,9 @@ public abstract class IBlock
     //fall
     //-------------------
     //is go fall
-    public bool IsGoFall()
+    public bool IsGoFallDown()
     {
-        return m_FallController.IsGoFall();
+        return m_FallController.IsGoFallDown();
     }
 
     //start fall
@@ -236,23 +237,19 @@ public abstract class IBlock
         m_BlockNode.StartFall();
     }
 
-
-    //fall info
-    public FallInfo GetFallInfo()
+    public bool IsFalling(FallDirection direction)
     {
-        return m_FallController.FallInfo;
+        return m_FallController.IsFalling(direction);
     }
 
-    //set fall target pos
-    public void SetFallTargetPos(Vector2 targetPos)
+    public float GetFallSpeed()
     {
-        m_FallController.SetTargetPos(targetPos);
+        return m_FallController.GetFallSpeed();
     }
 
-    //set fall speed
-    public void SetSpeed(float speed)
+    public void SetFallController(IBlockFallController controller)
     {
-        m_FallController.SetSpeed(speed);
+        m_FallController = controller;
     }
 
     //-------------------
