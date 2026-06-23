@@ -249,6 +249,7 @@ public abstract class IBlock
 
     public void SetFallController(IBlockFallController controller)
     {
+        Debug.Log("set fall controller " + m_Type.ToString());
         m_FallController = controller;
     }
 

@@ -155,7 +155,7 @@ public bool CanHorizontalMoveTo()
             default:
                 break;
         }
-        Debug.Log("test near id: " + id.ToString());
+        //Debug.Log("test near id: " + id.ToString());
 
         BlockChangeNode(id);
     }

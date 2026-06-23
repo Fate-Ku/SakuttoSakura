@@ -51,6 +51,7 @@ public class DownFall : IFallStrategy
                         //start rise
                         Vector2 pos = block.BlockNode.Pos;                  
                         block.StartRise(pos);
+
                         //end fall
                         controller.EndFall();
 
@@ -66,14 +67,18 @@ public class DownFall : IFallStrategy
                         float fallBlockY = underBlock.Pos.y;
                         if (newY - fallBlockY < block.Size)
                         {
+                            Debug.Log("fall together start");
                             //set together down that speed as under
                             float speed = underBlock.GetFallSpeed();
+                            block.SetFallController(new TogetherDownFallController(block, speed, controller.BasicSpeed, m_TargetPos));
+                            //block.SetFallController(new NormalFallController(block, speed));
 
-                            //end fall
-                            controller.EndFall(false);
-
-                            return;
+                            //move
+                            newY = fallBlockY + block.Size;
+                            block.SetPos(new Vector2(block.Pos.x, newY));
                         }
+                        
+                        return;
                     }
                 }
             }
@@ -88,7 +93,7 @@ public class DownFall : IFallStrategy
 
             //move to targetY
             block.SetPos(new Vector2(block.Pos.x, targetY));
-            //end fall
+            //go next
             controller.GoNextFall = true;
         }
         else

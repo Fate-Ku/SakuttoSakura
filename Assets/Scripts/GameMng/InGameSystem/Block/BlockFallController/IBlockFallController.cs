@@ -26,8 +26,8 @@ public  abstract class IBlockFallController
     //block
     protected IBlock m_Block;
     //fall strategys
-    protected List<IFallStrategy> m_Falls = new();
-    protected int m_NowFallID;
+    protected List<IFallStrategy> m_FallStrategys = new();
+    protected int m_NowFallStrategyID;
     protected float m_BasicSpeed;
     public float BasicSpeed
     {
@@ -50,15 +50,14 @@ public  abstract class IBlockFallController
     public IBlockFallController(IBlock block, float speed)
     {
         m_Block = block;
+        m_FallStrategys.Add(new DownFall(speed));
         m_BasicSpeed = speed;
-
-        m_Falls.Add(new DownFall(speed));
     }
 
     //fall init
     public void FallInit()
     {
-        m_NowFallID = 0;
+        m_NowFallStrategyID = 0;
         StartFall();
     }
 
@@ -66,14 +65,14 @@ public  abstract class IBlockFallController
     public void FallUpdate()
     {
         //update
-        m_Falls[m_NowFallID].UpdateFall(m_Block, this);
+        m_FallStrategys[m_NowFallStrategyID].UpdateFall(m_Block, this);
 
         //check go next
         if (m_GoNextFall)
         {
             //set next ID
             GoNextFallID();
-            if (m_Falls[m_NowFallID].CanFall(m_Block))
+            if (m_FallStrategys[m_NowFallStrategyID].CanFall(m_Block))
             {
                 //if can fall
                 //start
@@ -110,9 +109,9 @@ public  abstract class IBlockFallController
     {
         bool res = false;
 
-        if (m_Falls.Count > 0)
+        if (m_FallStrategys.Count > 0)
         {
-            res = m_Falls[m_NowFallID].Direction == direction;
+            res = m_FallStrategys[m_NowFallStrategyID].Direction == direction;
         }
 
         return res;
@@ -122,9 +121,9 @@ public  abstract class IBlockFallController
     {
         float res = 0;
 
-        if (m_Falls.Count > 0)
+        if (m_FallStrategys.Count > 0)
         {
-            res = m_Falls[m_NowFallID].Speed;
+            res = m_FallStrategys[m_NowFallStrategyID].Speed;
         }
 
         return res;
@@ -135,13 +134,10 @@ public  abstract class IBlockFallController
     //-------------------
     private void GoNextFallID()
     {
-        if (m_NowFallID < m_Falls.Count - 1)
+        m_NowFallStrategyID += 1;
+        if (m_NowFallStrategyID >= m_FallStrategys.Count)
         {
-            m_NowFallID += 1;
-        }
-        else
-        {
-            m_NowFallID = 0;
+            m_NowFallStrategyID = 0;
         }
     }
 
@@ -149,7 +145,7 @@ public  abstract class IBlockFallController
     {
         m_IsEndFall = false;
         m_GoNextFall = false;
-        m_Falls[m_NowFallID].StartFall(m_Block);
+        m_FallStrategys[m_NowFallStrategyID].StartFall(m_Block);
     }
 
     public void EndFall(bool resetFallController = true)

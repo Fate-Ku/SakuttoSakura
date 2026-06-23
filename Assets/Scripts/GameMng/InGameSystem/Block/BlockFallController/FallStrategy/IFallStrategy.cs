@@ -23,6 +23,10 @@ public class IFallStrategy
     }
 
     protected Vector2 m_TargetPos;
+    public Vector2 TargetPos
+    {
+        set { m_TargetPos = value; }
+    }
 
 
     public IFallStrategy(FallDirection direction, float speed)

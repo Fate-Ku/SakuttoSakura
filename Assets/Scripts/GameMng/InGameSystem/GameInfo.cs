@@ -24,6 +24,7 @@ public class GameInfo : MonoBehaviour
 
     [Header("Block")]
     [SerializeField] private GameObject[] blocks;
+    [SerializeField] private float[] blocksFallSpeed;
 
     [Header("Operate Time")]
     [SerializeField] private float nextOperateTime;
@@ -63,6 +64,12 @@ public class GameInfo : MonoBehaviour
     public GameObject GetBlock(BlockType type)
     {
         GameObject res = blocks[(int)type];
+        return res;
+    }
+
+    public float GetBlockFallSpeed(BlockType type)
+    {
+        float res = blocksFallSpeed[(int)type];
         return res;
     }
 

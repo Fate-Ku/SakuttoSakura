@@ -11,6 +11,7 @@
 // 2026/06/09 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
+// 2026/06/23 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -293,19 +294,19 @@ public class InGameSystem : IGameSystem
 
             if ((int)type >= 0 && (int)type < 7)
             {
-                res = new FlowerBlock(blockOb, type, size, isCreate);
+                res = new FlowerBlock(blockOb, type, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
             }
             else if (type == BlockType.SoftRock)
             {
-                res = new SoftRockBlock(blockOb, size, isCreate);
+                res = new SoftRockBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
             }
             else if (type == BlockType.HardRock)
             {
-                res = new HardRockBlock(this, blockOb, size, isCreate);
+                res = new HardRockBlock(this, blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
             }
             else if (type == BlockType.TimeItem)
             {
-                res = new TimeItemBlock(blockOb, size, isCreate);
+                res = new TimeItemBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
             }
         }
         else
