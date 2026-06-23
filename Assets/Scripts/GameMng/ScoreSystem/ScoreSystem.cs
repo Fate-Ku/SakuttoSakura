@@ -17,6 +17,9 @@ public class ScoreSystem : IGameSystem
     public int TotalScore;
     // total combo qty
     public int TotalCombo;
+    public int comboBonus;
+
+    private float lastCallTime = -999f; //inital time
 
     //private TextMeshProUGUI m_ScoreText;
 
@@ -24,6 +27,31 @@ public class ScoreSystem : IGameSystem
     //{
     //    get { return m_ScoreText; }
     //}
+
+    //-------------------
+    //combo
+    //-------------------
+    private float m_ComboTimer;
+    public float ComboTimer
+    {
+        get { return m_ComboTimer; }
+    }
+    private int m_ComboBase;
+    public int ComboBase
+    {
+        get { return m_ComboBase; }
+    }
+    private int m_ComboBaseBonus;
+    public int ComboBaseBonus
+    {
+        get { return m_ComboBaseBonus; }
+    }
+    private bool m_CanCombo = true;
+    public bool CanCombo
+    {
+        set { m_CanCombo = value; }
+    }
+
 
     //-------------------
     //Info
@@ -44,18 +72,23 @@ public class ScoreSystem : IGameSystem
     public override void Init()
     {
         TotalScore = 0;
+        TotalCombo = 0;
+        comboBonus = 1;
 
         //-------------------
         //Info
         //-------------------
-        //game info
+        //score info
         GameObject scoreInfo = GameObject.Find("ScoreInfo");
         if (scoreInfo != null)
         {
             m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
         }
 
-       //m_ScoreText = m_ScoreInfo.GetScoreText();
+        //m_ScoreText = m_ScoreInfo.GetScoreText();
+        m_ComboTimer = m_ScoreInfo.GetInComboTime();
+        m_ComboBase = m_ScoreInfo.GetComboBase();
+        m_ComboBaseBonus = m_ScoreInfo.GetComboBaseBonus();
 
 
     }
@@ -78,6 +111,11 @@ public class ScoreSystem : IGameSystem
         return TotalScore;
     }
 
+    public int GetCombo()
+    {
+        return TotalCombo;
+    }
+
 
     //-------------------------
     //get bloacktype and num from game mgr
@@ -91,11 +129,30 @@ public class ScoreSystem : IGameSystem
         //}
     }
 
+    private void AddCombo()
+    {
+        TotalCombo++;
+    }
+
+    private void CalculateComboBonus()
+    {
+
+
+
+
+    }
+
+
     private void CalculateScoreByFlowerType(BlockType type, int qty)
     {
+        float now = Time.time;//now
+
+        bool isWithinCanComboSec = (now - lastCallTime) <= m_ComboTimer;
+
+        AddCombo();
+
         int baseScore = 0;
         int destoryBonus = 0;
-        //int comboBonus = 0;
 
         switch (type)
         {
@@ -145,7 +202,7 @@ public class ScoreSystem : IGameSystem
 
         }
 
-        TotalScore += baseScore * destoryBonus;
+        TotalScore += baseScore * destoryBonus * comboBonus;
 
         Debug.Log($"[ScoreSystem] (block type={type}, block qty={qty}),(baseScore ={baseScore} * destoryBuff = {destoryBonus}) → TotalScore = {TotalScore}");
 

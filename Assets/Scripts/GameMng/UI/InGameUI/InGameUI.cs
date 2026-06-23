@@ -6,6 +6,7 @@
 // 2026/06/06 Added InGameUIBackground By Fate Ku
 // 2026/06/14 Added By Fate Ku
 // 2026/06/22 Added By Fate Ku
+// 2026/06/23 Updated By Fate Ku
 //
 
 using UnityEngine;
@@ -13,16 +14,11 @@ using UnityEngine;
 public class InGameUI : UISystem
 {
     private ScoreInfo m_ScoreInfo;
-    private GameInfo m_GameInfo;
+ 
     public ScoreInfo ScoreInfo
     {
         get { return m_ScoreInfo; }
     }
-    public GameInfo GameInfo
-    {
-        get { return m_GameInfo; }
-    }
-
     private InGameUIButton m_ButtonSystem;
     private InGameUIBackground m_Background;
     private InGameUIScore m_ScoreUI;
@@ -46,16 +42,10 @@ public class InGameUI : UISystem
         {
             m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
         }
-        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText());
+        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText(),m_ScoreInfo.GetComboText());
         m_ScoreUI.Init();
 
-        GameObject gameInfo = GameObject.Find("GameInfo");
-        if (gameInfo != null)
-        {
-            m_GameInfo = gameInfo.GetComponent<GameInfo>();
-        }
-
-        m_Timer = new InGameUITimer(m_GameInfo.GetTestTimeText(),m_ScoreInfo.GetTimerSlider());
+        m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(),m_ScoreInfo.GetTimerSlider());
         m_Timer.Init();
 
         Debug.Log("InGameUI Init");
