@@ -13,6 +13,7 @@
 // 2026/06/17 Updated By Man-Yi, Yeh
 // 2026/06/18 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
+// 2026/06/23 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -62,7 +63,7 @@ public class BlocksController
             for (int j = -1; j <= m_RowNum; ++j)
             {
                 Vector2Int id = new(i, j);
-                Vector2 pos = referPos + new Vector2(size * i, -size * j);
+                Vector2 pos = referPos + new Vector2(size * i, size * j);
 
                 BlockNode node = new(this, id, pos);
                 m_Nodes.TryAdd(id, node);
@@ -71,7 +72,7 @@ public class BlocksController
 
         //NextNode
         m_NextNodeID = new(-1, -1);
-        Vector2 nextPos = referPos + new Vector2(size * (m_ColNum - 1), -size * -2);
+        Vector2 nextPos = gameInfo.GetNextBlockPos();
         BlockNode nextNode = new(this, m_NextNodeID, nextPos);
         m_Nodes.TryAdd(m_NextNodeID, nextNode);
 
@@ -86,9 +87,9 @@ public class BlocksController
         //cols: 0 ~ m_ColNum - 1
         for (int i = 0;i< m_ColNum; ++i)
         {
-            //rows: m_RowNum, m_RowNum - 1 ~ 0, -1
+            //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
             //update start from under
-            for (int j = m_RowNum; j >= -1 ; --j)
+            for (int j = -1; j <= m_RowNum ; ++j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 blockNode?.Block?.Update();
@@ -101,9 +102,9 @@ public class BlocksController
         //cols: 0 ~ m_ColNum - 1
         for (int i = 0; i < m_ColNum; ++i)
         {
-            //rows: m_RowNum - 1 ~ 0
+            //rows: 0 ~ m_RowNum - 1
             //update start from under
-            for (int j = m_RowNum - 1; j >= 0; --j)
+            for (int j = 0; j < m_RowNum; ++j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 blockNode?.Block?.DoCombineCheck(controller);
@@ -209,7 +210,7 @@ public class BlocksController
             int idY = 0;
             //check from buttom
             //find first empty node
-            for (int i = m_RowNum - 1; i >= 0; --i)
+            for (int i = 0; i < m_RowNum; ++i)
             {
                 Vector2Int upperID = new(col, i);
                 if (IsNodeEmpty(upperID))
@@ -220,8 +221,8 @@ public class BlocksController
                 }
             }
             //all blocks under the empty node
-            //rise
-            for (int i = idY + 1; i <= m_RowNum - 1; ++i)
+            //rise from top
+            for (int i = idY - 1; i >= 0 ; --i)
             {
                 Vector2Int upperID = new(col, i);
                 IBlock upperBlock = GetNode(upperID).Block;
@@ -231,7 +232,7 @@ public class BlocksController
 
             //id: target node's id
             //start pos: node that under target node
-            Vector2Int id = new(col, m_RowNum);
+            Vector2Int id = new(col, -1);
             GetNode(id).SetBlock(block);
             block.SetPos(GetNodePos(id));
             StartRise(block, id);
@@ -243,7 +244,7 @@ public class BlocksController
         bool res = false;
 
         //check from buttom
-        for (int i = m_RowNum - 1; i >= 0; --i)
+        for (int i = 0; i < m_RowNum; ++i)
         {
             Vector2Int upperID = new(col, i);
             if (IsNodeEmpty(upperID))
@@ -267,7 +268,7 @@ public class BlocksController
     //id = target id
     private void StartRise(IBlock block, Vector2Int nowID)
     {
-        block.StartRise(GetNodePos(nowID + new Vector2Int(0, -1)));
+        block.StartRise(GetNodePos(nowID + new Vector2Int(0, 1)));
         block.GoNearNode(BlockNearPos.Above);
 
         BlockNode belowBlockNode = GetNode(nowID);
@@ -283,7 +284,7 @@ public class BlocksController
     //id = target id
     public void EndRise(Vector2Int id)
     {
-        Vector2Int belowID = id + new Vector2Int(0, 1);
+        Vector2Int belowID = id + new Vector2Int(0, -1);
         BlockNode belowBlockNode = GetNode(belowID);
         if (belowBlockNode != null)
         {
@@ -302,7 +303,7 @@ public class BlocksController
     {
         if (CanFallDown(col))
         {
-            Vector2Int id = new(col, -1);
+            Vector2Int id = new(col, m_RowNum);
 
             GetNode(m_NextNodeID).Block.SetPos(GetNodePos(id));
             GetNode(m_NextNodeID).BlockChangeNode(id);
@@ -315,8 +316,8 @@ public class BlocksController
     {
         bool res = false;
 
-        Vector2Int id = new(col, -1);
-        Vector2Int underID = new(col, 0);
+        Vector2Int id = new(col, m_RowNum);
+        Vector2Int underID = new(col, m_RowNum - 1);
         if (IsNodeEmpty(id))
         {
             if (IsNodeEmpty(underID))
@@ -335,7 +336,7 @@ public class BlocksController
     //id = start id
     public void StartFall(Vector2Int id)
     {
-        Vector2Int belowID = id + new Vector2Int(0, 1);
+        Vector2Int belowID = id + new Vector2Int(0, -1);
         BlockNode belowBlockNode = GetNode(belowID);
         if (belowBlockNode != null)
         {
@@ -423,10 +424,10 @@ public class BlocksController
         BlockNode blockNode = null;
 
         //if isn't cover
-        if (id.y - 1 >= 0)
+        if (id.y + 1 < m_RowNum)
         {
             //get above node
-            blockNode = GetNode(new Vector2Int(id.x, id.y - 1));
+            blockNode = GetNode(new Vector2Int(id.x, id.y + 1));
         }
 
         return blockNode;
@@ -437,10 +438,10 @@ public class BlocksController
         BlockNode blockNode = null;
 
         //if isn't bottom
-        if (id.y + 1 < m_RowNum)
+        if (id.y - 1 >= 0)
         {
             //get under node
-            blockNode = GetNode(new Vector2Int(id.x, id.y + 1));
+            blockNode = GetNode(new Vector2Int(id.x, id.y - 1));
         }
 
         return blockNode;
@@ -473,23 +474,5 @@ public class BlocksController
 
         return blockNode;
     }
-
-
-    //-------------------
-    //basic method of block
-    //-------------------
-    private void AddBlock(Vector2Int id, IBlock block)
-    {
-        BlockNode blockNode = GetNode(id);
-        blockNode.SetBlock(block);
-    }
-
-    private void RemoveBlock(Vector2Int id)
-    {
-        BlockNode blockNode = GetNode(id);
-        blockNode.RemoveBlock();
-    }
-
-    
 
 }

@@ -18,6 +18,9 @@ using System;
 
 public class GameInfo : MonoBehaviour
 {
+    [Header("Next Block")]
+    [SerializeField] private Transform nextBlockPos;
+
     //number or col and row
     [Header("Scale")]
     [SerializeField] private int colNum;
@@ -42,18 +45,26 @@ public class GameInfo : MonoBehaviour
     [SerializeField] private float timeUpTime;
     [SerializeField] private float gameOverTime;
 
-    //x :col, y :row
-    public Vector2Int GetScale()
-    {
-        return new Vector2Int(colNum, rowNum);
-    }
-
     public Vector2 GetReferPos()
     {
         float x = gameObject.transform.position.x;
         float y = gameObject.transform.position.y;
 
-        return new Vector2 (x, y);
+        return new Vector2(x, y);
+    }
+
+    public Vector2 GetNextBlockPos()
+    {
+        float x = nextBlockPos.position.x;
+        float y = nextBlockPos.position.y;
+
+        return new Vector2(x, y);
+    }
+
+    //x :col, y :row
+    public Vector2Int GetScale()
+    {
+        return new Vector2Int(colNum, rowNum);
     }
 
     public float GetSize()

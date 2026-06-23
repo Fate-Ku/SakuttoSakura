@@ -144,11 +144,11 @@ public bool CanHorizontalMoveTo()
         switch (nearPos)
         {
             case BlockNearPos.Above:
-                id += new Vector2Int(0, -1);
+                id += new Vector2Int(0, 1);
                 break;
 
             case BlockNearPos.Below:
-                id += new Vector2Int(0, 1);
+                id += new Vector2Int(0, -1);
                 break;
 
             case BlockNearPos.Left:
