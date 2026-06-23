@@ -13,6 +13,11 @@ using UnityEngine;
 public class BlockStateController
 {
     private IBlockState m_State;
+    //test
+    public IBlockState State
+    {
+        get { return m_State; }
+    }
 
     public BlockStateController() { }
 

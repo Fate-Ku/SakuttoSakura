@@ -49,7 +49,7 @@ public class InGameUITimer
             float timer = GameMng.Instance.GetGameTime();
 
             m_TimerText.text = ((int)timer).ToString();
-            Debug.Log("timer" + timer);
+            //Debug.Log("timer" + timer);
 
             UpdateTimerBar(timer);
 
@@ -65,7 +65,7 @@ public class InGameUITimer
     {
         m_TimerBar.value = timer;
 
-        Debug.Log("timer" + m_TimerBar.value);
+        //Debug.Log("timer" + m_TimerBar.value);
     }
 
 }

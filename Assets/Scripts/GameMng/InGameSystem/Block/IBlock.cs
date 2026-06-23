@@ -14,6 +14,7 @@
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class IBlock
@@ -27,6 +28,7 @@ public abstract class IBlock
         get { return m_BlockOb; }
     }
 
+    public BlockTest blockTest;
 
     //-------------------
     //oner
@@ -118,6 +120,10 @@ public abstract class IBlock
     {
         m_BlockOb = Object.Instantiate(block);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
+        if (m_BlockOb != null)
+        {
+            blockTest = m_BlockOb.GetComponent<BlockTest>();
+        }
 
         m_Type = type;
         m_Size = size;
@@ -145,6 +151,11 @@ public abstract class IBlock
     public void Update()
     {
         m_BlockStateController.StateUpdate();
+        if (m_BlockNode != null)
+        {
+            blockTest.id = m_BlockNode.ID;
+        }
+        blockTest.state = m_BlockStateController.State.ToString();
     }
 
     //do combine check
@@ -239,7 +250,14 @@ public abstract class IBlock
 
     public bool IsFalling(FallDirection direction)
     {
-        return m_FallController.IsFalling(direction);
+        bool res = false;
+
+        if (IsStateType(BlockStateType.Fall))
+        {
+            res = m_FallController.IsFalling(direction);
+        }
+
+        return res;
     }
 
     public float GetFallSpeed()
@@ -249,6 +267,7 @@ public abstract class IBlock
 
     public void SetFallController(IBlockFallController controller)
     {
+        Debug.Log("set fall controller " + m_Type.ToString());
         m_FallController = controller;
     }
 
@@ -276,7 +295,7 @@ public abstract class IBlock
     }
 
     public void BlockDestroy()
-    {
+  {
         //game object destroy
         Object.Destroy(m_BlockOb);
 

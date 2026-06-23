@@ -6,6 +6,7 @@
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DownFall : IFallStrategy
@@ -32,9 +33,11 @@ public class DownFall : IFallStrategy
         float moveY = m_Speed * Time.deltaTime;
         float newY = block.Pos.y - moveY;
         float targetY = m_TargetPos.y;
+        //test
+        block.blockTest.fallTargetY = targetY;
 
-        //check under
-        BlockNode underBlockNode = block.GetNearNode(BlockNearPos.Below);
+       //check under
+       BlockNode underBlockNode = block.GetNearNode(BlockNearPos.Below);
         if (underBlockNode != null)
         {
             if (!underBlockNode.IsEmpty())
@@ -51,8 +54,10 @@ public class DownFall : IFallStrategy
                         //start rise
                         Vector2 pos = block.BlockNode.Pos;                  
                         block.StartRise(pos);
-                        //end fall
-                        controller.EndFall();
+                        block.blockTest.riseTargetY = pos.y;
+
+                        //reset fall controller
+                        controller.ResetlFallController();
 
                         return;
                     }
@@ -62,17 +67,24 @@ public class DownFall : IFallStrategy
                 {
                     if (underBlock.IsFalling(FallDirection.Down))
                     {
-                        //if under fallind down
-                        float fallBlockY = underBlock.Pos.y;
-                        if (newY - fallBlockY < block.Size)
+                        if (underBlock.GetFallSpeed() < m_Speed)
                         {
-                            //set together down that speed as under
-                            float speed = underBlock.GetFallSpeed();
+                            //if under fallind down
+                            float fallBlockY = underBlock.Pos.y;
+                            if (newY - fallBlockY < block.Size)
+                            {
+                                Debug.Log("test: together start");
+                                //set together down that speed as under
+                                float speed = underBlock.GetFallSpeed();
+                                block.SetFallController(
+                                    new TogetherDownFallController(block, speed, controller.BasicSpeed, m_TargetPos));
 
-                            //end fall
-                            controller.EndFall(false);
+                                //move
+                                newY = fallBlockY + block.Size;
+                                block.SetPos(new Vector2(block.Pos.x, newY));
 
-                            return;
+                                return;
+                            }
                         }
                     }
                 }
@@ -80,7 +92,7 @@ public class DownFall : IFallStrategy
         }
 
         //check arrive
-        if (newY <= targetY)
+        if (newY <= targetY) 
         {
             //if arrive
             //finish fall
@@ -88,7 +100,7 @@ public class DownFall : IFallStrategy
 
             //move to targetY
             block.SetPos(new Vector2(block.Pos.x, targetY));
-            //end fall
+            //go next
             controller.GoNextFall = true;
         }
         else
