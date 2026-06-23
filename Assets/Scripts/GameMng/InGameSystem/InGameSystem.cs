@@ -10,6 +10,7 @@
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/09 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/22 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -115,7 +116,6 @@ public class InGameSystem : IGameSystem
     {
         get { return m_TestInGameStateText; }
     }
-    private TextMeshProUGUI m_TestTimeText;
 
     public InGameSystem(GameMng gameMng)
         : base(gameMng)
@@ -179,7 +179,6 @@ public class InGameSystem : IGameSystem
         //test
         //-------------------
         m_TestInGameStateText = m_GameInfo.GetTestInGameStateText();
-        m_TestTimeText = m_GameInfo.GetTestTimeText();
 
     }
 
@@ -217,8 +216,6 @@ public class InGameSystem : IGameSystem
         {
             m_GameTimer = 0;
         }
-
-        m_TestTimeText.text = ((int)m_GameTimer).ToString();
     }
 
     //-------------------
