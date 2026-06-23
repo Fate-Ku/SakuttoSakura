@@ -3,9 +3,11 @@
 // 
 // 2026/06/18 Created By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
+// 2026/06/23 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class IFallStrategy
 {
@@ -22,11 +24,6 @@ public class IFallStrategy
 
     protected Vector2 m_TargetPos;
 
-    protected bool m_GoNextFall = false;
-    public bool GoNextFall
-    {
-        get { return m_GoNextFall; }
-    }
 
     public IFallStrategy(FallDirection direction, float speed)
     {
@@ -41,10 +38,9 @@ public class IFallStrategy
 
     public void StartFall(IBlock block) 
     {
-        m_GoNextFall = false;
         SetTargetPos(block);
     }
 
-    public virtual void UpdateFall(IBlock block) { }
+    public virtual void UpdateFall(IBlock block, IBlockFallController controller) { }
     protected virtual void SetTargetPos(IBlock block) { }
 }

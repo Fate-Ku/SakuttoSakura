@@ -2,10 +2,11 @@
 // DownFall.cs
 // 
 // 2026/06/18 Created By Man-Yi, Yeh
+// 2026/06/22 Updated By Man-Yi, Yeh
+// 2026/06/23 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
 
 public class DownFall : IFallStrategy
 {
@@ -26,12 +27,13 @@ public class DownFall : IFallStrategy
         return res;
     }
 
-    public override void UpdateFall(IBlock block)
+    public override void UpdateFall(IBlock block, IBlockFallController controller)
     {
         float moveY = m_Speed * Time.deltaTime;
         float newY = block.Pos.y - moveY;
         float targetY = m_TargetPos.y;
 
+        //check under
         BlockNode underBlockNode = block.GetNearNode(BlockNearPos.Below);
         if (underBlockNode != null)
         {
@@ -49,6 +51,9 @@ public class DownFall : IFallStrategy
                         //start rise
                         Vector2 pos = block.BlockNode.Pos;                  
                         block.StartRise(pos);
+                        //end fall
+                        controller.EndFall();
+
                         return;
                     }
                 }
@@ -64,6 +69,8 @@ public class DownFall : IFallStrategy
                             //set together down that speed as under
                             float speed = underBlock.GetFallSpeed();
 
+                            //end fall
+                            controller.EndFall(false);
 
                             return;
                         }
@@ -82,7 +89,7 @@ public class DownFall : IFallStrategy
             //move to targetY
             block.SetPos(new Vector2(block.Pos.x, targetY));
             //end fall
-            m_GoNextFall = true;
+            controller.GoNextFall = true;
         }
         else
         {

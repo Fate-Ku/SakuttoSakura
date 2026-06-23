@@ -8,6 +8,7 @@
 // 2026/06/17 Updated By Man-Yi, Yeh
 // 2026/06/18 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
+// 2026/06/23 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -31,9 +32,7 @@ public class BlockFallState : IBlockState
 
         //start fall
         m_Block.StartFall();
-        m_Block.FallController.IsEndFall = false;
-
-        
+        m_Block.FallController.FallInit();
     }
 
     public override void StateUpdate()
