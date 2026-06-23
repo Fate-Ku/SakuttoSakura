@@ -9898,7 +9898,7 @@ PrefabInstance:
       objectReference: {fileID: 676994060}
     - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
       propertyPath: CanComboTime
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1588346163755832430, guid: b6c853d6bc9e3454a9fb5cd3c950192e, type: 3}
       propertyPath: Destory4Bonus

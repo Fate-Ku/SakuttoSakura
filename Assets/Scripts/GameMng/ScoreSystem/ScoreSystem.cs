@@ -9,17 +9,21 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreSystem : IGameSystem
 {
 
     // total socre
     public int TotalScore;
+    // max combo qty
+    public int MaxCombo;
+
     // total combo qty
     public int TotalCombo;
     public int comboBonus;
 
-    private float lastCallTime = -999f; //inital time
+    private float lastCallTime = 0f; //inital time
 
     //private TextMeshProUGUI m_ScoreText;
 
@@ -71,6 +75,7 @@ public class ScoreSystem : IGameSystem
 
     public override void Init()
     {
+        MaxCombo = 0;
         TotalScore = 0;
         TotalCombo = 0;
         comboBonus = 1;
@@ -95,7 +100,8 @@ public class ScoreSystem : IGameSystem
 
     public override void Update()
     {
-
+        CheckOverTime();// check in combo time or not 
+        CheckMaxCombo();// check max combo
     }
 
     public override void Term()
@@ -129,31 +135,57 @@ public class ScoreSystem : IGameSystem
         //}
     }
 
+    private void CheckOverTime()
+    {
+        lastCallTime += Time.deltaTime;
+        Debug.Log("lastCallTime : " + lastCallTime);
+        if (lastCallTime > m_ComboTimer)
+        {
+            TotalCombo = 0;
+            CanCombo = false;
+        }
+    }
+
     private void AddCombo()
     {
         TotalCombo++;
     }
 
-    private void CalculateComboBonus()
+    private int CalculateComboBonus()
     {
+        int res = 1;
+        int quotient = TotalCombo / m_ComboBase; // combo /3
+        if (quotient > 0)
+        {
+            res = m_ComboBaseBonus * quotient;
+        }
 
-
-
-
+        return res;
     }
 
+    private void CheckMaxCombo()
+    {
+        if (TotalCombo > MaxCombo)
+        {
+            MaxCombo = TotalCombo;
+        }
+    }
 
     private void CalculateScoreByFlowerType(BlockType type, int qty)
     {
-        float now = Time.time;//now
-
-        bool isWithinCanComboSec = (now - lastCallTime) <= m_ComboTimer;
-
+        // combo
+        CanCombo = true;
         AddCombo();
+        // combo bonus
+        comboBonus = CalculateComboBonus();
+
+        // renew lastCallTime
+        lastCallTime = 0;
 
         int baseScore = 0;
         int destoryBonus = 0;
 
+        //base score
         switch (type)
         {
             case BlockType.Tsubaki:
@@ -179,6 +211,7 @@ public class ScoreSystem : IGameSystem
                 break;
         }
 
+        //destory bonus
         switch (qty)
         {
             case 3:

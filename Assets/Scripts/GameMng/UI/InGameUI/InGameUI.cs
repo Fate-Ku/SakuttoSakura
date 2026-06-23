@@ -48,7 +48,7 @@ public class InGameUI : UISystem
         m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(),m_ScoreInfo.GetTimerSlider());
         m_Timer.Init();
 
-        Debug.Log("InGameUI Init");
+        //Debug.Log("InGameUI Init");
     }
 
     public override void Update()
@@ -56,7 +56,7 @@ public class InGameUI : UISystem
         m_ButtonSystem.Update();
         m_ScoreUI.Update();
         m_Timer.Update();
-        Debug.Log("InGameUI Update");
+        //Debug.Log("InGameUI Update");
     }
 
     public override void Term()
@@ -65,6 +65,6 @@ public class InGameUI : UISystem
         m_Background.Term();
         m_ScoreUI.Term();
         m_Timer.Term();
-        Debug.Log("InGameUI Term");
+        //Debug.Log("InGameUI Term");
     }
 }
