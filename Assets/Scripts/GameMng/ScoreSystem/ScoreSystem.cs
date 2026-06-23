@@ -17,6 +17,7 @@ public class ScoreSystem : IGameSystem
     public int TotalScore;
     // total combo qty
     public int TotalCombo;
+    public int comboBonus;
 
     //private TextMeshProUGUI m_ScoreText;
 
@@ -44,6 +45,8 @@ public class ScoreSystem : IGameSystem
     public override void Init()
     {
         TotalScore = 0;
+        TotalCombo= 0;
+        comboBonus = 0;
 
         //-------------------
         //Info
@@ -84,18 +87,29 @@ public class ScoreSystem : IGameSystem
     //-------------------------
     public void SetDestroyInfo(BlockType type, int qty)
     {
-        CalculateScoreByFlowerType(type, qty);
+
+
+        CalculateScoreByFlowerType(type, qty, comboBonus);
         //if (m_ScoreText != null)
         //{
         //    m_ScoreText.text = $"Score : {TotalScore}";
         //}
     }
 
-    private void CalculateScoreByFlowerType(BlockType type, int qty)
+    private void CalculateComboBonus()
+    {
+        int comboTime = m_ScoreInfo.GetInComboTime();
+        int comboBase = m_ScoreInfo.GetComboBase();
+        int comboBaseBonus = m_ScoreInfo.GetComboBaseBonus();
+
+
+    }
+
+
+    private void CalculateScoreByFlowerType(BlockType type, int qty,int comboBonus)
     {
         int baseScore = 0;
         int destoryBonus = 0;
-        //int comboBonus = 0;
 
         switch (type)
         {
@@ -145,7 +159,7 @@ public class ScoreSystem : IGameSystem
 
         }
 
-        TotalScore += baseScore * destoryBonus;
+        TotalScore += baseScore * destoryBonus * comboBonus;
 
         Debug.Log($"[ScoreSystem] (block type={type}, block qty={qty}),(baseScore ={baseScore} * destoryBuff = {destoryBonus}) → TotalScore = {TotalScore}");
 
