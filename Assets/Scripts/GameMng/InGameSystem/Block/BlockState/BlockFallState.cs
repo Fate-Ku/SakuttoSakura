@@ -31,7 +31,6 @@ public class BlockFallState : IBlockState
         m_Block.RemoveCombineSet();
 
         //start fall
-        m_Block.StartFall();
         m_Block.FallController.FallInit();
     }
 

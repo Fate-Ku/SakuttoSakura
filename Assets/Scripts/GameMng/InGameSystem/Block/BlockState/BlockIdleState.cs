@@ -26,7 +26,7 @@ public class BlockIdleState : IBlockState
 
     public override void StateUpdate()
     {
-        if (m_Block.IsGoFallDown())
+        if (m_Block.IsGoFall(FallDirection.Down))
         {
             m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
             return;

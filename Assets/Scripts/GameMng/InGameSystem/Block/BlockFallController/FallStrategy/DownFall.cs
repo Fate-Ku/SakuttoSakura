@@ -4,9 +4,9 @@
 // 2026/06/18 Created By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
+// 2026/06/24 Updated By Man-Yi, Yeh
 // 
 
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DownFall : IFallStrategy
@@ -16,17 +16,6 @@ public class DownFall : IFallStrategy
     {
     }
 
-    public override bool CanFall(IBlock block)
-    {
-        bool res = false;
-
-        if (block != null)
-        {
-            res = block.IsGoFallDown();
-        }
-
-        return res;
-    }
 
     public override void UpdateFall(IBlock block, IBlockFallController controller)
     {
@@ -40,7 +29,7 @@ public class DownFall : IFallStrategy
        BlockNode underBlockNode = block.GetNearNode(BlockNearPos.Below);
         if (underBlockNode != null)
         {
-            if (!underBlockNode.IsEmpty())
+            if (underBlockNode.IsState(BlockNodeState.Occupied))
             {
                 IBlock underBlock = underBlockNode.Block;
                 //check is under rising

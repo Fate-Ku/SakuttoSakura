@@ -35,7 +35,7 @@ public class BlockCreateState : IBlockState
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            if (m_Block.IsGoFallDown())
+            if (m_Block.IsGoFall(FallDirection.Down))
             {
                 //go fall
                 m_Controller.SetState(new BlockFallState(m_Block, m_Controller));

@@ -12,6 +12,7 @@
 // 2026/06/16 Updated By Man-Yi, Yeh
 // 2026/06/18 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
+// 2026/06/24 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
@@ -237,15 +238,15 @@ public abstract class IBlock
     //fall
     //-------------------
     //is go fall
-    public bool IsGoFallDown()
+    public bool IsGoFall(FallDirection direction)
     {
-        return m_FallController.IsGoFallDown();
+        return m_FallController.IsGoFall(direction);
     }
 
     //start fall
-    public void StartFall()
+    public void StartFall(FallDirection direction)
     {
-        m_BlockNode.StartFall();
+        m_BlockNode.StartFall(direction);
     }
 
     public bool IsFalling(FallDirection direction)

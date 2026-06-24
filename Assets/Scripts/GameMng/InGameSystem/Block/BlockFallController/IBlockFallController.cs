@@ -7,12 +7,14 @@
 // 2026/06/18 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
+// 2026/06/24 Updated By Man-Yi, Yeh
 // 
 
 
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public enum FallDirection
 {
@@ -73,7 +75,8 @@ public  abstract class IBlockFallController
         {
             //set next ID
             GoNextFallID();
-            if (m_FallStrategys[m_NowFallStrategyID].CanFall(m_Block))
+            //check can fall
+            if (CanFall())
             {
                 //if can fall
                 //start
@@ -92,19 +95,32 @@ public  abstract class IBlockFallController
     //-------------------
     //method of game
     //-------------------
-    //is go fall
-    public bool IsGoFallDown()
+    public bool IsGoFall(FallDirection direction)
     {
         bool res = false;
 
-        BlockNode belowNode = m_Block.GetNearNode(BlockNearPos.Below);
-        if (belowNode != null)
+        switch (direction)
         {
-            res = belowNode.CanVerticalMoveTo();
+            case FallDirection.Down:
+                res = IsGoFallDown();
+                break;
+
+            case FallDirection.Left:
+                res = IsGoFallLeft();
+                break;
+
+            case FallDirection.Right:
+                res = IsGoFallRight();
+                break;
+
+            default:
+                break;
         }
+
 
         return res;
     }
+
 
     public bool IsFalling(FallDirection direction)
     {
@@ -130,6 +146,47 @@ public  abstract class IBlockFallController
         return res;
     }
 
+    //is go fall down
+    private bool IsGoFallDown()
+    {
+        bool res = false;
+
+        BlockNode belowNode = m_Block.GetNearNode(BlockNearPos.Below);
+        if (belowNode != null)
+        {
+            res = belowNode.CanVerticalMoveTo();
+        }
+
+        return res;
+    }
+
+    //is go fall left
+    private bool IsGoFallLeft()
+    {
+        bool res = false;
+
+        BlockNode leftNode = m_Block.GetNearNode(BlockNearPos.Left);
+        if (leftNode != null)
+        {
+            res = leftNode.CanLeftMoveTo();
+        }
+
+        return res;
+    }
+
+    //is go fall right
+    private bool IsGoFallRight()
+    {
+        bool res = false;
+
+        BlockNode rightNode = m_Block.GetNearNode(BlockNearPos.Right);
+        if (rightNode != null)
+        {
+            res = rightNode.CanRightMoveTo();
+        }
+
+        return res;
+    }
 
     //-------------------
     //basic method
@@ -141,6 +198,18 @@ public  abstract class IBlockFallController
         {
             m_NowFallStrategyID = 0;
         }
+    }
+
+    private bool CanFall()
+    {
+        bool res = false;
+
+        if (m_Block != null)
+        {
+            res = m_Block.IsGoFall(m_FallStrategys[m_NowFallStrategyID].Direction);
+        }
+
+        return res;
     }
 
     private void StartFall()

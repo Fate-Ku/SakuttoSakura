@@ -63,42 +63,93 @@ public class BlockNode
         m_Controller.EndRise(m_ID);
     }
 
-    public void StartFall()
+    public void StartFall(FallDirection direction)
     {
-        m_Controller.StartFall(m_ID);
+        m_Controller.StartFall(m_ID, direction);
     }
 
     //-------------------
     //basic
     //-------------------
-    public bool IsEmpty()
+    public bool IsState(BlockNodeState state)
     {
-        return m_Block == null;
+        return m_State == state;
+    }
+
+    public bool IsMoving()
+    {
+        bool res = m_State == BlockNodeState.VerticalMoving ||
+                   m_State == BlockNodeState.HorizontalMoving;
+
+        return res;
     }
 
     public bool CanVerticalMoveTo()
     {
         bool res;
-        if (m_Block == null) 
+
+        switch (m_State)
         {
-            res = m_State == BlockNodeState.Empty ||
-                  m_State == BlockNodeState.VerticalMoving;
-        }
-        else
-        {
-            res = m_Block.IsStateType(BlockStateType.Fall) ||
-                  m_Block.IsStateType(BlockStateType.Rise);
+            case BlockNodeState.HorizontalMoving:
+                res = false;
+                break;
+
+            case BlockNodeState.Occupied:
+                res = m_Block.IsFalling(FallDirection.Down) ||
+                      m_Block.IsStateType(BlockStateType.Rise);
+                break;
+
+            default:
+                res = true;
+                break;
         }
        
         return res;
     }
 
 
-public bool CanHorizontalMoveTo()
+    public bool CanLeftMoveTo()
     {
-        bool res =
-            (m_State == BlockNodeState.Empty ||
-             m_State == BlockNodeState.HorizontalMoving);
+        bool res;
+
+        switch (m_State)
+        {
+            case BlockNodeState.VerticalMoving:
+                res = false;
+                break;
+
+            case BlockNodeState.Occupied:
+                res = m_Block.IsFalling(FallDirection.Left);
+                break;
+
+            default:
+                res = true;
+                break;
+        }
+        
+        return res;
+    }
+
+    public bool CanRightMoveTo()
+    {
+        bool res;
+
+
+        switch (m_State)
+        {
+            case BlockNodeState.VerticalMoving:
+                res = false;
+                break;
+
+            case BlockNodeState.Occupied:
+                res = m_Block.IsFalling(FallDirection.Right);
+                break;
+
+            default:
+                res = true;
+                break;
+        }
+
         return res;
     }
 

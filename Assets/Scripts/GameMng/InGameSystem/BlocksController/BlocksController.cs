@@ -16,7 +16,6 @@
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -178,7 +177,7 @@ public class BlocksController
             for (int j = 0; j < m_RowNum; ++j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
-                if (!blockNode.IsEmpty())
+                if (blockNode.IsState(BlockNodeState.Occupied))
                 {
                     if (!blockNode.Block.IsStateType(BlockStateType.Idle))
                     {
@@ -249,7 +248,15 @@ public class BlocksController
             Vector2Int upperID = new(col, i);
             if (IsNodeEmpty(upperID))
             {
-                res = true;
+                if (i < m_RowNum - 1)
+                {
+                    res = true;
+                }
+                else
+                {
+                    res = !GetNode(upperID).IsMoving();
+                }
+
                 break;
             }
             else
@@ -274,7 +281,7 @@ public class BlocksController
         BlockNode belowBlockNode = GetNode(nowID);
         if (belowBlockNode != null)
         {
-            if (belowBlockNode.IsEmpty())
+            if (!belowBlockNode.IsState(BlockNodeState.Occupied))
             {
                 belowBlockNode.State = BlockNodeState.VerticalMoving;
             }
@@ -288,7 +295,7 @@ public class BlocksController
         BlockNode belowBlockNode = GetNode(belowID);
         if (belowBlockNode != null)
         {
-            if (belowBlockNode.IsEmpty())
+            if (!belowBlockNode.IsState(BlockNodeState.Occupied))
             {
                 belowBlockNode.State = BlockNodeState.Empty;
             }
@@ -334,15 +341,62 @@ public class BlocksController
     }
 
     //id = start id
-    public void StartFall(Vector2Int id)
+    public void StartFall(Vector2Int id, FallDirection direction)
+    {
+        switch (direction)
+        {
+            case FallDirection.Down:
+                StartFallDown(id);
+                break;
+
+            case FallDirection.Left:
+                StartFallLeft(id);
+                break;
+
+            case FallDirection.Right:
+                StartFallRight(id);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void StartFallDown(Vector2Int id)
     {
         Vector2Int belowID = id + new Vector2Int(0, -1);
         BlockNode belowBlockNode = GetNode(belowID);
         if (belowBlockNode != null)
         {
-            if (belowBlockNode.IsEmpty())
+            if (!belowBlockNode.IsState(BlockNodeState.Occupied))
             {
                 belowBlockNode.State = BlockNodeState.VerticalMoving;
+            }
+        }
+    }
+
+    private void StartFallLeft(Vector2Int id)
+    {
+        Vector2Int leftID = id + new Vector2Int(-1, 0);
+        BlockNode leftBlockNode = GetNode(leftID);
+        if (leftBlockNode != null)
+        {
+            if (!leftBlockNode.IsState(BlockNodeState.Occupied))
+            {
+                leftBlockNode.State = BlockNodeState.HorizontalMoving;
+            }
+        }
+    }
+
+    private void StartFallRight(Vector2Int id)
+    {
+        Vector2Int rightID = id + new Vector2Int(-1, 0);
+        BlockNode rightBlockNode = GetNode(rightID);
+        if (rightBlockNode != null)
+        {
+            if (!rightBlockNode.IsState(BlockNodeState.Occupied))
+            {
+                rightBlockNode.State = BlockNodeState.HorizontalMoving;
             }
         }
     }
@@ -368,7 +422,7 @@ public class BlocksController
         BlockNode blockNode = GetNode(id);
         if (blockNode != null) 
         {
-            res = blockNode.IsEmpty();
+            res = !blockNode.IsState(BlockNodeState.Occupied);
         }
 
         return res;

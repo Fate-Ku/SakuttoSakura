@@ -4,10 +4,11 @@
 // 2026/06/18 Created By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
+// 2026/06/24 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
+
 
 public class IFallStrategy
 {
@@ -35,13 +36,10 @@ public class IFallStrategy
         m_Speed = speed;
     }
 
-    public virtual bool CanFall(IBlock block)
-    {
-        return false;
-    }
 
     public void StartFall(IBlock block) 
     {
+        block.StartFall(m_Direction);
         SetTargetPos(block);
     }
 
