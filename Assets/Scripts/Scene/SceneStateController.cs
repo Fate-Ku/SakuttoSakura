@@ -70,6 +70,24 @@ public class SceneStateController
         {
             return;
         }
+
+        if (loadSceneName == "InGameScene")
+        {
+            GameObject gameTestOb = GameObject.Find("GameTest");
+            if (gameTestOb != null) 
+            {
+                GameTest gameTest = gameTestOb.GetComponent<GameTest>();
+                if (gameTest != null) 
+                {
+                    int id = gameTest.inGamePatternID;
+                    if (id != 0)
+                    {
+                        loadSceneName += (" " + id.ToString());
+                    }
+                }
+            }
+        }
+
         m_AsyncOp = SceneManager.LoadSceneAsync(loadSceneName);
     }
 

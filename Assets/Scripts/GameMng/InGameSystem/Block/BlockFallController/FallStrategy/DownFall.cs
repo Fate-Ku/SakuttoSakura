@@ -25,18 +25,18 @@ public class DownFall : IFallStrategy
         //test
         block.blockTest.fallTargetY = targetY;
 
-       //check under
-       BlockNode underBlockNode = block.GetNearNode(BlockNearPos.Below);
-        if (underBlockNode != null)
+        //check below
+        BlockNode belowBlockNode = block.GetNearNode(BlockNearPos.Below);
+        if (belowBlockNode != null)
         {
-            if (underBlockNode.IsState(BlockNodeState.Occupied))
+            if (belowBlockNode.IsState(BlockNodeState.Occupied))
             {
-                IBlock underBlock = underBlockNode.Block;
+                IBlock belowBlock = belowBlockNode.Block;
                 //check is under rising
-                if (underBlock.IsStateType(BlockStateType.Rise))
+                if (belowBlock.IsStateType(BlockStateType.Rise))
                 {
                     //if under rising
-                    float riseBlockY = underBlock.Pos.y;
+                    float riseBlockY = belowBlock.Pos.y;
                     if (newY - riseBlockY < block.Size)
                     {
                         //if collision
@@ -52,19 +52,19 @@ public class DownFall : IFallStrategy
                     }
                 }
                 //check is collision to falling down under
-                if (underBlock.IsStateType(BlockStateType.Fall))
+                if (belowBlock.IsStateType(BlockStateType.Fall))
                 {
-                    if (underBlock.IsFalling(FallDirection.Down))
+                    if (belowBlock.IsFalling(FallDirection.Down))
                     {
-                        if (underBlock.GetFallSpeed() < m_Speed)
+                        //if under falling down
+                        if (belowBlock.GetFallSpeed() < m_Speed)
                         {
-                            //if under fallind down
-                            float fallBlockY = underBlock.Pos.y;
+                            float fallBlockY = belowBlock.Pos.y;
                             if (newY - fallBlockY < block.Size)
                             {
                                 Debug.Log("test: together start");
                                 //set together down that speed as under
-                                float speed = underBlock.GetFallSpeed();
+                                float speed = belowBlock.GetFallSpeed();
                                 block.SetFallController(
                                     new TogetherDownFallController(block, speed, controller.BasicSpeed, m_TargetPos));
 

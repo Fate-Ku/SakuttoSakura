@@ -3,6 +3,7 @@
 // 
 // 2026/06/14 Created By Fate Ku
 // 2026/06/23 Updated By Fate Ku
+// 2026/06/24 Updated By Man-Yi, Yeh
 // 
 
 using TMPro;

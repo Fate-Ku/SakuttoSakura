@@ -292,21 +292,26 @@ public class InGameSystem : IGameSystem
         {
             float size = GameInfo.GetSize();
 
-            if ((int)type >= 0 && (int)type < 7)
+            switch (type)
             {
-                res = new FlowerBlock(blockOb, type, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
-            }
-            else if (type == BlockType.SoftRock)
-            {
-                res = new SoftRockBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
-            }
-            else if (type == BlockType.HardRock)
-            {
-                res = new HardRockBlock(this, blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
-            }
-            else if (type == BlockType.TimeItem)
-            {
-                res = new TimeItemBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                case BlockType.None:
+                    break;
+
+                case BlockType.SoftRock:
+                    res = new SoftRockBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    break;
+
+                case BlockType.HardRock:
+                    res = new HardRockBlock(this, blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    break;
+
+                case BlockType.TimeItem:
+                    res = new TimeItemBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    break;
+
+                default:
+                    res = new FlowerBlock(blockOb, type, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    break;
             }
         }
         else
@@ -322,7 +327,8 @@ public class InGameSystem : IGameSystem
         IBlock block;
         BlockType type;
 
-        int pattern = Random.Range(0, 10);
+        
+        int pattern = Random.Range(0, 16);
         if (pattern == 0)
         {
             type = BlockType.TimeItem;
@@ -343,6 +349,19 @@ public class InGameSystem : IGameSystem
             type = (BlockType)id;
             
         }
+        
+        /*
+        int pattern = Random.Range(0, 2);
+        if (pattern == 0)
+        {
+            type = BlockType.Tsubaki;
+            Debug.Log("type of next block " + BlockType.TimeItem.ToString());
+        }
+        else
+        {
+            type = BlockType.Sakura;
+        }
+        */
 
         block = CreateBlock(type);
         Debug.Log("type of next block " + type.ToString());

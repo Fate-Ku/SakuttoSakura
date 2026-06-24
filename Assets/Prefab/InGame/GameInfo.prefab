@@ -119,13 +119,13 @@ MonoBehaviour:
   - {fileID: 4979907602891628705, guid: 4378b8a5a23be074d9e55c536d0681d7, type: 3}
   - {fileID: 1651042190426343695, guid: 079a7631a5aa7ee40ae25474558eaaf6, type: 3}
   blocksFallSpeed:
-  - 25
+  - 2
   - 2.5
   - 2.5
   - 2.5
   - 2.5
   - 2.5
-  - 2.5
+  - 1
   - 1.5
   - 1.5
   - 1.5

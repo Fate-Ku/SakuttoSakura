@@ -10970,6 +10970,30 @@ PrefabInstance:
       propertyPath: testInGameStateText
       value: 
       objectReference: {fileID: 311929540}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[0]'
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[3]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[6]'
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[7]'
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[8]'
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[9]'
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1188506851340322029, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: m_Name
       value: GameInfo

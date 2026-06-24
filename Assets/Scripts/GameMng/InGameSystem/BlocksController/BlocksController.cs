@@ -14,6 +14,7 @@
 // 2026/06/18 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
+// 2026/06/24 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -250,7 +251,7 @@ public class BlocksController
             {
                 if (i < m_RowNum - 1)
                 {
-                    res = true;
+                    res = GetNode(upperID).CanVerticalMoveTo();
                 }
                 else
                 {
@@ -327,14 +328,7 @@ public class BlocksController
         Vector2Int underID = new(col, m_RowNum - 1);
         if (IsNodeEmpty(id))
         {
-            if (IsNodeEmpty(underID))
-            {
-                res = true;
-            }
-            else
-            {
-                res = GetNode(underID).Block.IsFalling(FallDirection.Down);
-            }
+            res = GetNode(underID).CanVerticalMoveTo();
         }
 
         return res;

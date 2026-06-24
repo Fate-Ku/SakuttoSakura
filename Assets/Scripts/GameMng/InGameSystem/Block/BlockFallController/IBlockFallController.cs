@@ -49,11 +49,9 @@ public  abstract class IBlockFallController
         set { m_GoNextFall = value; }
     }
 
-    public IBlockFallController(IBlock block, float speed)
+    public IBlockFallController(IBlock block)
     {
         m_Block = block;
-        m_FallStrategys.Add(new DownFall(speed));
-        m_BasicSpeed = speed;
     }
 
     //fall init
@@ -73,19 +71,18 @@ public  abstract class IBlockFallController
         //check go next
         if (m_GoNextFall)
         {
-            //set next ID
-            GoNextFallID();
-            //check can fall
-            if (CanFall())
+            
+            //check can next fall
+            if (CanNextFall())
             {
-                //if can fall
-                //start
+                //if can
+                //start fall
                 StartFall();
             }
             else
             {
-                //if can't fall
-                //end
+                //if can't
+                //end fall
                 EndFall();
             }
         }
@@ -191,25 +188,13 @@ public  abstract class IBlockFallController
     //-------------------
     //basic method
     //-------------------
-    private void GoNextFallID()
+    protected void GoNextFallID()
     {
         m_NowFallStrategyID += 1;
         if (m_NowFallStrategyID >= m_FallStrategys.Count)
         {
             m_NowFallStrategyID = 0;
         }
-    }
-
-    private bool CanFall()
-    {
-        bool res = false;
-
-        if (m_Block != null)
-        {
-            res = m_Block.IsGoFall(m_FallStrategys[m_NowFallStrategyID].Direction);
-        }
-
-        return res;
     }
 
     private void StartFall()
@@ -227,6 +212,12 @@ public  abstract class IBlockFallController
     //-------------------
     //method of update
     //-------------------
+    protected virtual bool CanNextFall()
+    {
+        bool res = false;
+        return res;
+    }
+
     public virtual void ResetlFallController() { }
 
 }
