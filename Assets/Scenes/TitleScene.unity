@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129f25c22eb30254db076c3f5058989e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTest
-  inGamePatternID: 0
+  inGamePatternID: 1
 --- !u!4 &1269920314
 Transform:
   m_ObjectHideFlags: 0

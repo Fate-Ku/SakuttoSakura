@@ -82,7 +82,7 @@ public class SceneStateController
                     int id = gameTest.inGamePatternID;
                     if (id != 0)
                     {
-                        loadSceneName += id.ToString();
+                        loadSceneName += (" " + id.ToString());
                     }
                 }
             }

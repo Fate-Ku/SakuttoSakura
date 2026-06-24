@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class GameTest : MonoBehaviour
 {
-    [Range(0, 2)] public int inGamePatternID;
+    [Range(0, 3)] public int inGamePatternID;
 
     private void Awake()
     {
