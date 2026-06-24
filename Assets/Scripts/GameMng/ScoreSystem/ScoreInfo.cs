@@ -17,10 +17,11 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField]private Slider TimeSlider;
     [SerializeField] private TextMeshProUGUI TimeText;
 
-    [Header("Show Score")]
+    [Header("Show Score/Combo")]
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI SakuraText;
     [SerializeField] private TextMeshProUGUI ComboText;
+    [SerializeField] private TextMeshPro MoveableComboText;
 
     [Header("Base Score")]
     [SerializeField] private int TsubakiScore;
@@ -41,7 +42,7 @@ public class ScoreInfo : MonoBehaviour
 
     [Header("Combo Bonus")]
     [SerializeField] private int CanComboTime;
-    [SerializeField] private int ShowComboTime;
+    //[SerializeField] private int ShowComboTime;
     [SerializeField] private int ComboBase;//base combo
     [SerializeField] private int ComboBaseBonus;//bonus
 
@@ -63,6 +64,11 @@ public class ScoreInfo : MonoBehaviour
     public TextMeshProUGUI GetComboText()
     {
         return ComboText;
+    }
+
+    public TextMeshPro GetMoveableComboText()
+    {
+        return MoveableComboText;
     }
 
     public int GetTsubakiScore()
@@ -138,10 +144,10 @@ public class ScoreInfo : MonoBehaviour
         return CanComboTime;
     }
 
-    public int GetShowComboTime()
-    {
-        return ShowComboTime;
-    }
+    //public int GetShowComboTime()
+    //{
+    //    return ShowComboTime;
+    //}
 
     public int GetComboBaseBonus()
     {

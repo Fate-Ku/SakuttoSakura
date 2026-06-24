@@ -32,7 +32,7 @@ public class ScorePhase : Phase
         {
             m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
         }
-        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText(),m_ScoreInfo.GetComboText());
+        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText(),m_ScoreInfo.GetComboText(), m_ScoreInfo.GetMoveableComboText());
         m_ScoreUI.Init();
 
     }

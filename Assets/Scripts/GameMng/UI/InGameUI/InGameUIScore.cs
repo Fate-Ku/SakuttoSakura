@@ -5,21 +5,31 @@
 // 2026/06/23 Updated By Fate Ku
 // 
 
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class InGameUIScore
 {
     private TextMeshProUGUI m_ScoreText;
     private TextMeshProUGUI m_ComboText;
-    public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText)
+    private TextMeshPro m_moveableComboText;
+    public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText, TextMeshPro moveableComboText)
     {
         m_ScoreText = scoreText;
         m_ComboText = comboText;
+        m_moveableComboText = moveableComboText;
     }
+
+    public float showComboTime;
+    private Vector3 comboStartPos;
+    private bool isComboShowing = false;
+    private int lastCombo = 0;
 
     public void Init()
     {
+        showComboTime = 0;
+
         if (m_ScoreText != null)
         {
             int score = GameMng.Instance.GetScore();
@@ -37,10 +47,64 @@ public class InGameUIScore
             m_ScoreText.text = "Score : " + score.ToString();
             Debug.Log("Score : " + score.ToString());
 
+            // combo
             int combo = GameMng.Instance.GetTotalCombo();
             m_ComboText.text = combo.ToString() + " Combo";
+
+            // moveable Combo (position will move)
+            if (combo == 0)
+            {
+                m_moveableComboText.gameObject.SetActive(false);
+                isComboShowing = false;
+                lastCombo = 0;
+                return;
+            }
+
+            if (combo != lastCombo)
+            {
+                lastCombo = combo;
+
+                isComboShowing = true;
+                showComboTime = 0;
+
+                Vector2 comboPos = GameMng.Instance.LastDestroyPos;
+                comboStartPos = new Vector3(comboPos.x, comboPos.y, -1f);
+
+                m_moveableComboText.gameObject.SetActive(true);
+                m_moveableComboText.color = Color.red;
+                m_moveableComboText.text = combo.ToString() + " Combo";
+
+                m_moveableComboText.transform.position = comboStartPos;
+
+            }
+
+            if (isComboShowing)
+            {
+                // animation（1.5s）
+                showComboTime += Time.deltaTime;
+
+                float t = showComboTime / 1.5f; // 0 → 1
+
+                // go up 1.5f
+                m_moveableComboText.transform.position =
+                    comboStartPos + new Vector3(0, t * 1.5f, 0);
+
+                // fade out
+                Color c = m_moveableComboText.color;
+                c.a = 1f - t;
+                m_moveableComboText.color = c;
+
+                // vanish
+                if (showComboTime >= 1.5f)
+                {
+                    m_moveableComboText.gameObject.SetActive(false);
+                    isComboShowing = false;
+                }
+
+            }
+
         }
-        Debug.Log("InGameUIScore Update");
+        //Debug.Log("InGameUIScore Update");
     }
 
     public void Term()

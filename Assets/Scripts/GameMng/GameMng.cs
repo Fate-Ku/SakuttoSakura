@@ -10,6 +10,7 @@
 // 2026/06/11 Updated By Man-Yi, Yeh
 // 2026/06/15 Updated By Fate Ku
 // 2026/06/16 Updated By Man-Yi, Yeh
+// 2026/06/24 Updated By Fate Ku
 // 
 
 using System;
@@ -57,6 +58,12 @@ public class GameMng
         get { return m_NextSceneName; }
         set { m_NextSceneName = value; }
     }
+
+    // 2026/06/24 Updated By Fate Ku
+    // record combo position
+    private Vector2 m_LastDestroyPos;
+    public Vector2 LastDestroyPos => m_LastDestroyPos;
+    // 2026/06/24 Updated By Fate Ku
 
     //phase
     private Phase m_NowPhase;
@@ -286,17 +293,30 @@ public class GameMng
     //-------------------
     //combo
     //-------------------
-    public int GetTotalCombo()
+    public int GetTotalCombo() //now
     {
         int res = 0;
 
         if (m_InGameSystem != null)
         {
-            res = m_ScoreSystem.GetCombo();
+            res = m_ScoreSystem.GetNowCombo();
         }
         return res;
 
     }
+    //max bombo
+    public int GetMaxCombo()
+    {
+        int res = 0;
+
+        if (m_InGameSystem != null)
+        {
+            res = m_ScoreSystem.GetMaxCombo();
+        }
+        return res;
+
+    }
+
 
     //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------
@@ -350,6 +370,9 @@ public class GameMng
     public void RecordCombineDestroyInfo(BlockType type, int num, Vector2 pos)
     {
         Debug.Log("record combine destroy info: " + type.ToString() + " " + num);
+
+        m_LastDestroyPos = pos;
+
         m_ScoreSystem?.SetDestroyInfo(type, num);
     }
 

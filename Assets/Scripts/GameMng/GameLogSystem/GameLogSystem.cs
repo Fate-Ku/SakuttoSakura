@@ -4,6 +4,7 @@
 // 2026/06/09 Created By Man-Yi, Yeh
 // 2026/06/11 Added By Fate Ku 
 // 2026/06/14 Added By Fate Ku 
+// 2026/06/24 Added By Fate Ku 
 //
 
 using System.Collections.Generic;
@@ -40,7 +41,8 @@ public class GameLogSystem : IGameSystem
 
     public override void Update()
     {
-        //RecordHighScore(inGameScore);
+        m_highScore = GameMng.Instance.GetScore();
+        m_MaxCombo = GameMng.Instance.GetMaxCombo();
     }
 
     public override void Term()
@@ -61,34 +63,6 @@ public class GameLogSystem : IGameSystem
         ++m_DestroyCount[type];
 
         ShowQtyByBlockType();
-    }
-
-    public void RecordCombo(int combo)
-    {
-        if (combo > m_MaxCombo)
-        {
-            m_MaxCombo = combo;
-            Debug.Log($"[GameLog] New Max Combo = {m_MaxCombo}");
-        }
-    }
-
-    public int GetMaxCombo()
-    {
-        return m_MaxCombo;
-    }
-
-    public void RecordHighScore(int score)
-    {
-        if (score > m_highScore)
-        {
-            m_highScore = score;
-            Debug.Log($"[GameLog] New High Score = {m_highScore}");
-        }
-    }
-
-    public int GetHighScore()
-    {
-        return m_highScore;
     }
 
 

@@ -117,9 +117,14 @@ public class ScoreSystem : IGameSystem
         return TotalScore;
     }
 
-    public int GetCombo()
+    public int GetNowCombo()
     {
         return TotalCombo;
+    }
+
+    public int GetMaxCombo()
+    {
+        return MaxCombo;
     }
 
 
