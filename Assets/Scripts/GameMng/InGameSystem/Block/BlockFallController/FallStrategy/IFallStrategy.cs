@@ -41,6 +41,11 @@ public class IFallStrategy
     {
         block.StartFall(m_Direction);
         SetTargetPos(block);
+
+        //test
+        block.blockTest.direction = m_Direction;
+
+
     }
 
     public virtual void UpdateFall(IBlock block, IBlockFallController controller) { }

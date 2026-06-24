@@ -327,14 +327,7 @@ public class BlocksController
         Vector2Int underID = new(col, m_RowNum - 1);
         if (IsNodeEmpty(id))
         {
-            if (IsNodeEmpty(underID))
-            {
-                res = true;
-            }
-            else
-            {
-                res = GetNode(underID).Block.IsFalling(FallDirection.Down);
-            }
+            res = GetNode(underID).CanVerticalMoveTo();
         }
 
         return res;

@@ -4,6 +4,7 @@
 // 2026/05/19 Created By Man-Yi, Yeh
 // 2026/05/21 Updated By Man-Yi, Yeh 
 // 2026/06/03 Updated By Man-Yi, Yeh 
+// 2026/06/24 Updated By Man-Yi, Yeh 
 //
 
 using UnityEngine;
@@ -16,7 +17,7 @@ public class GameLoop : MonoBehaviour
     private void Awake()
     {
         //don't destroy
-        GameObject.DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
