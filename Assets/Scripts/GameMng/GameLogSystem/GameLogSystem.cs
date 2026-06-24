@@ -18,7 +18,6 @@ public class GameLogSystem : IGameSystem
     private int m_MaxCombo;
     // record high score
     private int m_highScore;
-    //int inGameScore = GameMng.Instance.GetScore();
 
     public GameLogSystem(GameMng gameMng)
         : base(gameMng)

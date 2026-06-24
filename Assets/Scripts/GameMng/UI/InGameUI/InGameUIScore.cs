@@ -9,7 +9,6 @@
 using TMPro;
 using UnityEngine;
 
-
 public class InGameUIScore
 {
     private TextMeshProUGUI m_ScoreText;

@@ -376,5 +376,12 @@ public class GameMng
         m_ScoreSystem?.SetDestroyInfo(type, num);
     }
 
+    //2026/06/24 Updated By Fate Ku
+    //-------------------
+    //game state
+    //-------------------
+
+
+
 
 }
