@@ -1,59 +1,59 @@
 //
-// LeftFall.cs
+// RightFall.cs
 // 
 // 2026/06/24 Created By Man-Yi, Yeh
 // 
 
 using UnityEngine;
 
-public class LeftFall : IFallStrategy
+public class RightFall : IFallStrategy
 {
-    public LeftFall(float speed) 
-        : base(FallDirection.Left, speed)
+    public RightFall(float speed) 
+        : base(FallDirection.Right, speed)
     {
     }
 
     public override void UpdateFall(IBlock block, IBlockFallController controller)
     {
         float moveX = m_Speed * Time.deltaTime;
-        float newX = block.Pos.x - moveX;
+        float newX = block.Pos.x + moveX;
         float targetX = m_TargetPos.x;
         //test
         block.blockTest.fallTargetX = targetX;
 
-        //check left
-        BlockNode leftBlockNode = block.GetNearNode(BlockNearPos.Left);
-        if (leftBlockNode != null)
+        //check right
+        BlockNode rightBlockNode = block.GetNearNode(BlockNearPos.Right);
+        if (rightBlockNode != null)
         {
-            if (leftBlockNode.IsState(BlockNodeState.Occupied))
+            if (rightBlockNode.IsState(BlockNodeState.Occupied))
             {
-                IBlock leftBlock = leftBlockNode.Block;
+                IBlock rightBlock = rightBlockNode.Block;
                 //check is collision to falling down under
-                if (leftBlock.IsStateType(BlockStateType.Fall))
+                if (rightBlock.IsStateType(BlockStateType.Fall))
                 {
-                    if (leftBlock.IsFalling(FallDirection.Left))
+                    if (rightBlock.IsFalling(FallDirection.Right))
                     {
-                        //if under falling down
-                        if (leftBlock.GetFallSpeed() < m_Speed)
+                        //if right falling right
+                        if (rightBlock.GetFallSpeed() < m_Speed)
                         {
-                            float fallBlockX = leftBlock.Pos.x;
-                            if (newX - fallBlockX < block.Size)
+                            float fallBlockX = rightBlock.Pos.x;
+                            if (fallBlockX - newX < block.Size)
                             {
                                 Debug.Log("test: together start");
-                                //set together left that speed as under
-                                float speed = leftBlock.GetFallSpeed();
+                                //set together right that speed as under
+                                float speed = rightBlock.GetFallSpeed();
                                 block.SetFallController(
-                                    new TogetherLeftFallController(block, speed, controller.BasicSpeed, m_TargetPos));
+                                    new TogetherRightFallController(block, speed, controller.BasicSpeed, m_TargetPos));
 
                                 //move
-                                newX = fallBlockX + block.Size;
+                                newX = fallBlockX - block.Size;
                                 block.SetPos(new Vector2(newX, block.Pos.y));
 
                                 return;
                             }
                         }
                     }
-                    else if (leftBlock.IsFalling(FallDirection.Right))
+                    else if (rightBlock.IsFalling(FallDirection.Left))
                     {
 
                     }
@@ -62,11 +62,11 @@ public class LeftFall : IFallStrategy
         }
 
         //check arrive
-        if (newX <= targetX)
+        if (newX >= targetX)
         {
             //if arrive
             //finish fall
-            block.GoNearNode(BlockNearPos.Left);
+            block.GoNearNode(BlockNearPos.Right);
 
             //move to targetY
             block.SetPos(new Vector2(targetX, block.Pos.y));
@@ -84,7 +84,7 @@ public class LeftFall : IFallStrategy
     protected override void SetTargetPos(IBlock block)
     {
         //set target pos as left node's pos
-        Vector2 pos = block.GetNearNode(BlockNearPos.Left).Pos;
+        Vector2 pos = block.GetNearNode(BlockNearPos.Right).Pos;
         m_TargetPos = pos;
     }
 }

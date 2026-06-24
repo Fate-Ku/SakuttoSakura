@@ -56,9 +56,9 @@ public class DownFall : IFallStrategy
                 {
                     if (belowBlock.IsFalling(FallDirection.Down))
                     {
+                        //if under falling down
                         if (belowBlock.GetFallSpeed() < m_Speed)
                         {
-                            //if under fallind down
                             float fallBlockY = belowBlock.Pos.y;
                             if (newY - fallBlockY < block.Size)
                             {

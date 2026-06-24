@@ -17,11 +17,17 @@ public class FlowerBlock : IBlock
         bool isCreate = false) 
         : base(block, type, size, isCreate)
     {
-        m_FallController = new NormalFallController(this, speed);
+        m_FallController = type switch
+        {
+            BlockType.Clover => new CloverFallController(this, speed),
+            BlockType.Sakura => new SakuraFallController(this, speed),
+            _ => new NormalFallController(this, speed),
+        };
 
         m_CombineStartegy = new FlowerCombine();
         m_DestroyStrategy = new NormalDestroy();
         m_NearCombineStrategy = new NormalNearCombine();
     }
+
 
 }

@@ -297,10 +297,6 @@ public class InGameSystem : IGameSystem
                 case BlockType.None:
                     break;
 
-                case BlockType.Sakura:
-                    res = new SakuraBlock(blockOb, type, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
-                    break;
-
                 case BlockType.SoftRock:
                     res = new SoftRockBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
                     break;
@@ -331,8 +327,8 @@ public class InGameSystem : IGameSystem
         IBlock block;
         BlockType type;
 
-        /*
-        int pattern = Random.Range(0, 10);
+        
+        int pattern = Random.Range(0, 16);
         if (pattern == 0)
         {
             type = BlockType.TimeItem;
@@ -353,8 +349,8 @@ public class InGameSystem : IGameSystem
             type = (BlockType)id;
             
         }
-        */
-
+        
+        /*
         int pattern = Random.Range(0, 2);
         if (pattern == 0)
         {
@@ -365,7 +361,7 @@ public class InGameSystem : IGameSystem
         {
             type = BlockType.Sakura;
         }
-
+        */
 
         block = CreateBlock(type);
         Debug.Log("type of next block " + type.ToString());
