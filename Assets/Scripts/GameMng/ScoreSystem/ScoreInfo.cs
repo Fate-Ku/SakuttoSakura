@@ -4,6 +4,7 @@
 // 2026/06/11 Created By Fate Ku 
 // 2026/06/14 Added By Fate Ku 
 // 2026/06/23 Added By Fate Ku 
+// 2026/06/24 Added By Fate Ku 
 // 
 
 using TMPro;
@@ -22,6 +23,10 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SakuraText;
     [SerializeField] private TextMeshProUGUI ComboText;
     [SerializeField] private TextMeshPro MoveableComboText;
+
+    [Header("Show Game State")]
+    [SerializeField] private TextMeshPro InGameStateText;
+
 
     [Header("Base Score")]
     [SerializeField] private int TsubakiScore;
@@ -74,6 +79,11 @@ public class ScoreInfo : MonoBehaviour
     public TextMeshProUGUI GetSakuraText()
     {
         return SakuraText;
+    }
+
+    public TextMeshPro GetInGameStateText()
+    {
+        return InGameStateText;
     }
 
     public int GetTsubakiScore()
