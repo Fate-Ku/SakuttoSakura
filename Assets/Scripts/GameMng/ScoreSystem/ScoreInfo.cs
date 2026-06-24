@@ -71,6 +71,11 @@ public class ScoreInfo : MonoBehaviour
         return MoveableComboText;
     }
 
+    public TextMeshProUGUI GetSakuraText()
+    {
+        return SakuraText;
+    }
+
     public int GetTsubakiScore()
     {
         return TsubakiScore;

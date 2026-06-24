@@ -14,11 +14,15 @@ public class InGameUIScore
     private TextMeshProUGUI m_ScoreText;
     private TextMeshProUGUI m_ComboText;
     private TextMeshPro m_moveableComboText;
-    public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText, TextMeshPro moveableComboText)
+    private TextMeshProUGUI m_SakuraText;
+
+    public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText
+        , TextMeshPro moveableComboText, TextMeshProUGUI sakuraText)
     {
         m_ScoreText = scoreText;
         m_ComboText = comboText;
         m_moveableComboText = moveableComboText;
+        m_SakuraText = sakuraText;
     }
 
     public float showComboTime;
@@ -30,12 +34,24 @@ public class InGameUIScore
     {
         showComboTime = 0;
 
+        // use in score scene
         if (m_ScoreText != null)
         {
             int score = GameMng.Instance.GetScore();
             m_ScoreText.text = "Score : " + score.ToString();
-            Debug.Log("Score : " + score.ToString());
-            Debug.Log("InGameUIScore Init");
+
+            int maxCombo = GameMng.Instance.GetMaxCombo();
+            m_ComboText.text = "Max Combo : " + maxCombo.ToString();
+
+            if (m_SakuraText != null)
+            {
+                int sakuraQty = GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura);
+                m_SakuraText.text = "Get " + sakuraQty.ToString() + " Sakura";
+
+            }
+
+            //Debug.Log("Score : " + score.ToString());
+            //Debug.Log("InGameUIScore Init");
         }
     }
 
