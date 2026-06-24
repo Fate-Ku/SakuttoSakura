@@ -2,6 +2,7 @@
 // InGameUIBackground.cs
 // 
 // 2026/06/06 Created By Fate Ku
+// 2026/06/24 Created By Fate Ku
 //
 
 using UnityEngine;
@@ -62,10 +63,10 @@ public class InGameUIBackground
         {
             for (int c = 0; c < col; c++)
             {
-                // caculate pos（go right +scale，go down -scale）
+                // caculate pos（go right +scale，go up +scale）
                 Vector3 pos = new Vector3(
                     startPos.x + r * scale,
-                    startPos.y - c * scale,
+                    startPos.y + c * scale,
                     5
                 );
 

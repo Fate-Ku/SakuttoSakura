@@ -3,6 +3,7 @@
 // 
 // 2026/05/31 Created By Fate Ku
 // 2026/06/02 Updated By Fate Ku
+// 2026/06/24 Updated By Fate Ku
 //
 using UnityEngine;
 public class InGameUIButton
@@ -71,7 +72,8 @@ public class InGameUIButton
 
         float offsetY = scale * 0.5f; //top
 
-        float startPosY = referPos.y + offsetY - (offsetY * col); // middle
+        //float startPosY = referPos.y + offsetY - (offsetY * col); // middle
+        float startPosY = referPos.y - offsetY + (offsetY * col); // middle
 
         // first Cube
         Vector3 pos = new Vector3(referPos.x, startPosY, 0);
