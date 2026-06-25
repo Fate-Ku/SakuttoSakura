@@ -10480,7 +10480,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: 0}
+  m_AnchoredPosition: {x: -49.999985, y: 0}
   m_SizeDelta: {x: 10745, y: 12902}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2088280347
@@ -10836,11 +10836,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: playTime
-      value: 60
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: blockTypeQty
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: testInGameStateText
@@ -10848,7 +10848,15 @@ PrefabInstance:
       objectReference: {fileID: 311929540}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: 'blocksFallSpeed.Array.data[3]'
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[4]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: 'blocksFallSpeed.Array.data[5]'
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: 'blocksFallSpeed.Array.data[6]'

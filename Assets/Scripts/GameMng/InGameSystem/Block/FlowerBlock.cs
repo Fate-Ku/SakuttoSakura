@@ -18,7 +18,12 @@ public class FlowerBlock : IBlock
     {
         m_FallController = type switch
         {
+            BlockType.Tsubaki => new TsubakiFallController(this, speed),
+            BlockType.Kaede => new KaedeFallController(this, speed),
+            BlockType.Himawari => new HimawariFallController(this, speed),
             BlockType.Clover => new CloverFallController(this, speed),
+            BlockType.Asagao => new AsagaoFallController(this, speed),
+            BlockType.Kikyou => new KikyouFallController(this, speed),
             BlockType.Sakura => new SakuraFallController(this, speed),
             _ => new NormalFallController(this, speed),
         };

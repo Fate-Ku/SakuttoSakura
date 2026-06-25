@@ -54,26 +54,6 @@ public class RightFall : IFallStrategy
                             }
                         }
                     }
-                    else if (rightBlock.IsFalling(FallDirection.Left))
-                    {
-                        float fallBlockX = rightBlock.Pos.x;
-                        if (fallBlockX - newX < block.Size)
-                        {
-                            Debug.Log("test: together start");
-                            //set together left that speed as right
-                            //back to node pos
-                            float speed = rightBlock.GetFallSpeed();
-                            Vector2 targetPos = block.BlockNode.Pos;
-                            block.SetFallController(
-                                new TogetherLeftFallController(block, speed, controller.BasicSpeed, targetPos));
-
-                            //move
-                            newX = fallBlockX - block.Size;
-                            block.SetPos(new Vector2(newX, block.Pos.y));
-
-                            return;
-                        }
-                    }
                 }
             }
         }

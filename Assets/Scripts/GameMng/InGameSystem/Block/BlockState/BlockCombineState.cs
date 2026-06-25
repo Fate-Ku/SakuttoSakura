@@ -22,13 +22,7 @@ public class BlockCombineState : IBlockState
 
     public override void StateBegin()
     {
-        //adjust size
-        Vector3 scale = m_Block.BlockOb.transform.localScale;
-        size = scale.x;
-        scale.x = 0.45f;
-        scale.y = 0.45f;
-
-        m_Block.BlockOb.transform.localScale = scale;
+        m_Block.SetAnimation("Idle", true);
 
         //test
         m_Block.blockTest.trigger = m_Trigger;
@@ -36,9 +30,7 @@ public class BlockCombineState : IBlockState
 
     public override void StateEnd()
     {
-        //adjust size
-        //Vector3 scale = m_Block.BlockOb.transform.localScale;
-        //m_Block.BlockOb.transform.localScale = new Vector3(size, size, scale.z);
+        m_Block.SetAnimation("Idle", false);
     }
 
     public override void BeCombinedCheck(IBlock nearBlock, CombineSetsController controller)

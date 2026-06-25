@@ -5,6 +5,7 @@
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -52,31 +53,29 @@ public class DownFall : IFallStrategy
                     }
                 }
                 //check is collision to falling down under
-                if (belowBlock.IsStateType(BlockStateType.Fall))
+                if (belowBlock.IsFalling(FallDirection.Down))
                 {
-                    if (belowBlock.IsFalling(FallDirection.Down))
+                    //if under falling down
+                    if (belowBlock.GetFallSpeed() < m_Speed)
                     {
-                        //if under falling down
-                        if (belowBlock.GetFallSpeed() < m_Speed)
+                        float fallBlockY = belowBlock.Pos.y;
+                        if (newY - fallBlockY < block.Size)
                         {
-                            float fallBlockY = belowBlock.Pos.y;
-                            if (newY - fallBlockY < block.Size)
-                            {
-                                Debug.Log("test: together start");
-                                //set together down that speed as under
-                                float speed = belowBlock.GetFallSpeed();
-                                block.SetFallController(
-                                    new TogetherDownFallController(block, speed, controller.BasicSpeed, m_TargetPos));
+                            Debug.Log("test: together start");
+                            //set together down that speed as under
+                            float speed = belowBlock.GetFallSpeed();
+                            block.SetFallController(
+                                new TogetherDownFallController(block, speed, controller.BasicSpeed, m_TargetPos));
 
-                                //move
-                                newY = fallBlockY + block.Size;
-                                block.SetPos(new Vector2(block.Pos.x, newY));
+                            //move
+                            newY = fallBlockY + block.Size;
+                            block.SetPos(new Vector2(block.Pos.x, newY));
 
-                                return;
-                            }
+                            return;
                         }
                     }
                 }
+                
             }
         }
 

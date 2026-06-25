@@ -12,12 +12,12 @@ public class CloverFallController : FlowerFallController
     public CloverFallController(IBlock block, float speed) 
         : base(block, speed)
     {
-        m_FallStrategys.Add(new LeftFall(speed));
-        m_FallStrategys.Add(new LeftFall(speed));
-        m_FallStrategys.Add(new LeftFall(speed));
-        m_FallStrategys.Add(new LeftFall(speed));
-        m_FallStrategys.Add(new LeftFall(speed));
-        m_FallStrategys.Add(new LeftFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
 
         //test
         block.blockTest.controllerName = "Clover";

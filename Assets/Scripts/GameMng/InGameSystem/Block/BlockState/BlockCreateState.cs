@@ -23,6 +23,7 @@ public class BlockCreateState : IBlockState
 
     public override void StateBegin()
     {
+        m_Block.FallController.ResetlFallController();
         m_Block.SetAnimation("Create", true);
     }
 
