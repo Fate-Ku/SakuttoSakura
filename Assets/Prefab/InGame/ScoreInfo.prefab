@@ -103,6 +103,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ad3ddc3d1ad9d4d81fd38f3f64d583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreInfo
+  TimeSlider: {fileID: 0}
+  TimeText: {fileID: 0}
+  ScoreText: {fileID: 0}
+  SakuraText: {fileID: 0}
+  ComboText: {fileID: 0}
+  MoveableComboText: {fileID: 0}
+  InGameStateText: {fileID: 0}
   TsubakiScore: 50
   KaedeScore: 100
   HimawariScore: 150
@@ -111,9 +118,11 @@ MonoBehaviour:
   KikyouScore: 300
   SakuraScore: 350
   Destory3Base: 1
-  Destory4Buff: 2
-  Destory5Buff: 3
-  Destory6Buff: 4
-  Destory7Buff: 5
-  Destory8Buff: 6
-  Combo3Base: 2
+  Destory4Bonus: 2
+  Destory5Bonus: 3
+  Destory6Bonus: 4
+  Destory7Bonus: 5
+  Destory8Bonus: 6
+  CanComboTime: 8
+  ComboBase: 3
+  ComboBaseBonus: 2
