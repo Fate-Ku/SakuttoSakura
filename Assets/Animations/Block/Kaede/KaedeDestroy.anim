@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KaedeDestroy
+  m_Name: kaedeDestroy
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -23,12 +23,14 @@ AnimationClip:
     - time: 0
       value: {fileID: 113212672, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     - time: 0.1
-      value: {fileID: -334488554, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
+      value: {fileID: 113212672, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     - time: 0.2
-      value: {fileID: 686654189, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
+      value: {fileID: -334488554, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     - time: 0.3
-      value: {fileID: -787532105, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
+      value: {fileID: 686654189, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     - time: 0.4
+      value: {fileID: -787532105, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
+    - time: 0.5
       value: {fileID: -279121531, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     attribute: m_Sprite
     path: 
@@ -53,6 +55,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 113212672, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
+    - {fileID: 113212672, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     - {fileID: -334488554, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     - {fileID: 686654189, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
     - {fileID: -787532105, guid: 8497560f07121204bb26ac6abe5c20e2, type: 3}
@@ -62,7 +65,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 0.6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

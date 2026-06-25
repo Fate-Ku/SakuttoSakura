@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HimawariDestroy
+  m_Name: himawariDestroy
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -23,12 +23,14 @@ AnimationClip:
     - time: 0
       value: {fileID: -70692346, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     - time: 0.1
-      value: {fileID: 1176316382, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
+      value: {fileID: -70692346, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     - time: 0.2
-      value: {fileID: 1869935697, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
+      value: {fileID: 1176316382, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     - time: 0.3
-      value: {fileID: -315455848, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
+      value: {fileID: 1869935697, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     - time: 0.4
+      value: {fileID: -315455848, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
+    - time: 0.5
       value: {fileID: -1810467600, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     attribute: m_Sprite
     path: 
@@ -53,6 +55,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: -70692346, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
+    - {fileID: -70692346, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     - {fileID: 1176316382, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     - {fileID: 1869935697, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
     - {fileID: -315455848, guid: 16180be6a432cfc4e8d85f3f9ce45941, type: 3}
@@ -62,7 +65,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 0.6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
