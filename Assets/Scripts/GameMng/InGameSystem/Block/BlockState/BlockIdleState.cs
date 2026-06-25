@@ -6,6 +6,7 @@
 // 2026/06/06 Updated By Man-Yi, Yeh
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -22,6 +23,12 @@ public class BlockIdleState : IBlockState
     public override void StateBegin()
     {
         Debug.Log("test block start idle: " + m_Block.Type.ToString());
+        m_Block.SetAnimation("Idle", true);
+    }
+
+    public override void StateEnd()
+    {
+        m_Block.SetAnimation("Idle", false);
     }
 
     public override void StateUpdate()

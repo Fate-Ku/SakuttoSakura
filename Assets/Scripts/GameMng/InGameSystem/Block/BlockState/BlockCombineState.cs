@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class BlockCombineState : IBlockState
 {
+    private float size;
+
     public BlockCombineState(IBlock block, BlockStateController controller) 
         : base(block, controller)
     {
@@ -22,6 +24,7 @@ public class BlockCombineState : IBlockState
     {
         //adjust size
         Vector3 scale = m_Block.BlockOb.transform.localScale;
+        size = scale.x;
         scale.x = 0.45f;
         scale.y = 0.45f;
 
@@ -29,6 +32,13 @@ public class BlockCombineState : IBlockState
 
         //test
         m_Block.blockTest.trigger = m_Trigger;
+    }
+
+    public override void StateEnd()
+    {
+        //adjust size
+        Vector3 scale = m_Block.BlockOb.transform.localScale;
+        m_Block.BlockOb.transform.localScale = new Vector3(size, size, scale.z);
     }
 
     public override void BeCombinedCheck(IBlock nearBlock, CombineSetsController controller)

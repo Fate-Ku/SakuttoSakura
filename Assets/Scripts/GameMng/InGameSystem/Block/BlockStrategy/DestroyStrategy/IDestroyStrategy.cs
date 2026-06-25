@@ -72,6 +72,7 @@ public abstract class IDestroyStrategy
         else
         {
             //adjust size
+            /*
             float rate = m_Timer / m_DestroyTime;
             if (rate > 0.3f)
             {
@@ -87,6 +88,7 @@ public abstract class IDestroyStrategy
             scale.y = rate;
 
             onerBlock.BlockOb.transform.localScale = scale;
+            */
         }
     }
 }

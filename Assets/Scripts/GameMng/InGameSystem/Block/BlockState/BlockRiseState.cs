@@ -2,6 +2,7 @@
 // BlockRiseState.cs
 // 
 // 2026/06/12 Created By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -22,6 +23,13 @@ public class BlockRiseState : IBlockState
         //remove combine set
         m_Block.RemoveCombineSet();
 
+        m_Block.SetAnimation("Idle", true);
+
+    }
+
+    public override void StateEnd()
+    {
+        m_Block.SetAnimation("Idle", false);
     }
 
     public override void StateUpdate()

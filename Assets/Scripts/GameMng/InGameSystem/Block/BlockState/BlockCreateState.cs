@@ -10,7 +10,7 @@ using UnityEngine;
 public class BlockCreateState : IBlockState
 {
     private float timer = 0.5f;
-    private float size;
+    //private float size;
 
     public BlockCreateState(IBlock block, BlockStateController controller) 
         : base(block, controller)
@@ -18,7 +18,7 @@ public class BlockCreateState : IBlockState
         StateType = BlockStateType.Create;
         StateName = "BlockCreateState";
 
-        size = m_Block.BlockOb.transform.localScale.x;
+        //size = m_Block.BlockOb.transform.localScale.x;
     }
 
     public override void StateBegin()
@@ -29,11 +29,13 @@ public class BlockCreateState : IBlockState
     public override void StateEnd()
     {
         //adjust size
+        /*
         Vector3 scale = m_Block.BlockOb.transform.localScale;
         scale.x = size;
         scale.y = size;
-
         m_Block.BlockOb.transform.localScale = scale;
+        */
+
         m_Block.SetAnimation("Create", false);
 
         //test
@@ -60,11 +62,12 @@ public class BlockCreateState : IBlockState
         }
 
         //adjust size
+        /*
         Vector3 scale = m_Block.BlockOb.transform.localScale;
         float rate = 0.5f + (0.5f * (1 - timer));
         scale.x = size * rate;
         scale.y = size * rate;
-
         m_Block.BlockOb.transform.localScale = scale;
+        */
     }
 }
