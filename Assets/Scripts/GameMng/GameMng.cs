@@ -255,9 +255,22 @@ public class GameMng
 
 
     //2026/06/09 Updated By Man-Yi, Yeh
+    //2026/06/25 Updated By Man-Yi, Yeh
     //-------------------
     //inGame
     //-------------------
+    public InGameSystemStateType GetInGameSystemStateType()
+    {
+        InGameSystemStateType res = InGameSystemStateType.None;
+
+        if (m_InGameSystem != null)
+        {
+            res = m_InGameSystem.GetInGameSystemStateType();
+        }
+
+        return res;
+    }
+
     public float GetGameTime()
     {
         float res = 0;

@@ -24,7 +24,7 @@ public class BlockDestroyState : IBlockState
         m_Block.RemoveCombineSet();
 
         m_Block.DestroyStrategy.DestroyStart(m_Block);
-        m_Block.SetAnimation("isDestroy", true);
+        m_Block.SetAnimation("Destroy", true);
 
         //test
         m_Block.blockTest.trigger = m_Trigger;
@@ -32,7 +32,7 @@ public class BlockDestroyState : IBlockState
 
     public override void StateEnd()
     {
-        m_Block.SetAnimation("isDestroy", false);
+        m_Block.SetAnimation("Destroy", false);
     }
 
     public override void StateUpdate()

@@ -2,6 +2,7 @@
 // InGameStateController.cs
 // 
 // 2026/06/10 Created By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 
@@ -12,6 +13,12 @@ public class InGameStateController
     private IInGameSystemState m_State;
 
     public InGameStateController() { }
+
+    //get state
+    public InGameSystemStateType GetStateType()
+    {
+        return m_State.StateType;
+    }
 
     //set state
     public void SetState(IInGameSystemState state)

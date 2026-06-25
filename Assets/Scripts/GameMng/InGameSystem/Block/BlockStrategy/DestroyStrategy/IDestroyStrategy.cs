@@ -47,6 +47,7 @@ public abstract class IDestroyStrategy
 
             m_CreateBlock.SetActive(true);
             m_CreateBlock.SetPos(blockNode.Pos);
+            m_CreateBlock.GoCreate();
         }
     }
 

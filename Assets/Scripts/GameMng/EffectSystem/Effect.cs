@@ -10,6 +10,6 @@ public class Effect
 {
     public void Off()
     {
-
+        Debug.Log("off effect");
     }
 }

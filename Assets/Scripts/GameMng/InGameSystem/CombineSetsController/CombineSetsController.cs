@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public class CombineSetsController
 {
@@ -78,14 +79,28 @@ public class CombineSetsController
     //-------------------
     public IBlock GetCreateBlock(BlockType type)
     {
-        IBlock block = null;
+        IBlock res = null;
+
+        BlockType resType = GetCreateBlockType(type);
+
+        if (resType != BlockType.None)
+        {
+            res = m_InGameSystem.CreateBlock(resType);
+        }
+        
+        return res;
+    }
+
+    public BlockType GetCreateBlockType(BlockType type) 
+    {
+        BlockType res = BlockType.None;
 
         if ((int)type >= 0 && (int)type < 6)
         {
-            block = m_InGameSystem.CreateBlock((BlockType)((int)type + 1), true);
+            res = (BlockType)((int)type + 1);
         }
-        
-        return block;
+
+        return res;
     }
 
 }

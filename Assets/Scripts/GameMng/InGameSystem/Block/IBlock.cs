@@ -118,8 +118,7 @@ public abstract class IBlock
 
     
     public IBlock(
-        GameObject block, BlockType type,  float size, 
-        bool isCreate = false) 
+        GameObject block, BlockType type,  float size) 
     {
         m_BlockOb = Object.Instantiate(block);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
@@ -139,14 +138,8 @@ public abstract class IBlock
 
         m_RiseController = new(this, 2);
 
-        if (isCreate)
-        {
-            m_BlockStateController.SetState(new BlockCreateState(this, m_BlockStateController));
-        }
-        else
-        {
-            m_BlockStateController.SetState(new BlockIdleState(this, m_BlockStateController));
-        }
+        m_BlockStateController.SetState(new BlockIdleState(this, m_BlockStateController));
+
     }
     ~IBlock()
     {
@@ -212,6 +205,15 @@ public abstract class IBlock
         {
             m_BlockStateController.SetState(
                 new BlockCombineState(this, m_BlockStateController));
+        }
+    }
+
+    public void GoCreate()
+    {
+        if (m_BlockStateController.GetStateType() != BlockStateType.Create)
+        {
+            m_BlockStateController.SetState(
+                new BlockCreateState(this, m_BlockStateController));
         }
     }
 

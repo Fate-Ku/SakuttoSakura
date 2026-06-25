@@ -13,9 +13,8 @@ using UnityEngine;
 public class FlowerBlock : IBlock
 {
     public FlowerBlock(
-        GameObject block, BlockType type, float size, float speed,
-        bool isCreate = false) 
-        : base(block, type, size, isCreate)
+        GameObject block, BlockType type, float size, float speed) 
+        : base(block, type, size)
     {
         m_FallController = type switch
         {

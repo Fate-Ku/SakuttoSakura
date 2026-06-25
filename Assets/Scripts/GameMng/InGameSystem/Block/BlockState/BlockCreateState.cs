@@ -23,7 +23,7 @@ public class BlockCreateState : IBlockState
 
     public override void StateBegin()
     {
-        m_Block.SetAnimation("isCreated", true);
+        m_Block.SetAnimation("Create", true);
     }
 
     public override void StateEnd()
@@ -34,7 +34,7 @@ public class BlockCreateState : IBlockState
         scale.y = size;
 
         m_Block.BlockOb.transform.localScale = scale;
-        m_Block.SetAnimation("isCreated", false);
+        m_Block.SetAnimation("Create", false);
 
         //test
         m_Block.blockTest.trigger = m_Trigger;

@@ -12,6 +12,7 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -194,6 +195,11 @@ public class InGameSystem : IGameSystem
 
     }
 
+    public InGameSystemStateType GetInGameSystemStateType()
+    {
+        return m_InGameSystemStateController.GetStateType();
+    }
+
     //-------------------
     //method of update
     //-------------------
@@ -284,7 +290,7 @@ public class InGameSystem : IGameSystem
     //-------------------
     //method of blocks
     //-------------------
-    public IBlock CreateBlock(BlockType type, bool isCreate = false)
+    public IBlock CreateBlock(BlockType type)
     {
         IBlock res = null;
 
@@ -298,19 +304,19 @@ public class InGameSystem : IGameSystem
                     break;
 
                 case BlockType.SoftRock:
-                    res = new SoftRockBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    res = new SoftRockBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type));
                     break;
 
                 case BlockType.HardRock:
-                    res = new HardRockBlock(this, blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    res = new HardRockBlock(this, blockOb, size, m_GameInfo.GetBlockFallSpeed(type));
                     break;
 
                 case BlockType.TimeItem:
-                    res = new TimeItemBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    res = new TimeItemBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type));
                     break;
 
                 default:
-                    res = new FlowerBlock(blockOb, type, size, m_GameInfo.GetBlockFallSpeed(type), isCreate);
+                    res = new FlowerBlock(blockOb, type, size, m_GameInfo.GetBlockFallSpeed(type));
                     break;
             }
         }

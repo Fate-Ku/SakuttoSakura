@@ -5,6 +5,7 @@
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/12 Updated By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 //
 
 using System;
@@ -30,6 +31,8 @@ public class CombineSet
     private bool m_IsStartCombine = false;
     private float m_CombineTimer;
     private int m_CombineSize;
+
+    private Effect m_Effect;
 
     public CombineSet(
         CombineSetsController controller,
@@ -107,6 +110,9 @@ public class CombineSet
         }
         //remove this from controller
         m_Controller.RemoveCombineSet(this);
+
+        //off effect
+        m_Effect?.Off();
     }
 
 
@@ -124,6 +130,14 @@ public class CombineSet
             {
                 block.GoCombine();
             }
+
+            //set effect
+            List<Vector2> pos = new();
+            foreach (IBlock block in m_Blocks)
+            {
+                pos.Add(block.Pos);
+            }
+            m_Effect = GameMng.Instance.SetCombineEffect(m_Controller.GetCreateBlockType(m_Type), pos);
         }
     }
 
@@ -150,6 +164,10 @@ public class CombineSet
 
             //remove this from controller
             m_Controller.RemoveCombineSet(this);
+
+            //off effect
+            m_Effect?.Off();
+
         }
     }
 
