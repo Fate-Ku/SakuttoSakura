@@ -143,7 +143,7 @@ public class ScoreSystem : IGameSystem
     private void CheckOverTime()
     {
         lastCallTime += Time.deltaTime;
-        Debug.Log("lastCallTime : " + lastCallTime);
+        //Debug.Log("lastCallTime : " + lastCallTime);
         if (lastCallTime > m_ComboTimer)
         {
             TotalCombo = 0;
