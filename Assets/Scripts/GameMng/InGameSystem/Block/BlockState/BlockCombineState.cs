@@ -25,6 +25,9 @@ public class BlockCombineState : IBlockState
         scale.y = 0.45f;
 
         m_Block.BlockOb.transform.localScale = scale;
+
+        //test
+        m_Block.blockTest.trigger = m_Trigger;
     }
 
     public override void BeCombinedCheck(IBlock nearBlock, CombineSetsController controller)

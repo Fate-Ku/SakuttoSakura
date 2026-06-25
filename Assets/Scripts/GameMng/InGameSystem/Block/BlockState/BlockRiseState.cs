@@ -31,6 +31,9 @@ public class BlockRiseState : IBlockState
         {
             m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
         }
+
+        //test
+        m_Block.blockTest.trigger = m_Trigger;
     }
 
     public override void BeDestroyed()

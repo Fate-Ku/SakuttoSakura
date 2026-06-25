@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: kikyouCreate
+  m_Name: KikyouCreate
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -36,7 +36,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: IsVanish
+    m_ConditionEvent: Destroy
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 0}
@@ -61,7 +61,7 @@ AnimatorTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsCreated
+    m_ConditionEvent: Create
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6599721672734185175}
@@ -80,7 +80,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 7295119962460080613}
-    m_Position: {x: 390, y: 20, z: 0}
+    m_Position: {x: 400, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6599721672734185175}
     m_Position: {x: 400, y: 190, z: 0}
@@ -104,13 +104,13 @@ AnimatorController:
   m_Name: KikyouController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: IsVanish
+  - m_Name: Destroy
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: IsCreated
+  - m_Name: Create
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -138,7 +138,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: IsCreated
+    m_ConditionEvent: Create
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 0}
@@ -161,7 +161,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: kikyouVanish
+  m_Name: KikyouDestroy
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

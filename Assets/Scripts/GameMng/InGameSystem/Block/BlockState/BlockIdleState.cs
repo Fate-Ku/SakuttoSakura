@@ -30,7 +30,10 @@ public class BlockIdleState : IBlockState
         {
             m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
             return;
-        } 
+        }
+
+        //test
+        m_Block.blockTest.trigger = m_Trigger;
     }
 
     public override void DoCombineCheck(CombineSetsController controller)

@@ -4,6 +4,7 @@
 // 2026/06/07 Created By Man-Yi, Yeh
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -23,6 +24,15 @@ public class BlockDestroyState : IBlockState
         m_Block.RemoveCombineSet();
 
         m_Block.DestroyStrategy.DestroyStart(m_Block);
+        m_Block.SetAnimation("isDestroy", true);
+
+        //test
+        m_Block.blockTest.trigger = m_Trigger;
+    }
+
+    public override void StateEnd()
+    {
+        m_Block.SetAnimation("isDestroy", false);
     }
 
     public override void StateUpdate()

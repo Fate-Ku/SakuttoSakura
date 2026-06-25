@@ -21,5 +21,8 @@ public class BlockTest : MonoBehaviour
 
     [Header("Rise")]
     public float riseTargetY;
+
+    [Header("Trigger")]
+    public bool trigger;
     
 }

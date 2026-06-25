@@ -13,6 +13,7 @@
 // 2026/06/18 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using Unity.VisualScripting;
@@ -28,6 +29,7 @@ public abstract class IBlock
     {
         get { return m_BlockOb; }
     }
+    private Animator m_Animator;
 
     public BlockTest blockTest;
 
@@ -121,6 +123,12 @@ public abstract class IBlock
     {
         m_BlockOb = Object.Instantiate(block);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
+
+        m_Animator = m_BlockOb.GetComponentInChildren<Animator>();
+
+        BlockAnimationTrigger trigger = m_BlockOb.GetComponentInChildren<BlockAnimationTrigger>();
+        trigger?.SetBlock(this);
+
         if (m_BlockOb != null)
         {
             blockTest = m_BlockOb.GetComponent<BlockTest>();
@@ -349,5 +357,18 @@ public abstract class IBlock
     public void SetActive(bool active)
     {
         m_BlockOb.SetActive(active);
+    }
+
+    //-------------------
+    //animation
+    //-------------------
+    public void SetAnimation(string variable, bool active)
+    {
+        m_Animator?.SetBool(variable, active);
+    }
+
+    public void CallTrigger()
+    {
+        m_BlockStateController.CallTrigger();
     }
 }

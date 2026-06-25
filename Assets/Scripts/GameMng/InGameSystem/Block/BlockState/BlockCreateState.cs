@@ -2,6 +2,7 @@
 // BlockCreateState.cs
 // 
 // 2026/06/10 Created By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -20,6 +21,11 @@ public class BlockCreateState : IBlockState
         size = m_Block.BlockOb.transform.localScale.x;
     }
 
+    public override void StateBegin()
+    {
+        m_Block.SetAnimation("isCreated", true);
+    }
+
     public override void StateEnd()
     {
         //adjust size
@@ -28,6 +34,10 @@ public class BlockCreateState : IBlockState
         scale.y = size;
 
         m_Block.BlockOb.transform.localScale = scale;
+        m_Block.SetAnimation("isCreated", false);
+
+        //test
+        m_Block.blockTest.trigger = m_Trigger;
     }
 
     public override void StateUpdate()
