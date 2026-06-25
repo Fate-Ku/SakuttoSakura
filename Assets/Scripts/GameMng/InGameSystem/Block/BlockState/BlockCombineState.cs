@@ -37,8 +37,8 @@ public class BlockCombineState : IBlockState
     public override void StateEnd()
     {
         //adjust size
-        Vector3 scale = m_Block.BlockOb.transform.localScale;
-        m_Block.BlockOb.transform.localScale = new Vector3(size, size, scale.z);
+        //Vector3 scale = m_Block.BlockOb.transform.localScale;
+        //m_Block.BlockOb.transform.localScale = new Vector3(size, size, scale.z);
     }
 
     public override void BeCombinedCheck(IBlock nearBlock, CombineSetsController controller)

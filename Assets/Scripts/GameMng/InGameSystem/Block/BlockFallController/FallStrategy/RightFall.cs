@@ -2,6 +2,7 @@
 // RightFall.cs
 // 
 // 2026/06/24 Created By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -40,7 +41,7 @@ public class RightFall : IFallStrategy
                             if (fallBlockX - newX < block.Size)
                             {
                                 Debug.Log("test: together start");
-                                //set together right that speed as under
+                                //set together right that speed as right
                                 float speed = rightBlock.GetFallSpeed();
                                 block.SetFallController(
                                     new TogetherRightFallController(block, speed, controller.BasicSpeed, m_TargetPos));
@@ -55,7 +56,23 @@ public class RightFall : IFallStrategy
                     }
                     else if (rightBlock.IsFalling(FallDirection.Left))
                     {
+                        float fallBlockX = rightBlock.Pos.x;
+                        if (fallBlockX - newX < block.Size)
+                        {
+                            Debug.Log("test: together start");
+                            //set together left that speed as right
+                            //back to node pos
+                            float speed = rightBlock.GetFallSpeed();
+                            Vector2 targetPos = block.BlockNode.Pos;
+                            block.SetFallController(
+                                new TogetherLeftFallController(block, speed, controller.BasicSpeed, targetPos));
 
+                            //move
+                            newX = fallBlockX - block.Size;
+                            block.SetPos(new Vector2(newX, block.Pos.y));
+
+                            return;
+                        }
                     }
                 }
             }
