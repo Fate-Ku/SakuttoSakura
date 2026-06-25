@@ -15,10 +15,10 @@
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Man-Yi, Yeh
+// 2026/06/25 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 
@@ -87,12 +87,12 @@ public class BlocksController
     {
         List<IBlock> checkedBlocks= new();
 
-        //cols: 0 ~ m_ColNum - 1
-        for (int i = 0; i < m_ColNum; ++i)
+        //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
+        for (int j = -1; j <= m_RowNum; ++j)
         {
-            //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
+            //cols: 0 ~ m_ColNum - 1
             //update start from under
-            for (int j = -1; j <= m_RowNum ; ++j)
+            for (int i = 0; i < m_ColNum ; ++i)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 IBlock block = blockNode?.Block;

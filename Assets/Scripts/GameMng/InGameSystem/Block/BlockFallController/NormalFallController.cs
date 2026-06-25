@@ -17,6 +17,7 @@ public class NormalFallController : IBlockFallController
     public NormalFallController(IBlock block, float speed)
         : base(block)
     {
+        m_IsResetFallController = false;
         m_FallStrategys.Add(new DownFall(speed));
         m_BasicSpeed = speed;
 

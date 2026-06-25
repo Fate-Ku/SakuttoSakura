@@ -31,6 +31,7 @@ public  abstract class IBlockFallController
     protected List<IFallStrategy> m_FallStrategys = new();
     protected int m_NowFallStrategyID;
     protected float m_BasicSpeed;
+    protected bool m_IsResetFallController;
     public float BasicSpeed
     {
         get { return m_BasicSpeed; }
@@ -218,6 +219,12 @@ public  abstract class IBlockFallController
         return res;
     }
 
-    public virtual void ResetlFallController() { }
+    public void ResetlFallController() 
+    {
+        if (m_IsResetFallController)
+        {
+            m_Block.SetFallController(new NormalFallController(m_Block, m_BasicSpeed));
+        } 
+    }
 
 }
