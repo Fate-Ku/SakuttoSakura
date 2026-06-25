@@ -32,7 +32,7 @@ public class CombineSet
     private float m_CombineTimer;
     private int m_CombineSize;
 
-    private Effect m_Effect;
+    private int m_CombineEffectID = -1;
 
     public CombineSet(
         CombineSetsController controller,
@@ -112,7 +112,7 @@ public class CombineSet
         m_Controller.RemoveCombineSet(this);
 
         //off effect
-        m_Effect?.Off();
+        GameMng.Instance.OffCombineEffect(m_CombineEffectID);
     }
 
 
@@ -137,7 +137,7 @@ public class CombineSet
             {
                 pos.Add(block.Pos);
             }
-            m_Effect = GameMng.Instance.SetCombineEffect(m_Controller.GetCreateBlockType(m_Type), pos);
+            m_CombineEffectID = GameMng.Instance.SetCombineEffect(m_Controller.GetCreateBlockType(m_Type), pos);
         }
     }
 
@@ -166,7 +166,7 @@ public class CombineSet
             m_Controller.RemoveCombineSet(this);
 
             //off effect
-            m_Effect?.Off();
+            GameMng.Instance.OffCombineEffect(m_CombineEffectID);
 
         }
     }

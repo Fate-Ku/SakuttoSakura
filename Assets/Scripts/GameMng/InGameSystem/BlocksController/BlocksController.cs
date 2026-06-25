@@ -18,6 +18,7 @@
 // 
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -84,15 +85,63 @@ public class BlocksController
     //update
     public void Update()
     {
+        List<IBlock> checkedBlocks= new();
+
         //cols: 0 ~ m_ColNum - 1
-        for (int i = 0;i< m_ColNum; ++i)
+        for (int i = 0; i < m_ColNum; ++i)
         {
             //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
             //update start from under
             for (int j = -1; j <= m_RowNum ; ++j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
-                blockNode?.Block?.Update();
+                IBlock block = blockNode?.Block;
+
+                if (block != null)
+                {
+                    //if isn't checked
+                    if (!checkedBlocks.Contains(block))
+                    {
+                        //if fall right,do set update
+                        if (block.IsFalling(FallDirection.Right))
+                        {
+                            //make check set
+                            List<IBlock> checkSet = new()
+                            {
+                                block
+                            };
+                            for (int k = i + 1; k <= m_ColNum; ++k)
+                            {
+                                BlockNode checkNode = GetNode(new Vector2Int(k, j));
+                                IBlock checkBlock = checkNode?.Block;
+                                
+                                if (checkBlock == null){
+                                    break;
+                                }
+                                else
+                                {
+                                    checkSet.Add(checkBlock);
+                                    if (!checkBlock.IsFalling(FallDirection.Right))
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            //check from right
+                            for (int k = 0; k < checkSet.Count; ++k)
+                            {
+                                checkSet[checkSet.Count - 1 - k].Update();
+                                checkedBlocks.Add(checkSet[k]);
+                            }
+                        }
+                        //if not fall right, update
+                        else
+                        {
+                            block.Update();
+                            checkedBlocks.Add(block);
+                        }
+                    }
+                }
             }
         }
     }
@@ -384,7 +433,7 @@ public class BlocksController
 
     private void StartFallRight(Vector2Int id)
     {
-        Vector2Int rightID = id + new Vector2Int(-1, 0);
+        Vector2Int rightID = id + new Vector2Int(1, 0);
         BlockNode rightBlockNode = GetNode(rightID);
         if (rightBlockNode != null)
         {

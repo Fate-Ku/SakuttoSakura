@@ -355,16 +355,21 @@ public class GameMng
     //-------------------
     //effect
     //-------------------
-    public Effect SetCombineEffect(BlockType type,List<Vector2> pos)
+    public int SetCombineEffect(BlockType type,List<Vector2> pos)
     {
-        Effect res = null;
+        int id = -1;
 
         Debug.Log(
             "set combine effect type: " + type.ToString() + 
             ", qty: " + pos.Count.ToString());
-        //res = m_EffectSystem.SetCombineEffect(type, pos);
+        //id = m_EffectSystem?.SetCombineEffect(type, pos);
 
-        return res;
+        return id;
+    }
+
+    public void OffCombineEffect(int id)
+    {
+        //m_EffectSystem?.OffCombineEffect(id);
     }
 
     public Effect SetDestroyEffect(BlockType type, List<Vector2> pos)
@@ -379,6 +384,10 @@ public class GameMng
         return res;
     }
 
+    public void OffDestroyEffect(int id)
+    {
+        //m_EffectSystem?.OffDestroyEffect(id);
+    }
 
     public void RecordCombineDestroyInfo(BlockType type, int num, Vector2 pos)
     {

@@ -333,7 +333,7 @@ public class InGameSystem : IGameSystem
         IBlock block;
         BlockType type;
 
-        
+        /*
         int pattern = Random.Range(0, 16);
         if (pattern == 0)
         {
@@ -353,21 +353,20 @@ public class InGameSystem : IGameSystem
             int qty = m_GameInfo.GetBlockTypeQty();
             int id = Random.Range(7 - qty, 7);
             type = (BlockType)id;
-            
+
         }
-        
-        /*
+        */
+
         int pattern = Random.Range(0, 2);
         if (pattern == 0)
         {
-            type = BlockType.Tsubaki;
-            Debug.Log("type of next block " + BlockType.TimeItem.ToString());
+            type = BlockType.Clover;
         }
         else
         {
             type = BlockType.Sakura;
         }
-        */
+        
 
         block = CreateBlock(type);
         Debug.Log("type of next block " + type.ToString());
