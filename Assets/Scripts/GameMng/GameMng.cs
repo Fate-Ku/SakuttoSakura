@@ -11,6 +11,7 @@
 // 2026/06/15 Updated By Fate Ku
 // 2026/06/16 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Fate Ku
+// 2026/06/25 Updated By Fate Ku
 // 
 
 using System;
@@ -84,6 +85,9 @@ public class GameMng
     //game log system
     private GameLogSystem m_GameLogSystem;
 
+    //effect setting
+    public EffectSystemConfig effectConfig;
+
     //effect system
     private EffectSystem m_EffectSystem;
 
@@ -91,7 +95,19 @@ public class GameMng
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);
-        m_EffectSystem = new EffectSystem(this);
+
+        // 2026/06/25 Updated By Fate Ku
+        Dictionary<BlockType, Material> mats = new Dictionary<BlockType, Material>();
+        mats[BlockType.Tsubaki] = effectConfig.matKaede;
+        mats[BlockType.Kaede] = effectConfig.matHimawari;
+        mats[BlockType.Himawari] = effectConfig.matClover;
+        mats[BlockType.Clover] = effectConfig.matAsagao;
+        mats[BlockType.Asagao] = effectConfig.matKikyou;
+        mats[BlockType.Kikyou] = effectConfig.matSakura;
+        mats[BlockType.Sakura] = effectConfig.matTsubaki;
+
+        m_EffectSystem = new EffectSystem(this, effectConfig.effectPrefab, mats);
+        // 2026/06/25 Updated By Fate Ku
     }
 
     public void Term()
@@ -274,7 +290,7 @@ public class GameMng
     public float GetGameTime()
     {
         float res = 0;
-        if (m_InGameSystem != null) 
+        if (m_InGameSystem != null)
         {
             res = m_InGameSystem.GameTimer;
         }
@@ -346,7 +362,7 @@ public class GameMng
 
     public void RecordBlockDestroy(BlockType type)
     {
-        Debug.Log("record block destroy: "+ type.ToString());
+        Debug.Log("record block destroy: " + type.ToString());
         m_GameLogSystem?.RecordBlockDestroy(type);
     }
 
@@ -355,12 +371,12 @@ public class GameMng
     //-------------------
     //effect
     //-------------------
-    public Effect SetCombineEffect(BlockType type,List<Vector2> pos)
+    public Effect SetCombineEffect(BlockType type, List<Vector2> pos)
     {
         Effect res = null;
 
         Debug.Log(
-            "set combine effect type: " + type.ToString() + 
+            "set combine effect type: " + type.ToString() +
             ", qty: " + pos.Count.ToString());
         //res = m_EffectSystem.SetCombineEffect(type, pos);
 
@@ -389,12 +405,10 @@ public class GameMng
         m_ScoreSystem?.SetDestroyInfo(type, num);
     }
 
-    //2026/06/24 Updated By Fate Ku
-    //-------------------
-    //game state
-    //-------------------
-
-
-
+    // effect
+    public EffectSystem GetEffectSystem()
+    {
+        return m_EffectSystem;
+    }
 
 }
