@@ -3,7 +3,8 @@
 // 
 // 2026/06/14 Created By Fate Ku
 // 2026/06/23 Updated By Fate Ku
-// 2026/06/24 Updated By Man-Yi, Yeh
+// 2026/06/24 Updated By Fate Ku
+// 2026/06/25 Updated By Fate Ku
 // 
 
 using TMPro;
@@ -13,21 +14,23 @@ public class InGameUIScore
 {
     private TextMeshProUGUI m_ScoreText;
     private TextMeshProUGUI m_ComboText;
-    private TextMeshPro m_moveableComboText;
+
+    private TextMeshPro m_moveableComboPrefab;
+    
     private TextMeshProUGUI m_SakuraText;
 
     public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText
-        , TextMeshPro moveableComboText, TextMeshProUGUI sakuraText)
+        , TextMeshPro moveableComboPrefab, TextMeshProUGUI sakuraText)
     {
         m_ScoreText = scoreText;
         m_ComboText = comboText;
-        m_moveableComboText = moveableComboText;
+        m_moveableComboPrefab = moveableComboPrefab;
         m_SakuraText = sakuraText;
     }
 
     public float showComboTime;
-    private Vector3 comboStartPos;
-    private bool isComboShowing = false;
+    //private Vector3 comboStartPos;
+    //private bool isComboShowing = false;
     private int lastCombo = 0;
 
     public void Init()
@@ -70,53 +73,30 @@ public class InGameUIScore
             // moveable Combo (position will move)
             if (combo == 0)
             {
-                m_moveableComboText.gameObject.SetActive(false);
-                isComboShowing = false;
                 lastCombo = 0;
                 return;
             }
 
+            // Combo changed and new words
             if (combo != lastCombo)
             {
                 lastCombo = combo;
 
-                isComboShowing = true;
-                showComboTime = 0;
+                Vector2 pos = GameMng.Instance.LastDestroyPos;
+                Vector3 spawnPos = new Vector3(pos.x, pos.y, -1f);
 
-                Vector2 comboPos = GameMng.Instance.LastDestroyPos;
-                comboStartPos = new Vector3(comboPos.x, comboPos.y, -1f);
+                // Create Prefab
+                TextMeshPro newComboText = GameObject.Instantiate(
+                    m_moveableComboPrefab,
+                    spawnPos,
+                    Quaternion.identity
+                );
 
-                m_moveableComboText.gameObject.SetActive(true);
-                m_moveableComboText.color = Color.red;
-                m_moveableComboText.text = combo.ToString() + " Combo";
+                newComboText.text = combo.ToString() + " Combo";
+                newComboText.color = Color.red;
 
-                m_moveableComboText.transform.position = comboStartPos;
-
-            }
-
-            if (isComboShowing)
-            {
-                // animation（1.5s）
-                showComboTime += Time.deltaTime;
-
-                float t = showComboTime / 1.5f; // 0 → 1
-
-                // go up 1.5f
-                m_moveableComboText.transform.position =
-                    comboStartPos + new Vector3(0, t * 1.5f, 0);
-
-                // fade out
-                Color c = m_moveableComboText.color;
-                c.a = 1f - t;
-                m_moveableComboText.color = c;
-
-                // vanish
-                if (showComboTime >= 1.5f)
-                {
-                    m_moveableComboText.gameObject.SetActive(false);
-                    isComboShowing = false;
-                }
-
+                // Animation Script
+                newComboText.gameObject.AddComponent<MoveUpFadeOut>();
             }
 
         }
