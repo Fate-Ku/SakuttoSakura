@@ -12,10 +12,13 @@ public class EffectSystem : IGameSystem
 {
     private GameObject m_EffectPrefab;
 
-    private Effect m_Effect;
-
     // flower materials
     private Dictionary<BlockType, Material> m_Materials;
+
+    // Combine Effects
+    private Dictionary<int, List<GameObject>> m_CombineEffects = new Dictionary<int, List<GameObject>>();
+
+    public int m_NextEffectId = 0;
 
     public EffectSystem(GameMng gameMng, GameObject effectPrefab,
         Dictionary<BlockType, Material> materials)
@@ -25,14 +28,12 @@ public class EffectSystem : IGameSystem
         m_Materials = materials;
     }
 
-    public override void Init()
-    {
-        m_Effect = new Effect();
-    }
-
     // combine effect
-    public Effect SetCombineEffect(BlockType type, List<Vector2> posList)
+    public int SetCombineEffect(BlockType type, List<Vector2> posList)
     {
+        int id = ++m_NextEffectId;
+        List<GameObject> effectList = new List<GameObject>();
+
         foreach (var pos in posList)
         {
             // 1. create postion
@@ -47,26 +48,59 @@ public class EffectSystem : IGameSystem
 
             // 3. get MeshRenderer
             MeshRenderer renderer = effectObj.GetComponent<MeshRenderer>();
-            if (renderer != null)
+
+            // 4. set up materials
+            if (renderer != null & m_Materials.ContainsKey(type))
             {
-                // 4. open MeshRenderer
-                renderer.enabled = true;
+                renderer.material = m_Materials[type];
 
-                // 5. set up materials
-                if (m_Materials.ContainsKey(type))
-                {
-                    renderer.material = m_Materials[type];
-                }
+                //Debug.Log("BlockType = " + type);
+                //Debug.Log("Material = " + mat);
+                //Debug.Log("Material Name = " + mat.name);
+                //renderer.material = mat;
+
             }
-
-            // 6. auto delete objects
-            //GameObject.Destroy(effectObj, 2f);
+            // save object
+            effectList.Add(effectObj);
+            Debug.Log("Save Object name = "+ effectObj.name);
         }
+        // save id
+        m_CombineEffects[id] = effectList;
 
-        return m_Effect;
+        Debug.Log("Create Effect ID = " + id);
+
+        return id;
     }
 
+    public void OffCombineEffect(int id)
+    {
+        List<int> removeIds = new List<int>();
 
+        foreach (var pair in m_CombineEffects)
+        {
+            if (pair.Key <= id)
+            {
+                // remove in ID's all objects
+                foreach (GameObject obj in pair.Value)
+                {
+                    if (obj != null)
+                    {
+                        GameObject.Destroy(obj);
+                    }
+                }
+
+                // record which key want to delete
+                removeIds.Add(pair.Key);
+            }
+        }
+
+        // then delete obj in Dictionary
+        foreach (int removeId in removeIds)
+        {
+            m_CombineEffects.Remove(removeId);
+            Debug.Log("Removed Effect ID = " + removeId);
+        }
+    }
 
 
 }

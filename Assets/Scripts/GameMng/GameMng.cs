@@ -69,6 +69,15 @@ public class GameMng
     //phase
     private Phase m_NowPhase;
 
+    // 2026/06/25 Updated By Fate Ku
+    //effect info
+    private EffectInfo m_EffectInfo;
+    
+    public EffectInfo EffectInfo
+    {
+        get { return m_EffectInfo; }
+    }
+
 
     //-------------------
     //game system
@@ -85,9 +94,6 @@ public class GameMng
     //game log system
     private GameLogSystem m_GameLogSystem;
 
-    //effect setting
-    public EffectSystemConfig effectConfig;
-
     //effect system
     private EffectSystem m_EffectSystem;
 
@@ -96,18 +102,6 @@ public class GameMng
     {
         m_SkillDataSystem = new SkillDataSystem(this);
 
-        // 2026/06/25 Updated By Fate Ku
-        Dictionary<BlockType, Material> mats = new Dictionary<BlockType, Material>();
-        mats[BlockType.Tsubaki] = effectConfig.matKaede;
-        mats[BlockType.Kaede] = effectConfig.matHimawari;
-        mats[BlockType.Himawari] = effectConfig.matClover;
-        mats[BlockType.Clover] = effectConfig.matAsagao;
-        mats[BlockType.Asagao] = effectConfig.matKikyou;
-        mats[BlockType.Kikyou] = effectConfig.matSakura;
-        mats[BlockType.Sakura] = effectConfig.matTsubaki;
-
-        m_EffectSystem = new EffectSystem(this, effectConfig.effectPrefab, mats);
-        // 2026/06/25 Updated By Fate Ku
     }
 
     public void Term()
@@ -177,6 +171,29 @@ public class GameMng
         m_InGameSystem = new InGameSystem(this);
         m_ScoreSystem = new ScoreSystem(this);
         m_GameLogSystem = new GameLogSystem(this);
+
+
+        // 2026/06/25 Updated By Fate Ku
+        GameObject effectInfo = GameObject.Find("EffectInfo");
+
+        if (effectInfo != null)
+        {
+            m_EffectInfo = effectInfo.GetComponent<EffectInfo>();
+        }
+
+
+        Dictionary<BlockType, Material> mats = new Dictionary<BlockType, Material>();
+        mats[BlockType.Kaede] = m_EffectInfo.GetMatKaede();
+        mats[BlockType.Himawari] = m_EffectInfo.GetMatHimawari();
+        mats[BlockType.Clover] = m_EffectInfo.GetMatClover();
+        mats[BlockType.Asagao] = m_EffectInfo.GetMatAsagao();
+        mats[BlockType.Kikyou] = m_EffectInfo.GetMatKikyou();
+        mats[BlockType.Sakura] = m_EffectInfo.GetMatSakura();
+        mats[BlockType.None] = m_EffectInfo.GetMatTsubaki();
+        
+
+        m_EffectSystem = new EffectSystem(this, m_EffectInfo.GetEffectPrefab(), mats);
+        // 2026/06/25 Updated By Fate Ku
 
         //init
         m_InGameSystem?.Init();
@@ -379,14 +396,14 @@ public class GameMng
         Debug.Log(
             "set combine effect type: " + type.ToString() +
             ", qty: " + pos.Count.ToString());
-        //id = m_EffectSystem?.SetCombineEffect(type, pos);
+        id = m_EffectSystem.SetCombineEffect(type, pos);
 
         return id;
     }
 
     public void OffCombineEffect(int id)
     {
-        //m_EffectSystem?.OffCombineEffect(id);
+        m_EffectSystem?.OffCombineEffect(id);
     }
 
     public Effect SetDestroyEffect(BlockType type, List<Vector2> pos)
