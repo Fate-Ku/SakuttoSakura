@@ -333,7 +333,7 @@ public class InGameSystem : IGameSystem
         IBlock block;
         BlockType type;
 
-        /*
+       
         int pattern = Random.Range(0, 16);
         if (pattern == 0)
         {
@@ -355,9 +355,8 @@ public class InGameSystem : IGameSystem
             type = (BlockType)id;
 
         }
-        */
 
-        
+        /*
         int pattern = Random.Range(0, 2);
         if (pattern == 0)
         {
@@ -367,6 +366,7 @@ public class InGameSystem : IGameSystem
         {
             type = BlockType.Sakura;
         }
+        */
         
 
 

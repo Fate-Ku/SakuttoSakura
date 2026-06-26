@@ -135,7 +135,7 @@ public class CombineSet
             List<Vector2> pos = new();
             foreach (IBlock block in m_Blocks)
             {
-                pos.Add(block.Pos);
+                pos.Add(block.BlockNode.Pos);
             }
             m_CombineEffectID = GameMng.Instance.SetCombineEffect(m_Controller.GetCreateBlockType(m_Type), pos);
         }
