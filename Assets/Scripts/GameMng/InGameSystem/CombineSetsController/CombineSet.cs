@@ -128,7 +128,7 @@ public class CombineSet
             //all blocks go combine
             foreach (IBlock block in m_Blocks)
             {
-                block.GoCombine();
+                block.GoState(BlockStateType.Combine);
             }
 
             //set effect

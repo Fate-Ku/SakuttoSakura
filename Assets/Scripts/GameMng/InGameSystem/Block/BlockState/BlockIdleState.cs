@@ -7,6 +7,7 @@
 // 2026/06/07 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/26 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -23,6 +24,13 @@ public class BlockIdleState : IBlockState
     public override void StateBegin()
     {
         Debug.Log("test block start idle: " + m_Block.Type.ToString());
+
+        if (m_Block.IsGoFall(FallDirection.Down))
+        {
+            m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
+            return;
+        }
+
         m_Block.SetAnimation("Idle", true);
     }
 
@@ -60,6 +68,6 @@ public class BlockIdleState : IBlockState
 
     public override void BeDestroyed()
     {
-        m_Block.GoDestroy();
+        m_Block.GoState(BlockStateType.Destroy);
     }
 }

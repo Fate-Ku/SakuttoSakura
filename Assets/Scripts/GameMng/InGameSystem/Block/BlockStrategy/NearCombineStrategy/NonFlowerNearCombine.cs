@@ -12,6 +12,6 @@ public class NonFlowerNearCombine : INearCombineStrategy
 {
     public override void NearDestroy(IBlock onerBlock, IBlock destoryBlock)
     {
-        onerBlock.GoDestroy();
+        onerBlock.GoState(BlockStateType.Destroy);
     }
 }

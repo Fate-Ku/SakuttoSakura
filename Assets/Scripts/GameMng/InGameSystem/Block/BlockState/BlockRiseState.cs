@@ -46,6 +46,6 @@ public class BlockRiseState : IBlockState
 
     public override void BeDestroyed()
     {
-        m_Block.GoDestroy();
+        m_Block.GoState(BlockStateType.Destroy);
     }
 }

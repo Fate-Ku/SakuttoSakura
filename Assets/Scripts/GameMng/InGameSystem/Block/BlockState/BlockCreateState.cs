@@ -3,6 +3,7 @@
 // 
 // 2026/06/10 Created By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/26 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -48,18 +49,8 @@ public class BlockCreateState : IBlockState
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            if (m_Block.IsGoFall(FallDirection.Down))
-            {
-                //go fall
-                m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
-                return;
-            }
-            else
-            {
-                //go idle
-                m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
-                return;
-            }
+            //go idle
+            m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
         }
 
         //adjust size

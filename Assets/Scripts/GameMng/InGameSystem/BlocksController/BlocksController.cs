@@ -16,6 +16,7 @@
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/26 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -362,8 +363,15 @@ public class BlocksController
         {
             Vector2Int id = new(col, m_RowNum);
 
-            GetNode(m_NextNodeID).Block.SetPos(GetNodePos(id));
-            GetNode(m_NextNodeID).BlockChangeNode(id);
+            BlockNode blockNode = GetNode(m_NextNodeID);
+            if (blockNode != null)
+            {
+                IBlock block = blockNode.Block;
+                blockNode.BlockChangeNode(id);
+
+                block.SetPos(GetNodePos(id));
+                block.GoState(BlockStateType.Fall);
+            }
 
             m_InGameSystem.SetNextBlock();
         }

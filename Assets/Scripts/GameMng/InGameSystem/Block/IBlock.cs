@@ -18,6 +18,7 @@
 
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public abstract class IBlock
 {
@@ -188,42 +189,47 @@ public abstract class IBlock
     //-------------------
     //state
     //-------------------
-    //go rise
-    private void GoRise()
+    public void GoState(BlockStateType type)
     {
-        if (m_BlockStateController.GetStateType() != BlockStateType.Rise)
+        if (m_BlockStateController.GetStateType() == type)
         {
-            m_BlockStateController.SetState(
-                new BlockRiseState(this, m_BlockStateController));
+            return;
         }
-    }
 
-    //go combine state
-    public void GoCombine()
-    {
-        if (m_BlockStateController.GetStateType() != BlockStateType.Combine)
+        switch (type)
         {
-            m_BlockStateController.SetState(
-                new BlockCombineState(this, m_BlockStateController));
-        }
-    }
+            case BlockStateType.Idle:
+                m_BlockStateController.SetState(
+                    new BlockIdleState(this, m_BlockStateController));
+                break;
 
-    public void GoCreate()
-    {
-        if (m_BlockStateController.GetStateType() != BlockStateType.Create)
-        {
-            m_BlockStateController.SetState(
-                new BlockCreateState(this, m_BlockStateController));
-        }
-    }
+            case BlockStateType.Rise:
+                m_BlockStateController.SetState(
+                    new BlockRiseState(this, m_BlockStateController));
+                break;
 
-    //go destroy state
-    public void GoDestroy()
-    {
-        if (m_BlockStateController.GetStateType() != BlockStateType.Destroy)
-        {
-            m_BlockStateController.SetState(
-                new BlockDestroyState(this, m_BlockStateController));
+            case BlockStateType.Fall:
+                m_BlockStateController.SetState(
+                    new BlockFallState(this, m_BlockStateController));
+                break;
+
+            case BlockStateType.Combine:
+                m_BlockStateController.SetState(
+                    new BlockCombineState(this, m_BlockStateController));
+                break;
+
+            case BlockStateType.Destroy:
+                m_BlockStateController.SetState(
+                    new BlockDestroyState(this, m_BlockStateController));
+                break;
+
+            case BlockStateType.Create:
+                m_BlockStateController.SetState(
+                    new BlockCreateState(this, m_BlockStateController));
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -234,8 +240,9 @@ public abstract class IBlock
     public void StartRise(Vector2 pos)
     {
         m_RiseController.StartRise(pos);
-        GoRise();
+        GoState(BlockStateType.Rise);
     }
+
 
     //end rise
     public void EndRise()
@@ -250,7 +257,13 @@ public abstract class IBlock
     //is go fall
     public bool IsGoFall(FallDirection direction)
     {
-        return m_FallController.IsGoFall(direction);
+        bool res = false;
+        if (m_FallController != null)
+        {
+            res = m_FallController.IsGoFall(direction);
+        }
+
+        return res;
     }
 
     //start fall

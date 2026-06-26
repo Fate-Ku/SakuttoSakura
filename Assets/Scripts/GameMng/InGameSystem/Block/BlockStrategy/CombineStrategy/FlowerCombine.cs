@@ -32,6 +32,6 @@ public class FlowerCombine : ICombineStrategy
 
     public override void EndCombine(IBlock onerBlock)
     {
-        onerBlock.GoDestroy();
+        onerBlock.GoState(BlockStateType.Destroy);
     }
 }

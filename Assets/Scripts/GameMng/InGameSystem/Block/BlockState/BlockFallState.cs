@@ -47,11 +47,6 @@ public class BlockFallState : IBlockState
         m_Block.FallController.FallUpdate();
         if (m_Block.FallController.IsEndFall)
         {
-            if (m_Block.IsGoFall(FallDirection.Down))
-            {
-                m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
-                return;
-            }
             m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
         }
 
@@ -61,6 +56,6 @@ public class BlockFallState : IBlockState
 
     public override void BeDestroyed()
     {
-        m_Block.GoDestroy();
+        m_Block.GoState(BlockStateType.Destroy);
     }
 }

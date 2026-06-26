@@ -26,34 +26,44 @@ public class LeftFall : IFallStrategy
         BlockNode leftBlockNode = block.GetNearNode(BlockNearPos.Left);
         if (leftBlockNode != null)
         {
+            //if left node  has block
             if (leftBlockNode.IsState(BlockNodeState.Occupied))
             {
                 IBlock leftBlock = leftBlockNode.Block;
-                //check is collision to falling down under
-                if (leftBlock.IsStateType(BlockStateType.Fall))
+                //if it fall left
+                if (leftBlock.IsFalling(FallDirection.Left))
                 {
-                    if (leftBlock.IsFalling(FallDirection.Left))
+                    //if under falling down
+                    if (leftBlock.GetFallSpeed() < m_Speed)
                     {
-                        //if under falling down
-                        if (leftBlock.GetFallSpeed() < m_Speed)
+                        float fallBlockX = leftBlock.Pos.x;
+                        if (newX - fallBlockX < block.Size)
                         {
-                            float fallBlockX = leftBlock.Pos.x;
-                            if (newX - fallBlockX < block.Size)
-                            {
-                                Debug.Log("test: together left start");
-                                //set together left that speed as left
-                                float speed = leftBlock.GetFallSpeed();
-                                block.SetFallController(
-                                    new TogetherLeftFallController(block, speed, controller.BasicSpeed, m_TargetPos));
+                            Debug.Log("test: together left start");
+                            //set together left that speed as left
+                            float speed = leftBlock.GetFallSpeed();
+                            block.SetFallController(
+                                new TogetherLeftFallController(block, speed, controller.BasicSpeed, m_TargetPos));
 
-                                //move
-                                newX = fallBlockX + block.Size;
-                                block.SetPos(new Vector2(newX, block.Pos.y));
-
-                                return;
-                            }
+                            //move
+                            newX = fallBlockX + block.Size;
+                            block.SetPos(new Vector2(newX, block.Pos.y));
+                            return;
                         }
                     }
+                }
+                //if it fall right or idle
+                else if (leftBlock.IsFalling(FallDirection.Right) ||
+                         leftBlock.IsStateType(BlockStateType.Idle))
+                {
+                    //back to node pos and go idle
+                    block.SetPos(block.BlockNode.Pos);
+                    block.GoState(BlockStateType.Idle);
+
+                    //reset fall controller
+                    controller.ResetlFallController();
+
+                    return;
                 }
             }
             else
@@ -70,8 +80,8 @@ public class LeftFall : IFallStrategy
                             if (newX - fallBlockX < block.Size)
                             {
                                 Debug.Log("test: together right start");
-                                //set together right that speed as left
                                 //back to now node
+                                //set together right that speed as left
                                 float speed = leftLeftBlock.GetFallSpeed();
                                 Vector2 targetPos = block.BlockNode.Pos;
                                 block.SetFallController(
