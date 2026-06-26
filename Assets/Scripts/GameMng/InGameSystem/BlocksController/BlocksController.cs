@@ -222,9 +222,9 @@ public class BlocksController
         {
             bool goBreak = false;
 
-            //rows: 0 ~ m_RowNum - 1
+            //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
             //update start from under
-            for (int j = 0; j < m_RowNum; ++j)
+            for (int j = -1; j < m_RowNum + 1; ++j)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 if (blockNode.IsState(BlockNodeState.Occupied))

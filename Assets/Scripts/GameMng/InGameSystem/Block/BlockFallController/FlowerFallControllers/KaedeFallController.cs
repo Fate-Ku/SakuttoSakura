@@ -12,6 +12,10 @@ public class KaedeFallController : FlowerFallController
     public KaedeFallController(IBlock block, float speed) 
         : base(block, speed)
     {
+        m_FallStrategys.Add(new DownFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
+        m_FallStrategys.Add(new RightFall(speed));
+
         //test
         block.blockTest.controllerName = "Kaede";
     }
