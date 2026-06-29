@@ -34,6 +34,8 @@ public class InGameSystemPlayState : IInGameSystemState
         m_InGameSystem.OperateControl();
         //time update
         m_InGameSystem.TimeControl();
+        //event update
+        m_InGameSystem.EventControl();
 
 
         if (m_InGameSystem.IsFullBlocks())
@@ -42,7 +44,13 @@ public class InGameSystemPlayState : IInGameSystemState
             m_Controller.SetState(new InGameSystemCheckEndState(m_InGameSystem, m_Controller));
             return;
         }
-        if (m_InGameSystem.GameTimer == 0)
+        if (m_InGameSystem.CheckLevelUp())
+        {
+            //go level up state
+            m_Controller.SetState(new InGameSystemLevelUpState(m_InGameSystem, m_Controller));
+            return;
+        }
+        if (m_InGameSystem.GetGameTime() == 0)
         {
             //go time up state
             m_Controller.SetState(new InGameSystemTimeUpState(m_InGameSystem, m_Controller));

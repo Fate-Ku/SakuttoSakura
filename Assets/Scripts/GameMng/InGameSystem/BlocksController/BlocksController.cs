@@ -17,10 +17,12 @@
 // 2026/06/24 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/26 Updated By Man-Yi, Yeh
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 
 public enum BlockNearPos
@@ -244,6 +246,31 @@ public class BlocksController
             if (goBreak)
             {
                 break;
+            }
+        }
+
+        return res;
+    }
+
+    public int GetNumOfBlock()
+    {
+        int res = 0;
+
+        //cols: 0 ~ m_ColNum - 1
+        for (int i = 0; i < m_ColNum; ++i)
+        {
+            //rows: 0 ~ m_RowNum - 1
+            //update start from under
+            for (int j = 0; j < m_RowNum; ++j)
+            {
+                BlockNode blockNode = GetNode(new Vector2Int(i, j));
+                if (blockNode != null)
+                {
+                    if (blockNode.IsState(BlockNodeState.Occupied))
+                    {
+                        res += 1;
+                    }
+                }
             }
         }
 

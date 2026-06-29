@@ -132,6 +132,8 @@ MonoBehaviour:
   nextOperateTime: 0.3
   combineTime: 2
   combineSize: 3
+  floorNum: 3
+  enevtInterval: 15
   blockTypeQty: 4
   testInGameStateText: {fileID: 0}
   startTime: 1

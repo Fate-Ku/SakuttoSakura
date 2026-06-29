@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum BlockType
@@ -94,13 +95,9 @@ public class InGameSystem : IGameSystem
     private float m_OperateTimer;
 
     //-------------------
-    //time
+    //game process controller
     //-------------------
-    private float m_GameTimer;
-    public float GameTimer
-    {
-        get { return m_GameTimer; }
-    }
+    private GameProcessController m_GameProcessController;
 
 
     //-------------------
@@ -166,9 +163,9 @@ public class InGameSystem : IGameSystem
             m_GameInfo.GetCombineSize());
 
         //-------------------
-        //time
+        //game process controller
         //-------------------
-        m_GameTimer = m_GameInfo.GetPlayTime();
+        m_GameProcessController = new(this);
 
         //-------------------
         //controller
@@ -218,11 +215,27 @@ public class InGameSystem : IGameSystem
 
     public void TimeControl()
     {
-        m_GameTimer -= Time.deltaTime;
-        if (m_GameTimer <= 0)
-        {
-            m_GameTimer = 0;
-        }
+        m_GameProcessController.TimeControl();
+    }
+
+    public void EventControl()
+    {
+        m_GameProcessController.EventControl();
+    }
+
+    public bool CheckLevelUp()
+    {
+        return m_GameProcessController.CheckLevelUp();
+    }
+
+    public void LevelUpStart()
+    {
+        m_GameProcessController.LevelUpStart();
+    }
+
+    public bool IsLevelUpEnd()
+    {
+        return m_GameProcessController.IsLevelUpEnd();
     }
 
     //-------------------
@@ -256,6 +269,16 @@ public class InGameSystem : IGameSystem
         }
     }
 
+    public bool CanRise(int col)
+    {
+        return m_BlocksController.CanRise(col);
+    }
+
+    public void RiseBlock(IBlock block,int col)
+    {
+        m_BlocksController.RiseBlock(block, col);
+    }
+
     //-------------------
     //method for call back
     //-------------------
@@ -282,10 +305,16 @@ public class InGameSystem : IGameSystem
         m_IsPause = !m_IsPause;
     }
 
+    public float GetGameTime()
+    {
+        return m_GameProcessController.GameTimer;
+    }
+
     public void AddGameTime(float time)
     {
-        m_GameTimer += time;
+        m_GameProcessController.AddGameTime(time);
     }
+
 
     //-------------------
     //method of blocks
@@ -333,28 +362,10 @@ public class InGameSystem : IGameSystem
         IBlock block;
         BlockType type;
 
-       
-        int pattern = Random.Range(0, 16);
-        if (pattern == 0)
-        {
-            type = BlockType.TimeItem;
-            Debug.Log("type of next block " + BlockType.TimeItem.ToString());
-        }
-        else if (pattern == 1)
-        {
-            type = BlockType.SoftRock;
-        }
-        else if (pattern == 2)
-        {
-            type = BlockType.HardRock;
-        }
-        else
-        {
-            int qty = m_GameInfo.GetBlockTypeQty();
-            int id = Random.Range(7 - qty, 7);
-            type = (BlockType)id;
 
-        }
+        int qty = m_GameInfo.GetBlockTypeQty();
+        int id = Random.Range(7 - qty, 7);
+        type = (BlockType)id;
 
         /*
         int pattern = Random.Range(0, 2);
@@ -367,7 +378,6 @@ public class InGameSystem : IGameSystem
             type = BlockType.Sakura;
         }
         */
-        
 
 
         block = CreateBlock(type);
@@ -384,6 +394,11 @@ public class InGameSystem : IGameSystem
     public bool IsAllBlocksIdle()
     {
         return m_BlocksController.IsAllBlocksIdle();
+    }
+
+    public int GetNumOfBlock()
+    {
+        return m_BlocksController.GetNumOfBlock();
     }
 
     //-------------------

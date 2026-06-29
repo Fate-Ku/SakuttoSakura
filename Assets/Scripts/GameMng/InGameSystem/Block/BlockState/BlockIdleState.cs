@@ -8,15 +8,20 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/26 Updated By Man-Yi, Yeh
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
 
 public class BlockIdleState : IBlockState
 {
-    public BlockIdleState(IBlock block, BlockStateController controller) 
+    private bool isGofall;
+
+    public BlockIdleState(IBlock block, BlockStateController controller, 
+        bool goFall = true) 
         : base(block, controller)
     {
+        isGofall = goFall;
         StateType = BlockStateType.Idle;
         StateName = "BlockIdleState";
     }
@@ -25,10 +30,13 @@ public class BlockIdleState : IBlockState
     {
         Debug.Log("test block start idle: " + m_Block.Type.ToString());
 
-        if (m_Block.IsGoFall(FallDirection.Down))
+        if (isGofall)
         {
-            m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
-            return;
+            if (m_Block.IsGoFall(FallDirection.Down))
+            {
+                m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
+                return;
+            }
         }
 
         m_Block.SetAnimation("Idle", true);

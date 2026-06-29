@@ -3,6 +3,7 @@
 // 
 // 2026/06/12 Created By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -37,7 +38,7 @@ public class BlockRiseState : IBlockState
         m_Block.RiseController.RiseUpdate();
         if (!m_Block.RiseController.IsRising)
         {
-            m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
+            m_Controller.SetState(new BlockIdleState(m_Block, m_Controller, false));
         }
 
         //test

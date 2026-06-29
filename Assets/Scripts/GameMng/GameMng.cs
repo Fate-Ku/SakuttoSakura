@@ -289,6 +289,7 @@ public class GameMng
 
     //2026/06/09 Updated By Man-Yi, Yeh
     //2026/06/25 Updated By Man-Yi, Yeh
+    //2026/06/29 Updated By Man-Yi, Yeh
     //-------------------
     //inGame
     //-------------------
@@ -309,7 +310,7 @@ public class GameMng
         float res = 0;
         if (m_InGameSystem != null)
         {
-            res = m_InGameSystem.GameTimer;
+            res = m_InGameSystem.GetGameTime();
         }
         return res;
     }

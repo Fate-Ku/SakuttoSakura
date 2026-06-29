@@ -9,6 +9,7 @@
 // 2026/06/09 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Fate Ku 
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -37,13 +38,24 @@ public class GameInfo : MonoBehaviour
     [SerializeField] private float combineTime;
     [SerializeField] private int combineSize;
 
+    [Header("Event Info")]
+    [SerializeField, Range(1, 5)] private int floorNum;
+    [SerializeField] private float enevtInterval;
+
+    [Header("Level Up Info")]
+    [SerializeField] private int levelUpSakuraNum;
+    [SerializeField] private float levelUpAddGameTime;
+    public int nowLevel;
+
     [Header("Test")]
     [SerializeField, Range(1, 7)] private int blockTypeQty;
     [SerializeField] private TextMeshProUGUI testInGameStateText;
     [SerializeField] private float startTime;
     [SerializeField] private float playTime;
+    [SerializeField] private float levelUpTime;
     [SerializeField] private float timeUpTime;
     [SerializeField] private float gameOverTime;
+    
 
     public Vector2 GetReferPos()
     {
@@ -99,6 +111,26 @@ public class GameInfo : MonoBehaviour
         return combineSize;
     }
 
+    public int GetFloorNum()
+    {
+        return floorNum;
+    }
+
+    public float GetEventInterval()
+    {
+        return enevtInterval;
+    }
+
+    public int GetLevelUpSakuraNum()
+    {
+        return levelUpSakuraNum;
+    }
+
+    public float GetLevelUpAddGameTime()
+    {
+        return levelUpAddGameTime;
+    }
+
     //-------------------
     //test
     //-------------------
@@ -120,6 +152,11 @@ public class GameInfo : MonoBehaviour
     public float GetPlayTime()
     {
         return playTime;
+    }
+
+    public float GetLevelUpTime()
+    {
+        return levelUpTime;
     }
 
     public float GetTimeUpTime()

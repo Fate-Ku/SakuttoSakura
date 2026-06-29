@@ -27,6 +27,8 @@ public class InGameSystemCheckEndState : IInGameSystemState
         m_InGameSystem.GameRun();
         //time update
         m_InGameSystem.TimeControl();
+        //event update
+        m_InGameSystem.EventControl();
 
         if (m_InGameSystem.IsFullBlocks())
         {
@@ -34,7 +36,7 @@ public class InGameSystemCheckEndState : IInGameSystemState
             m_Controller.SetState(new InGameSystemGameOverState(m_InGameSystem, m_Controller));
             return;
         }
-        if (m_InGameSystem.GameTimer == 0)
+        if (m_InGameSystem.GetGameTime() == 0)
         {
             //go time up state
             m_Controller.SetState(new InGameSystemTimeUpState(m_InGameSystem, m_Controller));

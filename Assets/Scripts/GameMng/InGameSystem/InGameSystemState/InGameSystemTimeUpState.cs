@@ -32,7 +32,7 @@ public class InGameSystemTimeUpState : IInGameSystemState
         }
         else
         {
-            if (m_InGameSystem.GameTimer > 0)
+            if (m_InGameSystem.GetGameTime() > 0)
             {
                 //go play state
                 m_Controller.SetState(new InGameSystemPlayState(m_InGameSystem, m_Controller));
