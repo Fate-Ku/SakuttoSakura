@@ -38,8 +38,8 @@ public class InGameSystemPlayState : IInGameSystemState
 
         if (m_InGameSystem.IsFullBlocks())
         {
-            //go game over state
-            m_Controller.SetState(new InGameSystemGameOverState(m_InGameSystem, m_Controller));
+            //go check end state
+            m_Controller.SetState(new InGameSystemCheckEndState(m_InGameSystem, m_Controller));
             return;
         }
         if (m_InGameSystem.GameTimer == 0)

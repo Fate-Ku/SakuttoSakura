@@ -10835,12 +10835,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: colNum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: rowNum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: playTime
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: blockTypeQty
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: testInGameStateText

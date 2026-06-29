@@ -3,6 +3,7 @@
 // 
 // 2026/06/24 Created By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -26,7 +27,7 @@ public class LeftFall : IFallStrategy
         BlockNode leftBlockNode = block.GetNearNode(BlockNearPos.Left);
         if (leftBlockNode != null)
         {
-            //if left node  has block
+            //if left node has block
             if (leftBlockNode.IsState(BlockNodeState.Occupied))
             {
                 IBlock leftBlock = leftBlockNode.Block;
@@ -52,9 +53,9 @@ public class LeftFall : IFallStrategy
                         }
                     }
                 }
-                //if it fall right or idle
-                else if (leftBlock.IsFalling(FallDirection.Right) ||
-                         leftBlock.IsStateType(BlockStateType.Idle))
+                //if not
+                //idle or fall down
+                else
                 {
                     //back to node pos and go idle
                     block.SetPos(block.BlockNode.Pos);
@@ -66,14 +67,18 @@ public class LeftFall : IFallStrategy
                     return;
                 }
             }
+            //if left node don't has block
             else
             {
+                //check left's left
                 BlockNode leftLeftBlockNode = leftBlockNode.GetNearNode(BlockNearPos.Left);
                 if (leftLeftBlockNode != null) 
                 {
+                    //if left's left node has block
                     if (leftLeftBlockNode.IsState(BlockNodeState.Occupied))
                     {
                         IBlock leftLeftBlock = leftLeftBlockNode.Block;
+                        ///if left's left block id fall right
                         if (leftLeftBlock.IsFalling(FallDirection.Right))
                         {
                             float fallBlockX = leftLeftBlock.Pos.x;

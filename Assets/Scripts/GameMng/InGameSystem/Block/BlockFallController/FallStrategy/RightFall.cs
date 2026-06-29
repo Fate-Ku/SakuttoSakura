@@ -3,6 +3,7 @@
 // 
 // 2026/06/24 Created By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -26,10 +27,11 @@ public class RightFall : IFallStrategy
         BlockNode rightBlockNode = block.GetNearNode(BlockNearPos.Right);
         if (rightBlockNode != null)
         {
+            //if left node has block
             if (rightBlockNode.IsState(BlockNodeState.Occupied))
             {
                 IBlock rightBlock = rightBlockNode.Block;
-                //check is collision to falling down under
+                //if it fall right
                 if (rightBlock.IsStateType(BlockStateType.Fall))
                 {
                     if (rightBlock.IsFalling(FallDirection.Right))
@@ -54,6 +56,19 @@ public class RightFall : IFallStrategy
                             }
                         }
                     }
+                }
+                //if not
+                //idle or fall down
+                else
+                {
+                    //back to node pos and go idle
+                    block.SetPos(block.BlockNode.Pos);
+                    block.GoState(BlockStateType.Idle);
+
+                    //reset fall controller
+                    controller.ResetlFallController();
+
+                    return;
                 }
             }
         }

@@ -2,6 +2,7 @@
 // IInGameSystemState.cs
 // 
 // 2026/06/10 Created By Man-Yi, Yeh
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -13,6 +14,7 @@ public enum InGameSystemStateType
     Start,
     Play,
     TimeUp,
+    CheckEnd,
     GameOver,
     LevelUp
 }
