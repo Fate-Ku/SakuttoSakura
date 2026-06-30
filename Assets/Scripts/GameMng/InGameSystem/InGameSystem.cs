@@ -315,6 +315,10 @@ public class InGameSystem : IGameSystem
         m_GameProcessController.AddGameTime(time);
     }
 
+    public int GetGameLevel()
+    {
+        return m_GameProcessController.Level;
+    }
 
     //-------------------
     //method of blocks

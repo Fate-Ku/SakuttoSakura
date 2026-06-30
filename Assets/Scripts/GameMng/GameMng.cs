@@ -12,6 +12,7 @@
 // 2026/06/16 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Fate Ku
 // 2026/06/25 Updated By Fate Ku
+// 2026/06/30 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -290,6 +291,7 @@ public class GameMng
     //2026/06/09 Updated By Man-Yi, Yeh
     //2026/06/25 Updated By Man-Yi, Yeh
     //2026/06/29 Updated By Man-Yi, Yeh
+    //2026/06/30 Updated By Man-Yi, Yeh
     //-------------------
     //inGame
     //-------------------
@@ -318,6 +320,18 @@ public class GameMng
     public void AddGameTime(float time)
     {
         m_InGameSystem?.AddGameTime(time);
+    }
+
+    public int GetGameLevel()
+    {
+        int res = 0;
+
+        if (m_InGameSystem != null)
+        {
+            res = m_InGameSystem.GetGameLevel();
+        }        
+
+        return res;
     }
 
 

@@ -2,6 +2,7 @@
 // GameProcessController.cs
 // 
 // 2026/06/29 Created By Man-Yi, Yeh
+// 2026/06/30 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -23,6 +24,10 @@ public class GameProcessController
     private IBlock m_TmpBlock;
 
     private int m_Level;
+    public int Level
+    {
+        get { return m_Level; }
+    }
     private int m_PreLevelSakuraNum;
 
     public GameProcessController(InGameSystem inGameSystem)
