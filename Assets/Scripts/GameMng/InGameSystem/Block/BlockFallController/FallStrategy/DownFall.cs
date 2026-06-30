@@ -6,6 +6,7 @@
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/29 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -33,6 +34,18 @@ public class DownFall : IFallStrategy
             if (belowBlockNode.IsState(BlockNodeState.Occupied))
             {
                 IBlock belowBlock = belowBlockNode.Block;
+                //check is under idle
+                if (belowBlock.IsStateType(BlockStateType.Idle))
+                {
+                    //back to node pos and go idle
+                    block.SetPos(block.BlockNode.Pos);
+                    block.GoState(BlockStateType.Idle);
+
+                    //reset fall controller
+                    controller.ResetlFallController();
+
+                    return;
+                }
                 //check is under rising
                 if (belowBlock.IsStateType(BlockStateType.Rise))
                 {
@@ -75,6 +88,7 @@ public class DownFall : IFallStrategy
                         }
                     }
                 }
+                
                 
             }
         }

@@ -15,13 +15,9 @@ using UnityEngine;
 
 public class BlockIdleState : IBlockState
 {
-    private bool isGofall;
-
-    public BlockIdleState(IBlock block, BlockStateController controller, 
-        bool goFall = true) 
+    public BlockIdleState(IBlock block, BlockStateController controller) 
         : base(block, controller)
     {
-        isGofall = goFall;
         StateType = BlockStateType.Idle;
         StateName = "BlockIdleState";
     }
@@ -30,13 +26,10 @@ public class BlockIdleState : IBlockState
     {
         Debug.Log("test block start idle: " + m_Block.Type.ToString());
 
-        if (isGofall)
+        if (m_Block.IsGoFall(FallDirection.Down))
         {
-            if (m_Block.IsGoFall(FallDirection.Down))
-            {
-                m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
-                return;
-            }
+            m_Controller.SetState(new BlockFallState(m_Block, m_Controller));
+            return;
         }
 
         m_Block.SetAnimation("Idle", true);

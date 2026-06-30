@@ -38,7 +38,7 @@ public class BlockRiseState : IBlockState
         m_Block.RiseController.RiseUpdate();
         if (!m_Block.RiseController.IsRising)
         {
-            m_Controller.SetState(new BlockIdleState(m_Block, m_Controller, false));
+            m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
         }
 
         //test
