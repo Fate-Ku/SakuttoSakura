@@ -7,9 +7,7 @@
 // 2026/06/23 Added By Fate Ku 
 // 
 
-using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreSystem : IGameSystem
 {
