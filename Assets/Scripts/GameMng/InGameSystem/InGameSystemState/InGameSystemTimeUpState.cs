@@ -28,10 +28,17 @@ public class InGameSystemTimeUpState : IInGameSystemState
     {
         if (!m_InGameSystem.IsAllBlocksIdle())
         {
+            //game basic update
             m_InGameSystem.GameRun();
         }
         else
         {
+            if (m_InGameSystem.CheckLevelUp())
+            {
+                //go level up state
+                m_Controller.SetState(new InGameSystemLevelUpState(m_InGameSystem, m_Controller));
+                return;
+            }
             if (m_InGameSystem.GetGameTime() > 0)
             {
                 //go play state
