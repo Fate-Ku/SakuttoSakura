@@ -4,13 +4,14 @@
 // 2026/06/10 Created By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/26 Updated By Man-Yi, Yeh
+// 2026/06/30 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
 
 public class BlockCreateState : IBlockState
 {
-    private float timer = 0.5f;
+    private float timer = 0.8f;
     //private float size;
 
     public BlockCreateState(IBlock block, BlockStateController controller) 
@@ -30,14 +31,6 @@ public class BlockCreateState : IBlockState
 
     public override void StateEnd()
     {
-        //adjust size
-        /*
-        Vector3 scale = m_Block.BlockOb.transform.localScale;
-        scale.x = size;
-        scale.y = size;
-        m_Block.BlockOb.transform.localScale = scale;
-        */
-
         m_Block.SetAnimation("Create", false);
 
         //test
@@ -46,6 +39,15 @@ public class BlockCreateState : IBlockState
 
     public override void StateUpdate()
     {
+        m_Block.blockTest.trigger = m_Trigger;
+        if (m_Trigger)
+        {
+            //go idle
+            m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
+            return;
+        }
+
+        //test
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
@@ -53,13 +55,6 @@ public class BlockCreateState : IBlockState
             m_Controller.SetState(new BlockIdleState(m_Block, m_Controller));
         }
 
-        //adjust size
-        /*
-        Vector3 scale = m_Block.BlockOb.transform.localScale;
-        float rate = 0.5f + (0.5f * (1 - timer));
-        scale.x = size * rate;
-        scale.y = size * rate;
-        m_Block.BlockOb.transform.localScale = scale;
-        */
+        
     }
 }

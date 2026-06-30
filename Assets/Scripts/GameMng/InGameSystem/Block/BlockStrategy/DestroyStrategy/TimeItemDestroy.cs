@@ -17,7 +17,6 @@ public class TimeItemDestroy : IDestroyStrategy
     public override void DestroyStart(IBlock onerBlock)
     {
         Debug.Log("DestroyStart");
-        TestTimeInit();
         GameMng.Instance.AddGameTime(m_AddTime);
     }
 
@@ -26,10 +25,4 @@ public class TimeItemDestroy : IDestroyStrategy
         Debug.Log("DestroyEnd");
         BlockDestory(onerBlock);
     }
-
-    public override void DestroyUpdate(IBlock onerBlock)
-    {
-        TestUpdate(onerBlock);
-    }
-
 }

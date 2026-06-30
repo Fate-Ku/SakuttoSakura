@@ -43,6 +43,7 @@ public class IBlockState
     //Controller
     protected BlockStateController m_Controller = null;
 
+    //trigger
     protected bool m_Trigger = false;
     public bool Trigger
     {

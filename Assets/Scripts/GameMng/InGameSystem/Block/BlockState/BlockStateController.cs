@@ -81,6 +81,7 @@ public class BlockStateController
         m_State.BeDestroyed();
     }
 
+    //call trigger
     public void CallTrigger()
     {
         m_State.Trigger = true;
