@@ -7,6 +7,7 @@
 // 2026/06/14 Added By Fate Ku
 // 2026/06/22 Added By Fate Ku
 // 2026/06/23 Updated By Fate Ku
+// 2026/06/30 Updated By Fate Ku
 //
 
 using UnityEngine;
@@ -14,7 +15,7 @@ using UnityEngine;
 public class InGameUI : UISystem
 {
     private ScoreInfo m_ScoreInfo;
- 
+
     public ScoreInfo ScoreInfo
     {
         get { return m_ScoreInfo; }
@@ -23,6 +24,7 @@ public class InGameUI : UISystem
     private InGameUIBackground m_Background;
     private InGameUIScore m_ScoreUI;
     private InGameUITimer m_Timer;
+    private InGameUIState m_State;
 
     public InGameUI(GameMng gameMng)
         : base(gameMng)
@@ -33,6 +35,7 @@ public class InGameUI : UISystem
 
     public override void Init()
     {
+
         m_ButtonSystem.Init();
         m_Background.Init();
 
@@ -42,11 +45,15 @@ public class InGameUI : UISystem
         {
             m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
         }
-        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText(),m_ScoreInfo.GetComboText()
-            , m_ScoreInfo.GetMoveableComboText(),m_ScoreInfo.GetSakuraText());
+
+        m_State = new InGameUIState(m_ScoreInfo.GetInGameStateText());
+        m_State.Init();
+        
+        m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText(), m_ScoreInfo.GetComboText()
+            , m_ScoreInfo.GetMoveableComboText(), m_ScoreInfo.GetSakuraText());
         m_ScoreUI.Init();
 
-        m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(),m_ScoreInfo.GetTimerSlider());
+        m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(), m_ScoreInfo.GetTimerSlider());
         m_Timer.Init();
 
         //Debug.Log("InGameUI Init");
@@ -54,6 +61,7 @@ public class InGameUI : UISystem
 
     public override void Update()
     {
+        m_State.Update();
         m_ButtonSystem.Update();
         m_ScoreUI.Update();
         m_Timer.Update();
@@ -62,6 +70,7 @@ public class InGameUI : UISystem
 
     public override void Term()
     {
+        m_State.Term();
         m_ButtonSystem.Term();
         m_Background.Term();
         m_ScoreUI.Term();
