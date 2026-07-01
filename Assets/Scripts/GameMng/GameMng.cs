@@ -163,6 +163,7 @@ public class GameMng
     }
 
     //2026/05/26 Update By Man-Yi, Yeh 
+    //2026/06/30 Updated By Man-Yi, Yeh
     //-------------------
     //method of InGameSystem
     //-------------------
@@ -223,7 +224,19 @@ public class GameMng
 
     public bool IsInGameEnd()
     {
-        return m_InGameSystem.IsGameEnd;
+        bool res = false;
+
+        if (m_InGameSystem != null)
+        {
+            res = m_InGameSystem.IsGameEnd;
+        }
+
+        return res;
+    }
+
+    public void CallInGameSystemStateTrigger()
+    {
+        m_InGameSystem?.CallStateTrigger();
     }
 
     //2026/05/30 Updated By Man-Yi, Yeh

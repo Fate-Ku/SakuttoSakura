@@ -13,6 +13,7 @@
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/30 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -318,6 +319,11 @@ public class InGameSystem : IGameSystem
     public int GetGameLevel()
     {
         return m_GameProcessController.Level;
+    }
+
+    public void CallStateTrigger()
+    {
+        m_InGameSystemStateController.CallTrigger();
     }
 
     //-------------------

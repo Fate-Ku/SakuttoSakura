@@ -41,4 +41,10 @@ public class InGameStateController
         //state update
         m_State?.StateUpdate();
     }
+
+    //call trigger
+    public void CallTrigger()
+    {
+        m_State.Trigger = true;
+    }
 }

@@ -36,6 +36,7 @@ public class InGameSystemLevelUpState : IInGameSystemState
 
         if (!startLevelUp)
         {
+            Debug.Log("level: wait idle");
             if (m_InGameSystem.IsAllBlocksIdle())
             {
                 m_InGameSystem.LevelUpStart();
@@ -48,7 +49,7 @@ public class InGameSystemLevelUpState : IInGameSystemState
             {
                 //event update
                 m_InGameSystem.EventControl();
-
+                Debug.Log("level: wait event end");
                 if (m_InGameSystem.IsLevelUpEnd())
                 {
                     startWait = true;
@@ -56,6 +57,7 @@ public class InGameSystemLevelUpState : IInGameSystemState
             }
             else
             {
+                Debug.Log("level: wait end");
                 timer -= Time.deltaTime;
                 if (timer <= 0)
                 {

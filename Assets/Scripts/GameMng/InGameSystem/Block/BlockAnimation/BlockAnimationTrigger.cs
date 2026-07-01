@@ -17,6 +17,6 @@ public class BlockAnimationTrigger : MonoBehaviour
 
     public void CallTrigger()
     {
-        m_Block.CallTrigger();
+        m_Block.CallStateTrigger();
     }
 }

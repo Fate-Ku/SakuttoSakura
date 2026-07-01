@@ -5,12 +5,15 @@
 // 2026/06/08 Updated By Man-Yi, Yeh
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/06/30 Updated By Man-Yi, Yeh
 // 
 
+using System.Threading;
 using UnityEngine;
 
 public class BlockDestroyState : IBlockState
 {
+    private float timer = 0.8f;
     public BlockDestroyState(IBlock block, BlockStateController controller) 
         : base(block, controller)
     {
@@ -26,8 +29,6 @@ public class BlockDestroyState : IBlockState
         m_Block.DestroyStrategy.DestroyStart(m_Block);
         m_Block.SetAnimation("Destroy", true);
 
-        //test
-        m_Block.blockTest.trigger = m_Trigger;
     }
 
     public override void StateEnd()
@@ -37,6 +38,22 @@ public class BlockDestroyState : IBlockState
 
     public override void StateUpdate()
     {
-        m_Block.DestroyStrategy.DestroyUpdate(m_Block);
-    }
+        //test
+        m_Block.blockTest.trigger = m_Trigger;
+        if (m_Trigger)
+        {
+            //end destroy
+            m_Block.DestroyStrategy.DestroyEnd(m_Block);
+            return;
+        }
+
+        //test
+        timer-= Time.deltaTime;
+        if (timer <= 0)
+        {
+            //end destroy
+            m_Block.DestroyStrategy.DestroyEnd(m_Block);
+            return;
+        }
+}
 }

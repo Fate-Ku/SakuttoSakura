@@ -126,11 +126,13 @@ public abstract class IBlock
 
         m_Animator = m_BlockOb.GetComponentInChildren<Animator>();
 
-        BlockAnimationTrigger trigger = m_BlockOb.GetComponentInChildren<BlockAnimationTrigger>();
-        trigger?.SetBlock(this);
-
         if (m_BlockOb != null)
         {
+            BlockAnimationTrigger trigger = m_BlockOb.GetComponentInChildren<BlockAnimationTrigger>();
+            if (trigger != null)
+            {
+                trigger.SetBlock(this);
+            }
             blockTest = m_BlockOb.GetComponent<BlockTest>();
         }
 
@@ -382,7 +384,7 @@ public abstract class IBlock
         m_Animator?.SetBool(variable, active);
     }
 
-    public void CallTrigger()
+    public void CallStateTrigger()
     {
         m_BlockStateController.CallTrigger();
     }

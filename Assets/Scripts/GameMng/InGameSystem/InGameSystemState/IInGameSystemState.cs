@@ -42,6 +42,13 @@ public class IInGameSystemState
     //Controller
     protected InGameStateController m_Controller = null;
 
+    //trigger
+    protected bool m_Trigger = false;
+    public bool Trigger
+    {
+        set { m_Trigger = value; }
+    }
+
     public IInGameSystemState(InGameSystem inGameSystem, InGameStateController controller)
     {
         m_InGameSystem = inGameSystem;
