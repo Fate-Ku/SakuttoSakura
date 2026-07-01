@@ -4,15 +4,23 @@
 // 2026/05/31 Created By Fate Ku
 // 2026/06/02 Updated By Fate Ku
 // 2026/06/24 Updated By Fate Ku
+// 2026/07/01 Updated By Fate Ku
 //
+
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+
 public class InGameUIButton
 {
+
     private Camera m_MainCam;
     private Transform[] m_Cubes = new Transform[7]; //create new 7 cubes
 
+
     public void Init()
     {
+
         // main camera
         m_MainCam = Camera.main;
 
@@ -24,22 +32,44 @@ public class InGameUIButton
     // -------------------------
     public void Update()
     {
-        // mouse click
-        if (Input.GetMouseButtonDown(0))
+
+        //// mouse click
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    CheckRaycast(Input.mousePosition);
+        //}
+
+        //// touch
+        //if (Input.touchCount > 0)
+        //{
+        //    Touch touch = Input.GetTouch(0);
+
+        //    if (touch.phase == TouchPhase.Began)
+        //    {
+        //        CheckRaycast(touch.position);
+        //    }
+        //}
+
+        // Mouse left button release
+        if (Mouse.current != null && Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            CheckRaycast(Input.mousePosition);
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+            CheckRaycast(mousePos);
         }
 
-        // touch
-        if (Input.touchCount > 0)
+        // Touch release
+        if (Touchscreen.current != null)
         {
-            Touch touch = Input.GetTouch(0);
+            var touch = Touchscreen.current.primaryTouch;
 
-            if (touch.phase == TouchPhase.Began)
+            if (touch.press.wasReleasedThisFrame)
             {
-                CheckRaycast(touch.position);
+                Vector2 touchPos = touch.position.ReadValue();
+                CheckRaycast(touchPos);
             }
         }
+
+
     }
 
     // -------------------------
@@ -103,7 +133,7 @@ public class InGameUIButton
     // -------------------------
     // Check click/touch
     // -------------------------
-    private void CheckRaycast(Vector2 screenPos)
+    public void CheckRaycast(Vector2 screenPos)
     {
         Ray ray = m_MainCam.ScreenPointToRay(screenPos);
         RaycastHit hit;
@@ -124,5 +154,6 @@ public class InGameUIButton
             }
         }
     }
+
 
 }
