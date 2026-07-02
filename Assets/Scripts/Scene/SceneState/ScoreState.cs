@@ -27,12 +27,12 @@ public class ScoreState : IGameSceneState
 
     public override void StateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            //change to MenuState
-            m_Controller.SetState(new MenuState(m_Controller), "MenuScene");
-            return;
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    //change to MenuState
+        //    m_Controller.SetState(new MenuState(m_Controller), "MenuScene");
+        //    return;
+        //}
 
         GameMng.Instance.Update();
         ControllSceneByGameMng();

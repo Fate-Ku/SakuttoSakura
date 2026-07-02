@@ -2,6 +2,7 @@
 // InGameSystemStartState.cs
 // 
 // 2026/06/10 Created By Man-Yi, Yeh
+// 2026/07/02 Updated By Fate Ku
 // 
 
 using UnityEngine;

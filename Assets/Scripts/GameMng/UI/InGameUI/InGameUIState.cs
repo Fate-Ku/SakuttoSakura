@@ -3,11 +3,13 @@
 // 
 // 2026/06/24 Created By Fate Ku
 // 2026/06/30 Updated By Fate Ku
+// 2026/07/02 Updated By Fate Ku
 //
 
+
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class InGameUIState
 {
@@ -19,10 +21,14 @@ public class InGameUIState
     // animation
     private bool m_IsAnimating = false;
     private float m_AnimTime = 0f;
-    private float m_AnimDuration = 3f;
+    private float m_AnimDuration = 5f;
 
     private Vector3 m_StartPos;
     private Vector3 m_TargetPos;
+
+    private float m_BasePosX;
+
+    private bool callTrigger = false;
 
     public InGameUIState(TextMeshPro inGameStateText)
     {
@@ -32,12 +38,12 @@ public class InGameUIState
 
     public void Init()
     {
-
+        m_BasePosX = m_InGameStateText.transform.position.x;
     }
 
     public void Update()
     {
-        UpdateState();
+        //UpdateState();
         UpdateAnimation();
     }
 
@@ -50,6 +56,8 @@ public class InGameUIState
     {
         m_StageType = GameMng.Instance.GetInGameSystemStateType();
         m_GameLevel = GameMng.Instance.GetGameLevel();
+        Debug.Log("m_StageType = " + m_StageType);
+        Debug.Log("m_GameLevel = " + m_GameLevel);
 
     }
 
@@ -61,13 +69,23 @@ public class InGameUIState
 
     }
 
+    public void EndState()
+    {
+        UpdateText();
+        EndAnimation();
+    }
+
     private void UpdateText()
     {
-        m_InGameStateText.text = m_StageType.ToString();
-
-        if (m_StageType == InGameSystemStateType.LevelUp)
+        if (m_StageType == InGameSystemStateType.Start ||
+            m_StageType == InGameSystemStateType.TimeUp ||
+            m_StageType == InGameSystemStateType.GameOver)
         {
-            m_InGameStateText.text += " " + m_GameLevel;
+            m_InGameStateText.text = m_StageType.ToString();
+        }
+        else if (m_StageType == InGameSystemStateType.LevelUp)
+        {
+            m_InGameStateText.text = "Level Up " + m_GameLevel;
         }
     }
 
@@ -87,26 +105,29 @@ public class InGameUIState
         float col = xy.y; // 8
         float offsetY = scale * 0.5f;
 
-        float startPosX = m_InGameStateText.transform.position.x;
+        float startPosX = m_BasePosX;
         float startPosY = referPos.y + scale * col / 2 - offsetY; //middle
 
-        // init position
-        Vector3 pos = new Vector3(startPosX, startPosY, -1);
+        float row = xy.x; // 7
+        float offsetX = scale * 0.5f;
+
+        float endPosX = referPos.x + scale * row / 2 - offsetX;
 
         // left→right
-        if (m_StageType == InGameSystemStateType.None || //start
-            m_StageType == InGameSystemStateType.TimeUp ||
+        if (m_StageType == InGameSystemStateType.Start ||
             m_StageType == InGameSystemStateType.GameOver)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
             m_TargetPos = new Vector3(startPosX + 20f, startPosY, -1);
+            callTrigger = true;
         }
-
-        // down→up
-        else if (m_StageType == InGameSystemStateType.LevelUp)
+        // left→middle
+        else if (m_StageType == InGameSystemStateType.TimeUp ||
+            m_StageType == InGameSystemStateType.LevelUp)
         {
-            m_StartPos = new Vector3(startPosY, startPosY - 3f, -1);
-            m_TargetPos = new Vector3(startPosY, startPosY + 3f, -1);
+            m_StartPos = new Vector3(startPosX, startPosY, -1);
+            m_TargetPos = new Vector3(endPosX, startPosY, -1);
+            callTrigger = false;
         }
         else
         {
@@ -117,9 +138,44 @@ public class InGameUIState
         if (m_IsAnimating)
         {
             m_InGameStateText.transform.position = m_StartPos;
-            Debug.Log($"Start Animation");
-            Debug.Log($"StartPos = {m_StartPos}");
-            Debug.Log($"TargetPos = {m_TargetPos}");
+        }
+    }
+
+    private void EndAnimation()
+    {
+        m_IsAnimating = true;
+        m_AnimTime = 0f;
+
+        //setting
+        float scale = GameMng.Instance.GetSize();     // scaleX, scaleY
+        Vector2 referPos = GameMng.Instance.GetGameReferPos();  // refer pos
+        Vector2Int xy = GameMng.Instance.GetGameScale(); //column & row
+
+        float col = xy.y; // 8
+        float row = xy.x; // 7
+        float offsetX = scale * 0.5f;
+        float offsetY = scale * 0.5f;
+
+        float startPosX = referPos.x + scale * row / 2 - offsetX;
+        float startPosY = referPos.y + scale * col / 2 - offsetY; //middle
+
+        // middle→right
+        if (m_StageType == InGameSystemStateType.TimeUp ||
+            m_StageType == InGameSystemStateType.LevelUp)
+        {
+            m_StartPos = new Vector3(startPosX, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 20f, startPosY, -1);
+            callTrigger = true;
+        }
+        else
+        {
+            m_IsAnimating = false;
+        }
+
+        // init position
+        if (m_IsAnimating)
+        {
+            m_InGameStateText.transform.position = m_StartPos;
         }
     }
 
@@ -141,6 +197,12 @@ public class InGameUIState
         {
             m_IsAnimating = false;
         }
+
+        if (callTrigger) 
+        {
+            GameMng.Instance.CallInGameSystemStateTrigger();
+        }
+
     }
 
 }

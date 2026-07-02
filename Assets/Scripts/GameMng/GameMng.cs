@@ -13,6 +13,7 @@
 // 2026/06/24 Updated By Fate Ku
 // 2026/06/25 Updated By Fate Ku
 // 2026/06/30 Updated By Man-Yi, Yeh
+// 2026/07/02 Updated By Fate Ku
 // 
 
 using System;
@@ -79,6 +80,13 @@ public class GameMng
         get { return m_EffectInfo; }
     }
 
+    //score info
+    private ScoreInfo m_ScoreInfo;
+
+    public ScoreInfo ScoreInfo
+    {
+        get { return m_ScoreInfo; }
+    }
 
     //-------------------
     //game system
@@ -98,13 +106,8 @@ public class GameMng
     //effect system
     private EffectSystem m_EffectSystem;
 
-    //
+    //UI game state
     private InGameUIState m_State;
-
-    public void SetStateUI(InGameUIState state)
-    {
-        m_State = state;
-    }
 
 
     public void Init()
@@ -177,7 +180,14 @@ public class GameMng
     //-------------------
     public void InGameInit()
     {
+        GameObject scoreInfo = GameObject.Find("ScoreInfo");
+        if (scoreInfo != null)
+        {
+            m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
+        }
+
         //renew
+        m_State = new InGameUIState(m_ScoreInfo.GetInGameStateText());
         m_InGameSystem = new InGameSystem(this);
         m_ScoreSystem = new ScoreSystem(this);
         m_GameLogSystem = new GameLogSystem(this);
@@ -191,7 +201,6 @@ public class GameMng
             m_EffectInfo = effectInfo.GetComponent<EffectInfo>();
         }
 
-
         Dictionary<BlockType, Material> mats = new Dictionary<BlockType, Material>();
         mats[BlockType.Kaede] = m_EffectInfo.GetMatKaede();
         mats[BlockType.Himawari] = m_EffectInfo.GetMatHimawari();
@@ -201,11 +210,11 @@ public class GameMng
         mats[BlockType.Sakura] = m_EffectInfo.GetMatSakura();
         mats[BlockType.None] = m_EffectInfo.GetMatTsubaki();
         
-
         m_EffectSystem = new EffectSystem(this, m_EffectInfo.GetEffectPrefab(), mats);
         // 2026/06/25 Updated By Fate Ku
 
         //init
+        m_State?.Init();
         m_InGameSystem?.Init();
         m_ScoreSystem?.Init();
         m_GameLogSystem?.Init();
@@ -214,6 +223,7 @@ public class GameMng
 
     public void InGameTerm()
     {
+        m_State?.Term();
         m_InGameSystem?.Term();
         m_ScoreSystem?.Term();
         m_GameLogSystem?.Term();
@@ -224,6 +234,7 @@ public class GameMng
 
     public void InGameUpdate()
     {
+        m_State?.Update();
         m_InGameSystem?.Update();
         m_ScoreSystem?.Update();
         m_GameLogSystem?.Update();
@@ -479,5 +490,9 @@ public class GameMng
         m_State.ShowState();
     }
 
+    public void EndState()
+    {
+        m_State.EndState();
+    }
 
 }
