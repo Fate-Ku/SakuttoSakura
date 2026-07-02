@@ -17,7 +17,7 @@ public class InGameSystemCheckEndState : IInGameSystemState
 
     public override void StateBegin()
     {
-        m_InGameSystem.TestInGameStateText.text = "CheckEnd";
+        //m_InGameSystem.TestInGameStateText.text = "CheckEnd";
         Debug.Log("check end");
     }
 

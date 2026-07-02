@@ -20,6 +20,7 @@ public class InGameSystemStartState : IInGameSystemState
     public override void StateBegin()
     {
         timer = m_InGameSystem.GameInfo.GetStartTime();
+        GameMng.Instance.ShowState(); //start
     }
 
     public override void StateUpdate()

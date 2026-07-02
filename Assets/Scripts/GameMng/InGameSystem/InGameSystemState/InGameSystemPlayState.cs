@@ -18,7 +18,7 @@ public class InGameSystemPlayState : IInGameSystemState
     public override void StateBegin()
     {
         m_InGameSystem.StartPlay();
-        m_InGameSystem.TestInGameStateText.text = "Play";
+        //m_InGameSystem.TestInGameStateText.text = "Play";
     }
 
     public override void StateEnd()

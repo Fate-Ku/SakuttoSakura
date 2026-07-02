@@ -25,8 +25,9 @@ public class InGameSystemLevelUpState : IInGameSystemState
         timer = m_InGameSystem.GameInfo.GetLevelUpTime();
         startLevelUp = false;
         startWait = false;
-        
-        m_InGameSystem.TestInGameStateText.text = "Level Up";
+
+        GameMng.Instance.ShowState();
+        //m_InGameSystem.TestInGameStateText.text = "Level Up";
     }
 
     public override void StateUpdate()

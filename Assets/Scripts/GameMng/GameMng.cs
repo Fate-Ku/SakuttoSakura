@@ -98,6 +98,14 @@ public class GameMng
     //effect system
     private EffectSystem m_EffectSystem;
 
+    //
+    private InGameUIState m_State;
+
+    public void SetStateUI(InGameUIState state)
+    {
+        m_State = state;
+    }
+
 
     public void Init()
     {
@@ -234,10 +242,7 @@ public class GameMng
         return res;
     }
 
-    public void CallInGameSystemStateTrigger()
-    {
-        m_InGameSystem?.CallStateTrigger();
-    }
+    
 
     //2026/05/30 Updated By Man-Yi, Yeh
     //-------------------
@@ -346,7 +351,10 @@ public class GameMng
 
         return res;
     }
-
+    public void CallInGameSystemStateTrigger()
+    {
+        m_InGameSystem?.CallStateTrigger();
+    }
 
     //2026/06/09 Updated By Man-Yi, Yeh
     //-------------------
@@ -465,5 +473,11 @@ public class GameMng
     {
         return m_EffectSystem;
     }
+
+    public void ShowState()
+    {
+        m_State.ShowState();
+    }
+
 
 }

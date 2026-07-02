@@ -20,7 +20,8 @@ public class InGameSystemGameOverState : IInGameSystemState
     public override void StateBegin()
     {
         timer = m_InGameSystem.GameInfo.GetGameOverTime();
-        m_InGameSystem.TestInGameStateText.text = "Game Over";
+        GameMng.Instance.ShowState();
+        //m_InGameSystem.TestInGameStateText.text = "Game Over";
     }
 
     public override void StateUpdate()
