@@ -19,7 +19,7 @@ public class InGameUIState
     // animation
     private bool m_IsAnimating = false;
     private float m_AnimTime = 0f;
-    private float m_AnimDuration = 2f;
+    private float m_AnimDuration = 3f;
 
     private Vector3 m_StartPos;
     private Vector3 m_TargetPos;
@@ -37,9 +37,8 @@ public class InGameUIState
 
     public void Update()
     {
-        m_StageType = GameMng.Instance.GetInGameSystemStateType();
-        m_GameLevel = GameMng.Instance.GetGameLevel();
-
+        UpdateState();
+        UpdateAnimation();
     }
 
     public void Term()
@@ -47,27 +46,35 @@ public class InGameUIState
         m_InGameStateText = null;
     }
 
+    public void UpdateState()
+    {
+        m_StageType = GameMng.Instance.GetInGameSystemStateType();
+        m_GameLevel = GameMng.Instance.GetGameLevel();
+
+    }
+
     public void ShowState()
     {
-        if (m_InGameStateText == null)
-            return;
+        UpdateState();
+        UpdateText();
+        StartAnimation();
 
+    }
+
+    private void UpdateText()
+    {
         m_InGameStateText.text = m_StageType.ToString();
 
         if (m_StageType == InGameSystemStateType.LevelUp)
         {
             m_InGameStateText.text += " " + m_GameLevel;
         }
-
-        PlayAnimation();
-        UpdateAnimation();
-
     }
 
     // ---------------------------------------------------------
     // animation setting
     // ---------------------------------------------------------
-    private void PlayAnimation()
+    private void StartAnimation()
     {
         m_IsAnimating = true;
         m_AnimTime = 0f;
@@ -87,13 +94,12 @@ public class InGameUIState
         Vector3 pos = new Vector3(startPosX, startPosY, -1);
 
         // left→right
-        if (m_StageType == InGameSystemStateType.Start ||
-            m_StageType == InGameSystemStateType.Play ||
+        if (m_StageType == InGameSystemStateType.None || //start
             m_StageType == InGameSystemStateType.TimeUp ||
             m_StageType == InGameSystemStateType.GameOver)
         {
-            m_StartPos = new Vector3(startPosX - 3f, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 3f, startPosY, -1);
+            m_StartPos = new Vector3(startPosX, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 20f, startPosY, -1);
         }
 
         // down→up
@@ -111,6 +117,9 @@ public class InGameUIState
         if (m_IsAnimating)
         {
             m_InGameStateText.transform.position = m_StartPos;
+            Debug.Log($"Start Animation");
+            Debug.Log($"StartPos = {m_StartPos}");
+            Debug.Log($"TargetPos = {m_TargetPos}");
         }
     }
 

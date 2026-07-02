@@ -62,6 +62,8 @@ public class InGameUI : UISystem
     public override void Update()
     {
         m_State.Update();
+        GameMng.Instance.SetStateUI(m_State);
+
         m_ButtonSystem.Update();
         m_ScoreUI.Update();
         m_Timer.Update();

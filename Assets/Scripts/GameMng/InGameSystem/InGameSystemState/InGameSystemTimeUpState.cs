@@ -21,7 +21,8 @@ public class InGameSystemTimeUpState : IInGameSystemState
     public override void StateBegin()
     {
         timer = m_InGameSystem.GameInfo.GetTimeUpTime();
-        m_InGameSystem.TestInGameStateText.text = "Time Up";
+        GameMng.Instance.ShowState();
+        //m_InGameSystem.TestInGameStateText.text = "Time Up";
     }
 
     public override void StateUpdate()
