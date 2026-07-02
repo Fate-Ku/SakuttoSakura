@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum BlockType
 {
@@ -426,55 +427,63 @@ public class InGameSystem : IGameSystem
     //-------------------
     private void TestOperate()
     {
-        //test
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ColumnOnClick(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ColumnOnClick(1);
+        ////test
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    ColumnOnClick(0);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    ColumnOnClick(1);
 
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ColumnOnClick(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ColumnOnClick(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ColumnOnClick(4);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            ColumnOnClick(5);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            ColumnOnClick(6);
-        }
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    ColumnOnClick(2);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    ColumnOnClick(3);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha5))
+        //{
+        //    ColumnOnClick(4);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha6))
+        //{
+        //    ColumnOnClick(5);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha7))
+        //{
+        //    ColumnOnClick(6);
+        //}
 
-        //game end
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("Test End Game");
+        ////game end
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    Debug.Log("Test End Game");
 
-            m_IsGameEnd = true;
-        }
+        //    m_IsGameEnd = true;
+        //}
 
-        //pause
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("Test Pause");
+        ////pause
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    Debug.Log("Test Pause");
 
-            ReversePause();
-        }
+        //    ReversePause();
+        //}
 
-        //rise
-        if (Input.GetKeyDown(KeyCode.R))
+        ////rise
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    if (m_BlocksController.CanRise(0))
+        //    {
+        //        m_BlocksController.RiseBlock(CreateBlock(BlockType.SoftRock), 0);
+        //    }
+        //}
+
+        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
         {
             if (m_BlocksController.CanRise(0))
             {
