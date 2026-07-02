@@ -6,9 +6,11 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/16 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Man-Yi, Yeh
+// 2026/07/02 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
+
 
 public class FlowerBlock : IBlock
 {
@@ -33,5 +35,9 @@ public class FlowerBlock : IBlock
         m_NearCombineStrategy = new NormalNearCombine();
     }
 
-
+    public FlowerBlock(GameObject block, BlockType type, float size, FallData fallData)
+        :base(block, type, size)
+    {
+        m_FallController = new FlowerFallController(this, fallData);
+    }
 }
