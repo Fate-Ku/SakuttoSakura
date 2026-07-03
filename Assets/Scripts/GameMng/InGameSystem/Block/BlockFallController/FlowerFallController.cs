@@ -5,18 +5,21 @@
 // 2026/07/02 Updated By Man-Yi, Yeh
 // 
 
+using System;
 using UnityEngine;
 
+[Serializable]
 public class FallPathData
 {
-    public FallDirection direction { get; set; }
-    public float speed { get; set; }
+    public FallDirection direction;
+    public float speed;
 }
 
+[Serializable]
 public class FallData
 {
-    public float basicSpeed { get; set; }
-    public FallPathData[] pathDatas { get; set; }
+    public float basicSpeed;
+    public FallPathData[] pathDatas;
 }
 
 

@@ -14,6 +14,7 @@
 // 2026/06/23 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/30 Updated By Man-Yi, Yeh
+// 2026/07/03 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -73,7 +74,9 @@ public class InGameSystem : IGameSystem
     //-------------------
     //blocks
     //-------------------
-    //blocks
+    //block factory
+    private BlockFactory m_BlockFactory = new();
+    //blocks controller
     private BlocksController m_BlocksController;
     //combine sets
     private CombineSetsController m_CombineSetsController;
