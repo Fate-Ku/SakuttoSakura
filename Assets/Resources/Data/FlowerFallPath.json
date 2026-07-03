@@ -1,0 +1,34 @@
+[
+  {
+    "type": 3,
+    "basicSpeed": 2.5,
+    "pathDatas": [
+      {
+        "direction": 1,
+        "speed": 2
+      },
+      {
+        "direction": 0,
+        "speed": 2.5
+      },
+      {
+        "direction": 2,
+        "speed": 3
+      }
+    ]
+  },
+  {
+    "type": 6,
+    "basicSpeed": 2.5,
+    "pathDatas": [
+      {
+        "direction": 1,
+        "speed": 2.5
+      },
+      {
+        "direction": 1,
+        "speed": 2.5
+      }
+    ]
+  }
+]

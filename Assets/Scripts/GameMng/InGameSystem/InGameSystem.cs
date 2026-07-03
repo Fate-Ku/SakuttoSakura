@@ -190,7 +190,7 @@ public class InGameSystem : IGameSystem
             m_InGameSystemStateController.StateUpdate();
         }
 
-        TestOperate();
+        //TestOperate();
 
     }
 

@@ -24,7 +24,6 @@ public class InGameUI : UISystem
     private InGameUIBackground m_Background;
     private InGameUIScore m_ScoreUI;
     private InGameUITimer m_Timer;
-    private InGameUIState m_State;
 
     public InGameUI(GameMng gameMng)
         : base(gameMng)
@@ -45,9 +44,6 @@ public class InGameUI : UISystem
         {
             m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
         }
-
-        m_State = new InGameUIState(m_ScoreInfo.GetInGameStateText());
-        m_State.Init();
         
         m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText(), m_ScoreInfo.GetComboText()
             , m_ScoreInfo.GetMoveableComboText(), m_ScoreInfo.GetSakuraText());
@@ -61,7 +57,6 @@ public class InGameUI : UISystem
 
     public override void Update()
     {
-        m_State.Update();
         m_ButtonSystem.Update();
         m_ScoreUI.Update();
         m_Timer.Update();
@@ -70,7 +65,6 @@ public class InGameUI : UISystem
 
     public override void Term()
     {
-        m_State.Term();
         m_ButtonSystem.Term();
         m_Background.Term();
         m_ScoreUI.Term();

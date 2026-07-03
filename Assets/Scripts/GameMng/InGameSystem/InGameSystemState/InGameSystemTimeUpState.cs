@@ -2,9 +2,10 @@
 // InGameSystemTimeUpState.cs
 // 
 // 2026/06/10 Created By Man-Yi, Yeh
+// 2026/07/02 Updated By Fate Ku
+// 2026/07/03 Updated By Man-Yi, Yeh
 // 
 
-using System.Threading;
 using UnityEngine;
 
 public class InGameSystemTimeUpState : IInGameSystemState
@@ -21,7 +22,10 @@ public class InGameSystemTimeUpState : IInGameSystemState
     public override void StateBegin()
     {
         timer = m_InGameSystem.GameInfo.GetTimeUpTime();
-        m_InGameSystem.TestInGameStateText.text = "Time Up";
+        
+        //start State UI
+        GameMng.Instance.ShowStateUI(m_StateType);
+
     }
 
     public override void StateUpdate()
@@ -49,6 +53,8 @@ public class InGameSystemTimeUpState : IInGameSystemState
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
+                //end State UI
+                GameMng.Instance.EndStateUI(m_StateType);
                 //go game over state
                 m_Controller.SetState(new InGameSystemGameOverState(m_InGameSystem, m_Controller));
                 return;

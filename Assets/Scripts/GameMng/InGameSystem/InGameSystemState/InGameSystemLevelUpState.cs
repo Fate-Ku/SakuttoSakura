@@ -2,6 +2,8 @@
 // InGameSystemLevelUpState.cs
 // 
 // 2026/06/29 Created By Man-Yi, Yeh
+// 2026/07/02 Updated By Fate Ku
+// 2026/07/03 Updated By Man-Yi, Yeh
 // 
 
 
@@ -25,8 +27,10 @@ public class InGameSystemLevelUpState : IInGameSystemState
         timer = m_InGameSystem.GameInfo.GetLevelUpTime();
         startLevelUp = false;
         startWait = false;
-        
-        m_InGameSystem.TestInGameStateText.text = "Level Up";
+
+        //start State UI
+        GameMng.Instance.ShowStateUI(m_StateType);
+
     }
 
     public override void StateUpdate()
@@ -61,6 +65,8 @@ public class InGameSystemLevelUpState : IInGameSystemState
                 timer -= Time.deltaTime;
                 if (timer <= 0)
                 {
+                    //end State UI
+                    GameMng.Instance.EndStateUI(m_StateType);
                     //go play state
                     m_Controller.SetState(new InGameSystemPlayState(m_InGameSystem, m_Controller));
                     return;
