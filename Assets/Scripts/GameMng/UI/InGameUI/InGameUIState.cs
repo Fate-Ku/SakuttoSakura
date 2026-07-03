@@ -21,7 +21,7 @@ public class InGameUIState
     // animation
     private bool m_IsAnimating = false;
     private float m_AnimTime = 0f;
-    private float m_AnimDuration = 5f;
+    private float m_AnimDuration;
 
     private Vector3 m_StartPos;
     private Vector3 m_TargetPos;
@@ -61,16 +61,19 @@ public class InGameUIState
 
     }
 
-    public void ShowState()
+    public void ShowStateUI(InGameSystemStateType type)
     {
-        UpdateState();
+        m_StageType = type;
+        m_GameLevel = GameMng.Instance.GetGameLevel();
+        //UpdateState();
         UpdateText();
         StartAnimation();
 
     }
 
-    public void EndState()
+    public void EndStateUI(InGameSystemStateType type)
     {
+        m_StageType = type;
         UpdateText();
         EndAnimation();
     }
@@ -118,7 +121,7 @@ public class InGameUIState
             m_StageType == InGameSystemStateType.GameOver)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 20f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 15f, startPosY, -1);
             callTrigger = true;
         }
         // left→middle
@@ -164,7 +167,7 @@ public class InGameUIState
             m_StageType == InGameSystemStateType.LevelUp)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 20f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 10f, startPosY, -1);
             callTrigger = true;
         }
         else
@@ -186,6 +189,16 @@ public class InGameUIState
     {
         if (!m_IsAnimating)
             return;
+
+        if (m_StageType == InGameSystemStateType.TimeUp ||
+            m_StageType == InGameSystemStateType.LevelUp)
+        {
+            m_AnimDuration = 2f;
+        }
+        else
+        {
+            m_AnimDuration = 3f;
+        }
 
         m_AnimTime += Time.deltaTime;
         float t = Mathf.Clamp01(m_AnimTime / m_AnimDuration);

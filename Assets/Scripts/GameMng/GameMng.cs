@@ -492,12 +492,12 @@ public class GameMng
     //-------------------
     public void ShowStateUI(InGameSystemStateType type)
     {
-        //m_State.ShowStateUI(type);
+        m_UIState.ShowStateUI(type);
     }
 
     public void EndStateUI(InGameSystemStateType type)
     {
-        //m_State.EndStateUI(type);
+        m_UIState.EndStateUI(type);
     }
 
 }
