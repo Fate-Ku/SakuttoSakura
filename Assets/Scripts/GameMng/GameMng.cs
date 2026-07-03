@@ -14,6 +14,7 @@
 // 2026/06/25 Updated By Fate Ku
 // 2026/06/30 Updated By Man-Yi, Yeh
 // 2026/07/02 Updated By Fate Ku
+// 2026/07/03 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -107,7 +108,7 @@ public class GameMng
     private EffectSystem m_EffectSystem;
 
     //UI game state
-    private InGameUIState m_State;
+    private InGameUIState m_UIState;
 
 
     public void Init()
@@ -187,7 +188,7 @@ public class GameMng
         }
 
         //renew
-        m_State = new InGameUIState(m_ScoreInfo.GetInGameStateText());
+        m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateText());
         m_InGameSystem = new InGameSystem(this);
         m_ScoreSystem = new ScoreSystem(this);
         m_GameLogSystem = new GameLogSystem(this);
@@ -214,7 +215,7 @@ public class GameMng
         // 2026/06/25 Updated By Fate Ku
 
         //init
-        m_State?.Init();
+        m_UIState?.Init();
         m_InGameSystem?.Init();
         m_ScoreSystem?.Init();
         m_GameLogSystem?.Init();
@@ -223,7 +224,7 @@ public class GameMng
 
     public void InGameTerm()
     {
-        m_State?.Term();
+        m_UIState?.Term();
         m_InGameSystem?.Term();
         m_ScoreSystem?.Term();
         m_GameLogSystem?.Term();
@@ -234,7 +235,7 @@ public class GameMng
 
     public void InGameUpdate()
     {
-        m_State?.Update();
+        m_UIState?.Update();
         m_InGameSystem?.Update();
         m_ScoreSystem?.Update();
         m_GameLogSystem?.Update();
@@ -485,14 +486,18 @@ public class GameMng
         return m_EffectSystem;
     }
 
-    public void ShowState()
+    //2026/07/03 Updated By Man-Yi, Yeh
+    //-------------------
+    //UI
+    //-------------------
+    public void ShowStateUI(InGameSystemStateType type)
     {
-        m_State.ShowState();
+        //m_State.ShowStateUI(type);
     }
 
-    public void EndState()
+    public void EndStateUI(InGameSystemStateType type)
     {
-        m_State.EndState();
+        //m_State.EndStateUI(type);
     }
 
 }

@@ -22,7 +22,7 @@ public enum InGameSystemStateType
 public class IInGameSystemState
 {
     //StateType
-    private InGameSystemStateType m_StateType = InGameSystemStateType.None;
+    protected InGameSystemStateType m_StateType = InGameSystemStateType.None;
     public InGameSystemStateType StateType
     {
         get { return m_StateType; }
