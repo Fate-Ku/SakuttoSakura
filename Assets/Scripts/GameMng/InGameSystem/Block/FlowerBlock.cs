@@ -13,30 +13,13 @@ using UnityEngine;
 
 public class FlowerBlock : IBlock
 {
-    public FlowerBlock(
-        GameObject block, BlockType type, float size, float speed) 
-        : base(block, type, size)
+    public FlowerBlock(GameObject block, float size, BlockType type,  FallData fallData)
+        :base(block, size, type)
     {
-        m_FallController = type switch
-        {
-            BlockType.Tsubaki => new TsubakiFallController(this, speed),
-            BlockType.Kaede => new KaedeFallController(this, speed),
-            BlockType.Himawari => new HimawariFallController(this, speed),
-            BlockType.Clover => new CloverFallController(this, speed),
-            BlockType.Asagao => new AsagaoFallController(this, speed),
-            BlockType.Kikyou => new KikyouFallController(this, speed),
-            BlockType.Sakura => new SakuraFallController(this, speed),
-            _ => new NormalFallController(this, speed),
-        };
+        m_FallController = new FlowerFallController(this, fallData);
 
         m_CombineStartegy = new FlowerCombine();
         m_DestroyStrategy = new NormalDestroy();
         m_NearCombineStrategy = new NormalNearCombine();
-    }
-
-    public FlowerBlock(GameObject block, BlockType type, float size, FallData fallData)
-        :base(block, type, size)
-    {
-        m_FallController = new FlowerFallController(this, fallData);
     }
 }

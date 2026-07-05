@@ -11303,19 +11303,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: playTime
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: timeUpTime
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: levelUpTime
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: blockTypeQty
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: enevtInterval

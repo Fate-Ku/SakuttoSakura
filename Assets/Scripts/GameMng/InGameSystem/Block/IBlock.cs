@@ -14,11 +14,11 @@
 // 2026/06/22 Updated By Man-Yi, Yeh
 // 2026/06/24 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
+// 2026/07/05 Updated By Man-Yi, Yeh
 // 
 
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public abstract class IBlock
 {
@@ -119,9 +119,9 @@ public abstract class IBlock
 
     
     public IBlock(
-        GameObject block, BlockType type,  float size) 
+        GameObject blockOb, float size, BlockType type) 
     {
-        m_BlockOb = Object.Instantiate(block);
+        m_BlockOb = Object.Instantiate(blockOb);
         m_BlockOb.transform.localScale = new Vector3(size, size, 1);
 
         m_Animator = m_BlockOb.GetComponentInChildren<Animator>();

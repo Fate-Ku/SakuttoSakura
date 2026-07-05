@@ -21,6 +21,8 @@ public class InGameSystemGameOverState : IInGameSystemState
 
     public override void StateBegin()
     {
+        Debug.Log("game over trigger in begin: " + m_Trigger.ToString());
+
         timer = m_InGameSystem.GameInfo.GetGameOverTime();
 
         //start State UI
@@ -30,10 +32,19 @@ public class InGameSystemGameOverState : IInGameSystemState
 
     public override void StateUpdate()
     {
+        Debug.Log("game over trigger in update: " + m_Trigger.ToString());
+        if (m_Trigger)
+        {
+            m_InGameSystem.IsGameEnd = true;
+            return;
+        }
+
+        /*
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
             m_InGameSystem.IsGameEnd = true;
         }
+        */
     }
 }

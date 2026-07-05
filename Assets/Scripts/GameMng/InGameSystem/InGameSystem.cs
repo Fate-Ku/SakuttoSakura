@@ -19,7 +19,6 @@
 
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -75,7 +74,7 @@ public class InGameSystem : IGameSystem
     //blocks
     //-------------------
     //block factory
-    private BlockFactory m_BlockFactory = new();
+    private BlockFactory m_BlockFactory;
     //blocks controller
     private BlocksController m_BlocksController;
     //combine sets
@@ -158,7 +157,9 @@ public class InGameSystem : IGameSystem
         //-------------------
         //blocks
         //-------------------
-        //blocks
+        //block factory
+        m_BlockFactory = new(m_GameInfo);
+        //blocks controller
         m_BlocksController = new(this, m_GameInfo);
         SetNextBlock();
         //combine sets
@@ -335,39 +336,8 @@ public class InGameSystem : IGameSystem
     //-------------------
     public IBlock CreateBlock(BlockType type)
     {
-        IBlock res = null;
+        IBlock res = m_BlockFactory.GetBlock(type);
 
-        if (m_BlockObs.TryGetValue(type, out var blockOb))
-        {
-            float size = GameInfo.GetSize();
-
-            switch (type)
-            {
-                case BlockType.None:
-                    break;
-
-                case BlockType.SoftRock:
-                    res = new SoftRockBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type));
-                    break;
-
-                case BlockType.HardRock:
-                    res = new HardRockBlock(this, blockOb, size, m_GameInfo.GetBlockFallSpeed(type));
-                    break;
-
-                case BlockType.TimeItem:
-                    res = new TimeItemBlock(blockOb, size, m_GameInfo.GetBlockFallSpeed(type));
-                    break;
-
-                default:
-                    res = new FlowerBlock(blockOb, type, size, m_GameInfo.GetBlockFallSpeed(type));
-                    break;
-            }
-        }
-        else
-        {
-            Debug.Log("BlockOb don't find");
-        }
-        
         return res;
     }
 
