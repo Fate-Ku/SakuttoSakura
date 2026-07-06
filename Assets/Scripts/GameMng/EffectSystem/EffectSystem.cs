@@ -98,7 +98,7 @@ public class EffectSystem : IGameSystem
         foreach (int removeId in removeIds)
         {
             m_CombineEffects.Remove(removeId);
-            Debug.Log("Removed Effect ID = " + removeId);
+            //Debug.Log("Removed Effect ID = " + removeId);
         }
     }
 
