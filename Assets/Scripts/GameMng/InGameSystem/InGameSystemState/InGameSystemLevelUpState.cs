@@ -90,13 +90,13 @@ public class InGameSystemLevelUpState : IInGameSystemState
                 */
             }
         }
-
+        /*
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
             Debug.Log("level up trigger in update go true test");
             m_Trigger = true;
         }
-
+        */
     }
 }

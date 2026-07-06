@@ -4,6 +4,7 @@
 // 2026/06/24 Created By Fate Ku
 // 2026/06/30 Updated By Fate Ku
 // 2026/07/02 Updated By Fate Ku
+// 2026/07/06 Updated By Fate Ku
 //
 
 
@@ -28,7 +29,7 @@ public class InGameUIState
 
     private float m_BasePosX;
 
-    private bool callTrigger = false;
+    //private bool callTrigger = false;
 
     public InGameUIState(TextMeshPro inGameStateText)
     {
@@ -43,22 +44,12 @@ public class InGameUIState
 
     public void Update()
     {
-        //UpdateState();
         UpdateAnimation();
     }
 
     public void Term()
     {
         m_InGameStateText = null;
-    }
-
-    public void UpdateState()
-    {
-        m_StageType = GameMng.Instance.GetInGameSystemStateType();
-        m_GameLevel = GameMng.Instance.GetGameLevel();
-        Debug.Log("m_StageType = " + m_StageType);
-        Debug.Log("m_GameLevel = " + m_GameLevel);
-
     }
 
     public void ShowStateUI(InGameSystemStateType type)
@@ -122,7 +113,7 @@ public class InGameUIState
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
             m_TargetPos = new Vector3(startPosX + 15f, startPosY, -1);
-            callTrigger = true;
+            //callTrigger = true;
         }
         // left→middle
         else if (m_StageType == InGameSystemStateType.TimeUp ||
@@ -130,7 +121,7 @@ public class InGameUIState
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
             m_TargetPos = new Vector3(endPosX, startPosY, -1);
-            callTrigger = false;
+            //callTrigger = false;
         }
         else
         {
@@ -168,7 +159,7 @@ public class InGameUIState
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
             m_TargetPos = new Vector3(startPosX + 10f, startPosY, -1);
-            callTrigger = true;
+            //callTrigger = true;
         }
         else
         {
@@ -209,12 +200,13 @@ public class InGameUIState
         if (t >= 1f)
         {
             m_IsAnimating = false;
+
+            //if (callTrigger)
+            //{
+                GameMng.Instance.CallInGameSystemStateTrigger();
+            //}
         }
 
-        if (callTrigger) 
-        {
-            GameMng.Instance.CallInGameSystemStateTrigger();
-        }
 
     }
 

@@ -64,12 +64,12 @@ public class InGameSystemTimeUpState : IInGameSystemState
                 return;
             }
             
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                Debug.Log("time up trigger in update go true test");
-                m_Trigger = true;
-            }
+            //timer -= Time.deltaTime;
+            //if (timer <= 0)
+            //{
+            //    Debug.Log("time up trigger in update go true test");
+            //    m_Trigger = true;
+            //}
             
         }
     }
