@@ -3,9 +3,33 @@
 // 
 // 2026/06/29 Created By Man-Yi, Yeh
 // 2026/06/30 Updated By Man-Yi, Yeh
+// 2026/07/06 Updated By Man-Yi, Yeh
 // 
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class ProcessData
+{
+    public int levelUpSakuraNum;
+    public int typeQty;
+    public float eventInterval;
+}
+
+[Serializable]
+public class LevelProcessData
+{
+    public int level;
+    public ProcessData data;
+}
+
+[Serializable]
+public class LevelProcessDataList
+{
+    public LevelProcessData[] list;
+}
 
 public class GameProcessController
 {
@@ -18,10 +42,9 @@ public class GameProcessController
         set { m_GameTimer = value; }
     }
 
-    private float m_EventTimer;
-    private bool m_IsInEvent = false;
-    private int m_NowFloor;
-    private IBlock m_TmpBlock;
+    private Dictionary<int, ProcessData> m_ProcessDatas = new();
+    private ProcessData m_DefaultProcessData;
+    private ProcessData m_NowProcessData;
 
     private int m_Level;
     public int Level
@@ -30,6 +53,11 @@ public class GameProcessController
     }
     private int m_PreLevelSakuraNum;
 
+    private float m_EventTimer;
+    private bool m_IsInEvent = false;
+    private int m_NowFloor;
+    private IBlock m_TmpBlock;
+
     public GameProcessController(InGameSystem inGameSystem)
     {
         m_InGameSystem = inGameSystem;
@@ -37,6 +65,53 @@ public class GameProcessController
         m_Level = 1;
         m_PreLevelSakuraNum = 0;
         m_InGameSystem.GameInfo.nowLevel = m_Level;
+
+        //-------------------
+        //ProcessData
+        //-------------------
+        string jsonFilePath = "Data/ProcessData";
+        TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
+        Debug.Log("ProcessData: " + jsonTextAsset);
+        LevelProcessDataList dataSet =
+            JsonUtility.FromJson<LevelProcessDataList>(jsonTextAsset.text);
+
+        foreach (LevelProcessData data in dataSet.list)
+        {
+            if (data.level != 0)
+            {
+                bool isAdded = m_ProcessDatas.TryAdd(data.level, data.data);
+                if (!isAdded)
+                {
+                    Debug.Log("LevelData TryAdd failed for Level:" + data.level.ToString());
+                }
+            }
+            else
+            {
+                m_DefaultProcessData = data.data;
+            }
+        }
+
+        m_NowProcessData = GetProcessData(m_Level);
+        
+    }
+
+    public BlockType GetNextType()
+    {
+        BlockType res = BlockType.None;
+
+        int underBdd = 7 - m_NowProcessData.typeQty;
+        if (underBdd < 0) 
+        {
+            underBdd = 0;
+        }
+        if (underBdd >= 7)
+        {
+            underBdd = 6;
+        }
+        int id = UnityEngine.Random.Range(underBdd, 7);
+        res = (BlockType)id;
+
+        return res;
     }
 
     public void AddGameTime(float time)
@@ -62,7 +137,7 @@ public class GameProcessController
         else
         {
             m_EventTimer += Time.deltaTime;
-            if (m_EventTimer >= m_InGameSystem.GameInfo.GetEventInterval())
+            if (m_EventTimer >= m_NowProcessData.eventInterval)
             {
                 CheckEventStart();
             }
@@ -74,7 +149,7 @@ public class GameProcessController
         bool res = false;
 
         if (GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura) - m_PreLevelSakuraNum >=
-            m_InGameSystem.GameInfo.GetLevelUpSakuraNum())
+            m_NowProcessData.levelUpSakuraNum)
         {
             m_PreLevelSakuraNum = GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura);
             res = true;
@@ -86,6 +161,7 @@ public class GameProcessController
     public void LevelUpStart()
     {
         m_Level += 1;
+        m_NowProcessData = GetProcessData(m_Level);
         m_GameTimer += m_InGameSystem.GameInfo.GetLevelUpAddGameTime();
         CheckEventStart();
 
@@ -155,11 +231,11 @@ public class GameProcessController
             if (m_InGameSystem.CanRise(i))
             {
                 //random create
-                int createRate = Random.Range(0, 100);
+                int createRate = UnityEngine.Random.Range(0, 100);
                 if (createRate < 120 - (20 * m_NowFloor))
                 {
                     //random type
-                    int randomType = Random.Range(0, 5);
+                    int randomType = UnityEngine.Random.Range(0, 5);
                     BlockType type = BlockType.SoftRock;
                     if (randomType == 0)
                     {
@@ -175,5 +251,17 @@ public class GameProcessController
                 }
             } 
         }
+    }
+
+    private ProcessData GetProcessData(int level)
+    {
+        ProcessData res = m_DefaultProcessData;
+
+        if (m_ProcessDatas.TryGetValue(level, out var data))
+        {
+            res = data;
+        }
+
+        return res;
     }
 }

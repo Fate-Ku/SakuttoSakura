@@ -15,6 +15,7 @@
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/30 Updated By Man-Yi, Yeh
 // 2026/07/03 Updated By Man-Yi, Yeh
+// 2026/07/06 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -67,8 +68,11 @@ public class InGameSystem : IGameSystem
     {
         get { return m_GameInfo; }
     }
-    //GameObject of blocks
-    private Dictionary<BlockType, GameObject> m_BlockObs = new();
+
+    //-------------------
+    //game process controller
+    //-------------------
+    private GameProcessController m_GameProcessController;
 
     //-------------------
     //blocks
@@ -99,17 +103,10 @@ public class InGameSystem : IGameSystem
     private float m_OperateTimer;
 
     //-------------------
-    //game process controller
-    //-------------------
-    private GameProcessController m_GameProcessController;
-
-
-    //-------------------
     //controller
     //-------------------
     //state
     private InGameStateController m_InGameSystemStateController = new();
-
 
     //-------------------
     //test
@@ -144,15 +141,11 @@ public class InGameSystem : IGameSystem
         {
             m_GameInfo = gameInfo.GetComponent<GameInfo>();
         }
-        //GameObject of blocks
-        for (int i = 0; i < (int)BlockType.Count; i++)
-        {
-            bool isAdded = m_BlockObs.TryAdd((BlockType)i, m_GameInfo.GetBlock((BlockType)i));
-            if (!isAdded) 
-            {
-                Debug.Log("TryAdd failed for GameObject:" + ((BlockType)i).ToString());
-            }
-        }
+
+        //-------------------
+        //game process controller
+        //-------------------
+        m_GameProcessController = new(this);
 
         //-------------------
         //blocks
@@ -169,16 +162,10 @@ public class InGameSystem : IGameSystem
             m_GameInfo.GetCombineSize());
 
         //-------------------
-        //game process controller
-        //-------------------
-        m_GameProcessController = new(this);
-
-        //-------------------
         //controller
         //-------------------
         m_InGameSystemStateController.SetState(
             new InGameSystemStartState(this, m_InGameSystemStateController));
-
 
         //-------------------
         //test
@@ -346,10 +333,8 @@ public class InGameSystem : IGameSystem
         IBlock block;
         BlockType type;
 
-
-        int qty = m_GameInfo.GetBlockTypeQty();
-        int id = Random.Range(7 - qty, 7);
-        type = (BlockType)id;
+        type = m_GameProcessController.GetNextType();
+        //type = BlockType.Sakura;
 
         /*
         int pattern = Random.Range(0, 2);

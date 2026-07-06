@@ -10,16 +10,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class FlowerFallData
+public class BlockFallData
 {
     public BlockType type;
     public FallData data;
 }
 
 [Serializable]
-public class FlowerFallDataList
+public class BlockFallDataList
 {
-    public FlowerFallData[] list;
+    public BlockFallData[] list;
 }
 
 public class BlockFactory
@@ -48,32 +48,17 @@ public class BlockFactory
         //-------------------
         //FallData
         //-------------------
-        string jsonFilePath = "Data/FlowerFallPath";
+        string jsonFilePath = "Data/FallData";
         TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
-        Debug.Log("Json file test: " + jsonTextAsset.text);
-        FlowerFallDataList dataSet =
-            JsonUtility.FromJson<FlowerFallDataList>(jsonTextAsset.text);
+        BlockFallDataList dataSet =
+            JsonUtility.FromJson<BlockFallDataList>(jsonTextAsset.text);
 
-        foreach (FlowerFallData data in dataSet.list)
+        foreach (BlockFallData data in dataSet.list)
         {
             bool isAdded = m_BlockFallDatas.TryAdd(data.type, data.data);
             if (!isAdded)
             {
                 Debug.Log("FallData TryAdd failed for Type:" + data.type.ToString());
-            }
-        }
-        
-        for (int i = 0; i < (int)BlockType.Count; ++i)
-        {
-            if (m_BlockFallDatas.TryGetValue((BlockType)i,out var fallData))
-            {
-                string text = 
-                    "Json test:" +
-                    ((BlockType)i).ToString() +
-                    " " + 
-                    fallData.pathDatas.Length.ToString();
-
-                Debug.Log(text);
             }
         }
         
