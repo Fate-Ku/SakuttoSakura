@@ -1,18 +1,18 @@
 {
   "list": [
     {
-      "level": 0,
+      "level": 1,
       "data": {
-        "levelUpSakuraNum": 15,
-        "typeQty": 7,
-        "eventInterval": 10
+        "levelUpSakuraNum": 5,
+        "typeQty": 1,
+        "eventInterval": 20
       }
     },
 
     {
-      "level": 1,
+      "level": 3,
       "data": {
-        "levelUpSakuraNum": 5,
+        "levelUpSakuraNum": 8,
         "typeQty": 3,
         "eventInterval": 5
       }

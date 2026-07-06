@@ -77,21 +77,17 @@ public class GameProcessController
 
         foreach (LevelProcessData data in dataSet.list)
         {
-            if (data.level != 0)
+            bool isAdded = m_ProcessDatas.TryAdd(data.level, data.data);
+            if (!isAdded)
             {
-                bool isAdded = m_ProcessDatas.TryAdd(data.level, data.data);
-                if (!isAdded)
-                {
-                    Debug.Log("LevelData TryAdd failed for Level:" + data.level.ToString());
-                }
+                Debug.Log("LevelData TryAdd failed for Level:" + data.level.ToString());
             }
-            else
+
+            if (data.level == 1)
             {
-                m_DefaultProcessData = data.data;
+                m_NowProcessData = data.data;
             }
         }
-
-        m_NowProcessData = GetProcessData(m_Level);
         
     }
 
@@ -161,11 +157,17 @@ public class GameProcessController
     public void LevelUpStart()
     {
         m_Level += 1;
-        m_NowProcessData = GetProcessData(m_Level);
+        ProcessData data = GetProcessData(m_Level);
+        if (data != null)
+        {
+            m_NowProcessData = data;
+        }
+        
         m_GameTimer += m_InGameSystem.GameInfo.GetLevelUpAddGameTime();
         CheckEventStart();
 
         m_InGameSystem.GameInfo.nowLevel = m_Level;
+    
     }
 
     public bool IsLevelUpEnd()
@@ -255,7 +257,7 @@ public class GameProcessController
 
     private ProcessData GetProcessData(int level)
     {
-        ProcessData res = m_DefaultProcessData;
+        ProcessData res = null;
 
         if (m_ProcessDatas.TryGetValue(level, out var data))
         {
