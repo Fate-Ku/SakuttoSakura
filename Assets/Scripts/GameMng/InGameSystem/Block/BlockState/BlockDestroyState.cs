@@ -43,6 +43,7 @@ public class BlockDestroyState : IBlockState
         if (m_Trigger)
         {
             //end destroy
+            m_Block.BlockOb.SetActive(false);
             m_Block.DestroyStrategy.DestroyEnd(m_Block);
             return;
         }

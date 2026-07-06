@@ -5,6 +5,7 @@
 // 2026/07/02 Updated By Fate Ku
 // 2026/07/03 Updated By Man-Yi, Yeh
 // 2026/07/05 Updated By Man-Yi, Yeh
+// 2026/07/06 Updated By Man-Yi, Yeh
 // 
 
 
@@ -12,7 +13,6 @@ using UnityEngine;
 
 public class InGameSystemLevelUpState : IInGameSystemState
 {
-    private float timer;
     private bool startLevelUp;
     private bool startWait;
 
@@ -27,7 +27,6 @@ public class InGameSystemLevelUpState : IInGameSystemState
     {
         Debug.Log("level up trigger in begin: " + m_Trigger.ToString());
 
-        timer = m_InGameSystem.GameInfo.GetLevelUpTime();
         startLevelUp = false;
         startWait = false;
 
@@ -76,27 +75,7 @@ public class InGameSystemLevelUpState : IInGameSystemState
                     return;
 
                 }
-
-                /*
-                timer -= Time.deltaTime;
-                if (timer <= 0)
-                {
-                    //end State UI
-                    GameMng.Instance.EndStateUI(m_StateType);
-                    //go play state
-                    m_Controller.SetState(new InGameSystemPlayState(m_InGameSystem, m_Controller));
-                    return;
-                }
-                */
             }
         }
-        /*
-        timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            Debug.Log("level up trigger in update go true test");
-            m_Trigger = true;
-        }
-        */
     }
 }

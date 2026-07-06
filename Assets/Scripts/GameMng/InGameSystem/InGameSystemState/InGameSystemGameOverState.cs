@@ -4,14 +4,13 @@
 // 2026/06/10 Created By Man-Yi, Yeh
 // 2026/07/02 Updated By Fate Ku
 // 2026/07/03 Updated By Man-Yi, Yeh
+// 2026/07/06 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
 
 public class InGameSystemGameOverState : IInGameSystemState
 {
-    private float timer;
-
     public InGameSystemGameOverState(InGameSystem inGameSystem, InGameStateController controller) 
         : base(inGameSystem, controller)
     {
@@ -22,8 +21,6 @@ public class InGameSystemGameOverState : IInGameSystemState
     public override void StateBegin()
     {
         Debug.Log("game over trigger in begin: " + m_Trigger.ToString());
-
-        timer = m_InGameSystem.GameInfo.GetGameOverTime();
 
         //start State UI
         GameMng.Instance.ShowStateUI(m_StateType);

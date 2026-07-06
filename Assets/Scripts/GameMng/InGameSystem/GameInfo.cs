@@ -10,7 +10,8 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/23 Updated By Fate Ku 
 // 2026/06/29 Updated By Man-Yi, Yeh
-// 
+// 2026/07/06 Updated By Man-Yi, Yeh
+//
 
 using UnityEngine;
 using TMPro;
@@ -29,7 +30,6 @@ public class GameInfo : MonoBehaviour
 
     [Header("Block")]
     [SerializeField] private GameObject[] blocks;
-    [SerializeField] private float[] blocksFallSpeed;
 
     [Header("Operate Time")]
     [SerializeField] private float nextOperateTime;
@@ -40,21 +40,14 @@ public class GameInfo : MonoBehaviour
 
     [Header("Event Info")]
     [SerializeField, Range(1, 5)] private int floorNum;
-    [SerializeField] private float enevtInterval;
 
     [Header("Level Up Info")]
-    [SerializeField] private int levelUpSakuraNum;
     [SerializeField] private float levelUpAddGameTime;
     public int nowLevel;
 
     [Header("Test")]
-    [SerializeField, Range(1, 7)] private int blockTypeQty;
     [SerializeField] private TextMeshProUGUI testInGameStateText;
-    [SerializeField] private float startTime;
     [SerializeField] private float playTime;
-    [SerializeField] private float levelUpTime;
-    [SerializeField] private float timeUpTime;
-    [SerializeField] private float gameOverTime;
     
 
     public Vector2 GetReferPos()
@@ -90,12 +83,6 @@ public class GameInfo : MonoBehaviour
         return res;
     }
 
-    public float GetBlockFallSpeed(BlockType type)
-    {
-        float res = blocksFallSpeed[(int)type];
-        return res;
-    }
-
     public float GetNextOperateTime()
     {
         return nextOperateTime;
@@ -116,16 +103,6 @@ public class GameInfo : MonoBehaviour
         return floorNum;
     }
 
-    public float GetEventInterval()
-    {
-        return enevtInterval;
-    }
-
-    public int GetLevelUpSakuraNum()
-    {
-        return levelUpSakuraNum;
-    }
-
     public float GetLevelUpAddGameTime()
     {
         return levelUpAddGameTime;
@@ -134,38 +111,8 @@ public class GameInfo : MonoBehaviour
     //-------------------
     //test
     //-------------------
-    public int GetBlockTypeQty()
-    {
-        return blockTypeQty;
-    }
-
-    public TextMeshProUGUI GetTestInGameStateText()
-    {
-        return testInGameStateText;
-    }
-
-    public float GetStartTime()
-    {
-        return startTime;
-    }
-
     public float GetPlayTime()
     {
         return playTime;
-    }
-
-    public float GetLevelUpTime()
-    {
-        return levelUpTime;
-    }
-
-    public float GetTimeUpTime()
-    {
-        return timeUpTime;
-    }
-
-    public float GetGameOverTime()
-    {
-        return gameOverTime;
     }
 }

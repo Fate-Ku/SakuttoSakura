@@ -18,7 +18,7 @@
 // 2026/07/06 Updated By Man-Yi, Yeh
 // 
 
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -108,14 +108,6 @@ public class InGameSystem : IGameSystem
     //state
     private InGameStateController m_InGameSystemStateController = new();
 
-    //-------------------
-    //test
-    //-------------------
-    private TextMeshProUGUI m_TestInGameStateText;
-    public TextMeshProUGUI TestInGameStateText
-    {
-        get { return m_TestInGameStateText; }
-    }
 
     public InGameSystem(GameMng gameMng)
         : base(gameMng)
@@ -166,11 +158,6 @@ public class InGameSystem : IGameSystem
         //-------------------
         m_InGameSystemStateController.SetState(
             new InGameSystemStartState(this, m_InGameSystemStateController));
-
-        //-------------------
-        //test
-        //-------------------
-        m_TestInGameStateText = m_GameInfo.GetTestInGameStateText();
 
     }
 

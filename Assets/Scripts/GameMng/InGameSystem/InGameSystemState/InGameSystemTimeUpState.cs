@@ -5,14 +5,13 @@
 // 2026/07/02 Updated By Fate Ku
 // 2026/07/03 Updated By Man-Yi, Yeh
 // 2026/07/05 Updated By Man-Yi, Yeh
+// 2026/07/06 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
 
 public class InGameSystemTimeUpState : IInGameSystemState
 {
-    private float timer;
-
     public InGameSystemTimeUpState(InGameSystem inGameSystem, InGameStateController controller) 
         : base(inGameSystem, controller)
     {
@@ -23,8 +22,6 @@ public class InGameSystemTimeUpState : IInGameSystemState
     public override void StateBegin()
     {
         Debug.Log("time up trigger in begin: " + m_Trigger.ToString());
-
-        timer = m_InGameSystem.GameInfo.GetTimeUpTime();
         
         //start State UI
         GameMng.Instance.ShowStateUI(m_StateType);
@@ -63,13 +60,6 @@ public class InGameSystemTimeUpState : IInGameSystemState
                 m_Controller.SetState(new InGameSystemGameOverState(m_InGameSystem, m_Controller));
                 return;
             }
-            
-            //timer -= Time.deltaTime;
-            //if (timer <= 0)
-            //{
-            //    Debug.Log("time up trigger in update go true test");
-            //    m_Trigger = true;
-            //}
             
         }
     }
