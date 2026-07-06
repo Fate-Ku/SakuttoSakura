@@ -3,6 +3,7 @@
 // 
 // 2026/06/16 Created By Man-Yi, Yeh 
 // 2026/06/25 Updated By Fate Ku
+// 2026/07/06 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -12,27 +13,36 @@ public class EffectSystem : IGameSystem
 {
     private GameObject m_EffectPrefab;
 
+    private GameObject m_SakuraImagePrefab;
+    private Transform m_SakuraTarget;
+
     // flower materials
     private Dictionary<BlockType, Material> m_Materials;
 
     // Combine Effects
-    private Dictionary<int, List<GameObject>> m_CombineEffects = new Dictionary<int, List<GameObject>>();
+    private Dictionary<int, CombineEffectData> m_CombineEffects = new Dictionary<int, CombineEffectData>();
 
     public int m_NextEffectId = 0;
 
-    public EffectSystem(GameMng gameMng, GameObject effectPrefab,
-        Dictionary<BlockType, Material> materials)
+    public EffectSystem(
+        GameMng gameMng, GameObject effectPrefab,
+        Dictionary<BlockType, Material> materials,
+        GameObject sakuraImagePrefab, Transform sakuraTarget)
         : base(gameMng)
     {
         m_EffectPrefab = effectPrefab;
         m_Materials = materials;
+
+        m_SakuraImagePrefab = sakuraImagePrefab;
+        m_SakuraTarget = sakuraTarget;
     }
 
     // combine effect
     public int SetCombineEffect(BlockType type, List<Vector2> posList)
     {
         int id = ++m_NextEffectId;
-        List<GameObject> effectList = new List<GameObject>();
+        CombineEffectData data = new CombineEffectData();
+        data.BlockType = type;
 
         foreach (var pos in posList)
         {
@@ -61,11 +71,11 @@ public class EffectSystem : IGameSystem
 
             }
             // save object
-            effectList.Add(effectObj);
-            Debug.Log("Save Object name = "+ effectObj.name);
+            data.EffectObjects.Add(effectObj);
+            Debug.Log("Save Object name = " + effectObj.name);
         }
         // save id
-        m_CombineEffects[id] = effectList;
+        m_CombineEffects[id] = data;
 
         Debug.Log("Create Effect ID = " + id);
 
@@ -80,8 +90,16 @@ public class EffectSystem : IGameSystem
         {
             if (pair.Key <= id)
             {
+                BlockType type = pair.Value.BlockType;
+
+                // get first object position
+                if (pair.Value.EffectObjects.Count > 0 && type == BlockType.None)
+                {
+                    SakuraFlyToBasket(pair.Value.EffectObjects[0].transform.position);
+                }
+
                 // remove in ID's all objects
-                foreach (GameObject obj in pair.Value)
+                foreach (GameObject obj in pair.Value.EffectObjects)
                 {
                     if (obj != null)
                     {
@@ -102,6 +120,22 @@ public class EffectSystem : IGameSystem
         }
     }
 
+
+    private void SakuraFlyToBasket(Vector3 startPos)
+    {
+        if (m_SakuraImagePrefab == null || m_SakuraTarget == null)
+            return;
+
+        GameObject sakura =
+            GameObject.Instantiate(
+                m_SakuraImagePrefab,
+                startPos,
+                Quaternion.identity);
+
+        SakuraFly fly = sakura.AddComponent<SakuraFly>();
+
+        fly.Init(m_SakuraTarget.position);
+    }
 
 }
 

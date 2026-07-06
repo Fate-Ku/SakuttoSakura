@@ -15,6 +15,7 @@
 // 2026/06/30 Updated By Man-Yi, Yeh
 // 2026/07/02 Updated By Fate Ku
 // 2026/07/03 Updated By Man-Yi, Yeh
+// 2026/07/06 Updated By Fate Ku
 // 
 
 using System;
@@ -211,7 +212,8 @@ public class GameMng
         mats[BlockType.Sakura] = m_EffectInfo.GetMatSakura();
         mats[BlockType.None] = m_EffectInfo.GetMatTsubaki();
         
-        m_EffectSystem = new EffectSystem(this, m_EffectInfo.GetEffectPrefab(), mats);
+        m_EffectSystem = new EffectSystem(this, m_EffectInfo.GetEffectPrefab(), mats,
+            m_EffectInfo.GetSakuraImagePrefab(),m_EffectInfo.GetSakuraTarget());
         // 2026/06/25 Updated By Fate Ku
 
         //init

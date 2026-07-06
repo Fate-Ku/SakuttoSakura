@@ -11764,17 +11764,29 @@ PrefabInstance:
       propertyPath: effectPrefab
       value: 
       objectReference: {fileID: 1151670148751492977}
+    - target: {fileID: 1319497464720353953, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+      propertyPath: sakuraTarget
+      value: 
+      objectReference: {fileID: 8516508541675952265}
+    - target: {fileID: 1319497464720353953, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+      propertyPath: sakuraImagePrefab
+      value: 
+      objectReference: {fileID: 4898762186925487620, guid: 76fd723c6e5dff94daa664d56bf6c6aa, type: 3}
     - target: {fileID: 3243249952678695685, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
       propertyPath: m_Name
       value: EffectInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 7734752023145153471, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8128794576613816720, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.27
+      value: -1.49
       objectReference: {fileID: 0}
     - target: {fileID: 8128794576613816720, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.15
+      value: 4.02
       objectReference: {fileID: 0}
     - target: {fileID: 8128794576613816720, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11813,6 +11825,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+--- !u!4 &8516508541675952265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8128794576613816720, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+  m_PrefabInstance: {fileID: 8516508541675952264}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
