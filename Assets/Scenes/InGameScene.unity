@@ -5851,6 +5851,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310235350}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1311853691
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.03225
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.97302
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.29635
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 858260008655678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2238142226136470582, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_Name
+      value: SakuraBlockFlyEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2238142226136470582, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2426591558385678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 2426591558385678775, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.17
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+--- !u!1 &1311853692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2238142226136470582, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+  m_PrefabInstance: {fileID: 1311853691}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1311853693 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6469834650992836518, guid: 585f393495fbc0947b4fc935adae095d, type: 3}
+  m_PrefabInstance: {fileID: 1311853691}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1334912129
 GameObject:
   m_ObjectHideFlags: 0
@@ -11717,9 +11796,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8516508541675952265}
     - target: {fileID: 1319497464720353953, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+      propertyPath: sakuraFlyPrefab
+      value: 
+      objectReference: {fileID: 1311853693}
+    - target: {fileID: 1319497464720353953, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
       propertyPath: sakuraImagePrefab
       value: 
-      objectReference: {fileID: 4898762186925487620, guid: 76fd723c6e5dff94daa664d56bf6c6aa, type: 3}
+      objectReference: {fileID: 1311853692}
     - target: {fileID: 3243249952678695685, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
       propertyPath: m_Name
       value: EffectInfo
@@ -11796,3 +11879,4 @@ SceneRoots:
   - {fileID: 3711750231160212827}
   - {fileID: 136220937}
   - {fileID: 987926985}
+  - {fileID: 1311853691}

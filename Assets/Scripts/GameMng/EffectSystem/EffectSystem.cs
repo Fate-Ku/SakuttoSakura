@@ -15,6 +15,7 @@ public class EffectSystem : IGameSystem
 
     private GameObject m_SakuraImagePrefab;
     private Transform m_SakuraTarget;
+    private GameObject m_SakuraFlyPrefab;
 
     // flower materials
     private Dictionary<BlockType, Material> m_Materials;
@@ -27,7 +28,8 @@ public class EffectSystem : IGameSystem
     public EffectSystem(
         GameMng gameMng, GameObject effectPrefab,
         Dictionary<BlockType, Material> materials,
-        GameObject sakuraImagePrefab, Transform sakuraTarget)
+        GameObject sakuraImagePrefab, Transform sakuraTarget,
+        GameObject sakuraFlyPrefab)
         : base(gameMng)
     {
         m_EffectPrefab = effectPrefab;
@@ -35,6 +37,7 @@ public class EffectSystem : IGameSystem
 
         m_SakuraImagePrefab = sakuraImagePrefab;
         m_SakuraTarget = sakuraTarget;
+        m_SakuraFlyPrefab = sakuraFlyPrefab;
     }
 
     // combine effect
@@ -126,14 +129,33 @@ public class EffectSystem : IGameSystem
         if (m_SakuraImagePrefab == null || m_SakuraTarget == null)
             return;
 
-        GameObject sakura =
-            GameObject.Instantiate(
-                m_SakuraImagePrefab,
-                startPos,
-                Quaternion.identity);
+        // main picture
+        GameObject sakura = GameObject.Instantiate(
+            m_SakuraImagePrefab,
+            startPos,
+            Quaternion.identity);
+
+        // Effect
+        if (m_SakuraFlyPrefab != null)
+        {
+            GameObject flyEffect = GameObject.Instantiate(
+                m_SakuraFlyPrefab,
+                sakura.transform);
+
+            //flyEffect.transform.localPosition = Vector3.zero;
+            flyEffect.transform.localRotation = Quaternion.identity;
+            flyEffect.transform.localScale = Vector3.one;
+
+            // Particle follow with father object
+            ParticleSystem ps = flyEffect.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                var main = ps.main;
+                main.simulationSpace = ParticleSystemSimulationSpace.Local;
+            }
+        }
 
         SakuraFly fly = sakura.AddComponent<SakuraFly>();
-
         fly.Init(m_SakuraTarget.position);
     }
 
