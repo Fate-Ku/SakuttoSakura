@@ -346,6 +346,19 @@ public abstract class IBlock
         }
     }
 
+    public void SetPos(Vector3 pos)
+    {
+        m_Pos = (Vector2)pos;
+        if (m_BlockOb != null)
+        {
+            m_BlockOb.transform.localPosition =
+                new Vector3(
+                    pos.x,
+                    pos.y,
+                    pos.z);
+        }
+    }
+
     public bool IsStateType(BlockStateType type)
     {
         return m_BlockStateController.GetStateType() == type;

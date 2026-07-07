@@ -103,8 +103,12 @@
             "speed": 2
           },
           {
-            "direction": 2,
+            "direction": 0,
             "speed": 1.75
+          },
+          {
+            "direction": 2,
+            "speed": 1.5
           }
         ]
       }
@@ -128,8 +132,12 @@
             "speed": 2
           },
           {
-            "direction": 1,
+            "direction": 0,
             "speed": 1.75
+          },
+          {
+            "direction": 1,
+            "speed": 1.5
           }
         ]
       }

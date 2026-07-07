@@ -21,6 +21,7 @@
 // 
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -92,11 +93,12 @@ public class BlocksController
         //next
         BlockNode nextNode = GetNode(m_NextNodeID);
         nextNode.SetBlock(nextBlock);
-        nextBlock.SetPos(nextNode.Pos);
         //next mext
         BlockNode nextNextNode = GetNode(m_NextNextNodeID);
         nextNextNode.SetBlock(nextNextBlock);
-        nextNextBlock.SetPos(nextNextNode.Pos);
+
+        //set pos
+        SetPreviewBlocksPos();
     }
 
     public void Update()
@@ -186,6 +188,34 @@ public class BlocksController
         BlockNode blockNode = GetNode(m_NextNodeID);
         blockNode.SetBlock(block);
         block.SetPos(blockNode.Pos);
+    }
+
+    public void SetPreviewBlocks(IBlock nowNextNextBlock)
+    {
+        BlockNode nextNode = GetNode(m_NextNodeID);
+        BlockNode nextNextNode = GetNode(m_NextNextNodeID);
+        if (nextNode != null && nextNextNode != null)
+        {
+            //now next
+            nextNextNode.BlockChangeNode(m_NextNodeID);
+            m_InGameSystem.SetNextBlockPath(nextNode.Block.Type);
+
+            //new next next
+            nextNextNode.SetBlock(nowNextNextBlock);
+
+            //set pos
+            SetPreviewBlocksPos();
+        }
+    }
+
+    private void SetPreviewBlocksPos()
+    {
+        BlockNode nextNode = GetNode(m_NextNodeID);
+        nextNode?.Block?.SetPos(new Vector3(nextNode.Pos.x, nextNode.Pos.y, 0));
+
+        BlockNode nextNextNode = GetNode(m_NextNextNodeID);
+        nextNextNode?.Block?.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, 1));
+
     }
 
     public bool IsFullBlocks()
@@ -413,7 +443,7 @@ public class BlocksController
                 block.GoState(BlockStateType.Fall);
             }
 
-            m_InGameSystem.SetNextBlock();
+            m_InGameSystem.SetPreviewBlocks();
         }
     }
 
@@ -619,5 +649,6 @@ public class BlocksController
 
         return blockNode;
     }
+
 
 }
