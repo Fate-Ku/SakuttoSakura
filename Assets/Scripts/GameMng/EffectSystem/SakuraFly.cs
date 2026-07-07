@@ -12,6 +12,8 @@ public class SakuraFly : MonoBehaviour
     private Vector3 m_Target;
     private Vector3 m_Control;
 
+    private Transform m_SakuraImage;
+
     private float m_Timer;
 
     [SerializeField]
@@ -29,6 +31,8 @@ public class SakuraFly : MonoBehaviour
             START_SCALE,
             START_SCALE,
             1f);
+
+        m_SakuraImage = transform.Find("Sakura_5");
 
         float height = 2.5f;
 
@@ -82,10 +86,13 @@ public class SakuraFly : MonoBehaviour
             scale,
             1f);
 
-        // ===== Rotate =====
-        transform.Rotate(0f, 0f, 360f * Time.deltaTime);
+        // ===== Rotate Sakura Only =====
+        if (m_SakuraImage != null)
+        {
+            m_SakuraImage.Rotate(0f, 0f, 360f * Time.deltaTime, Space.Self);
+        }
 
-        if (t >= 3.2f)
+        if (m_Timer >= m_Duration)
         {
             Destroy(gameObject);
         }

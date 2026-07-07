@@ -1,8 +1,9 @@
 //
-// EffectSystemConfig.cs
+// EffectInfo.cs
 // 
 // 2026/06/25 Created By Fate Ku
 // 2026/07/06 Updated By Fate Ku
+// 2026/07/07 Updated By Fate Ku
 // 
 
 using UnityEngine;
@@ -24,6 +25,7 @@ public class EffectInfo : MonoBehaviour
     [Header("Sakura Fly")]
     public GameObject sakuraImagePrefab;
     public Transform sakuraTarget;
+    public GameObject sakuraFlyPrefab;
 
     public GameObject GetEffectPrefab()
     {
@@ -78,6 +80,11 @@ public class EffectInfo : MonoBehaviour
     public Vector3 GetSakuraTargetPosition()
     {
         return sakuraTarget.position;
+    }
+
+    public GameObject GetSakuraFlyPrefab()
+    {
+        return sakuraFlyPrefab;
     }
 }
 
