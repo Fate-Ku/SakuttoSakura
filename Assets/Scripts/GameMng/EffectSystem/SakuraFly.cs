@@ -15,7 +15,7 @@ public class SakuraFly : MonoBehaviour
     private float m_Timer;
 
     [SerializeField]
-    private float m_Duration = 0.8f;
+    private float m_Duration = 3f;
 
     private const float START_SCALE = 0.6f;
     private const float PEAK_SCALE = 0.75f;
@@ -85,7 +85,7 @@ public class SakuraFly : MonoBehaviour
         // ===== Rotate =====
         transform.Rotate(0f, 0f, 360f * Time.deltaTime);
 
-        if (t >= 1f)
+        if (t >= 3.2f)
         {
             Destroy(gameObject);
         }

@@ -7,8 +7,6 @@
 // 2026/07/06 Updated By Fate Ku
 //
 
-
-using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 
@@ -112,7 +110,7 @@ public class InGameUIState
             m_StageType == InGameSystemStateType.GameOver)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 15f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 10f, startPosY, -1);
             //callTrigger = true;
         }
         // left→middle
@@ -158,7 +156,7 @@ public class InGameUIState
             m_StageType == InGameSystemStateType.LevelUp)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 10f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 7f, startPosY, -1);
             //callTrigger = true;
         }
         else
