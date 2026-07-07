@@ -3,7 +3,7 @@
     {
       "type": 0,
       "data": {
-        "basicSpeed": 2.5,
+        "basicSpeed": 3,
         "pathDatas": [
         ]
       }
@@ -12,19 +12,11 @@
     {
       "type": 1,
       "data": {
-        "basicSpeed": 2.5,
+        "basicSpeed": 2,
         "pathDatas": [
           {
-            "direction": 1,
-            "speed": 2
-          },
-          {
-            "direction": 0,
-            "speed": 2.5
-          },
-          {
             "direction": 2,
-            "speed": 3
+            "speed": 1.5
           }
         ]
       }
@@ -58,7 +50,7 @@
         "pathDatas": [
           {
             "direction": 1,
-            "speed": 2
+            "speed": 2.5
           },
           {
             "direction": 0,
@@ -66,7 +58,7 @@
           },
           {
             "direction": 2,
-            "speed": 3
+            "speed": 2.5
           }
         ]
       }
@@ -78,16 +70,16 @@
         "basicSpeed": 2.5,
         "pathDatas": [
           {
-            "direction": 1,
-            "speed": 2
+            "direction": 2,
+            "speed": 2.5
           },
           {
             "direction": 0,
             "speed": 2.5
           },
           {
-            "direction": 2,
-            "speed": 3
+            "direction": 1,
+            "speed": 2.5
           }
         ]
       }
@@ -96,19 +88,23 @@
     {
       "type": 4,
       "data": {
-        "basicSpeed": 2.5,
+        "basicSpeed": 2.75,
         "pathDatas": [
           {
+            "direction": 0,
+            "speed": 2.75
+          },
+          {
             "direction": 1,
-            "speed": 2
+            "speed": 2.25
           },
           {
             "direction": 0,
-            "speed": 2.5
+            "speed": 2
           },
           {
             "direction": 2,
-            "speed": 3
+            "speed": 1.75
           }
         ]
       }
@@ -117,19 +113,23 @@
     {
       "type": 5,
       "data": {
-        "basicSpeed": 2.5,
+        "basicSpeed": 2.75,
         "pathDatas": [
           {
-            "direction": 1,
-            "speed": 2
-          },
-          {
             "direction": 0,
-            "speed": 2.5
+            "speed": 2.75
           },
           {
             "direction": 2,
-            "speed": 3
+            "speed": 2.25
+          },
+          {
+            "direction": 0,
+            "speed": 2
+          },
+          {
+            "direction": 1,
+            "speed": 1.75
           }
         ]
       }
@@ -138,15 +138,11 @@
     {
       "type": 6,
       "data": {
-        "basicSpeed": 2.5,
+        "basicSpeed": 2,
         "pathDatas": [
           {
             "direction": 1,
-            "speed": 2.5
-          },
-          {
-            "direction": 1,
-            "speed": 2.5
+            "speed": 1.5
           }
         ]
       }

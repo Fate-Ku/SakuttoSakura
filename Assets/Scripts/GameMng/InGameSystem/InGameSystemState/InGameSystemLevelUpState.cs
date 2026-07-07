@@ -27,12 +27,11 @@ public class InGameSystemLevelUpState : IInGameSystemState
     {
         Debug.Log("level up trigger in begin: " + m_Trigger.ToString());
 
-        startLevelUp = false;
-        startWait = false;
-
         //start State UI
         GameMng.Instance.ShowStateUI(m_StateType);
 
+        startLevelUp = false;
+        startWait = false;
     }
 
     public override void StateUpdate()
@@ -55,6 +54,7 @@ public class InGameSystemLevelUpState : IInGameSystemState
         {
             if (!startWait)
             {
+              
                 //event update
                 m_InGameSystem.EventControl();
                 Debug.Log("level: wait event end");
