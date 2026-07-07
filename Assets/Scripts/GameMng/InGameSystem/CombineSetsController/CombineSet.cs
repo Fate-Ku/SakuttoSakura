@@ -64,12 +64,19 @@ public class CombineSet
         //block1 not lonely
         else
         {
+            List<IBlock> list = new();
             foreach (IBlock block in set1.Blocks)
+            {
+                list.Add(block);
+            }
+
+            //remove set1 from controller
+            set1.Remove();
+            //add to list
+            foreach (IBlock block in list)
             {
                 AddToList(block);
             }
-            //remove set1 from controller
-            m_Controller.RemoveCombineSet(set1);
         }
 
         //block2 lonely
@@ -80,12 +87,19 @@ public class CombineSet
         //block2 not lonely
         else
         {
+            List<IBlock> list = new();
             foreach (IBlock block in set2.Blocks)
+            {
+                list.Add(block);
+            }
+
+            //remove set1 from controller
+            set2.Remove();
+            //add to list
+            foreach (IBlock block in list)
             {
                 AddToList(block);
             }
-            //remove set2 from controller
-            m_Controller.RemoveCombineSet(set2);
         }
     }
 
@@ -174,6 +188,7 @@ public class CombineSet
     //-------------------
     //basic method
     //-------------------
+
     private void AddToList(IBlock block)
     {
         if (!m_Blocks.Contains(block))

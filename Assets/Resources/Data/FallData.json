@@ -29,7 +29,7 @@
         "pathDatas": [
           {
             "direction": 1,
-            "speed": 2
+            "speed": 2.5
           },
           {
             "direction": 0,
@@ -37,7 +37,7 @@
           },
           {
             "direction": 2,
-            "speed": 3
+            "speed": 2.5
           }
         ]
       }

@@ -22,7 +22,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 
 public enum BlockNearPos
@@ -43,6 +42,7 @@ public class BlocksController
     //nodes
     private Dictionary<Vector2Int, BlockNode> m_Nodes = new();
     private Vector2Int m_NextNodeID;
+    private Vector2Int m_NextNextNodeID;
 
     //gameinfo
     private int m_ColNum;
@@ -79,13 +79,26 @@ public class BlocksController
         Vector2 nextPos = gameInfo.GetNextBlockPos();
         BlockNode nextNode = new(this, m_NextNodeID, nextPos);
         m_Nodes.TryAdd(m_NextNodeID, nextNode);
+        //NextNextBlock
+        m_NextNextNodeID = new(-2, -2);
+        Vector2 nextNextPos = gameInfo.GetNextNextBlockPos();
+        BlockNode nextNextNode = new(this, m_NextNextNodeID, nextNextPos);
+        m_Nodes.TryAdd(m_NextNextNodeID, nextNextNode);
 
     }
 
-    //-------------------
-    //update
-    //-------------------
-    //update
+    public void Init(IBlock nextBlock, IBlock nextNextBlock)
+    {
+        //next
+        BlockNode nextNode = GetNode(m_NextNodeID);
+        nextNode.SetBlock(nextBlock);
+        nextBlock.SetPos(nextNode.Pos);
+        //next mext
+        BlockNode nextNextNode = GetNode(m_NextNextNodeID);
+        nextNextNode.SetBlock(nextNextBlock);
+        nextNextBlock.SetPos(nextNextNode.Pos);
+    }
+
     public void Update()
     {
         List<IBlock> checkedBlocks= new();

@@ -16,6 +16,7 @@
 // 2026/07/02 Updated By Fate Ku
 // 2026/07/03 Updated By Man-Yi, Yeh
 // 2026/07/06 Updated By Fate Ku
+// 2026/07/07 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -500,6 +501,15 @@ public class GameMng
     public void EndStateUI(InGameSystemStateType type)
     {
         m_UIState.EndStateUI(type);
+    }
+
+    //2026/07/07 Updated By Man-Yi, Yeh
+    //-------------------
+    //path
+    //-------------------
+    public void SetNextBlockPath(List<FallDirection> path)
+    {
+        
     }
 
 }

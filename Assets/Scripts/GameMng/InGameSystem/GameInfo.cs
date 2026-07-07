@@ -22,6 +22,7 @@ public class GameInfo : MonoBehaviour
 {
     [Header("Next Block")]
     [SerializeField] private Transform nextBlockPos;
+    [SerializeField] private Transform nextNextBlockPos;
 
     //number or col and row
     [Header("Scale")]
@@ -62,6 +63,14 @@ public class GameInfo : MonoBehaviour
     {
         float x = nextBlockPos.position.x;
         float y = nextBlockPos.position.y;
+
+        return new Vector2(x, y);
+    }
+
+    public Vector2 GetNextNextBlockPos()
+    {
+        float x = nextNextBlockPos.position.x;
+        float y = nextNextBlockPos.position.y;
 
         return new Vector2(x, y);
     }
