@@ -6544,6 +6544,18 @@ PrefabInstance:
       propertyPath: effectPrefab
       value: 
       objectReference: {fileID: 44603208}
+    - target: {fileID: 1319497464720353953, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+      propertyPath: sakuraTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319497464720353953, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+      propertyPath: sakuraFlyPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319497464720353953, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
+      propertyPath: sakuraImagePrefab
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3243249952678695685, guid: c2346d2d95c276d4fbcaad47ce914a76, type: 3}
       propertyPath: m_Name
       value: EffectInfo
@@ -9867,7 +9879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: 0}
+  m_AnchoredPosition: {x: -50.000015, y: 0}
   m_SizeDelta: {x: 10745, y: 12902}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2088280347
