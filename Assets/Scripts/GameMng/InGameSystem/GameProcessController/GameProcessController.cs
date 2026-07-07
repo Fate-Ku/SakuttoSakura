@@ -91,7 +91,7 @@ public class GameProcessController
         
     }
 
-    public BlockType GetNextType()
+    public BlockType GetNowBlockType()
     {
         BlockType res = BlockType.None;
 

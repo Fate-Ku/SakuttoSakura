@@ -16,10 +16,10 @@
 // 2026/06/30 Updated By Man-Yi, Yeh
 // 2026/07/03 Updated By Man-Yi, Yeh
 // 2026/07/06 Updated By Man-Yi, Yeh
+// 2026/07/07 Updated By Man-Yi, Yeh
 // 
 
 
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -146,8 +146,9 @@ public class InGameSystem : IGameSystem
         m_BlockFactory = new(m_GameInfo);
         //blocks controller
         m_BlocksController = new(this, m_GameInfo);
+        InitPreviewBlocks();
+        //SetNextBlock();
 
-        SetNextBlock();
         //combine sets
         m_CombineSetsController = new(
             this,
@@ -316,31 +317,41 @@ public class InGameSystem : IGameSystem
         return res;
     }
 
-    public void SetNextBlock()
+    private void InitPreviewBlocks()
+    {
+        //next
+        IBlock nextBlock;
+        BlockType nextType;
+        nextType = m_GameProcessController.GetNowBlockType();
+        nextBlock = CreateBlock(nextType);
+        //next next
+        IBlock nextNextBlock;
+        BlockType nextNextType;
+        nextNextType = m_GameProcessController.GetNowBlockType();
+        nextNextBlock = CreateBlock(nextNextType);
+
+        if (nextBlock != null && nextNextBlock != null)
+        {
+            m_BlocksController?.Init(nextBlock, nextNextBlock);
+        }
+    }
+
+    public void SetPreviewBlocks()
     {
         IBlock block;
         BlockType type;
 
-        type = m_GameProcessController.GetNextType();
-        //type = BlockType.Sakura;
-
-        /*
-        int pattern = Random.Range(0, 2);
-        if (pattern == 0)
-        {
-            type = BlockType.Clover;
-        }
-        else
-        {
-            type = BlockType.Sakura;
-        }
-        */
-
+        type = m_GameProcessController.GetNowBlockType();
 
         block = CreateBlock(type);
-        Debug.Log("type of next block " + type.ToString());
+        Debug.Log("type of next next block " + type.ToString());
 
-        m_BlocksController.SetNextBlock(block);
+        m_BlocksController.SetPreviewBlocks(block);
+    }
+
+    public void SetNextBlockPath(BlockType type)
+    {
+        m_GameMng.SetNextBlockPath(m_BlockFactory.GetBlockPath(type));
     }
 
     public bool IsFullBlocks()

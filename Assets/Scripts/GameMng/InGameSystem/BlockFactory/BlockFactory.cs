@@ -3,6 +3,7 @@
 // 
 // 2026/07/03 Created By Man-Yi, Yeh
 // 2026/07/05 Updated By Man-Yi, Yeh
+// 2026/07/07 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -91,6 +92,23 @@ public class BlockFactory
             default:
                 res = GetFlowerBlock(type);
                 break;
+        }
+
+        return res;
+    }
+
+    public List<FallDirection> GetBlockPath(BlockType type)
+    {
+        List<FallDirection> res = new();
+
+        FallData fallData = GetFallData(type);
+        if (fallData != null)
+        {
+            res.Add(FallDirection.Down);
+            foreach(FallPathData data in fallData.pathDatas)
+            {
+                res.Add(data.direction);
+            }
         }
 
         return res;

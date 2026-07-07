@@ -59,20 +59,14 @@ public class GameInfo : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    public Vector2 GetNextBlockPos()
+    public Vector3 GetNextBlockPos()
     {
-        float x = nextBlockPos.position.x;
-        float y = nextBlockPos.position.y;
-
-        return new Vector2(x, y);
+        return nextBlockPos.position;
     }
 
     public Vector2 GetNextNextBlockPos()
     {
-        float x = nextNextBlockPos.position.x;
-        float y = nextNextBlockPos.position.y;
-
-        return new Vector2(x, y);
+        return nextNextBlockPos.position;
     }
 
     //x :col, y :row
