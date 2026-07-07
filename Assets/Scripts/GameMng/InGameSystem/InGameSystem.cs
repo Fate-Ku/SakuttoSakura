@@ -146,6 +146,7 @@ public class InGameSystem : IGameSystem
         m_BlockFactory = new(m_GameInfo);
         //blocks controller
         m_BlocksController = new(this, m_GameInfo);
+
         SetNextBlock();
         //combine sets
         m_CombineSetsController = new(

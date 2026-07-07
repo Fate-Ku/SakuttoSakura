@@ -6,14 +6,15 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/30 Updated By Man-Yi, Yeh
+// 2026/07/07 Updated By Man-Yi, Yeh
 // 
 
-using System.Threading;
 using UnityEngine;
 
 public class BlockDestroyState : IBlockState
 {
     private float timer = 0.8f;
+    private int m_EffectID;
     public BlockDestroyState(IBlock block, BlockStateController controller) 
         : base(block, controller)
     {
@@ -29,11 +30,16 @@ public class BlockDestroyState : IBlockState
         m_Block.DestroyStrategy.DestroyStart(m_Block);
         m_Block.SetAnimation("Destroy", true);
 
+        //set effect
+        m_EffectID = GameMng.Instance.SetDestroyEffect(m_Block.Type, m_Block.BlockNode.Pos);
     }
 
     public override void StateEnd()
     {
         m_Block.SetAnimation("Destroy", false);
+
+        //off effect
+        GameMng.Instance.OffDestroyEffect(m_EffectID);
     }
 
     public override void StateUpdate()

@@ -438,6 +438,7 @@ public class GameMng
 
 
     //2026/06/16 Updated By Man-Yi, Yeh
+    //2026/07/07 Updated By Man-Yi, Yeh
     //-------------------
     //effect
     //-------------------
@@ -459,13 +460,12 @@ public class GameMng
         m_EffectSystem?.OffCombineEffect(id);
     }
 
-    public Effect SetDestroyEffect(BlockType type, List<Vector2> pos)
+    public int SetDestroyEffect(BlockType type, Vector2 pos)
     {
-        Effect res = null;
+        int res = -1;
 
         Debug.Log(
-            "set destroy effect type: " + type.ToString() +
-            ", qty: " + pos.Count.ToString());
+            "set destroy effect type: " + type.ToString());
         //res = m_EffectSystem.SetDestroyEffect(type, pos);
 
         return res;
@@ -475,6 +475,7 @@ public class GameMng
     {
         //m_EffectSystem?.OffDestroyEffect(id);
     }
+
 
     public void RecordCombineDestroyInfo(BlockType type, int num, Vector2 pos)
     {
