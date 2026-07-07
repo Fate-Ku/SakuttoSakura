@@ -508,11 +508,15 @@ public class GameMng
 
     //2026/07/07 Updated By Man-Yi, Yeh
     //-------------------
-    //path
+    //path effect
     //-------------------
     public void SetNextBlockPath(List<FallDirection> path)
     {
         
     }
 
+    public void SetCanOperate(bool canOperate)
+    {
+
+    }
 }
