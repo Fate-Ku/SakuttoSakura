@@ -170,7 +170,7 @@ public class InGameSystem : IGameSystem
             m_InGameSystemStateController.StateUpdate();
         }
 
-        //TestOperate();
+        m_GameMng.SetCanOperate(!m_IsPause && m_IsPlaying && m_CanOperate);
 
     }
 
