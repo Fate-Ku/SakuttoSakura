@@ -18,6 +18,7 @@
 // 2026/07/06 Updated By Fate Ku
 // 2026/07/07 Updated By Man-Yi, Yeh
 // 2026/07/07 Updated By Fate Ku
+// 2026/07/09 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -510,7 +511,7 @@ public class GameMng
     //-------------------
     //path effect
     //-------------------
-    public void SetNextBlockPath(List<FallDirection> path)
+    public void SetNextBlockPath(BlockType type, List<FallDirection> path)
     {
         
     }

@@ -351,7 +351,7 @@ public class InGameSystem : IGameSystem
 
     public void SetNextBlockPath(BlockType type)
     {
-        m_GameMng.SetNextBlockPath(m_BlockFactory.GetBlockPath(type));
+        m_GameMng.SetNextBlockPath(type, m_BlockFactory.GetBlockPath(type));
     }
 
     public bool IsFullBlocks()
