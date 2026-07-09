@@ -49,7 +49,7 @@
         "basicSpeed": 4,
         "pathDatas": [
           {
-            "direction": 2,
+            "direction": 1,
             "speed": 4
           },
           {
@@ -57,7 +57,7 @@
             "speed": 4
           },
           {
-            "direction": 1,
+            "direction": 2,
             "speed": 4
           }
         ]
