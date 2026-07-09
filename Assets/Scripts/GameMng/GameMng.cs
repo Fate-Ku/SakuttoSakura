@@ -456,12 +456,12 @@ public class GameMng
         return id;
     }
 
-    public void OffCombineEffect(int id)
+    public void OffCombineEffect(int effectID)
     {
-        m_EffectSystem?.OffCombineEffect(id);
+        m_EffectSystem?.OffCombineEffect(effectID);
     }
 
-    public int SetDestroyEffect(BlockType type, Vector2 pos)
+    public int SetDestroyEffect(BlockType type, Vector2Int blockID)
     {
         int res = -1;
 
@@ -472,11 +472,10 @@ public class GameMng
         return res;
     }
 
-    public void OffDestroyEffect(int id)
+    public void OffDestroyEffect(int effectID)
     {
         //m_EffectSystem?.OffDestroyEffect(id);
     }
-
 
     public void RecordCombineDestroyInfo(BlockType type, int num, Vector2 pos)
     {
