@@ -20,10 +20,6 @@ using System;
 
 public class GameInfo : MonoBehaviour
 {
-    [Header("Next Block")]
-    [SerializeField] private Transform nextBlockPos;
-    [SerializeField] private Transform nextNextBlockPos;
-
     //number or col and row
     [Header("Scale")]
     [SerializeField] private int colNum;
@@ -31,6 +27,10 @@ public class GameInfo : MonoBehaviour
 
     [Header("Block")]
     [SerializeField] private GameObject[] blocks;
+
+    [Header("Next Block")]
+    [SerializeField] private GameObject nextBlockPos;
+    [SerializeField] private GameObject nextNextBlockPos;
 
     [Header("Operate Time")]
     [SerializeField] private float nextOperateTime;
@@ -49,7 +49,13 @@ public class GameInfo : MonoBehaviour
     [Header("Test")]
     [SerializeField] private TextMeshProUGUI testInGameStateText;
     [SerializeField] private float playTime;
-    
+
+
+    //x :col, y :row
+    public Vector2Int GetScale()
+    {
+        return new Vector2Int(colNum, rowNum);
+    }
 
     public Vector2 GetReferPos()
     {
@@ -59,25 +65,29 @@ public class GameInfo : MonoBehaviour
         return new Vector2(x, y);
     }
 
+    public float GetSize()
+    {
+        return gameObject.transform.localScale.x;
+    }
+
     public Vector3 GetNextBlockPos()
     {
-        return nextBlockPos.position;
+        return nextBlockPos.transform.position;
+    }
+
+    public float GetNextBlockSize()
+    {
+        return nextBlockPos.transform.localScale.x;
     }
 
     public Vector2 GetNextNextBlockPos()
     {
-        return nextNextBlockPos.position;
+        return nextNextBlockPos.transform.position;
     }
 
-    //x :col, y :row
-    public Vector2Int GetScale()
+    public float GetNextNextBlockSize()
     {
-        return new Vector2Int(colNum, rowNum);
-    }
-
-    public float GetSize()
-    {
-        return gameObject.transform.localScale.x;
+        return nextNextBlockPos.transform.localScale.x;
     }
 
     public GameObject GetBlock(BlockType type)

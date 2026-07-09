@@ -19,6 +19,7 @@
 
 
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public abstract class IBlock
 {
@@ -356,6 +357,18 @@ public abstract class IBlock
                     pos.x,
                     pos.y,
                     pos.z);
+        }
+    }
+
+    public void SetSize(float size)
+    {
+        if (m_BlockOb != null)
+        {
+            m_BlockOb.transform.localScale =
+                new Vector3(
+                    size,
+                    size,
+                    size);
         }
     }
 

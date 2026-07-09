@@ -21,7 +21,6 @@
 // 
 
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -48,6 +47,9 @@ public class BlocksController
     //gameinfo
     private int m_ColNum;
     private int m_RowNum;
+    private float m_Size;
+    private float m_NextSize;
+    private float m_NextNextSize;
 
     public BlocksController(InGameSystem inGameSystemfloat, GameInfo gameInfo)
     {
@@ -55,6 +57,9 @@ public class BlocksController
 
         m_ColNum = gameInfo.GetScale().x;
         m_RowNum = gameInfo.GetScale().y;
+        m_Size = gameInfo.GetSize();
+        m_NextSize = gameInfo.GetNextBlockSize();
+        m_NextNextSize = gameInfo.GetNextNextBlockSize();
         Vector2 referPos = gameInfo.GetReferPos();
         float size = gameInfo.GetSize();
 
@@ -98,7 +103,7 @@ public class BlocksController
         nextNextNode.SetBlock(nextNextBlock);
 
         //set pos
-        SetPreviewBlocksPos();
+        SetPreviewBlocksInfo();
     }
 
     public void Update()
@@ -183,13 +188,6 @@ public class BlocksController
     //-------------------
     //game
     //-------------------
-    public void SetNextBlock(IBlock block)
-    {
-        BlockNode blockNode = GetNode(m_NextNodeID);
-        blockNode.SetBlock(block);
-        block.SetPos(blockNode.Pos);
-    }
-
     public void SetPreviewBlocks(IBlock nowNextNextBlock)
     {
         BlockNode nextNode = GetNode(m_NextNodeID);
@@ -204,18 +202,19 @@ public class BlocksController
             nextNextNode.SetBlock(nowNextNextBlock);
 
             //set pos
-            SetPreviewBlocksPos();
+            SetPreviewBlocksInfo();
         }
     }
 
-    private void SetPreviewBlocksPos()
+    private void SetPreviewBlocksInfo()
     {
         BlockNode nextNode = GetNode(m_NextNodeID);
         nextNode?.Block?.SetPos(new Vector3(nextNode.Pos.x, nextNode.Pos.y, 0));
+        nextNode?.Block?.SetSize(m_NextSize);
 
         BlockNode nextNextNode = GetNode(m_NextNextNodeID);
         nextNextNode?.Block?.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, 1));
-
+        nextNextNode?.Block?.SetSize(m_NextNextSize);
     }
 
     public bool IsFullBlocks()
@@ -441,6 +440,8 @@ public class BlocksController
 
                 block.SetPos(GetNodePos(id));
                 block.GoState(BlockStateType.Fall);
+
+                block.SetSize(m_Size);
             }
 
             m_InGameSystem.SetPreviewBlocks();
