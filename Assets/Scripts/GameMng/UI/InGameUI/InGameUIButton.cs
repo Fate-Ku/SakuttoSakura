@@ -5,6 +5,7 @@
 // 2026/06/02 Updated By Fate Ku
 // 2026/06/24 Updated By Fate Ku
 // 2026/07/01 Updated By Fate Ku
+// 2026/07/09 Updated By Fate Ku
 //
 
 using UnityEngine;
@@ -17,9 +18,28 @@ public class InGameUIButton
     private Camera m_MainCam;
     private Transform[] m_Cubes = new Transform[7]; //create new 7 cubes
 
+    //-------------------
+    //Info
+    //-------------------
+    //blockPos info
+    private BlockPosInfo m_BlockPosInfo;
+
+    public BlockPosInfo BlockPosInfo
+    {
+        get { return m_BlockPosInfo; }
+    }
 
     public void Init()
     {
+        //-------------------
+        //Info
+        //-------------------
+        //game info
+        GameObject blockInfo = GameObject.Find("BlockPosInfo");
+        if (blockInfo != null)
+        {
+            m_BlockPosInfo = blockInfo.GetComponent<BlockPosInfo>();
+        }
 
         // main camera
         m_MainCam = Camera.main;
@@ -90,9 +110,9 @@ public class InGameUIButton
     private void CreateCubes()
     {
         // setting
-        float scale = GameMng.Instance.GetSize();     // scaleX, scaleY
-        Vector2 referPos = GameMng.Instance.GetGameReferPos();  // refer pos
-        Vector2Int xy = GameMng.Instance.GetGameScale(); //column & row
+        float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
+        Vector2 referPos = m_BlockPosInfo.GetReferPos();  // refer pos
+        Vector2Int xy = m_BlockPosInfo.GetScale(); //column & row
 
         float col = xy.y; // 8
         float row = xy.x; // 7

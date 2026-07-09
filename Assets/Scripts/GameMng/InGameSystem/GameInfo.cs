@@ -11,6 +11,7 @@
 // 2026/06/23 Updated By Fate Ku 
 // 2026/06/29 Updated By Man-Yi, Yeh
 // 2026/07/06 Updated By Man-Yi, Yeh
+// 2026/07/09 Updated By Fate Ku 
 //
 
 using UnityEngine;
@@ -47,7 +48,6 @@ public class GameInfo : MonoBehaviour
     public int nowLevel;
 
     [Header("Test")]
-    [SerializeField] private TextMeshProUGUI testInGameStateText;
     [SerializeField] private float playTime;
 
 

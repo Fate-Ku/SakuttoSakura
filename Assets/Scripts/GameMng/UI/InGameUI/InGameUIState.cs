@@ -5,6 +5,7 @@
 // 2026/06/30 Updated By Fate Ku
 // 2026/07/02 Updated By Fate Ku
 // 2026/07/06 Updated By Fate Ku
+// 2026/07/09 Updated By Fate Ku
 //
 
 using TMPro;
@@ -12,6 +13,17 @@ using UnityEngine;
 
 public class InGameUIState
 {
+    //-------------------
+    //Info
+    //-------------------
+    //blockPos info
+    private BlockPosInfo m_BlockPosInfo;
+
+    public BlockPosInfo BlockPosInfo
+    {
+        get { return m_BlockPosInfo; }
+    }
+
     private TextMeshPro m_InGameStateText;
 
     public InGameSystemStateType m_StageType;
@@ -37,6 +49,16 @@ public class InGameUIState
 
     public void Init()
     {
+        //-------------------
+        //Info
+        //-------------------
+        //game info
+        GameObject blockInfo = GameObject.Find("BlockPosInfo");
+        if (blockInfo != null)
+        {
+            m_BlockPosInfo = blockInfo.GetComponent<BlockPosInfo>();
+        }
+
         m_BasePosX = m_InGameStateText.transform.position.x;
     }
 
@@ -90,9 +112,9 @@ public class InGameUIState
         m_AnimTime = 0f;
 
         //setting
-        float scale = GameMng.Instance.GetSize();     // scaleX, scaleY
-        Vector2 referPos = GameMng.Instance.GetGameReferPos();  // refer pos
-        Vector2Int xy = GameMng.Instance.GetGameScale(); //column & row
+        float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
+        Vector2 referPos = m_BlockPosInfo.GetReferPos();  // refer pos
+        Vector2Int xy = m_BlockPosInfo.GetScale(); //column & row
 
         float col = xy.y; // 8
         float offsetY = scale * 0.5f;
@@ -139,9 +161,9 @@ public class InGameUIState
         m_AnimTime = 0f;
 
         //setting
-        float scale = GameMng.Instance.GetSize();     // scaleX, scaleY
-        Vector2 referPos = GameMng.Instance.GetGameReferPos();  // refer pos
-        Vector2Int xy = GameMng.Instance.GetGameScale(); //column & row
+        float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
+        Vector2 referPos = m_BlockPosInfo.GetReferPos();  // refer pos
+        Vector2Int xy = m_BlockPosInfo.GetScale(); //column & row
 
         float col = xy.y; // 8
         float row = xy.x; // 7

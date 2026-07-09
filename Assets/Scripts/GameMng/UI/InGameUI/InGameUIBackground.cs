@@ -2,7 +2,7 @@
 // InGameUIBackground.cs
 // 
 // 2026/06/06 Created By Fate Ku
-// 2026/06/24 Created By Fate Ku
+// 2026/06/24 Updated By Fate Ku
 //
 
 using UnityEngine;
