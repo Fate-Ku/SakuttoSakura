@@ -31,7 +31,7 @@ public class BlockDestroyState : IBlockState
         m_Block.SetAnimation("Destroy", true);
 
         //set effect
-        m_EffectID = GameMng.Instance.SetDestroyEffect(m_Block.Type, m_Block.BlockNode.Pos);
+        m_EffectID = GameMng.Instance.SetDestroyEffect(m_Block.Type, m_Block.BlockNode.ID);
     }
 
     public override void StateEnd()

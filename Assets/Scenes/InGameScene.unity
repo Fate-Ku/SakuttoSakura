@@ -18415,6 +18415,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockPosInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 8221155624046254636, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
