@@ -902,6 +902,7 @@ GameObject:
   - component: {fileID: 1824346315453558861}
   - component: {fileID: 3386349422172045288}
   - component: {fileID: 655921987142093602}
+  - component: {fileID: 1254681053811047586}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -981,6 +982,29 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1254681053811047586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304550627461212919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554f1be09a9fdac47b072719f3aafa43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CloudLooper
+  m_MoveRight: 0
+  m_BaseSpeed: 0.35
+  m_SpeedRandom: 0.25
+  m_MoveAngle: 6
+  m_AngleRandom: 3
+  m_BaseFloatAmplitude: 0.08
+  m_AmplitudeRandom: 0.03
+  m_FloatSpeed: 0.25
+  m_ExtraOffset: 1
+  m_RandomYRange: {x: -0.5, y: 0.5}
+  m_RespawnDelay: {x: 0, y: 2}
 --- !u!1 &1318017760125232748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,6 +1978,7 @@ GameObject:
   - component: {fileID: 2987404922615541004}
   - component: {fileID: 2223299818297467561}
   - component: {fileID: 4124813672480462435}
+  - component: {fileID: 4333361294161888328}
   m_Layer: 0
   m_Name: Cloud (1)
   m_TagString: Untagged
@@ -2033,6 +2058,29 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4333361294161888328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467607963384215478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554f1be09a9fdac47b072719f3aafa43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CloudLooper
+  m_MoveRight: 1
+  m_BaseSpeed: 0.35
+  m_SpeedRandom: 0.25
+  m_MoveAngle: 6
+  m_AngleRandom: 3
+  m_BaseFloatAmplitude: 0.08
+  m_AmplitudeRandom: 0.03
+  m_FloatSpeed: 0.25
+  m_ExtraOffset: 1
+  m_RandomYRange: {x: -0.5, y: 0.5}
+  m_RespawnDelay: {x: 0, y: 2}
 --- !u!1 &2480732218087430315
 GameObject:
   m_ObjectHideFlags: 0
@@ -3776,6 +3824,7 @@ GameObject:
   - component: {fileID: 4984703748795379301}
   - component: {fileID: 8251406176094167488}
   - component: {fileID: 6153629558565131530}
+  - component: {fileID: 1182379200464907741}
   m_Layer: 0
   m_Name: Cloud (2)
   m_TagString: Untagged
@@ -3855,6 +3904,29 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1182379200464907741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649459015419294943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554f1be09a9fdac47b072719f3aafa43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CloudLooper
+  m_MoveRight: 1
+  m_BaseSpeed: 0.35
+  m_SpeedRandom: 0.25
+  m_MoveAngle: 6
+  m_AngleRandom: 3
+  m_BaseFloatAmplitude: 0.08
+  m_AmplitudeRandom: 0.03
+  m_FloatSpeed: 0.25
+  m_ExtraOffset: 1
+  m_RandomYRange: {x: -0.5, y: 0.5}
+  m_RespawnDelay: {x: 0, y: 2}
 --- !u!1 &5670777991324970414
 GameObject:
   m_ObjectHideFlags: 0
@@ -4574,6 +4646,7 @@ GameObject:
   - component: {fileID: 7563163623376603730}
   - component: {fileID: 6870833504247858679}
   - component: {fileID: 8700653088561377597}
+  - component: {fileID: 7785289888190250538}
   m_Layer: 0
   m_Name: Cloud (3)
   m_TagString: Untagged
@@ -4653,6 +4726,29 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7785289888190250538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7187201377971769576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554f1be09a9fdac47b072719f3aafa43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CloudLooper
+  m_MoveRight: 0
+  m_BaseSpeed: 0.35
+  m_SpeedRandom: 0.25
+  m_MoveAngle: 6
+  m_AngleRandom: 3
+  m_BaseFloatAmplitude: 0.08
+  m_AmplitudeRandom: 0.03
+  m_FloatSpeed: 0.25
+  m_ExtraOffset: 1
+  m_RandomYRange: {x: -0.5, y: 0.5}
+  m_RespawnDelay: {x: 0, y: 2}
 --- !u!1 &7322115445359565157
 GameObject:
   m_ObjectHideFlags: 0
