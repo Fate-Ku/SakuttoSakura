@@ -3,14 +3,21 @@
 // 
 // 2026/06/06 Created By Fate Ku
 // 2026/06/24 Updated By Fate Ku
+// 2026/07/10 Updated By Fate Ku
 //
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InGameUIBackground
 {
     private Texture2D texWhite; // white board texture
     private Texture2D texBlack; // black board texture
+
+    // save bg data
+    private Dictionary<Vector2Int, BgCubeData> m_BgCubeDatas = new Dictionary<Vector2Int, BgCubeData>();
+
+    public Dictionary<Vector2Int, BgCubeData> BgCubeDatas => m_BgCubeDatas;
 
     public void Init()
     {
@@ -38,6 +45,8 @@ public class InGameUIBackground
         {
             GameObject.Destroy(cube);
         }
+
+        m_BgCubeDatas.Clear();
     }
 
     // -------------------------
@@ -77,6 +86,19 @@ public class InGameUIBackground
                 cube.transform.position = pos;
                 cube.transform.localScale = new Vector3(scale, scale, 1);
 
+                // 2026/07/10 added by Fate
+                // save data
+                BgCubeData data = new BgCubeData()
+                {
+                    Row = r,
+                    Col = c,
+                    Position = pos,
+                    Cube = cube
+                };
+
+                m_BgCubeDatas[new Vector2Int(r, c)] = data;
+                // 2026/07/10 added by Fate
+
                 // judge white or black
                 // (row + col) % 2 == 0 → black
                 // than white
@@ -91,6 +113,15 @@ public class InGameUIBackground
         }
     }
 
+    // -------------------------
+    // Get bg position
+    // -------------------------
+    public Vector3 GetBgCubePosition(int row, int col)
+    {
+        if (m_BgCubeDatas.TryGetValue(new Vector2Int(row, col), out BgCubeData data))
+            return data.Position;
 
+        return Vector3.zero;
+    }
 
 }

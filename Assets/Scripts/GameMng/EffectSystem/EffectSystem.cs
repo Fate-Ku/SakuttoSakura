@@ -4,6 +4,7 @@
 // 2026/06/16 Created By Man-Yi, Yeh 
 // 2026/06/25 Updated By Fate Ku
 // 2026/07/06 Updated By Fate Ku
+// 2026/07/10 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -93,13 +94,13 @@ public class EffectSystem : IGameSystem
         {
             if (pair.Key <= id)
             {
-                BlockType type = pair.Value.BlockType;
+                //BlockType type = pair.Value.BlockType;
 
-                // get first object position
-                if (pair.Value.EffectObjects.Count > 0 && type == BlockType.None)
-                {
-                    SakuraFlyToBasket(pair.Value.EffectObjects[0].transform.position);
-                }
+                //// get first object position
+                //if (pair.Value.EffectObjects.Count > 0 && type == BlockType.None)
+                //{
+                //    SakuraFlyToBasket(pair.Value.EffectObjects[0].transform.position);
+                //}
 
                 // remove in ID's all objects
                 foreach (GameObject obj in pair.Value.EffectObjects)
@@ -121,6 +122,20 @@ public class EffectSystem : IGameSystem
             m_CombineEffects.Remove(removeId);
             //Debug.Log("Removed Effect ID = " + removeId);
         }
+    }
+
+    // destroy effect
+    public int SetDestroyEffect(BlockType type, Vector2Int blockID)
+    {
+        int id = ++m_NextEffectId;
+
+
+        return id;
+    }
+
+    public void OffDestroyEffect(int effectID)
+    {
+
     }
 
 

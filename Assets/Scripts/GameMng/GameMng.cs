@@ -19,6 +19,7 @@
 // 2026/07/07 Updated By Man-Yi, Yeh
 // 2026/07/07 Updated By Fate Ku
 // 2026/07/09 Updated By Man-Yi, Yeh
+// 2026/07/10 Updated By Fate Ku
 // 
 
 using System;
@@ -114,6 +115,9 @@ public class GameMng
     //UI game state
     private InGameUIState m_UIState;
 
+    //UI game background
+    private InGameUIBackground m_Background;
+
 
     public void Init()
     {
@@ -194,6 +198,7 @@ public class GameMng
         //renew
         m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateText());
         m_InGameSystem = new InGameSystem(this);
+        m_Background = new InGameUIBackground();
         m_ScoreSystem = new ScoreSystem(this);
         m_GameLogSystem = new GameLogSystem(this);
 
@@ -223,6 +228,7 @@ public class GameMng
         //init
         m_UIState?.Init();
         m_InGameSystem?.Init();
+        m_Background.Init();
         m_ScoreSystem?.Init();
         m_GameLogSystem?.Init();
         m_EffectSystem?.Init();
@@ -232,6 +238,7 @@ public class GameMng
     {
         m_UIState?.Term();
         m_InGameSystem?.Term();
+        m_Background?.Term();
         m_ScoreSystem?.Term();
         m_GameLogSystem?.Term();
         m_EffectSystem?.Term();
