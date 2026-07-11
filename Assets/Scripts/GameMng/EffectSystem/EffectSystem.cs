@@ -5,6 +5,7 @@
 // 2026/06/25 Updated By Fate Ku
 // 2026/07/06 Updated By Fate Ku
 // 2026/07/10 Updated By Fate Ku
+// 2026/07/11 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -24,7 +25,11 @@ public class EffectSystem : IGameSystem
     // Combine Effects
     private Dictionary<int, CombineEffectData> m_CombineEffects = new Dictionary<int, CombineEffectData>();
 
-    public int m_NextEffectId = 0;
+    // Destroy Effects
+    private Dictionary<int,DestroyEffectData> m_DestroyEffects = new Dictionary<int, DestroyEffectData>();
+
+    public int m_NextCombineEffectId = 0;
+    public int m_NextDestroyEffectId = 0;
 
     public EffectSystem(
         GameMng gameMng, GameObject effectPrefab,
@@ -44,7 +49,7 @@ public class EffectSystem : IGameSystem
     // combine effect
     public int SetCombineEffect(BlockType type, List<Vector2> posList)
     {
-        int id = ++m_NextEffectId;
+        int id = ++m_NextCombineEffectId;
         CombineEffectData data = new CombineEffectData();
         data.BlockType = type;
 
@@ -127,14 +132,61 @@ public class EffectSystem : IGameSystem
     // destroy effect
     public int SetDestroyEffect(BlockType type, Vector2Int blockID)
     {
-        int id = ++m_NextEffectId;
+        int id = ++m_NextDestroyEffectId;
 
+        DestroyEffectData data = new DestroyEffectData();
+
+        data.BlockType = type;
+        data.BlockID = blockID;
+
+        // get bg position
+        data.Position = GameMng.Instance.GetBgCubePosition(blockID.x, blockID.y);
+
+        // save to  Dictionary
+        m_DestroyEffects[id] = data;
+
+        Debug.Log(
+            $"Create DestroyEffect ID={id}, " +
+            $"Type={type}, " +
+            $"BlockID={blockID}, " +
+            $"Pos={data.Position}");
 
         return id;
     }
 
     public void OffDestroyEffect(int effectID)
     {
+        Debug.Log($"OffDestroyEffect : {effectID}");
+
+        List<int> removeIds = new List<int>();
+
+        foreach (var pair in m_DestroyEffects)
+        {
+            Debug.Log($"Key={pair.Key}  Type={pair.Value.BlockType}");
+
+            if (pair.Key <= effectID)
+            {
+                if (pair.Value.BlockType == BlockType.Sakura)
+                {
+                    Debug.Log("SakuraFlyToBasket");
+                    SakuraFlyToBasket(pair.Value.Position);
+                }
+
+                foreach (GameObject obj in pair.Value.EffectObjects)
+                {
+                    if (obj != null)
+                        GameObject.Destroy(obj);
+                }
+
+                removeIds.Add(pair.Key);
+            }
+        }
+
+        foreach (int id in removeIds)
+        {
+            m_DestroyEffects.Remove(id);
+        }
+
 
     }
 
@@ -144,10 +196,12 @@ public class EffectSystem : IGameSystem
         if (m_SakuraImagePrefab == null || m_SakuraTarget == null)
             return;
 
+        Vector3 spawnPos = new Vector3(startPos.x, startPos.y, -5f);
+
         // main picture
         GameObject sakura = GameObject.Instantiate(
             m_SakuraImagePrefab,
-            startPos,
+            spawnPos,
             Quaternion.identity);
 
         // Effect

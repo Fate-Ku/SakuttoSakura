@@ -7,10 +7,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyEffectData : MonoBehaviour
+public class DestroyEffectData
 {
     public BlockType BlockType;
 
-    public List<GameObject> EffectObjects = new List<GameObject>();
+    public Vector2Int BlockID;
 
+    public Vector3 Position;
+
+    public List<GameObject> EffectObjects = new List<GameObject>();
 }

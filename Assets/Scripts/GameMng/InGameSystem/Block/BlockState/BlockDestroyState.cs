@@ -32,6 +32,12 @@ public class BlockDestroyState : IBlockState
 
         //set effect
         m_EffectID = GameMng.Instance.SetDestroyEffect(m_Block.Type, m_Block.BlockNode.ID);
+
+        // test
+        //GameMng.Instance.OffDestroyEffect(m_EffectID);
+        //Debug.Log($"OffDestroyEffect : {m_EffectID}");
+
+
     }
 
     public override void StateEnd()

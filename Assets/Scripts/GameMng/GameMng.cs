@@ -20,6 +20,7 @@
 // 2026/07/07 Updated By Fate Ku
 // 2026/07/09 Updated By Man-Yi, Yeh
 // 2026/07/10 Updated By Fate Ku
+// 2026/07/11 Updated By Fate Ku
 // 
 
 using System;
@@ -474,14 +475,14 @@ public class GameMng
 
         Debug.Log(
             "set destroy effect type: " + type.ToString());
-        //res = m_EffectSystem.SetDestroyEffect(type, pos);
+        res = m_EffectSystem.SetDestroyEffect(type, blockID);
 
         return res;
     }
 
     public void OffDestroyEffect(int effectID)
     {
-        //m_EffectSystem?.OffDestroyEffect(id);
+        m_EffectSystem?.OffDestroyEffect(effectID);
     }
 
     public void RecordCombineDestroyInfo(BlockType type, int num, Vector2 pos)
@@ -526,4 +527,15 @@ public class GameMng
     {
 
     }
+
+    //2026/07/11 Updated By Fate Ku
+    //-------------------
+    //get bg position
+    //-------------------
+    public Vector3 GetBgCubePosition(int row, int col)
+    {
+        return m_Background.GetBgCubePosition(row, col);
+    }
+
+
 }

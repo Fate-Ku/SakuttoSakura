@@ -4,6 +4,7 @@
 // 2026/06/06 Created By Fate Ku
 // 2026/06/24 Updated By Fate Ku
 // 2026/07/10 Updated By Fate Ku
+// 2026/07/11 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -19,8 +20,29 @@ public class InGameUIBackground
 
     public Dictionary<Vector2Int, BgCubeData> BgCubeDatas => m_BgCubeDatas;
 
+    //-------------------
+    //Info
+    //-------------------
+    //blockPos info
+    private BlockPosInfo m_BlockPosInfo;
+
+    public BlockPosInfo BlockPosInfo
+    {
+        get { return m_BlockPosInfo; }
+    }
+
     public void Init()
     {
+        //-------------------
+        //Info
+        //-------------------
+        //game info
+        GameObject blockInfo = GameObject.Find("BlockPosInfo");
+        if (blockInfo != null)
+        {
+            m_BlockPosInfo = blockInfo.GetComponent<BlockPosInfo>();
+        }
+
         // Loading Picture（Resources/UI/InGame）
         texWhite = Resources.Load<Texture2D>("UI/InGame/GbW");
         texBlack = Resources.Load<Texture2D>("UI/InGame/GbB");
@@ -31,6 +53,7 @@ public class InGameUIBackground
         }
 
         CreateBgCube();
+        CreateVirtualBgCube();
     }
 
     // -------------------------
@@ -45,6 +68,14 @@ public class InGameUIBackground
         {
             GameObject.Destroy(cube);
         }
+
+        GameObject[] bgVirtualCubes = GameObject.FindGameObjectsWithTag("BgVirtualCube");
+
+        foreach (GameObject cube in bgVirtualCubes)
+        {
+            GameObject.Destroy(cube);
+        }
+
 
         m_BgCubeDatas.Clear();
     }
@@ -86,6 +117,53 @@ public class InGameUIBackground
                 cube.transform.position = pos;
                 cube.transform.localScale = new Vector3(scale, scale, 1);
 
+                // judge white or black
+                // (row + col) % 2 == 0 → black
+                // than white
+                bool isBlack = ((r + c) % 2 == 0);
+
+                // paste texture
+                Renderer rd = cube.GetComponent<Renderer>();
+                rd.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                rd.material.mainTexture = isBlack ? texBlack : texWhite;
+                rd.material.mainTextureScale = new Vector2(1, 1);
+            }
+        }
+    }
+
+    private void CreateVirtualBgCube()
+    {
+
+        // setting
+        float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
+        Vector2 referPos = m_BlockPosInfo.GetReferPos();  // refer pos
+        Vector2Int xy = m_BlockPosInfo.GetScale(); //column & row
+
+
+        float col = xy.y; // 8 
+        float row = xy.x; // 7 
+
+        // first Cube 
+        Vector3 startPos = new Vector3(referPos.x, referPos.y, 5);
+
+        for (int r = 0; r < row; r++)
+        {
+            for (int c = 0; c < col; c++)
+            {
+                // caculate pos（go right +scale，go up +scale）
+                Vector3 pos = new Vector3(
+                    startPos.x + r * scale,
+                    startPos.y + c * scale,
+                    5
+                );
+
+                // Create Cube
+                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.name = $"BgVirtual_{r}_{c}";
+                cube.tag = "BgVirtualCube";
+                cube.transform.position = pos;
+                cube.transform.localScale = new Vector3(scale, scale, 1);
+
                 // 2026/07/10 added by Fate
                 // save data
                 BgCubeData data = new BgCubeData()
@@ -98,17 +176,6 @@ public class InGameUIBackground
 
                 m_BgCubeDatas[new Vector2Int(r, c)] = data;
                 // 2026/07/10 added by Fate
-
-                // judge white or black
-                // (row + col) % 2 == 0 → black
-                // than white
-                bool isBlack = ((r + c) % 2 == 0);
-
-                // paste texture
-                Renderer rd = cube.GetComponent<Renderer>();
-                rd.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-                rd.material.mainTexture = isBlack ? texBlack : texWhite;
-                rd.material.mainTextureScale = new Vector2(1, 1);
             }
         }
     }
