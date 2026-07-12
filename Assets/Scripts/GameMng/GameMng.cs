@@ -485,11 +485,11 @@ public class GameMng
         m_EffectSystem?.OffDestroyEffect(effectID);
     }
 
-    public void RecordCombineDestroyInfo(BlockType type, int num, Vector2 pos)
+    public void RecordCombineDestroyInfo(BlockType type, int num, Vector2Int blockID)
     {
         Debug.Log("record combine destroy info: " + type.ToString() + " " + num);
 
-        m_LastDestroyPos = pos;
+        //m_LastDestroyPos = pos;
 
         m_ScoreSystem?.SetDestroyInfo(type, num);
     }

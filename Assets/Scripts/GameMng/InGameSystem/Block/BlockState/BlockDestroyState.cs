@@ -40,14 +40,6 @@ public class BlockDestroyState : IBlockState
 
     }
 
-    public override void StateEnd()
-    {
-        m_Block.SetAnimation("Destroy", false);
-
-        //off effect
-        GameMng.Instance.OffDestroyEffect(m_EffectID);
-    }
-
     public override void StateUpdate()
     {
         //test
@@ -57,6 +49,9 @@ public class BlockDestroyState : IBlockState
             //end destroy
             m_Block.BlockOb.SetActive(false);
             m_Block.DestroyStrategy.DestroyEnd(m_Block);
+
+            //off effect
+            GameMng.Instance.OffDestroyEffect(m_EffectID);
             return;
         }
 
@@ -65,8 +60,12 @@ public class BlockDestroyState : IBlockState
         if (timer <= 0)
         {
             //end destroy
+            m_Block.BlockOb.SetActive(false);
             m_Block.DestroyStrategy.DestroyEnd(m_Block);
+
+            //off effect
+            GameMng.Instance.OffDestroyEffect(m_EffectID);
             return;
         }
-}
+    }
 }
