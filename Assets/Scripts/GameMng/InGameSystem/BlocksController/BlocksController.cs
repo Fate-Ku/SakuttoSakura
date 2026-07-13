@@ -18,6 +18,7 @@
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/26 Updated By Man-Yi, Yeh
 // 2026/06/29 Updated By Man-Yi, Yeh
+// 2026/07/13 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -50,6 +51,16 @@ public class BlocksController
     private float m_Size;
     private float m_NextSize;
     private float m_NextNextSize;
+    private float m_NextOperateTime;
+
+    //set next block
+    private bool m_IsSettingNextBlock = false;
+    public bool IsSettingNextBlock
+    {
+        get { return m_IsSettingNextBlock;  }
+    }
+    private float m_SetNextBlockTimer = 0;
+
 
     public BlocksController(InGameSystem inGameSystemfloat, GameInfo gameInfo)
     {
@@ -60,8 +71,10 @@ public class BlocksController
         m_Size = gameInfo.GetSize();
         m_NextSize = gameInfo.GetNextBlockSize();
         m_NextNextSize = gameInfo.GetNextNextBlockSize();
+        m_NextOperateTime = gameInfo.GetNextOperateTime();
+
         Vector2 referPos = gameInfo.GetReferPos();
-        float size = gameInfo.GetSize();
+
 
         //Nodes
         //left to right
@@ -73,7 +86,7 @@ public class BlocksController
             for (int j = -1; j <= m_RowNum; ++j)
             {
                 Vector2Int id = new(i, j);
-                Vector2 pos = referPos + new Vector2(size * i, size * j);
+                Vector2 pos = referPos + new Vector2(m_Size * i, m_Size * j);
 
                 BlockNode node = new(this, id, pos);
                 m_Nodes.TryAdd(id, node);
@@ -98,24 +111,30 @@ public class BlocksController
         //next
         BlockNode nextNode = GetNode(m_NextNodeID);
         nextNode.SetBlock(nextBlock);
+        nextNode?.Block?.SetPos(new Vector3(nextNode.Pos.x, nextNode.Pos.y, 0));
+        nextNode?.Block?.SetSize(m_NextSize);
         //next mext
         BlockNode nextNextNode = GetNode(m_NextNextNodeID);
         nextNextNode.SetBlock(nextNextBlock);
-
-        //set pos
-        SetPreviewBlocksInfo();
+        nextNextNode?.Block?.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, 1));
+        nextNextNode?.Block?.SetSize(m_NextNextSize);
     }
 
     public void Update()
     {
-        List<IBlock> checkedBlocks= new();
+        UpdateBlocks();
+        UpdateSetNextBlock();
+    }
 
+    private void UpdateBlocks()
+    {
+        List<IBlock> checkedBlocks = new();
         //rows: -1, 0 ~ m_RowNum - 1, m_RowNum
         for (int j = -1; j <= m_RowNum; ++j)
         {
             //cols: 0 ~ m_ColNum - 1
             //update start from under
-            for (int i = 0; i < m_ColNum ; ++i)
+            for (int i = 0; i < m_ColNum; ++i)
             {
                 BlockNode blockNode = GetNode(new Vector2Int(i, j));
                 IBlock block = blockNode?.Block;
@@ -137,8 +156,9 @@ public class BlocksController
                             {
                                 BlockNode checkNode = GetNode(new Vector2Int(k, j));
                                 IBlock checkBlock = checkNode?.Block;
-                                
-                                if (checkBlock == null){
+
+                                if (checkBlock == null)
+                                {
                                     break;
                                 }
                                 else
@@ -168,6 +188,38 @@ public class BlocksController
             }
         }
     }
+
+    private void UpdateSetNextBlock()
+    {
+        if (m_IsSettingNextBlock)
+        {
+            m_SetNextBlockTimer += Time.deltaTime;
+            if (m_SetNextBlockTimer >= m_NextOperateTime)
+            {
+                m_IsSettingNextBlock = false;
+
+                BlockNode nextNode = GetNode(m_NextNodeID);
+                Vector2 nextPos = GetNodePos(m_NextNodeID);
+                nextNode?.Block?.SetPos(new Vector3(nextPos.x, nextPos.y, 0));
+                nextNode?.Block?.SetSize(m_NextSize);
+
+                BlockNode nextNextNode = GetNode(m_NextNextNodeID);
+                nextNextNode?.Block?.SetActive(true);
+            }
+            else
+            {
+                BlockNode nextNode = GetNode(m_NextNodeID);
+                Vector2 nextPos = GetNodePos(m_NextNodeID);
+                Vector2 nextNextPos = GetNodePos(m_NextNextNodeID);
+                Vector2 nowPos = nextNextPos + (nextPos - nextNextPos) * (m_SetNextBlockTimer / m_NextOperateTime);
+                float nowSize = m_NextNextSize + (m_NextSize - m_NextNextSize) * (m_SetNextBlockTimer / m_NextOperateTime);
+
+                nextNode?.Block?.SetPos(nowPos);
+                nextNode?.Block?.SetSize(nowSize);
+            }
+        }
+    }
+
     //combine check
     public void CombineCheck(CombineSetsController controller)
     {
@@ -190,6 +242,9 @@ public class BlocksController
     //-------------------
     public void SetPreviewBlocks(IBlock nowNextNextBlock)
     {
+        m_IsSettingNextBlock = true;
+        m_SetNextBlockTimer = 0;
+
         BlockNode nextNode = GetNode(m_NextNodeID);
         BlockNode nextNextNode = GetNode(m_NextNextNodeID);
         if (nextNode != null && nextNextNode != null)
@@ -200,21 +255,10 @@ public class BlocksController
 
             //new next next
             nextNextNode.SetBlock(nowNextNextBlock);
-
-            //set pos
-            SetPreviewBlocksInfo();
+            nowNextNextBlock.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, 1));
+            nowNextNextBlock.SetSize(m_NextNextSize);
+            nowNextNextBlock.SetActive(false);
         }
-    }
-
-    private void SetPreviewBlocksInfo()
-    {
-        BlockNode nextNode = GetNode(m_NextNodeID);
-        nextNode?.Block?.SetPos(new Vector3(nextNode.Pos.x, nextNode.Pos.y, 0));
-        nextNode?.Block?.SetSize(m_NextSize);
-
-        BlockNode nextNextNode = GetNode(m_NextNextNodeID);
-        nextNextNode?.Block?.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, 1));
-        nextNextNode?.Block?.SetSize(m_NextNextSize);
     }
 
     public bool IsFullBlocks()

@@ -100,7 +100,10 @@ public class InGameSystem : IGameSystem
     }
 
     private bool m_CanOperate = false;
-    private float m_OperateTimer;
+    public bool CanOperate
+    {
+        set { m_CanOperate = value; }
+    }
 
     //-------------------
     //controller
@@ -195,6 +198,11 @@ public class InGameSystem : IGameSystem
         m_BlocksController.Update();
     }
 
+    public void OperateControl()
+    {
+        m_GameProcessController.OperateControl();
+    }
+
     public void TimeControl()
     {
         m_GameProcessController.TimeControl();
@@ -227,28 +235,11 @@ public class InGameSystem : IGameSystem
     public void StartPlay()
     {
         m_IsPlaying = true;
-        m_CanOperate = true;
     }
 
-    public void OperateControl()
+    public bool IsSettingNextBlock()
     {
-        if (m_IsPause)
-        {
-            return;
-        }
-        if (!m_IsPlaying)
-        {
-            return;
-        }
-
-        if (!m_CanOperate)
-        {
-            m_OperateTimer -= Time.deltaTime;
-            if (m_OperateTimer <= 0)
-            {
-                m_CanOperate = true;
-            }
-        }
+        return m_BlocksController.IsSettingNextBlock;
     }
 
     public bool CanRise(int col)
@@ -277,7 +268,6 @@ public class InGameSystem : IGameSystem
 
         if (m_CanOperate)
         {
-            SetCantControl();
             m_BlocksController.FallBlock(id);
         }
     }
@@ -368,16 +358,6 @@ public class InGameSystem : IGameSystem
     {
         return m_BlocksController.GetNumOfBlock();
     }
-
-    //-------------------
-    //method of operate
-    //-------------------
-    private void SetCantControl()
-    {
-        m_CanOperate = false;
-        m_OperateTimer = GameInfo.GetNextOperateTime();
-    }
-
 
     //-------------------
     //test

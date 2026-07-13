@@ -91,6 +91,11 @@ public class GameProcessController
         
     }
 
+    public void OperateControl()
+    {
+        m_InGameSystem.CanOperate = !m_InGameSystem.IsSettingNextBlock();
+    }
+
     public BlockType GetNowBlockType()
     {
         BlockType res = BlockType.None;
