@@ -13,6 +13,10 @@ public class BlockPosInfo : MonoBehaviour
     [SerializeField] private int colNum;
     [SerializeField] private int rowNum;
 
+    [Header("Block")]
+    [SerializeField] private GameObject[] blocks;
+
+
     //x :col, y :row
     public Vector2Int GetScale()
     {
@@ -30,6 +34,12 @@ public class BlockPosInfo : MonoBehaviour
     public float GetSize()
     {
         return gameObject.transform.localScale.x;
+    }
+
+    public GameObject GetBlock(BlockType type)
+    {
+        GameObject res = blocks[(int)type];
+        return res;
     }
 
 

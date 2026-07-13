@@ -1,13 +1,13 @@
 //
-// BgCubeData.cs
+// BgVirtualCubeData.cs
 // 
-// 2026/07/13 Created By Fate Ku
+// 2026/07/10 Created By Fate Ku
 // 
 
 using UnityEngine;
 
 // background cube data
-public class BgCubeData
+public class BgVirtualCubeData
 {
     public int Row;
     public int Col;

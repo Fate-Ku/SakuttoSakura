@@ -16,9 +16,13 @@ public class InGameUIBackground
     private Texture2D texBlack; // black board texture
 
     // save bg data
+    private Dictionary<Vector2Int, BgVirtualCubeData> m_BgVirtualCubeDatas = new Dictionary<Vector2Int, BgVirtualCubeData>();
+
+    public Dictionary<Vector2Int, BgVirtualCubeData> BgVirtualCubeDatas => m_BgVirtualCubeDatas;
+
     private Dictionary<Vector2Int, BgCubeData> m_BgCubeDatas = new Dictionary<Vector2Int, BgCubeData>();
 
-    public Dictionary<Vector2Int, BgCubeData> BgCubeDatas => m_BgCubeDatas;
+    public Dictionary<Vector2Int, BgCubeData> BgBgCubeDatas => m_BgCubeDatas;
 
     //-------------------
     //Info
@@ -77,6 +81,7 @@ public class InGameUIBackground
         }
 
 
+        m_BgVirtualCubeDatas.Clear();
         m_BgCubeDatas.Clear();
     }
 
@@ -93,7 +98,7 @@ public class InGameUIBackground
         Vector2 referPos = GameMng.Instance.GetGameReferPos();  // refer pos
         Vector2Int xy = GameMng.Instance.GetGameScale(); //column & row
 
-        float col = xy.y; // 8 
+        float col = xy.y + 1; // 8 
         float row = xy.x; // 7 
 
         // first Cube 
@@ -116,6 +121,17 @@ public class InGameUIBackground
                 cube.tag = "BgCube";
                 cube.transform.position = pos;
                 cube.transform.localScale = new Vector3(scale, scale, 1);
+
+                // save data
+                BgCubeData data = new BgCubeData()
+                {
+                    Row = r,
+                    Col = c,
+                    Position = pos,
+                    Cube = cube
+                };
+
+                m_BgCubeDatas[new Vector2Int(r, c)] = data;
 
                 // judge white or black
                 // (row + col) % 2 == 0 → black
@@ -166,7 +182,7 @@ public class InGameUIBackground
 
                 // 2026/07/10 added by Fate
                 // save data
-                BgCubeData data = new BgCubeData()
+                BgVirtualCubeData data = new BgVirtualCubeData()
                 {
                     Row = r,
                     Col = c,
@@ -174,14 +190,25 @@ public class InGameUIBackground
                     Cube = cube
                 };
 
-                m_BgCubeDatas[new Vector2Int(r, c)] = data;
+                m_BgVirtualCubeDatas[new Vector2Int(r, c)] = data;
                 // 2026/07/10 added by Fate
             }
         }
     }
 
     // -------------------------
-    // Get bg position
+    // Get bg position for sakura fly use
+    // -------------------------
+    public Vector3 GetBgVirtualCubePosition(int row, int col)
+    {
+        if (m_BgVirtualCubeDatas.TryGetValue(new Vector2Int(row, col), out BgVirtualCubeData data))
+            return data.Position;
+
+        return Vector3.zero;
+    }
+
+    // -------------------------
+    // Get real bg position 
     // -------------------------
     public Vector3 GetBgCubePosition(int row, int col)
     {
@@ -190,5 +217,6 @@ public class InGameUIBackground
 
         return Vector3.zero;
     }
+
 
 }

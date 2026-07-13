@@ -21,7 +21,7 @@ public class InGameUI : UISystem
     {
         get { return m_ScoreInfo; }
     }
-    private InGameUIButton m_ButtonSystem;
+    //private InGameUIButton m_ButtonSystem;
     //private InGameUIBackground m_Background;
     private InGameUIScore m_ScoreUI;
     private InGameUITimer m_Timer;
@@ -29,14 +29,14 @@ public class InGameUI : UISystem
     public InGameUI(GameMng gameMng)
         : base(gameMng)
     {
-        m_ButtonSystem = new InGameUIButton();
+        //m_ButtonSystem = new InGameUIButton();
         //m_Background = new InGameUIBackground();
     }
 
     public override void Init()
     {
 
-        m_ButtonSystem.Init();
+        //m_ButtonSystem.Init();
         //m_Background.Init();
 
 
@@ -58,7 +58,7 @@ public class InGameUI : UISystem
 
     public override void Update()
     {
-        m_ButtonSystem.Update();
+        //m_ButtonSystem.Update();
         m_ScoreUI.Update();
         m_Timer.Update();
         //Debug.Log("InGameUI Update");
@@ -66,7 +66,7 @@ public class InGameUI : UISystem
 
     public override void Term()
     {
-        m_ButtonSystem.Term();
+        //m_ButtonSystem.Term();
         //m_Background.Term();
         m_ScoreUI.Term();
         m_Timer.Term();

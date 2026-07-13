@@ -21,6 +21,8 @@
 // 2026/07/09 Updated By Man-Yi, Yeh
 // 2026/07/10 Updated By Fate Ku
 // 2026/07/11 Updated By Fate Ku
+// 2026/07/12 Updated By Fate Ku
+// 2026/07/13 Updated By Fate Ku
 // 
 
 using System;
@@ -119,6 +121,8 @@ public class GameMng
     //UI game background
     private InGameUIBackground m_Background;
 
+    // UI touch button
+    private InGameUIButton m_ButtonSystem;
 
     public void Init()
     {
@@ -200,6 +204,7 @@ public class GameMng
         m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateText());
         m_InGameSystem = new InGameSystem(this);
         m_Background = new InGameUIBackground();
+        m_ButtonSystem = new InGameUIButton();
         m_ScoreSystem = new ScoreSystem(this);
         m_GameLogSystem = new GameLogSystem(this);
 
@@ -230,6 +235,7 @@ public class GameMng
         m_UIState?.Init();
         m_InGameSystem?.Init();
         m_Background.Init();
+        m_ButtonSystem.Init();
         m_ScoreSystem?.Init();
         m_GameLogSystem?.Init();
         m_EffectSystem?.Init();
@@ -240,6 +246,7 @@ public class GameMng
         m_UIState?.Term();
         m_InGameSystem?.Term();
         m_Background?.Term();
+        m_ButtonSystem?.Term();
         m_ScoreSystem?.Term();
         m_GameLogSystem?.Term();
         m_EffectSystem?.Term();
@@ -251,6 +258,7 @@ public class GameMng
     {
         m_UIState?.Update();
         m_InGameSystem?.Update();
+        m_ButtonSystem?.Update();
         m_ScoreSystem?.Update();
         m_GameLogSystem?.Update();
         m_EffectSystem?.Update();
@@ -520,7 +528,7 @@ public class GameMng
     //-------------------
     public void SetNextBlockPath(BlockType type, List<FallDirection> path)
     {
-        
+        m_ButtonSystem.SetNextBlockPath(type, path);
     }
 
     public void SetCanOperate(bool canOperate)
@@ -530,7 +538,16 @@ public class GameMng
 
     //2026/07/11 Updated By Fate Ku
     //-------------------
-    //get bg position
+    //get bg position for sakura fly use
+    //-------------------
+    public Vector3 GetBgVirtualCubePosition(int row, int col)
+    {
+        return m_Background.GetBgVirtualCubePosition(row, col);
+    }
+
+    //2026/07/13 Updated By Fate Ku
+    //-------------------
+    //get real bg position 
     //-------------------
     public Vector3 GetBgCubePosition(int row, int col)
     {
