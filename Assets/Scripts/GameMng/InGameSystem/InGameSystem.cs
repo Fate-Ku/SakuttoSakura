@@ -71,8 +71,8 @@ public class InGameSystem : IGameSystem
 
     //-------------------
     //game process controller
-    //-------------------
-    private GameProcessController m_GameProcessController;
+    //------------------
+    private IGameProcessController m_GameProcessController;
 
     //-------------------
     //blocks
@@ -140,7 +140,7 @@ public class InGameSystem : IGameSystem
         //-------------------
         //game process controller
         //-------------------
-        m_GameProcessController = new(this);
+        m_GameProcessController = new NormalGameProcess(this);
 
         //-------------------
         //blocks

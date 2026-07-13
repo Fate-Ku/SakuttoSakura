@@ -18447,12 +18447,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
+      propertyPath: playTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: nextBlockPos
       value: 
       objectReference: {fileID: 5393388845305806535}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: nextOperateTime
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: nextNextBlockPos
