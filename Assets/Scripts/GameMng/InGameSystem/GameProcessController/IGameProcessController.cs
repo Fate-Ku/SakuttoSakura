@@ -1,10 +1,7 @@
 //
 // GameProcessController.cs
 // 
-// 2026/06/29 Created By Man-Yi, Yeh
-// 2026/06/30 Updated By Man-Yi, Yeh
-// 2026/07/06 Updated By Man-Yi, Yeh
-// 2026/07/07 Updated By Man-Yi, Yeh
+// 2026/07/13 Created By Man-Yi, Yeh
 // 
 
 using System;
@@ -32,33 +29,33 @@ public class LevelProcessDataList
     public LevelProcessData[] list;
 }
 
-public class GameProcessController
+public class IGameProcessController
 {
-    private InGameSystem m_InGameSystem;
+    protected InGameSystem m_InGameSystem;
 
-    private float m_GameTimer;
+    protected float m_GameTimer;
     public float GameTimer
     {
         get { return m_GameTimer; }
         set { m_GameTimer = value; }
     }
 
-    private Dictionary<int, ProcessData> m_ProcessDatas = new();
-    private ProcessData m_NowProcessData;
+    protected Dictionary<int, ProcessData> m_ProcessDatas = new();
+    protected ProcessData m_NowProcessData;
 
-    private int m_Level;
+    protected int m_Level;
     public int Level
     {
         get { return m_Level; }
     }
-    private int m_PreLevelSakuraNum;
+    protected int m_PreLevelSakuraNum;
 
-    private float m_EventTimer;
-    private bool m_IsInEvent = false;
-    private int m_NowFloor;
-    private IBlock m_TmpBlock;
-
-    public GameProcessController(InGameSystem inGameSystem)
+    protected float m_EventTimer;
+    protected bool m_IsInEvent = false;
+    protected int m_NowFloor;
+    protected IBlock m_TmpBlock;
+    
+    public IGameProcessController(InGameSystem inGameSystem, string jsonFilePath)
     {
         m_InGameSystem = inGameSystem;
         m_GameTimer = m_InGameSystem.GameInfo.GetPlayTime();
@@ -69,7 +66,6 @@ public class GameProcessController
         //-------------------
         //ProcessData
         //-------------------
-        string jsonFilePath = "Data/ProcessData";
         TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
         Debug.Log("ProcessData: " + jsonTextAsset);
         LevelProcessDataList dataSet =
@@ -80,78 +76,18 @@ public class GameProcessController
             bool isAdded = m_ProcessDatas.TryAdd(data.level, data.data);
             if (!isAdded)
             {
-                Debug.Log("LevelData TryAdd failed for Level:" + data.level.ToString());
+                Debug.LogError($"Failed to add ProcessData for level {data.level}");
             }
-
             if (data.level == 1)
             {
                 m_NowProcessData = data.data;
             }
         }
-        
-    }
-
-    public BlockType GetNowBlockType()
-    {
-        BlockType res = BlockType.None;
-
-        int underBdd = 7 - m_NowProcessData.typeQty;
-        if (underBdd < 0) 
-        {
-            underBdd = 0;
-        }
-        if (underBdd >= 7)
-        {
-            underBdd = 6;
-        }
-        int id = UnityEngine.Random.Range(underBdd, 7);
-        res = (BlockType)id;
-
-        return res;
     }
 
     public void AddGameTime(float time)
     {
         m_GameTimer += time;
-    }
-
-    public void TimeControl()
-    {
-        m_GameTimer -= Time.deltaTime;
-        if (m_GameTimer <= 0)
-        {
-            m_GameTimer = 0;
-        }
-    }
-
-    public void EventControl()
-    {
-        if (m_IsInEvent) 
-        {
-            InEventUpdate();
-        }
-        else
-        {
-            m_EventTimer += Time.deltaTime;
-            if (m_EventTimer >= m_NowProcessData.eventInterval)
-            {
-                CheckEventStart();
-            }
-        }
-    }
-
-    public bool CheckLevelUp()
-    {
-        bool res = false;
-
-        if (GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura) - m_PreLevelSakuraNum >=
-            m_NowProcessData.levelUpSakuraNum)
-        {
-            m_PreLevelSakuraNum = GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura);
-            res = true;
-        }
-
-        return res;
     }
 
     public void LevelUpStart()
@@ -162,12 +98,12 @@ public class GameProcessController
         {
             m_NowProcessData = data;
         }
-        
+
         m_GameTimer += m_InGameSystem.GameInfo.GetLevelUpAddGameTime();
         CheckEventStart();
 
         m_InGameSystem.GameInfo.nowLevel = m_Level;
-    
+
     }
 
     public bool IsLevelUpEnd()
@@ -175,13 +111,24 @@ public class GameProcessController
         return !m_IsInEvent;
     }
 
-    private void InEventUpdate()
+    public virtual void OperateControl() { }
+    public virtual BlockType GetNowBlockType() { return BlockType.None; }
+    public virtual void TimeControl() { }
+    public virtual void EventControl() { }
+
+    public virtual bool CheckLevelUp() { return false; }
+    
+
+    //-------------------
+    //basic
+    //-------------------
+    protected void InEventUpdate()
     {
         if (m_TmpBlock == null ||
             !m_TmpBlock.IsStateType(BlockStateType.Rise))
         {
             m_NowFloor += 1;
-            if (m_NowFloor > m_InGameSystem.GameInfo.GetFloorNum()) 
+            if (m_NowFloor > m_InGameSystem.GameInfo.GetFloorNum())
             {
                 EventEnd();
                 Debug.Log("end event");
@@ -194,12 +141,12 @@ public class GameProcessController
         }
     }
 
-    private void CheckEventStart()
+    protected void CheckEventStart()
     {
         int blockNum = m_InGameSystem.GetNumOfBlock();
         Vector2Int scale = m_InGameSystem.GameInfo.GetScale();
-        
-        if (blockNum <= scale.x * scale.y * 1/2)
+
+        if (blockNum <= scale.x * scale.y * 1 / 2)
         {
             EventStart();
         }
@@ -209,20 +156,20 @@ public class GameProcessController
         }
     }
 
-    private void EventStart()
+    protected void EventStart()
     {
         m_IsInEvent = true;
         m_NowFloor = 0;
         m_TmpBlock = null;
     }
 
-    private void EventEnd()
+    protected void EventEnd()
     {
         m_IsInEvent = false;
         m_EventTimer = 0;
     }
 
-    private void MakeNowFloor()
+    protected void MakeNowFloor()
     {
         int col = m_InGameSystem.GameInfo.GetScale().x;
 
@@ -251,11 +198,11 @@ public class GameProcessController
                     m_TmpBlock = m_InGameSystem.CreateBlock(type);
                     m_InGameSystem.RiseBlock(m_TmpBlock, i);
                 }
-            } 
+            }
         }
     }
 
-    private ProcessData GetProcessData(int level)
+    protected ProcessData GetProcessData(int level)
     {
         ProcessData res = null;
 
