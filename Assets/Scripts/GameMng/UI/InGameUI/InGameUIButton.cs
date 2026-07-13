@@ -17,6 +17,7 @@ using UnityEngine.InputSystem;
 
 public class InGameUIButton
 {
+    private bool m_CanOperate = true;
 
     private Camera m_MainCam;
     private Transform[] m_Cubes = new Transform[7]; //create new 7 cubes
@@ -109,7 +110,8 @@ public class InGameUIButton
             // Press, Hold
             if (
                 //Mouse.current.leftButton.wasPressedThisFrame ||
-                Mouse.current.leftButton.isPressed)
+                Mouse.current.leftButton.isPressed &&
+                m_CanOperate)
             {
                 CheckPress(mousePos);
             }
@@ -135,7 +137,8 @@ public class InGameUIButton
             // Press , Hold
             if (
                 //touch.press.wasPressedThisFrame ||
-                touch.press.isPressed)
+                touch.press.isPressed &&
+                m_CanOperate)
             {
                 CheckPress(touchPos);
             }
@@ -345,6 +348,11 @@ public class InGameUIButton
         }
 
         Debug.Log($"Type={type}, Path={pathText}");
+    }
+
+    public void SetCanOperate(bool canOperate)
+    {
+        m_CanOperate = canOperate;
     }
 
 }

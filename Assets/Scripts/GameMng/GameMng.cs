@@ -526,7 +526,7 @@ public class GameMng
 
     public void SetCanOperate(bool canOperate)
     {
-
+        m_ButtonSystem.SetCanOperate(canOperate);
     }
 
     //2026/07/11 Updated By Fate Ku
