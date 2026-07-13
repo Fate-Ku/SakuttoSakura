@@ -6,6 +6,7 @@
 // 2026/07/06 Updated By Fate Ku
 // 2026/07/10 Updated By Fate Ku
 // 2026/07/11 Updated By Fate Ku
+// 2026/07/13 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -140,7 +141,7 @@ public class EffectSystem : IGameSystem
         data.BlockID = blockID;
 
         // get bg position
-        data.Position = GameMng.Instance.GetBgCubePosition(blockID.x, blockID.y);
+        data.Position = GameMng.Instance.GetBgVirtualCubePosition(blockID.x, blockID.y);
 
         // save to  Dictionary
         m_DestroyEffects[id] = data;

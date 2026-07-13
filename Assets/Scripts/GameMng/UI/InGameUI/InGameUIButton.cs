@@ -107,7 +107,8 @@ public class InGameUIButton
             Vector2 mousePos = Mouse.current.position.ReadValue();
 
             // Press, Hold
-            if (Mouse.current.leftButton.wasPressedThisFrame ||
+            if (
+                //Mouse.current.leftButton.wasPressedThisFrame ||
                 Mouse.current.leftButton.isPressed)
             {
                 CheckPress(mousePos);
@@ -132,7 +133,8 @@ public class InGameUIButton
             Vector2 touchPos = touch.position.ReadValue();
 
             // Press , Hold
-            if (touch.press.wasPressedThisFrame ||
+            if (
+                //touch.press.wasPressedThisFrame ||
                 touch.press.isPressed)
             {
                 CheckPress(touchPos);

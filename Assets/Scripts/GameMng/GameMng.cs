@@ -71,12 +71,6 @@ public class GameMng
         set { m_NextSceneName = value; }
     }
 
-    // 2026/06/24 Updated By Fate Ku
-    // record combo position
-    private Vector2 m_LastDestroyPos;
-    public Vector2 LastDestroyPos => m_LastDestroyPos;
-    // 2026/06/24 Updated By Fate Ku
-
     //phase
     private Phase m_NowPhase;
 
@@ -108,6 +102,7 @@ public class GameMng
 
     //score system
     private ScoreSystem m_ScoreSystem;
+    public ScoreSystem ScoreSystem => m_ScoreSystem;
 
     //game log system
     private GameLogSystem m_GameLogSystem;
@@ -497,9 +492,7 @@ public class GameMng
     {
         Debug.Log("record combine destroy info: " + type.ToString() + " " + num);
 
-        //m_LastDestroyPos = pos;
-
-        m_ScoreSystem?.SetDestroyInfo(type, num);
+        m_ScoreSystem?.SetDestroyInfo(type, num, blockID);
     }
 
     // effect

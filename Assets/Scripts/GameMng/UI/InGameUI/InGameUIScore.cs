@@ -5,6 +5,7 @@
 // 2026/06/23 Updated By Fate Ku
 // 2026/06/24 Updated By Fate Ku
 // 2026/06/25 Updated By Fate Ku
+// 2026/07/13 Updated By Fate Ku
 // 
 
 using TMPro;
@@ -82,8 +83,9 @@ public class InGameUIScore
             {
                 lastCombo = combo;
 
-                Vector2 pos = GameMng.Instance.LastDestroyPos;
-                Vector3 spawnPos = new Vector3(pos.x, pos.y, -1f);
+                Vector2Int blockID = GameMng.Instance.ScoreSystem.LastDestroyBlockID;
+                Vector2 pos = GameMng.Instance.GetBgVirtualCubePosition(blockID.x, blockID.y);
+                Vector3 spawnPos = new Vector3(pos.x, pos.y, -10f);
 
                 // Create Prefab
                 TextMeshPro newComboText = GameObject.Instantiate(

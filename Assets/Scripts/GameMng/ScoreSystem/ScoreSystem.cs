@@ -5,6 +5,7 @@
 // 2026/06/11 Added By Fate Ku 
 // 2026/06/14 Added By Fate Ku 
 // 2026/06/23 Added By Fate Ku 
+// 2026/07/13 Added By Fate Ku 
 // 
 
 using UnityEngine;
@@ -23,12 +24,8 @@ public class ScoreSystem : IGameSystem
 
     private float lastCallTime = 0f; //inital time
 
-    //private TextMeshProUGUI m_ScoreText;
-
-    //public TextMeshProUGUI TestInGameScoreText
-    //{
-    //    get { return m_ScoreText; }
-    //}
+    private Vector2Int m_LastDestroyBlockID;
+    public Vector2Int LastDestroyBlockID => m_LastDestroyBlockID;
 
     //-------------------
     //combo
@@ -129,8 +126,10 @@ public class ScoreSystem : IGameSystem
     //-------------------------
     //get bloacktype and num from game mgr
     //-------------------------
-    public void SetDestroyInfo(BlockType type, int qty)
+    public void SetDestroyInfo(BlockType type, int qty, Vector2Int blockID)
     {
+        m_LastDestroyBlockID = blockID;
+
         CalculateScoreByFlowerType(type, qty);
         //if (m_ScoreText != null)
         //{

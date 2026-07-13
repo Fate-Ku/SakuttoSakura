@@ -23,7 +23,7 @@ public class PathPreviewSystem
 
     private bool m_Playing = false;
 
-    private float m_MoveSpeed = 4f;
+    private float m_MoveSpeed = 3.5f;
 
 
     //--------------------------------
