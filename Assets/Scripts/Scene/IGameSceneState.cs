@@ -3,6 +3,7 @@
 // 
 // 2026/05/31 Created By Man-Yi, Yeh
 // 2026/06/03 Updated By Man-Yi, Yeh
+// 2026/07/13 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -12,7 +13,7 @@ public class IGameSceneState : ISceneState
     public IGameSceneState(SceneStateController controller) 
         : base(controller)
     {
-        this.StateName = "IGameSceneState";
+        StateName = "IGameSceneState";
     }
 
     protected void ControllSceneByGameMng()
@@ -30,6 +31,10 @@ public class IGameSceneState : ISceneState
 
                 case "SkillSelectScene":
                     state = new SkillSelectState(m_Controller);
+                    break;
+
+                case "TutorialScene":
+
                     break;
 
                 case "InGameScene":

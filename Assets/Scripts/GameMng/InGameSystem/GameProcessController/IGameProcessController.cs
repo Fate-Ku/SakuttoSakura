@@ -111,13 +111,72 @@ public class IGameProcessController
         return !m_IsInEvent;
     }
 
-    public virtual void OperateControl() { }
-    public virtual BlockType GetNowBlockType() { return BlockType.None; }
-    public virtual void TimeControl() { }
-    public virtual void EventControl() { }
+    //-------------------
+    //virtual
+    //-------------------
+    public virtual void OperateControl() 
+    {
+        m_InGameSystem.CanOperate = !m_InGameSystem.IsSettingNextBlock();
+    }
 
-    public virtual bool CheckLevelUp() { return false; }
-    
+    public virtual BlockType GetNowBlockType() 
+    {
+        BlockType res = BlockType.None;
+
+        int underBdd = 7 - m_NowProcessData.typeQty;
+        if (underBdd < 0)
+        {
+            underBdd = 0;
+        }
+        if (underBdd >= 7)
+        {
+            underBdd = 6;
+        }
+        int id = UnityEngine.Random.Range(underBdd, 7);
+        res = (BlockType)id;
+
+        return res;
+    }
+
+    public virtual void TimeControl() 
+    {
+        m_GameTimer -= Time.deltaTime;
+        if (m_GameTimer <= 0)
+        {
+            m_GameTimer = 0;
+        }
+    }
+
+    public virtual void EventControl() 
+    {
+        if (m_IsInEvent) 
+        {
+            InEventUpdate();
+        }
+        else
+        {
+            m_EventTimer += Time.deltaTime;
+            if (m_EventTimer >= m_NowProcessData.eventInterval)
+            {
+                CheckEventStart();
+            }
+        }
+    }
+
+    public virtual bool CheckLevelUp()
+    {
+        bool res = false;
+
+        if (GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura) - m_PreLevelSakuraNum >=
+            m_NowProcessData.levelUpSakuraNum)
+        {
+            m_PreLevelSakuraNum = GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura);
+            res = true;
+        }
+
+        return res;
+    }
+
 
     //-------------------
     //basic

@@ -493,6 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTest
   inGamePatternID: 0
+  isTutorial: 1
 --- !u!4 &1269920314
 Transform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ using UnityEngine;
 public class GameTest : MonoBehaviour
 {
     [Range(0, 3)] public int inGamePatternID;
+    public bool isTutorial;
 
     private void Awake()
     {

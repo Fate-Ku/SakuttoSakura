@@ -17,11 +17,19 @@
 // 2026/07/03 Updated By Man-Yi, Yeh
 // 2026/07/06 Updated By Man-Yi, Yeh
 // 2026/07/07 Updated By Man-Yi, Yeh
+// 2026/07/13 Updated By Man-Yi, Yeh
 // 
 
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+public enum InGameType
+{
+    Classic,
+
+    Tutorial,
+}
 
 public enum BlockType
 {
@@ -50,6 +58,11 @@ public enum BlockType
 public class InGameSystem : IGameSystem
 {
     //-------------------
+    //game type
+    //-------------------
+    private InGameType m_InGameType;
+
+    //-------------------
     //game end
     //-------------------
     private bool m_IsGameEnd = false;
@@ -70,11 +83,6 @@ public class InGameSystem : IGameSystem
     }
 
     //-------------------
-    //game process controller
-    //------------------
-    private IGameProcessController m_GameProcessController;
-
-    //-------------------
     //blocks
     //-------------------
     //block factory
@@ -83,6 +91,11 @@ public class InGameSystem : IGameSystem
     private BlocksController m_BlocksController;
     //combine sets
     private CombineSetsController m_CombineSetsController;
+
+    //-------------------
+    //game process controller
+    //------------------
+    private IGameProcessController m_GameProcessController;
 
     //-------------------
     //play
@@ -112,9 +125,10 @@ public class InGameSystem : IGameSystem
     private InGameStateController m_InGameSystemStateController = new();
 
 
-    public InGameSystem(GameMng gameMng)
+    public InGameSystem(GameMng gameMng, InGameType inGameType = InGameType.Classic)
         : base(gameMng)
-    { 
+    {
+        m_InGameType = inGameType;
     }
 
 
@@ -138,20 +152,13 @@ public class InGameSystem : IGameSystem
         }
 
         //-------------------
-        //game process controller
-        //-------------------
-        m_GameProcessController = new NormalGameProcess(this);
-
-        //-------------------
         //blocks
         //-------------------
         //block factory
         m_BlockFactory = new(m_GameInfo);
         //blocks controller
         m_BlocksController = new(this, m_GameInfo);
-        InitPreviewBlocks();
-        //SetNextBlock();
-
+        
         //combine sets
         m_CombineSetsController = new(
             this,
@@ -159,11 +166,30 @@ public class InGameSystem : IGameSystem
             m_GameInfo.GetCombineSize());
 
         //-------------------
-        //controller
+        //game process controller
+        //-------------------
+        switch (m_InGameType)
+        {
+            case InGameType.Classic:
+                m_GameProcessController = new NormalGameProcess(this);
+                break;
+
+            case InGameType.Tutorial:
+                m_GameProcessController = new TutorialGameProcess(this);
+                break;
+
+        }
+
+        //-------------------
+        //state controller
         //-------------------
         m_InGameSystemStateController.SetState(
             new InGameSystemStartState(this, m_InGameSystemStateController));
 
+        //-------------------
+        //Init
+        //-------------------
+        InitPreviewBlocks();
     }
 
     public override void Update()
@@ -305,6 +331,12 @@ public class InGameSystem : IGameSystem
         IBlock res = m_BlockFactory.GetBlock(type);
 
         return res;
+    }
+
+    public void AddBlock(BlockType type, Vector2Int id)
+    {
+        IBlock block = CreateBlock(type);
+        m_BlocksController.AddBlock(block, id);
     }
 
     private void InitPreviewBlocks()

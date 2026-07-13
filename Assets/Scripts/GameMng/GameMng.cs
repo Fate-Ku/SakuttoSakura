@@ -23,11 +23,13 @@
 // 2026/07/11 Updated By Fate Ku
 // 2026/07/12 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
+// 2026/07/13 Updated By Man-Yi, Yeh
 // 
 
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameMng
 {
@@ -36,6 +38,7 @@ public class GameMng
         SkillSelect,
         InGame,
         Score,
+        Tutorial,
     }
 
     //singleton
@@ -164,6 +167,10 @@ public class GameMng
                 phase = new ScorePhase(this);
                 break;
 
+            case PhaseType.Tutorial:
+                phase = new TutorialPhase(this);
+                break;
+
             default:
                 Debug.Log("Don't have the phase");
                 break;
@@ -187,7 +194,7 @@ public class GameMng
     //-------------------
     //method of InGameSystem
     //-------------------
-    public void InGameInit()
+    public void InGameInit(InGameType inGameType = InGameType.Classic)
     {
         GameObject scoreInfo = GameObject.Find("ScoreInfo");
         if (scoreInfo != null)
@@ -197,7 +204,7 @@ public class GameMng
 
         //renew
         m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateText());
-        m_InGameSystem = new InGameSystem(this);
+        m_InGameSystem = new InGameSystem(this, inGameType);
         m_Background = new InGameUIBackground();
         m_ButtonSystem = new InGameUIButton();
         m_ScoreSystem = new ScoreSystem(this);

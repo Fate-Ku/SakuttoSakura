@@ -6,14 +6,14 @@
 // 2026/05/31 Updated By Man-Yi, Yeh
 //
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
+
 
 public class SkillSelectState : IGameSceneState
 {
     public SkillSelectState(SceneStateController controller)
         : base(controller)
     {
-        this.StateName = "SkillSelectState";
+        StateName = "SkillSelectState";
     }
 
     public override void StateBegin()
@@ -28,12 +28,6 @@ public class SkillSelectState : IGameSceneState
 
     public override void StateUpdate()
     {
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    //change to InGameState
-        //    m_Controller.SetState(new InGameState(m_Controller), "InGameScene");
-        //}
-
         GameMng.Instance.Update();
         ControllSceneByGameMng();
     }

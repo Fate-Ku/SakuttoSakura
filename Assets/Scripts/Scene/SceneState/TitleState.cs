@@ -1,10 +1,9 @@
 //
 // TitleState.cs
 // 
-// 2026/05/19 Created By Man-Yi, Yeh
+// 2026/07/13 Created By Man-Yi, Yeh
 //
 
-using System.Threading;
 using UnityEngine;
 
 public class TitleState : ISceneState
@@ -14,7 +13,7 @@ public class TitleState : ISceneState
     public TitleState(SceneStateController controller) 
         : base(controller)
     {
-        this.StateName = "StartState";
+        StateName = "StartState";
     }
 
     //update
@@ -24,6 +23,23 @@ public class TitleState : ISceneState
 
         if (timer >= 1)
         {
+            GameObject gameTestOb = GameObject.Find("GameTest");
+            if (gameTestOb != null)
+            {
+                GameTest gameTest = gameTestOb.GetComponent<GameTest>();
+                if (gameTest != null)
+                {
+                    if (gameTest.isTutorial)
+                    {
+                        //change to TutorialState
+                        m_Controller.SetState(new TutorialState(m_Controller), "TutorialScene");
+                        return;
+
+                    }
+                   
+                }
+            }
+
             //change to MenuState
             m_Controller.SetState(new MenuState(m_Controller), "MenuScene");
         }

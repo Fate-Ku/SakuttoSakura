@@ -113,6 +113,8 @@ public class BlocksController
         nextNode.SetBlock(nextBlock);
         nextNode?.Block?.SetPos(new Vector3(nextNode.Pos.x, nextNode.Pos.y, 0));
         nextNode?.Block?.SetSize(m_NextSize);
+        m_InGameSystem.SetNextBlockPath(nextNode.Block.Type);
+
         //next mext
         BlockNode nextNextNode = GetNode(m_NextNextNodeID);
         nextNextNode.SetBlock(nextNextBlock);
@@ -240,6 +242,16 @@ public class BlocksController
     //-------------------
     //game
     //-------------------
+    public void AddBlock(IBlock block, Vector2Int id)
+    {
+        BlockNode blockNode = GetNode(id);
+        if (blockNode != null)
+        {
+            blockNode.SetBlock(block);
+            block.SetPos(GetNodePos(id));
+        }
+    }
+
     public void SetPreviewBlocks(IBlock nowNextNextBlock)
     {
         m_IsSettingNextBlock = true;
@@ -605,6 +617,7 @@ public class BlocksController
 
         return res;
     }
+
 
     //-------------------
     //get node

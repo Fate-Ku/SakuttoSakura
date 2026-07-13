@@ -4,6 +4,7 @@
 // 2026/07/03 Created By Man-Yi, Yeh
 // 2026/07/05 Updated By Man-Yi, Yeh
 // 2026/07/07 Updated By Man-Yi, Yeh
+// 2026/07/13 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -49,7 +50,7 @@ public class BlockFactory
         //-------------------
         //FallData
         //-------------------
-        string jsonFilePath = "Data/FallData";
+        string jsonFilePath = "Data/FallData/FallData";
         TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
         BlockFallDataList dataSet =
             JsonUtility.FromJson<BlockFallDataList>(jsonTextAsset.text);
