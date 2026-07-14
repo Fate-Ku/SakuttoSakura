@@ -34,7 +34,7 @@ public class IGameSceneState : ISceneState
                     break;
 
                 case "TutorialScene":
-
+                    state = new TutorialState(m_Controller);
                     break;
 
                 case "InGameScene":
