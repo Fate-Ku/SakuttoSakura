@@ -6,6 +6,7 @@
 // 2026/07/06 Updated By Man-Yi, Yeh
 // 2026/07/07 Updated By Man-Yi, Yeh
 // 2026/07/13 Updated By Man-Yi, Yeh
+// 2026/07/14 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -162,7 +163,7 @@ public class TutorialGameProcess : IGameProcessController
     {
         if (GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura) > 0)
         {
-            m_InGameSystem.IsGameEnd = true;
+            m_InGameSystem.GoGameOver();
         }
     }
     public override bool CheckLevelUp() {  return false; }

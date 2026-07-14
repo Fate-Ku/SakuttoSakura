@@ -18,6 +18,7 @@
 // 2026/07/06 Updated By Man-Yi, Yeh
 // 2026/07/07 Updated By Man-Yi, Yeh
 // 2026/07/13 Updated By Man-Yi, Yeh
+// 2026/07/14 Updated By Man-Yi, Yeh
 // 
 
 
@@ -252,6 +253,12 @@ public class InGameSystem : IGameSystem
     public bool IsLevelUpEnd()
     {
         return m_GameProcessController.IsLevelUpEnd();
+    }
+
+    public void GoGameOver()
+    {
+        m_InGameSystemStateController.SetState(
+            new InGameSystemGameOverState(this, m_InGameSystemStateController));
     }
 
     //-------------------
