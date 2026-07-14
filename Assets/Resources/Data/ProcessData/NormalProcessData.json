@@ -3,7 +3,7 @@
     {
       "level": 1,
       "data": {
-        "levelUpSakuraNum": 5,
+        "levelUpSakuraNum": 3,
         "typeQty": 3,
         "eventInterval": 25
       }
@@ -12,7 +12,7 @@
     {
       "level": 2,
       "data": {
-        "levelUpSakuraNum": 5,
+        "levelUpSakuraNum": 3,
         "typeQty": 4,
         "eventInterval": 25
       }
@@ -21,7 +21,7 @@
     {
       "level": 3,
       "data": {
-        "levelUpSakuraNum": 5,
+        "levelUpSakuraNum": 3,
         "typeQty": 4,
         "eventInterval": 20
       }
@@ -30,7 +30,7 @@
     {
       "level": 4,
       "data": {
-        "levelUpSakuraNum": 8,
+        "levelUpSakuraNum": 5,
         "typeQty": 4,
         "eventInterval": 20
       }
@@ -39,7 +39,7 @@
     {
       "level": 5,
       "data": {
-        "levelUpSakuraNum": 8,
+        "levelUpSakuraNum": 5,
         "typeQty": 5,
         "eventInterval": 20
       }
@@ -48,8 +48,26 @@
     {
       "level": 7,
       "data": {
-        "levelUpSakuraNum": 8,
+        "levelUpSakuraNum": 5,
         "typeQty": 5,
+        "eventInterval": 15
+      }
+    },
+
+    {
+      "level": 8,
+      "data": {
+        "levelUpSakuraNum": 5,
+        "typeQty": 6,
+        "eventInterval": 15
+      }
+    },
+
+    {
+      "level": 9,
+      "data": {
+        "levelUpSakuraNum": 8,
+        "typeQty": 6,
         "eventInterval": 15
       }
     },
@@ -59,50 +77,32 @@
       "data": {
         "levelUpSakuraNum": 8,
         "typeQty": 6,
-        "eventInterval": 15
-      }
-    },
-
-    {
-      "level": 12,
-      "data": {
-        "levelUpSakuraNum": 10,
-        "typeQty": 6,
-        "eventInterval": 15
-      }
-    },
-
-    {
-      "level": 14,
-      "data": {
-        "levelUpSakuraNum": 10,
-        "typeQty": 6,
         "eventInterval": 10
       }
     },
 
     {
-      "level": 17,
+      "level": 11,
       "data": {
-        "levelUpSakuraNum": 10,
+        "levelUpSakuraNum": 8,
         "typeQty": 7,
         "eventInterval": 10
       }
     },
 
     {
-      "level": 21,
+      "level": 13,
       "data": {
-        "levelUpSakuraNum": 10,
+        "levelUpSakuraNum": 8,
         "typeQty": 7,
         "eventInterval": 5
       }
     },
 
     {
-      "level": 25,
+      "level": 15,
       "data": {
-        "levelUpSakuraNum": 15,
+        "levelUpSakuraNum": 10,
         "typeQty": 7,
         "eventInterval": 5
       }
