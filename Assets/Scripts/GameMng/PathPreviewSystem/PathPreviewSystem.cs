@@ -15,15 +15,9 @@ public class PathPreviewSystem
 
     private readonly BlockPosInfo m_BlockInfo;
 
-    private GameObject m_PreviewBlock;
+    private readonly List<GameObject> m_PreviewBlocks = new();
 
     private readonly List<Vector3> m_PathPoints = new();
-
-    private int m_TargetIndex = 0;
-
-    private bool m_Playing = false;
-
-    private float m_MoveSpeed = 3.5f;
 
 
     //--------------------------------
@@ -42,33 +36,7 @@ public class PathPreviewSystem
 
     public void Update()
     {
-        if (!m_Playing || m_PreviewBlock == null)
-            return;
-
-        if (m_PathPoints.Count <= 1)
-            return;
-
-        Transform tr = m_PreviewBlock.transform;
-        Vector3 target = m_PathPoints[m_TargetIndex];
-
-        tr.position = Vector3.MoveTowards(
-            tr.position,
-            target,
-            m_MoveSpeed * Time.deltaTime);
-
-        // reach node
-        if (Vector3.Distance(tr.position, target) < 0.001f)
-        {
-            tr.position = target;
-            m_TargetIndex++;
-
-            // Finished playing → return to start position
-            if (m_TargetIndex >= m_PathPoints.Count)
-            {
-                m_TargetIndex = 1;
-                tr.position = m_PathPoints[0];
-            }
-        }
+ 
     }
 
 
@@ -81,7 +49,8 @@ public class PathPreviewSystem
         Debug.Log($"[Preview] Show() 被呼叫，type = {type}");
         Debug.Log($"Path Count = {path.Count}");
 
-        m_Playing = false;
+        ClearPreview();
+
         m_PathPoints.Clear();
 
         if (type == BlockType.None)
@@ -115,10 +84,7 @@ public class PathPreviewSystem
             return;
         }
 
-        CreatePreviewBlock(prefab);
-
-
-        StartPreview();
+        CreatePreviewBlocks(prefab);
 
     }
 
@@ -221,62 +187,49 @@ public class PathPreviewSystem
     //--------------------------------
     // create preview object
     //--------------------------------
-
-    private void CreatePreviewBlock(GameObject prefab)
+    private void CreatePreviewBlocks(GameObject prefab)
     {
-        if (m_PreviewBlock != null)
-            GameObject.Destroy(m_PreviewBlock);
-
-        m_PreviewBlock = GameObject.Instantiate(prefab);
-        m_PreviewBlock.name = "Preview";
-
-        m_PreviewBlock.transform.localScale =
-            new Vector3(1f, 1f, 1f);
-
-        // set start pos
-        Vector3 p = m_PathPoints[0];
-        p.z = -5f;
-        m_PreviewBlock.transform.position = p;
-
-        // translucent
-        SpriteRenderer sr = m_PreviewBlock.GetComponentInChildren<SpriteRenderer>();
-        if (sr != null)
+        foreach (Vector3 pos in m_PathPoints)
         {
-            Color c = sr.color;
-            c.a = 0.6f;
-            sr.color = c;
+            GameObject obj = GameObject.Instantiate(prefab);
+
+            obj.transform.position = pos;
+            obj.transform.localScale = Vector3.one;
+
+            SpriteRenderer sr =
+                obj.GetComponentInChildren<SpriteRenderer>();
+
+            if (sr != null)
+            {
+                Color c = sr.color;
+                c.a = 0.6f;
+                sr.color = c;
+            }
+
+            m_PreviewBlocks.Add(obj);
         }
-    }
-
-
-    //--------------------------------
-    // start to play animation
-    //--------------------------------
-
-    private void StartPreview()
-    {
-        if (m_PathPoints.Count <= 1)
-        {
-            m_Playing = false;
-            return;
-        }
-
-        m_TargetIndex = 1;
-        m_Playing = true;
     }
 
 
     //--------------------------------
     // hide preview
     //--------------------------------
-
     public void Hide()
     {
-        m_Playing = false;
-        m_TargetIndex = 0;
         m_PathPoints.Clear();
 
-        if (m_PreviewBlock != null)
-            m_PreviewBlock.SetActive(false);
+        ClearPreview();
     }
+
+    private void ClearPreview()
+    {
+        foreach (GameObject obj in m_PreviewBlocks)
+        {
+            if (obj != null)
+                GameObject.Destroy(obj);
+        }
+
+        m_PreviewBlocks.Clear();
+    }
+
 }
