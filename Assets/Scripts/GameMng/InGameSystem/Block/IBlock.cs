@@ -19,7 +19,6 @@
 
 
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public abstract class IBlock
 {
