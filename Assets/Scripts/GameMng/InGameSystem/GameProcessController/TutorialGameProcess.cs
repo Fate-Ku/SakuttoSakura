@@ -158,13 +158,13 @@ public class TutorialGameProcess : IGameProcessController
         return res;
     }
 
-    public override void TimeControl() { }
-    public override void EventControl() 
+    public override void TimeControl() 
     {
         if (GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura) > 0)
         {
-            m_InGameSystem.GoGameOver();
+            m_GameTimer = 0;
         }
     }
+    public override void EventControl() { }
     public override bool CheckLevelUp() {  return false; }
 }
