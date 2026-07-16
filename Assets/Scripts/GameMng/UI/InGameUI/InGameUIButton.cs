@@ -8,6 +8,7 @@
 // 2026/07/09 Updated By Fate Ku
 // 2026/07/12 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
+// 2026/07/16 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -29,10 +30,10 @@ public class InGameUIButton
     // Long Press
     //------------------------------------
 
-    private const float LONG_PRESS_TIME = 0.25f;
+    private const float LONG_PRESS_TIME = 0.2f;
 
     private bool m_IsPressing = false;
-    private bool m_LongPressed = false;
+    private bool m_PathShown = false;
     private float m_PressTimer = 0f;
 
     //------------------------------------
@@ -40,8 +41,6 @@ public class InGameUIButton
     //------------------------------------
 
     private PathPreviewSystem m_PathPreview;
-
-    private bool m_PathPreviewShown = false;
 
     // avoids rebuilding every frame
     private int m_LastRow = -1;
@@ -122,20 +121,25 @@ public class InGameUIButton
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 m_IsPressing = true;
-                m_LongPressed = false;
-                m_PathPreviewShown = false;
+                m_PathShown = false;
                 m_PressTimer = 0f;
             }
 
             // Press, Hold
-            if (Mouse.current.leftButton.isPressed &&
-                m_CanOperate)
+            if (Mouse.current.leftButton.isPressed && m_CanOperate)
             {
                 m_PressTimer += Time.deltaTime;
 
-                if (m_PressTimer >= LONG_PRESS_TIME)
+                // first press > 0.2f
+                if (!m_PathShown &&
+                    m_PressTimer >= LONG_PRESS_TIME)
                 {
-                    m_LongPressed = true;
+                    CheckPress(mousePos);    //show path
+                    m_PathShown = true;
+                }
+                // update
+                else if (m_PathShown)
+                {
                     CheckPress(mousePos);
                 }
             }
@@ -161,20 +165,25 @@ public class InGameUIButton
             if (touch.press.wasPressedThisFrame)
             {
                 m_IsPressing = true;
-                m_LongPressed = false;
-                m_PathPreviewShown = false;
+                m_PathShown = false;
                 m_PressTimer = 0f;
             }
 
             // Press , Hold
-            if (touch.press.isPressed &&
-                m_CanOperate)
+            if (touch.press.isPressed && m_CanOperate)
             {
                 m_PressTimer += Time.deltaTime;
 
-                if (m_PressTimer >= LONG_PRESS_TIME)
+                // first press > 0.2f
+                if (!m_PathShown &&
+                    m_PressTimer >= LONG_PRESS_TIME)
                 {
-                    m_LongPressed = true;
+                    CheckPress(touchPos);    //show path
+                    m_PathShown = true;
+                }
+                // update
+                else if (m_PathShown)
+                {
                     CheckPress(touchPos);
                 }
             }
@@ -294,6 +303,14 @@ public class InGameUIButton
             m_CurrentRow = int.Parse(
                 hit.collider.name.Replace("ClickButton", ""));
 
+            // first press
+            if (!m_IsPressing)
+            {
+                m_IsPressing = true;
+                m_PathShown = false;
+                m_PressTimer = 0f;
+            }
+
             Debug.Log($"Press Row = {m_CurrentRow}");
 
 
@@ -302,11 +319,9 @@ public class InGameUIButton
             // avoids rebuilding
             //------------------------------------
 
-            bool positionChanged =
-                m_CurrentRow != m_LastRow ||
-                m_CurrentCol != m_LastCol;
-
-            if (!positionChanged && m_PathPreviewShown)
+            if (m_CurrentRow == m_LastRow &&
+                m_CurrentCol == m_LastCol &&
+                m_PathShown)
             {
                 return;
             }
@@ -326,25 +341,24 @@ public class InGameUIButton
             Debug.Log($"({m_CurrentRow},{m_CurrentCol}) -> {pos}");
 
 
-            if (m_NextBlockType == BlockType.None)
-            {
-                return;
-            }
+            if (m_NextBlockType == BlockType.None) { return; }
 
+            // judge if show preview path or not
+            if (m_PressTimer < LONG_PRESS_TIME) { return; }
+
+            if (!m_PathShown)
+            {
+                m_PathShown = true;
+            }
             //------------------------------------
             // show Preview path
             //------------------------------------
 
-            if (!m_PathPreviewShown || positionChanged)
-            {
-                m_PathPreview.Show(
-                    m_CurrentRow,
-                    m_CurrentCol,
-                    m_NextBlockType,
-                    m_NextPath);
-
-                m_PathPreviewShown = true;
-            }
+            m_PathPreview.Show(
+                m_CurrentRow,
+                m_CurrentCol,
+                m_NextBlockType,
+                m_NextPath);
 
             Debug.Log(
                 $"Preview ({m_CurrentRow},{m_CurrentCol}) {m_NextBlockType}");
@@ -355,8 +369,7 @@ public class InGameUIButton
     private void EndPress()
     {
         m_IsPressing = false;
-        m_LongPressed = false;
-        m_PathPreviewShown = false;
+        m_PathShown = false;
         m_PressTimer = 0f;
 
         m_CurrentCol = -1;
