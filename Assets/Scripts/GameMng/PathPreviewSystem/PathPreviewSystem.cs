@@ -24,9 +24,16 @@ public class PathPreviewSystem
 
     private bool m_Playing = false;
 
-    private float m_MoveSpeed = 3.5f;
+    private float m_MoveSpeed = 6f;
 
     private readonly Dictionary<BlockType, Material> m_Materials;
+
+    private readonly List<GameObject> m_DirectionObjects = new();
+
+    private readonly List<FallDirection> m_PathDirections = new();
+
+    private const float PREVIEW_FLOWER_SCALE = 0.5f;
+    private const float DIRECTION_SCALE = 0.033f;
 
     //--------------------------------
     // Constructor
@@ -83,7 +90,7 @@ public class PathPreviewSystem
 
     public void Show(int startRow, int startCol, BlockType type, List<FallDirection> path)
     {
-        Debug.Log($"[Preview] Show() 被呼叫，type = {type}");
+        Debug.Log($"[Preview] Show() is called，type = {type}");
         Debug.Log($"Path Count = {path.Count}");
 
         m_Playing = false;
@@ -122,6 +129,8 @@ public class PathPreviewSystem
 
         CreatePreviewBlock(prefab, type);
 
+        CreateDirectionObjects();
+
 
         StartPreview();
 
@@ -139,6 +148,7 @@ public class PathPreviewSystem
         List<FallDirection> path)
     {
         m_PathPoints.Clear();
+        m_PathDirections.Clear();
 
         Vector2Int boardSize = m_BlockInfo.GetScale();
 
@@ -193,6 +203,8 @@ public class PathPreviewSystem
             {
                 onlyDown = true;
 
+                dir = FallDirection.Down;
+
                 nextRow = row;
                 nextCol = col - 1;
             }
@@ -203,6 +215,9 @@ public class PathPreviewSystem
 
             row = nextRow;
             col = nextCol;
+
+            // record real path
+            m_PathDirections.Add(dir);
 
             AddPoint(row, col);
         }
@@ -236,7 +251,7 @@ public class PathPreviewSystem
         m_PreviewBlock.name = "Preview";
 
         m_PreviewBlock.transform.localScale =
-            new Vector3(0.5f, 0.5f, 0.5f);
+            Vector3.one * PREVIEW_FLOWER_SCALE;
 
         // set start pos
         Vector3 p = m_PathPoints[0];
@@ -276,6 +291,78 @@ public class PathPreviewSystem
         m_Playing = true;
     }
 
+    private void CreateDirectionObjects()
+    {
+        if (m_PathDirections == null || m_PathDirections.Count == 0)
+            return;
+
+        // delete old
+        foreach (GameObject obj in m_DirectionObjects)
+        {
+            if (obj != null)
+                GameObject.Destroy(obj);
+        }
+
+        m_DirectionObjects.Clear();
+
+        for (int i = 0; i < m_PathPoints.Count - 1; i++)
+        {
+            FallDirection current = m_PathDirections[i];
+
+            FallDirection? next = null;
+
+            if (i + 1 < m_PathDirections.Count)
+                next = m_PathDirections[i + 1];
+
+            GameObject prefab = GetDirectionPrefab(current, next);
+
+            if (prefab == null) { continue; }
+
+            GameObject obj = GameObject.Instantiate(prefab);
+
+            // start from second path point
+            Vector3 pos = m_PathPoints[i + 1];
+            pos.z = -4.5f;
+
+            obj.transform.position = pos;
+            obj.transform.localScale = Vector3.one * DIRECTION_SCALE;
+
+            m_DirectionObjects.Add(obj);
+
+        }
+    }
+
+    private GameObject GetDirectionPrefab(FallDirection current, FallDirection? next)
+    {
+        switch (current)
+        {
+            case FallDirection.Down:
+
+                if (next == FallDirection.Left)
+                    return m_BlockInfo.DownLeft;
+
+                if (next == FallDirection.Right)
+                    return m_BlockInfo.DownRight;
+
+                return m_BlockInfo.Down;
+
+            case FallDirection.Left:
+
+                if (next == FallDirection.Down)
+                    return m_BlockInfo.LeftDown;
+
+                return m_BlockInfo.Left;
+
+            case FallDirection.Right:
+
+                if (next == FallDirection.Down)
+                    return m_BlockInfo.RightDown;
+
+                return m_BlockInfo.Right;
+        }
+
+        return null;
+    }
 
     //--------------------------------
     // hide preview
@@ -286,8 +373,18 @@ public class PathPreviewSystem
         m_Playing = false;
         m_TargetIndex = 0;
         m_PathPoints.Clear();
+        m_PathDirections.Clear();
 
         if (m_PreviewBlock != null)
             m_PreviewBlock.SetActive(false);
+
+        foreach (GameObject obj in m_DirectionObjects)
+        {
+            if (obj != null)
+                GameObject.Destroy(obj);
+        }
+
+        m_DirectionObjects.Clear();
+
     }
 }

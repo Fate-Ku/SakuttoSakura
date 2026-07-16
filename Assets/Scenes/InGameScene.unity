@@ -18271,9 +18271,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: Down
+      value: 
+      objectReference: {fileID: 8448594068887878294, guid: ef5c7226d0d9d9f4ab4f0dfdde081872, type: 3}
+    - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: Left
+      value: 
+      objectReference: {fileID: 5062714704997143864, guid: 97e4a2eec567cd34982f0795ae246cc6, type: 3}
+    - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: Right
+      value: 
+      objectReference: {fileID: 6173154094200751345, guid: 491bb1279479b264cb9556e79ac9de06, type: 3}
+    - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: DownLeft
+      value: 
+      objectReference: {fileID: 5023272246551420021, guid: 0dee52dd68037ea4dba50f56634a6426, type: 3}
+    - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: LeftDown
+      value: 
+      objectReference: {fileID: 6679026067409583855, guid: a10a5c169c5e22a4380fc33ae4dc298c, type: 3}
+    - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
       propertyPath: matKaede
       value: 
       objectReference: {fileID: 2100000, guid: 8fa9643f326e5af42ab418a6595e7456, type: 2}
+    - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: DownRight
+      value: 
+      objectReference: {fileID: 8412679457419326695, guid: 0f64e95c83c1eaa45bcb03ab8ee9b426, type: 3}
+    - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
+      propertyPath: RightDown
+      value: 
+      objectReference: {fileID: 5216957733037016675, guid: 5020b5dd52289384aa80526fa38f86ce, type: 3}
     - target: {fileID: 5540451870575788571, guid: 074d44f0d2d7f0549b33231c29041b7f, type: 3}
       propertyPath: matAsagao
       value: 
