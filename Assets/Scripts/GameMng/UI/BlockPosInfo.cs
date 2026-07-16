@@ -2,6 +2,7 @@
 // BlockPosInfo.cs
 // 
 // 2026/07/09 Created By Fate Ku
+// 2026/07/16 Created By Fate Ku
 //
 
 using UnityEngine;
@@ -15,6 +16,15 @@ public class BlockPosInfo : MonoBehaviour
 
     [Header("Block")]
     [SerializeField] private GameObject[] blocks;
+
+    [Header("Materials")]
+    public Material matTsubaki;
+    public Material matKaede;
+    public Material matHimawari;
+    public Material matClover;
+    public Material matAsagao;
+    public Material matKikyou;
+    public Material matSakura;
 
 
     //x :col, y :row
@@ -42,5 +52,38 @@ public class BlockPosInfo : MonoBehaviour
         return res;
     }
 
+    public Material GetMatTsubaki()
+    {
+        return matTsubaki;
+    }
 
+    public Material GetMatKaede()
+    {
+        return matKaede;
+    }
+
+    public Material GetMatHimawari()
+    {
+        return matHimawari;
+    }
+
+    public Material GetMatClover()
+    {
+        return matClover;
+    }
+
+    public Material GetMatAsagao()
+    {
+        return matAsagao;
+    }
+
+    public Material GetMatKikyou()
+    {
+        return matKikyou;
+    }
+
+    public Material GetMatSakura()
+    {
+        return matSakura;
+    }
 }

@@ -2,6 +2,7 @@
 // PathPreviewSystem.cs
 //
 // 2026/07/12 Created By Fate Ku
+// 2026/07/16 Created By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -25,14 +26,18 @@ public class PathPreviewSystem
 
     private float m_MoveSpeed = 3.5f;
 
+    private readonly Dictionary<BlockType, Material> m_Materials;
 
     //--------------------------------
     // Constructor
     //--------------------------------
 
-    public PathPreviewSystem(BlockPosInfo info)
+    public PathPreviewSystem(
+        BlockPosInfo info,
+        Dictionary<BlockType, Material> materials)
     {
         m_BlockInfo = info;
+        m_Materials = materials;
     }
 
 
@@ -115,7 +120,7 @@ public class PathPreviewSystem
             return;
         }
 
-        CreatePreviewBlock(prefab);
+        CreatePreviewBlock(prefab, type);
 
 
         StartPreview();
@@ -222,7 +227,7 @@ public class PathPreviewSystem
     // create preview object
     //--------------------------------
 
-    private void CreatePreviewBlock(GameObject prefab)
+    private void CreatePreviewBlock(GameObject prefab, BlockType type)
     {
         if (m_PreviewBlock != null)
             GameObject.Destroy(m_PreviewBlock);
@@ -231,7 +236,7 @@ public class PathPreviewSystem
         m_PreviewBlock.name = "Preview";
 
         m_PreviewBlock.transform.localScale =
-            new Vector3(1f, 1f, 1f);
+            new Vector3(0.5f, 0.5f, 0.5f);
 
         // set start pos
         Vector3 p = m_PathPoints[0];
@@ -240,10 +245,16 @@ public class PathPreviewSystem
 
         // translucent
         SpriteRenderer sr = m_PreviewBlock.GetComponentInChildren<SpriteRenderer>();
+
         if (sr != null)
         {
+            if (m_Materials.TryGetValue(type, out Material mat))
+            {
+                sr.material = mat;
+            }
+
             Color c = sr.color;
-            c.a = 0.6f;
+            c.a = 0.8f;
             sr.color = c;
         }
     }

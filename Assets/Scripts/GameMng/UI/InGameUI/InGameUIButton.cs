@@ -26,6 +26,9 @@ public class InGameUIButton
     private int m_CurrentCol = -1;
     private int m_CurrentRow = -1;
 
+    // flower materials
+    private Dictionary<BlockType, Material> m_Materials;
+
     //------------------------------------
     // Long Press
     //------------------------------------
@@ -66,6 +69,12 @@ public class InGameUIButton
         get { return m_BlockPosInfo; }
     }
 
+    public InGameUIButton(Dictionary<BlockType, Material> materials)
+    {
+        m_Materials = materials;
+    }
+
+
     public void Init()
     {
         //-------------------
@@ -83,7 +92,7 @@ public class InGameUIButton
 
         CreateCubes();
 
-        m_PathPreview = new PathPreviewSystem(m_BlockPosInfo);
+        m_PathPreview = new PathPreviewSystem(m_BlockPosInfo,m_Materials);
     }
 
     // -------------------------
