@@ -26,6 +26,15 @@ public class BlockPosInfo : MonoBehaviour
     public Material matKikyou;
     public Material matSakura;
 
+    [Header("Direction")]
+    public GameObject Down;
+    public GameObject DownLeft;
+    public GameObject DownRight;
+    public GameObject Left;
+    public GameObject LeftDown;
+    public GameObject Right;
+    public GameObject RightDown;
+
 
     //x :col, y :row
     public Vector2Int GetScale()
