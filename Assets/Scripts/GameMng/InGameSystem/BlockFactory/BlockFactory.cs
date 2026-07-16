@@ -11,18 +11,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class BlockFallData
-{
-    public BlockType type;
-    public FallData data;
-}
-
-[Serializable]
-public class BlockFallDataList
-{
-    public BlockFallData[] list;
-}
 
 public class BlockFactory
 {

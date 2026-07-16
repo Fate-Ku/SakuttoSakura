@@ -533,6 +533,7 @@ public class GameMng
     public void SetCanOperate(bool canOperate)
     {
         m_ButtonSystem.SetCanOperate(canOperate);
+
     }
 
     //2026/07/11 Updated By Fate Ku
@@ -553,5 +554,13 @@ public class GameMng
         return m_Background.GetBgCubePosition(row, col);
     }
 
+    //2026/07/16 Updated By Fate Ku
+    //-------------------
+    //can operate
+    //-------------------
+    public bool GetCanOperate()
+    {
+        return m_InGameSystem.GetCanOperate();
+    }
 
 }

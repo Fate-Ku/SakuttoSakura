@@ -23,7 +23,7 @@
 
 
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public enum InGameType
 {
@@ -330,6 +330,11 @@ public class InGameSystem : IGameSystem
         m_InGameSystemStateController.CallTrigger();
     }
 
+    public bool GetCanOperate()
+    {
+        return !m_IsPause && m_IsPlaying && m_CanOperate;
+    }
+
     //-------------------
     //method of blocks
     //-------------------
@@ -459,12 +464,6 @@ public class InGameSystem : IGameSystem
         //    }
         //}
 
-        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            if (m_BlocksController.CanRise(0))
-            {
-                m_BlocksController.RiseBlock(CreateBlock(BlockType.SoftRock), 0);
-            }
-        }
+
     }
 }

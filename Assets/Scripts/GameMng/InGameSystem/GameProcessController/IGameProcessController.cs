@@ -2,32 +2,12 @@
 // GameProcessController.cs
 // 
 // 2026/07/13 Created By Man-Yi, Yeh
+// 2026/07/16 Updated By Man-Yi, Yeh
 // 
 
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-[Serializable]
-public class ProcessData
-{
-    public int levelUpSakuraNum;
-    public int typeQty;
-    public float eventInterval;
-}
-
-[Serializable]
-public class LevelProcessData
-{
-    public int level;
-    public ProcessData data;
-}
-
-[Serializable]
-public class LevelProcessDataList
-{
-    public LevelProcessData[] list;
-}
 
 public class IGameProcessController
 {
@@ -43,6 +23,9 @@ public class IGameProcessController
     protected Dictionary<int, ProcessData> m_ProcessDatas = new();
     protected ProcessData m_NowProcessData;
 
+    protected Dictionary<int, FloorData[]> m_EventDatas = new();
+    protected FloorData[] m_NowEventData;
+
     protected int m_Level;
     public int Level
     {
@@ -55,7 +38,7 @@ public class IGameProcessController
     protected int m_NowFloor;
     protected IBlock m_TmpBlock;
     
-    public IGameProcessController(InGameSystem inGameSystem, string jsonFilePath)
+    public IGameProcessController(InGameSystem inGameSystem, string processDataPath, string eventDataPath)
     {
         m_InGameSystem = inGameSystem;
         m_GameTimer = m_InGameSystem.GameInfo.GetPlayTime();
@@ -63,26 +46,8 @@ public class IGameProcessController
         m_PreLevelSakuraNum = 0;
         m_InGameSystem.GameInfo.nowLevel = m_Level;
 
-        //-------------------
-        //ProcessData
-        //-------------------
-        TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
-        Debug.Log("ProcessData: " + jsonTextAsset);
-        LevelProcessDataList dataSet =
-            JsonUtility.FromJson<LevelProcessDataList>(jsonTextAsset.text);
-
-        foreach (LevelProcessData data in dataSet.list)
-        {
-            bool isAdded = m_ProcessDatas.TryAdd(data.level, data.data);
-            if (!isAdded)
-            {
-                Debug.LogError($"Failed to add ProcessData for level {data.level}");
-            }
-            if (data.level == 1)
-            {
-                m_NowProcessData = data.data;
-            }
-        }
+        InitProcessDatas(processDataPath);
+        InitEventDatas(eventDataPath);
     }
 
     public void AddGameTime(float time)
@@ -176,7 +141,6 @@ public class IGameProcessController
 
         return res;
     }
-
 
     //-------------------
     //basic
@@ -272,4 +236,46 @@ public class IGameProcessController
 
         return res;
     }
+
+    //-------------------
+    //init
+    //-------------------
+    private void InitProcessDatas(string jsonFilePath)
+    {
+        TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
+        LevelProcessDataList dataSet =
+            JsonUtility.FromJson<LevelProcessDataList>(jsonTextAsset.text);
+        foreach (LevelProcessData data in dataSet.list)
+        {
+            bool isAdded = m_ProcessDatas.TryAdd(data.level, data.data);
+            if (!isAdded)
+            {
+                Debug.LogError($"Failed to add ProcessData for level {data.level}");
+            }
+            if (data.level == 1)
+            {
+                m_NowProcessData = data.data;
+            }
+        }
+    }
+
+    private void InitEventDatas(string jsonFilePath)
+    {
+        TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
+        LevelFloorDataList dataSet =
+            JsonUtility.FromJson<LevelFloorDataList>(jsonTextAsset.text);
+        foreach (LevelFloorData data in dataSet.list)
+        {
+            bool isAdded = m_EventDatas.TryAdd(data.level, data.datas);
+            if (!isAdded)
+            {
+                Debug.LogError($"Failed to add EventData for level {data.level}");
+            }
+            if ( data.level == 1)
+            {
+                m_NowEventData = data.datas;
+            }
+        }
+    }
+
 }

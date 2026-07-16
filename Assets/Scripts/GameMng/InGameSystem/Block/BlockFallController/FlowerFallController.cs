@@ -8,20 +8,6 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class FallPathData
-{
-    public FallDirection direction;
-    public float speed;
-}
-
-[Serializable]
-public class FallData
-{
-    public float basicSpeed;
-    public FallPathData[] pathDatas;
-}
-
 
 public class FlowerFallController : NormalFallController
 {

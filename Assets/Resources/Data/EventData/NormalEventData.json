@@ -1,0 +1,48 @@
+{
+  "list": [
+    {
+      "level": 1,
+      "datas": [
+        {
+          "createRate": 0.35,
+          "typeRateDatas": [
+            {
+              "type": 9,
+              "rate": 1
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "level": 2,
+      "datas": [
+        {
+          "createRate": 1,
+          "typeRateDatas": [
+            {
+              "type": 7,
+              "rate": 2
+            },
+              
+            {
+              "type": 9,
+              "rate": 1
+            }
+          ]
+        },
+
+        {
+          "createRate": 0.5,
+          "typeRateDatas": [
+            {
+              "type": 9,
+              "rate": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

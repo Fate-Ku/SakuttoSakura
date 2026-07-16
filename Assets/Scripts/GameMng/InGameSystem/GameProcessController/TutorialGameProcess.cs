@@ -13,39 +13,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-//-------------------
-//Start Block Data
-//-------------------
-[Serializable]
-public class TutorialStartBlockData
-{
-    public BlockType type;
-    public int col;
-    public int row;
-}
-
-[Serializable]
-public class TutorialStartBlockDataList
-{
-    public TutorialStartBlockData[] list;
-}
-
-//-------------------
-//Next Block Data
-//-------------------
-[Serializable]
-public class TutorialNextBlockData
-{
-    public BlockType type;
-    public int col;
-}
-
-[Serializable]
-public class TutorialNextBlockDataList
-{
-    public TutorialNextBlockData[] list;
-}
-
 
 public class TutorialGameProcess : IGameProcessController
 {
@@ -63,7 +30,9 @@ public class TutorialGameProcess : IGameProcessController
     private bool m_AllIdlePreviousFrame = true;
 
     public TutorialGameProcess(InGameSystem inGameSystem) 
-        : base(inGameSystem, "Data/ProcessData/TutorialProcessData")
+        : base(inGameSystem, 
+            "Data/ProcessData/TutorialProcessData",
+            "Data/EventData/TutorialEventData")
     {
         GameObject tutorialTestObj = GameObject.Find("TutorialTest");
         if (tutorialTestObj != null)
