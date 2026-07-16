@@ -63,6 +63,11 @@ public class IGameProcessController
         {
             m_NowProcessData = data;
         }
+        FloorData[] eventData = GetEventData(m_Level);
+        if (eventData != null)
+        {
+            m_NowEventData = eventData;
+        }
 
         m_GameTimer += m_InGameSystem.GameInfo.GetLevelUpAddGameTime();
         CheckEventStart();
@@ -151,7 +156,7 @@ public class IGameProcessController
             !m_TmpBlock.IsStateType(BlockStateType.Rise))
         {
             m_NowFloor += 1;
-            if (m_NowFloor > m_InGameSystem.GameInfo.GetFloorNum())
+            if (m_NowFloor > m_NowEventData.Length)
             {
                 EventEnd();
                 Debug.Log("end event");
@@ -203,20 +208,21 @@ public class IGameProcessController
             if (m_InGameSystem.CanRise(i))
             {
                 //random create
-                int createRate = UnityEngine.Random.Range(0, 100);
-                if (createRate < 120 - (20 * m_NowFloor))
+                float createRate = m_NowEventData[m_NowFloor - 1].createRate;
+                if (RandomBool.Value(createRate))
                 {
                     //random type
-                    int randomType = UnityEngine.Random.Range(0, 5);
-                    BlockType type = BlockType.SoftRock;
-                    if (randomType == 0)
+                    Dictionary<BlockType, float> data = new();
+                    foreach (var pair in m_NowEventData[m_NowFloor - 1].typeRateDatas)
                     {
-                        type = BlockType.HardRock;
+                        bool isAdded = data.TryAdd(pair.type, pair.rate);
+                        if (!isAdded)
+                        {
+                            Debug.LogError($"Failed to add type rate for {pair.type}");
+                        }
                     }
-                    else if (randomType == 1)
-                    {
-                        type = BlockType.TimeItem;
-                    }
+                    BlockType type = RandomRes<BlockType>.Value(data);
+
                     //create block and rise
                     m_TmpBlock = m_InGameSystem.CreateBlock(type);
                     m_InGameSystem.RiseBlock(m_TmpBlock, i);
@@ -234,6 +240,16 @@ public class IGameProcessController
             res = data;
         }
 
+        return res;
+    }
+
+    protected FloorData[] GetEventData(int level)
+    {
+        FloorData[] res = null;
+        if (m_EventDatas.TryGetValue(level, out var data))
+        {
+            res = data;
+        }
         return res;
     }
 

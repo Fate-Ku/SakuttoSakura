@@ -1,10 +1,10 @@
 //
 // ClassForJson.cs
 // 
-// 2026/07/14 Created By Man-Yi, Yeh
+// 2026/07/17 Created By Man-Yi, Yeh
 //
 
-using JetBrains.Annotations;
+
 using System;
 using UnityEngine;
 
