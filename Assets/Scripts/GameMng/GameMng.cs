@@ -26,7 +26,6 @@
 // 2026/07/13 Updated By Man-Yi, Yeh
 // 
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -91,6 +90,14 @@ public class GameMng
     public ScoreInfo ScoreInfo
     {
         get { return m_ScoreInfo; }
+    }
+
+    //blockPos info
+    private BlockPosInfo m_BlockPosInfo;
+
+    public BlockPosInfo BlockPosInfo
+    {
+        get { return m_BlockPosInfo; }
     }
 
     //-------------------
@@ -205,7 +212,28 @@ public class GameMng
         m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateText());
         m_InGameSystem = new InGameSystem(this, inGameType);
         m_Background = new InGameUIBackground();
-        m_ButtonSystem = new InGameUIButton();
+
+
+        // 2026/07/16 Updated By Fate Ku
+        // block info . path preview
+        GameObject blockPosInfo = GameObject.Find("BlockPosInfo");
+
+        if (blockPosInfo != null)
+        {
+            m_BlockPosInfo = blockPosInfo.GetComponent<BlockPosInfo>();
+        }
+
+        Dictionary<BlockType, Material> prevMats = new Dictionary<BlockType, Material>();
+        prevMats[BlockType.Kaede] = m_BlockPosInfo.GetMatKaede();
+        prevMats[BlockType.Himawari] = m_BlockPosInfo.GetMatHimawari();
+        prevMats[BlockType.Clover] = m_BlockPosInfo.GetMatClover();
+        prevMats[BlockType.Asagao] = m_BlockPosInfo.GetMatAsagao();
+        prevMats[BlockType.Kikyou] = m_BlockPosInfo.GetMatKikyou();
+        prevMats[BlockType.Sakura] = m_BlockPosInfo.GetMatSakura();
+
+        m_ButtonSystem = new InGameUIButton(prevMats);
+        // 2026/07/16 Updated By Fate Ku
+
         m_ScoreSystem = new ScoreSystem(this);
         m_GameLogSystem = new GameLogSystem(this);
 
