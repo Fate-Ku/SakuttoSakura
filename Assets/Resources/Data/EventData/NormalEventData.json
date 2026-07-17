@@ -19,7 +19,7 @@
       "level": 2,
       "datas": [
         {
-          "createRate": 1,
+          "createRate": 0.7,
           "typeRateDatas": [
             {
               "type": 7,
@@ -31,22 +31,12 @@
               "rate": 1
             }
           ]
-        },
-
-        {
-          "createRate": 0.5,
-          "typeRateDatas": [
-            {
-              "type": 9,
-              "rate": 1
-            }
-          ]
         }
       ]
     },
 
     {
-      "level": 5,
+      "level":5,
       "datas": [
         {
           "createRate": 1,
@@ -69,13 +59,63 @@
         },
 
         {
-          "createRate": 0.8,
+          "createRate": 0.5,
           "typeRateDatas": [
             {
               "type": 7,
-              "rate": 1
+              "rate": 2
             },
 
+            {
+              "type": 9,
+              "rate": 1
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "level": 7,
+      "datas": [
+        {
+          "createRate": 1,
+          "typeRateDatas": [
+            {
+              "type": 7,
+              "rate": 2
+            },
+
+            {
+              "type": 8,
+              "rate": 2
+            },
+
+            {
+              "type": 9,
+              "rate": 1
+            }
+          ]
+        },
+
+        {
+          "createRate": 0.7,
+          "typeRateDatas": [
+            {
+              "type": 7,
+              "rate": 2
+            },
+
+            {
+              "type": 9,
+              "rate": 1
+            }
+          ]
+        },
+
+        {
+          "createRate": 0.35,
+          "typeRateDatas": [
             {
               "type": 9,
               "rate": 1
