@@ -6,6 +6,7 @@
 // 2026/06/24 Updated By Fate Ku
 // 2026/06/25 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
+// 2026/07/17 Updated By Fate Ku
 // 
 
 using TMPro;
@@ -15,18 +16,20 @@ public class InGameUIScore
 {
     private TextMeshProUGUI m_ScoreText;
     private TextMeshProUGUI m_ComboText;
+    private TextMeshProUGUI m_LevelText;
 
     private TextMeshPro m_moveableComboPrefab;
-    
+
     private TextMeshProUGUI m_SakuraText;
 
     public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText
-        , TextMeshPro moveableComboPrefab, TextMeshProUGUI sakuraText)
+        , TextMeshPro moveableComboPrefab, TextMeshProUGUI sakuraText, TextMeshProUGUI levelText)
     {
         m_ScoreText = scoreText;
         m_ComboText = comboText;
         m_moveableComboPrefab = moveableComboPrefab;
         m_SakuraText = sakuraText;
+        m_LevelText = levelText;
     }
 
     public float showComboTime;
@@ -46,6 +49,12 @@ public class InGameUIScore
 
             int maxCombo = GameMng.Instance.GetMaxCombo();
             m_ComboText.text = "Max Combo : " + maxCombo.ToString();
+
+            if (m_LevelText != null)
+            {
+                int maxLevel = GameMng.Instance.GetMaxLevel();
+                m_LevelText.text = "Max Level : " + maxLevel.ToString();
+            }
 
             if (m_SakuraText != null)
             {

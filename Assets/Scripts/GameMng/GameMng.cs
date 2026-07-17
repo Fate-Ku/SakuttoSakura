@@ -24,6 +24,7 @@
 // 2026/07/12 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/13 Updated By Man-Yi, Yeh
+// 2026/07/17 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -590,5 +591,12 @@ public class GameMng
     {
         return m_InGameSystem.GetCanOperate();
     }
+
+    //2026/07/17 Updated By Fate Ku
+    public int GetMaxLevel()
+    {
+        return m_UIState.GetMaxLevel();
+    }
+
 
 }

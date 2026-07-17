@@ -5,6 +5,7 @@
 // 2026/06/14 Added By Fate Ku 
 // 2026/06/23 Added By Fate Ku 
 // 2026/06/24 Added By Fate Ku 
+// 2026/07/17 Added By Fate Ku 
 // 
 
 using TMPro;
@@ -15,13 +16,14 @@ using UnityEngine.UI;
 public class ScoreInfo : MonoBehaviour
 {
     [Header("Timer")]
-    [SerializeField]private Slider TimeSlider;
+    [SerializeField] private Slider TimeSlider;
     [SerializeField] private TextMeshProUGUI TimeText;
 
-    [Header("Show Score/Combo")]
+    [Header("Show Result")]
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI SakuraText;
     [SerializeField] private TextMeshProUGUI ComboText;
+    [SerializeField] private TextMeshProUGUI LevelText;
     [SerializeField] private TextMeshPro MoveableComboText;
 
     [Header("Show Game State")]
@@ -69,6 +71,11 @@ public class ScoreInfo : MonoBehaviour
     public TextMeshProUGUI GetComboText()
     {
         return ComboText;
+    }
+
+    public TextMeshProUGUI GetLevelText()
+    {
+        return LevelText;
     }
 
     public TextMeshPro GetMoveableComboText()
