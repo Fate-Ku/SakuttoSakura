@@ -9,6 +9,7 @@
 // 2026/06/23 Updated By Fate Ku
 // 2026/06/30 Updated By Fate Ku
 // 2026/07/10 Updated By Fate Ku
+// 2026/07/17 Updated By Fate Ku
 //
 
 using UnityEngine;
@@ -47,7 +48,7 @@ public class InGameUI : UISystem
         }
         
         m_ScoreUI = new InGameUIScore(m_ScoreInfo.GetScoreText(), m_ScoreInfo.GetComboText()
-            , m_ScoreInfo.GetMoveableComboText(), m_ScoreInfo.GetSakuraText());
+            , m_ScoreInfo.GetMoveableComboText(), m_ScoreInfo.GetSakuraText(), m_ScoreInfo.GetLevelText());
         m_ScoreUI.Init();
 
         m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(), m_ScoreInfo.GetTimerSlider());

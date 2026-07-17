@@ -6,6 +6,7 @@
 // 2026/07/02 Updated By Fate Ku
 // 2026/07/06 Updated By Fate Ku
 // 2026/07/09 Updated By Fate Ku
+// 2026/07/17 Updated By Fate Ku
 //
 
 using TMPro;
@@ -27,7 +28,10 @@ public class InGameUIState
     private TextMeshPro m_InGameStateText;
 
     public InGameSystemStateType m_StageType;
+
+    // level check
     public int m_GameLevel;
+    public int MaxLevel;
 
     // animation
     private bool m_IsAnimating = false;
@@ -39,7 +43,6 @@ public class InGameUIState
 
     private float m_BasePosX;
 
-    //private bool callTrigger = false;
 
     public InGameUIState(TextMeshPro inGameStateText)
     {
@@ -49,6 +52,8 @@ public class InGameUIState
 
     public void Init()
     {
+        MaxLevel = 0;
+
         //-------------------
         //Info
         //-------------------
@@ -65,6 +70,7 @@ public class InGameUIState
     public void Update()
     {
         UpdateAnimation();
+        CheckMaxLevel();
     }
 
     public void Term()
@@ -223,11 +229,26 @@ public class InGameUIState
 
             //if (callTrigger)
             //{
-                GameMng.Instance.CallInGameSystemStateTrigger();
+            GameMng.Instance.CallInGameSystemStateTrigger();
             //}
         }
 
 
     }
+
+    private void CheckMaxLevel()
+    {
+        if (m_GameLevel > MaxLevel)
+        {
+            MaxLevel = m_GameLevel;
+        }
+
+    }
+
+    public int GetMaxLevel()
+    {
+        return MaxLevel;
+    }
+
 
 }
