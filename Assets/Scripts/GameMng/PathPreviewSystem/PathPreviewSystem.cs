@@ -2,7 +2,8 @@
 // PathPreviewSystem.cs
 //
 // 2026/07/12 Created By Fate Ku
-// 2026/07/16 Created By Fate Ku
+// 2026/07/16 Updated By Fate Ku
+// 2026/07/23 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -91,7 +92,7 @@ public class PathPreviewSystem
     public void Show(int startRow, int startCol, BlockType type, List<FallDirection> path)
     {
         Debug.Log($"[Preview] Show() is called，type = {type}");
-        Debug.Log($"Path Count = {path.Count}");
+        //Debug.Log($"Path Count = {path.Count}");
 
         m_Playing = false;
         m_PathPoints.Clear();
@@ -116,10 +117,10 @@ public class PathPreviewSystem
 
         BuildPathPoints(startRow, startCol, path);
 
-        for (int i = 0; i < m_PathPoints.Count; i++)
-        {
-            Debug.Log($"Point {i} = {m_PathPoints[i]}");
-        }
+        //for (int i = 0; i < m_PathPoints.Count; i++)
+        //{
+        //    Debug.Log($"Point {i} = {m_PathPoints[i]}");
+        //}
 
 
         if (m_PathPoints.Count == 0)
@@ -129,10 +130,10 @@ public class PathPreviewSystem
 
         CreatePreviewBlock(prefab, type);
 
-        CreateDirectionObjects();
+        CreateDirectionObjects(type);
 
 
-        StartPreview();
+        //StartPreview();
 
     }
 
@@ -233,7 +234,7 @@ public class PathPreviewSystem
         Vector3 pos = GameMng.Instance.GetBgCubePosition(row, col);
         pos.z = -5f;
 
-        Debug.Log($"Row={row} Col={col} Pos={pos}");
+        //Debug.Log($"Row={row} Col={col} Pos={pos}");
         m_PathPoints.Add(pos);
     }
 
@@ -291,7 +292,7 @@ public class PathPreviewSystem
         m_Playing = true;
     }
 
-    private void CreateDirectionObjects()
+    private void CreateDirectionObjects(BlockType type)
     {
         if (m_PathDirections == null || m_PathDirections.Count == 0)
             return;
@@ -326,6 +327,22 @@ public class PathPreviewSystem
 
             obj.transform.position = pos;
             obj.transform.localScale = Vector3.one * DIRECTION_SCALE;
+
+            // 2026/07/23 Updated By Fate Ku
+            SpriteRenderer sr = obj.GetComponentInChildren<SpriteRenderer>();
+           
+            if (sr != null)
+            {
+                if (m_Materials.TryGetValue(type, out Material mat))
+                {
+                    sr.material = mat;
+                }
+
+                Color c = sr.color;
+                c.a = 0.8f;
+                sr.color = c;
+            }
+            // 2026/07/23 Updated By Fate Ku
 
             m_DirectionObjects.Add(obj);
 

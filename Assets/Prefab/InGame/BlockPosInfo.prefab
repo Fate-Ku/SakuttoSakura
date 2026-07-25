@@ -105,3 +105,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockPosInfo
   colNum: 7
   rowNum: 8
+  blocks:
+  - {fileID: 2270906620480603069, guid: 666853e2da413db4891998c730bb9629, type: 3}
+  - {fileID: 98755598854834978, guid: 032cc550816bb0c47ad03750995faf6c, type: 3}
+  - {fileID: 1882650123789175558, guid: 69a8756c58f652b4aacab053fbb509a2, type: 3}
+  - {fileID: 4856591550304906365, guid: a1460a3aeb180024490c55d57acaa7d4, type: 3}
+  - {fileID: 4967433088246186077, guid: 259fae77429cf294e8681c20821d236c, type: 3}
+  - {fileID: 6723850290856304939, guid: ccde834fe8d1de74b9537df930c3f4c2, type: 3}
+  - {fileID: 2375763713618846741, guid: 72c8e7eb3a4af4146a3ca8fc01f9b97a, type: 3}
+  - {fileID: 2609973880482978509, guid: 16f27a41bb6d01a43a82d753c0615cea, type: 3}
+  - {fileID: 4979907602891628705, guid: 4378b8a5a23be074d9e55c536d0681d7, type: 3}
+  - {fileID: 1651042190426343695, guid: 079a7631a5aa7ee40ae25474558eaaf6, type: 3}
+  matTsubaki: {fileID: 2100000, guid: d4976a9dd86ae0d4082ecfeff9690dd4, type: 2}
+  matKaede: {fileID: 2100000, guid: 8fa9643f326e5af42ab418a6595e7456, type: 2}
+  matHimawari: {fileID: 2100000, guid: f4574b68fb495064aaf12000bcb37e96, type: 2}
+  matClover: {fileID: 2100000, guid: 0a879d2583fc37947acf91b0b6ab7863, type: 2}
+  matAsagao: {fileID: 2100000, guid: 30ba9e1a4fd34554aa262f5424163dd5, type: 2}
+  matKikyou: {fileID: 2100000, guid: f84fbf874e2a6514495f6ae4b0843f9f, type: 2}
+  matSakura: {fileID: 2100000, guid: 6ff15251ff3145740bdc11ef6590ea19, type: 2}
+  Down: {fileID: 8448594068887878294, guid: ef5c7226d0d9d9f4ab4f0dfdde081872, type: 3}
+  DownLeft: {fileID: 5023272246551420021, guid: 0dee52dd68037ea4dba50f56634a6426, type: 3}
+  DownRight: {fileID: 8412679457419326695, guid: 0f64e95c83c1eaa45bcb03ab8ee9b426, type: 3}
+  Left: {fileID: 5062714704997143864, guid: 97e4a2eec567cd34982f0795ae246cc6, type: 3}
+  LeftDown: {fileID: 6679026067409583855, guid: a10a5c169c5e22a4380fc33ae4dc298c, type: 3}
+  Right: {fileID: 6173154094200751345, guid: 491bb1279479b264cb9556e79ac9de06, type: 3}
+  RightDown: {fileID: 5216957733037016675, guid: 5020b5dd52289384aa80526fa38f86ce, type: 3}
