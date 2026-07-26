@@ -7,6 +7,7 @@
 // 2026/07/10 Updated By Fate Ku
 // 2026/07/11 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
+// 2026/07/26 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -23,11 +24,14 @@ public class EffectSystem : IGameSystem
     // flower materials
     private Dictionary<BlockType, Material> m_Materials;
 
-    // Combine Effects
+    // Destroy Effects
+    private Dictionary<BlockType, GameObject> m_DesEff;
+
+    // Combine Effects 
     private Dictionary<int, CombineEffectData> m_CombineEffects = new Dictionary<int, CombineEffectData>();
 
-    // Destroy Effects
-    private Dictionary<int,DestroyEffectData> m_DestroyEffects = new Dictionary<int, DestroyEffectData>();
+    // Destroy Effects 
+    private Dictionary<int, DestroyEffectData> m_DestroyEffects = new Dictionary<int, DestroyEffectData>();
 
     public int m_NextCombineEffectId = 0;
     public int m_NextDestroyEffectId = 0;
@@ -36,7 +40,7 @@ public class EffectSystem : IGameSystem
         GameMng gameMng, GameObject effectPrefab,
         Dictionary<BlockType, Material> materials,
         GameObject sakuraImagePrefab, Transform sakuraTarget,
-        GameObject sakuraFlyPrefab)
+        GameObject sakuraFlyPrefab, Dictionary<BlockType, GameObject> desEff)
         : base(gameMng)
     {
         m_EffectPrefab = effectPrefab;
@@ -45,6 +49,8 @@ public class EffectSystem : IGameSystem
         m_SakuraImagePrefab = sakuraImagePrefab;
         m_SakuraTarget = sakuraTarget;
         m_SakuraFlyPrefab = sakuraFlyPrefab;
+
+        m_DesEff = desEff;
     }
 
     // combine effect
@@ -143,6 +149,32 @@ public class EffectSystem : IGameSystem
         // get bg position
         data.Position = GameMng.Instance.GetBgVirtualCubePosition(blockID.x, blockID.y);
 
+        Vector3 spawnPos = new Vector3(data.Position.x, data.Position.y, -5f);
+
+        Debug.Log($"SetDestroyEffect Type = {type}");
+        // Create Destroy Effect
+        if (m_DesEff != null && m_DesEff.ContainsKey(type))
+        {
+            Debug.Log("Found Destroy Effect");
+            GameObject prefab = m_DesEff[type];
+
+            if (prefab != null)
+            {
+                Debug.Log($"Instantiate {prefab.name}");
+                GameObject effectObj = GameObject.Instantiate(
+                    prefab,
+                    spawnPos,
+                    Quaternion.identity);
+
+                data.EffectObjects.Add(effectObj);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Can't find DestroyEffect : {type}");
+        }
+
+
         // save to  Dictionary
         m_DestroyEffects[id] = data;
 
@@ -157,38 +189,33 @@ public class EffectSystem : IGameSystem
 
     public void OffDestroyEffect(int effectID)
     {
-        Debug.Log($"OffDestroyEffect : {effectID}");
-
         List<int> removeIds = new List<int>();
 
         foreach (var pair in m_DestroyEffects)
         {
-            Debug.Log($"Key={pair.Key}  Type={pair.Value.BlockType}");
+            if (pair.Key > effectID)
+                continue;
 
-            if (pair.Key <= effectID)
+            // Delete Destroy Effect
+            foreach (GameObject obj in pair.Value.EffectObjects)
             {
-                if (pair.Value.BlockType == BlockType.Sakura)
-                {
-                    Debug.Log("SakuraFlyToBasket");
-                    SakuraFlyToBasket(pair.Value.Position);
-                }
-
-                foreach (GameObject obj in pair.Value.EffectObjects)
-                {
-                    if (obj != null)
-                        GameObject.Destroy(obj);
-                }
-
-                removeIds.Add(pair.Key);
+                if (obj != null)
+                    GameObject.Destroy(obj);
             }
+
+            // Sakura Effect
+            if (pair.Value.BlockType == BlockType.Sakura)
+            {
+                SakuraFlyToBasket(pair.Value.Position);
+            }
+
+            removeIds.Add(pair.Key);
         }
 
         foreach (int id in removeIds)
         {
             m_DestroyEffects.Remove(id);
         }
-
-
     }
 
 

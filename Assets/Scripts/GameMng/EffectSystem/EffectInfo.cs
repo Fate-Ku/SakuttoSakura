@@ -4,6 +4,7 @@
 // 2026/06/25 Created By Fate Ku
 // 2026/07/06 Updated By Fate Ku
 // 2026/07/07 Updated By Fate Ku
+// 2026/07/26 Updated By Fate Ku
 // 
 
 using UnityEngine;
@@ -13,7 +14,7 @@ public class EffectInfo : MonoBehaviour
     [Header("Effect Prefab")]
     public GameObject effectPrefab;
 
-    [Header("Materials")]
+    [Header("Create Eff-Materials")]
     public Material matTsubaki;
     public Material matKaede;
     public Material matHimawari;
@@ -27,6 +28,17 @@ public class EffectInfo : MonoBehaviour
     public Transform sakuraTarget;
     public GameObject sakuraFlyPrefab;
 
+    // 2026/07/26 added by Fate
+    [Header("Destory Eff")]
+    public GameObject desEffTsubaki;
+    public GameObject desEffKaede;
+    public GameObject desEffHimawari;
+    public GameObject desEffClover;
+    public GameObject desEffAsagao;
+    public GameObject desEffKikyou;
+    public GameObject desEffSakura;
+    // 2026/07/26 added by Fate
+    
     public GameObject GetEffectPrefab()
     {
         return effectPrefab;
@@ -85,6 +97,39 @@ public class EffectInfo : MonoBehaviour
     public GameObject GetSakuraFlyPrefab()
     {
         return sakuraFlyPrefab;
+    }
+
+    public GameObject GetDesEffTsubaki()
+    {
+        return desEffTsubaki;
+    }
+
+    public GameObject GetDesEffKaede()
+    {
+        return desEffKaede;
+    }
+
+    public GameObject GetDesEffHimawari()
+    {
+        return desEffHimawari;
+    }
+
+    public GameObject GetDesEffClover()
+    {
+        return desEffClover;
+    }
+    public GameObject GetDesEffAsagao()
+    {
+        return desEffAsagao;
+    }
+
+    public GameObject GetDesEffKikyou()
+    {
+        return desEffKikyou;
+    }
+    public GameObject GetDesEffSakura()
+    {
+        return desEffSakura;
     }
 }
 

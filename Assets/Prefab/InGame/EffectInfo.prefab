@@ -111,3 +111,13 @@ MonoBehaviour:
   matAsagao: {fileID: 2100000, guid: 68d14e8ac75e82442a4b62bc151808f3, type: 2}
   matKikyou: {fileID: 2100000, guid: 920b063738d1115408a6d36c4f01f788, type: 2}
   matSakura: {fileID: 2100000, guid: b901d73c480522348ac8fd9f02e44347, type: 2}
+  sakuraImagePrefab: {fileID: 0}
+  sakuraTarget: {fileID: 0}
+  sakuraFlyPrefab: {fileID: 0}
+  desEffTsubaki: {fileID: 4229832386883469166, guid: 8c005390b4e4b2f408f4fb0d9ae78da8, type: 3}
+  desEffKaede: {fileID: 932161235391576633, guid: ec423d90375b93c4eb6a0ac9e9951bd9, type: 3}
+  desEffHimawari: {fileID: 1759396322945582517, guid: a8bca8be1794f37458fc9472fe028412, type: 3}
+  desEffClover: {fileID: 601147829747280810, guid: d37d2b429d229df45ac2e75a1cf6ba82, type: 3}
+  desEffAsagao: {fileID: 5549531198235708103, guid: 22248f4759c644f4cadd30a9581dc471, type: 3}
+  desEffKikyou: {fileID: 912833299006121967, guid: e912bf125fc331c43be4c8655c85e782, type: 3}
+  desEffSakura: {fileID: 5320119508411909077, guid: 45f6b922acb21bf438175a6cac7d469e, type: 3}

@@ -255,10 +255,19 @@ public class GameMng
         mats[BlockType.Kikyou] = m_EffectInfo.GetMatKikyou();
         mats[BlockType.Sakura] = m_EffectInfo.GetMatSakura();
         mats[BlockType.None] = m_EffectInfo.GetMatTsubaki();
-        
+
+        Dictionary<BlockType, GameObject> desEff = new Dictionary<BlockType, GameObject>();
+        desEff[BlockType.Tsubaki] = m_EffectInfo.GetDesEffTsubaki();
+        desEff[BlockType.Kaede] = m_EffectInfo.GetDesEffKaede();
+        desEff[BlockType.Himawari] = m_EffectInfo.GetDesEffHimawari();
+        desEff[BlockType.Clover] = m_EffectInfo.GetDesEffClover();
+        desEff[BlockType.Asagao] = m_EffectInfo.GetDesEffAsagao();
+        desEff[BlockType.Kikyou] = m_EffectInfo.GetDesEffKikyou();
+        desEff[BlockType.Sakura] = m_EffectInfo.GetDesEffSakura();
+
         m_EffectSystem = new EffectSystem(this, m_EffectInfo.GetEffectPrefab(), mats,
             m_EffectInfo.GetSakuraImagePrefab(),m_EffectInfo.GetSakuraTarget(),
-            m_EffectInfo.GetSakuraFlyPrefab());
+            m_EffectInfo.GetSakuraFlyPrefab(), desEff);
         // 2026/06/25 Updated By Fate Ku
 
         //init
