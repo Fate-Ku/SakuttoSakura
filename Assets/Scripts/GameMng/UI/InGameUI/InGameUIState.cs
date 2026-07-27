@@ -9,6 +9,7 @@
 // 2026/07/17 Updated By Fate Ku
 //
 
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -29,6 +30,10 @@ public class InGameUIState
 
     public InGameSystemStateType m_StageType;
 
+    private Dictionary<InGameSystemStateType, GameObject> m_DStageType;
+
+    private GameObject m_CurrentStageObj;
+
     // level check
     public int m_GameLevel;
     public int MaxLevel;
@@ -44,9 +49,10 @@ public class InGameUIState
     private float m_BasePosX;
 
 
-    public InGameUIState(TextMeshPro inGameStateText)
+    public InGameUIState(TextMeshPro inGameStateText, Dictionary<InGameSystemStateType, GameObject> DStageType)
     {
         m_InGameStateText = inGameStateText;
+        m_DStageType = DStageType;
     }
 
 
@@ -97,15 +103,33 @@ public class InGameUIState
 
     private void UpdateText()
     {
-        if (m_StageType == InGameSystemStateType.Start ||
-            m_StageType == InGameSystemStateType.TimeUp ||
-            m_StageType == InGameSystemStateType.GameOver)
+        foreach (var stage in m_DStageType.Values)
         {
-            m_InGameStateText.text = m_StageType.ToString();
+            if (stage != null)
+                stage.SetActive(false);
         }
-        else if (m_StageType == InGameSystemStateType.LevelUp)
+
+        m_CurrentStageObj = null;
+
+        if (m_DStageType.TryGetValue(m_StageType, out GameObject stageObj))
         {
-            m_InGameStateText.text = "Level Up " + m_GameLevel;
+            Debug.Log($"Show Stage : {stageObj.name}");
+            stageObj.SetActive(true);
+            m_CurrentStageObj = stageObj;
+        }
+        else
+        {
+            Debug.LogWarning($"Can't find Stage : {m_StageType}");
+        }
+
+        if (m_StageType == InGameSystemStateType.LevelUp)
+        {
+            m_InGameStateText.gameObject.SetActive(true);
+            m_InGameStateText.text = " " + m_GameLevel;
+        }
+        else
+        {
+            m_InGameStateText.gameObject.SetActive(false);
         }
     }
 
@@ -138,7 +162,7 @@ public class InGameUIState
             m_StageType == InGameSystemStateType.GameOver)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 10f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 13f, startPosY, -1);
             //callTrigger = true;
         }
         // left→middle
@@ -157,7 +181,18 @@ public class InGameUIState
         // init position
         if (m_IsAnimating)
         {
-            m_InGameStateText.transform.position = m_StartPos;
+            if (m_CurrentStageObj != null)
+            {
+                m_CurrentStageObj.transform.position = m_StartPos;
+
+                // Level font follow with picture
+                if (m_StageType == InGameSystemStateType.LevelUp)
+                {
+                    Vector3 pos = m_StartPos;
+                    pos.x += 0.5f;    // follow with UI
+                    m_InGameStateText.transform.position = pos;
+                }
+            }
         }
     }
 
@@ -195,7 +230,17 @@ public class InGameUIState
         // init position
         if (m_IsAnimating)
         {
-            m_InGameStateText.transform.position = m_StartPos;
+            if (m_CurrentStageObj != null)
+            {
+                m_CurrentStageObj.transform.position = m_StartPos;
+
+                if (m_StageType == InGameSystemStateType.LevelUp)
+                {
+                    Vector3 pos = m_StartPos;
+                    pos.x += 0.5f;
+                    m_InGameStateText.transform.position = pos;
+                }
+            }
         }
     }
 
@@ -221,7 +266,20 @@ public class InGameUIState
         float t = Mathf.Clamp01(m_AnimTime / m_AnimDuration);
 
         // duration
-        m_InGameStateText.transform.position = Vector3.Lerp(m_StartPos, m_TargetPos, t);
+        //m_InGameStateText.transform.position = Vector3.Lerp(m_StartPos, m_TargetPos, t);
+        Vector3 pos = Vector3.Lerp(m_StartPos, m_TargetPos, t);
+
+        if (m_CurrentStageObj != null)
+        {
+            m_CurrentStageObj.transform.position = pos;
+        }
+
+        if (m_StageType == InGameSystemStateType.LevelUp)
+        {
+            Vector3 levelPos = pos;
+            levelPos.x += 2.5f;      // Maintain a fixed distance from the picture
+            m_InGameStateText.transform.position = levelPos;
+        }
 
         if (t >= 1f)
         {

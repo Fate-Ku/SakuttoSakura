@@ -25,6 +25,7 @@
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/13 Updated By Man-Yi, Yeh
 // 2026/07/17 Updated By Fate Ku
+// 2026/07/27 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -209,8 +210,16 @@ public class GameMng
             m_ScoreInfo = scoreInfo.GetComponent<ScoreInfo>();
         }
 
+        // 2026/07/27 Added By Fate Ku 
+        Dictionary<InGameSystemStateType, GameObject> stateType = new Dictionary<InGameSystemStateType, GameObject>();
+        stateType[InGameSystemStateType.Start] = m_ScoreInfo.GetGameStart();
+        stateType[InGameSystemStateType.TimeUp] = m_ScoreInfo.GetTimeUp();
+        stateType[InGameSystemStateType.GameOver] = m_ScoreInfo.GetGameOver();
+        stateType[InGameSystemStateType.LevelUp] = m_ScoreInfo.GetLevel();
+
         //renew
-        m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateText());
+        m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateLevelText(), stateType);
+        // 2026/07/27 Added By Fate Ku 
         m_InGameSystem = new InGameSystem(this, inGameType);
         m_Background = new InGameUIBackground();
 

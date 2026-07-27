@@ -1,11 +1,12 @@
 //
-// ScoreSystem.cs
+// ScoreInfo.cs
 // 
 // 2026/06/11 Created By Fate Ku 
 // 2026/06/14 Added By Fate Ku 
 // 2026/06/23 Added By Fate Ku 
 // 2026/06/24 Added By Fate Ku 
 // 2026/07/17 Added By Fate Ku 
+// 2026/07/27 Added By Fate Ku 
 // 
 
 using TMPro;
@@ -27,7 +28,11 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private TextMeshPro MoveableComboText;
 
     [Header("Show Game State")]
-    [SerializeField] private TextMeshPro InGameStateText;
+    [SerializeField] private TextMeshPro InGameStateLevelText;
+    [SerializeField] public GameObject GameStart;
+    [SerializeField] public GameObject TimeUp;
+    [SerializeField] public GameObject GameOver;
+    [SerializeField] public GameObject Level;
 
 
     [Header("Base Score")]
@@ -88,9 +93,9 @@ public class ScoreInfo : MonoBehaviour
         return SakuraText;
     }
 
-    public TextMeshPro GetInGameStateText()
+    public TextMeshPro GetInGameStateLevelText()
     {
-        return InGameStateText;
+        return InGameStateLevelText;
     }
 
     public int GetTsubakiScore()
@@ -175,5 +180,16 @@ public class ScoreInfo : MonoBehaviour
     {
         return ComboBaseBonus;
     }
+
+    public GameObject GetGameStart()
+    {
+        return GameStart;
+    }
+
+    public GameObject GetGameOver(){ return GameOver; }
+
+    public GameObject GetTimeUp() { return TimeUp; }
+
+    public GameObject GetLevel() {  return Level; }
 
 }
