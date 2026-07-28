@@ -234,6 +234,7 @@ public class GameMng
         }
 
         Dictionary<BlockType, Material> prevMats = new Dictionary<BlockType, Material>();
+        prevMats[BlockType.Tsubaki] = m_BlockPosInfo.GetMatTsubaki();
         prevMats[BlockType.Kaede] = m_BlockPosInfo.GetMatKaede();
         prevMats[BlockType.Himawari] = m_BlockPosInfo.GetMatHimawari();
         prevMats[BlockType.Clover] = m_BlockPosInfo.GetMatClover();

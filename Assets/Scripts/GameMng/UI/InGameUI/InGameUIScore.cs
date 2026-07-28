@@ -73,8 +73,8 @@ public class InGameUIScore
         if (m_ScoreText != null)
         {
             int score = GameMng.Instance.GetScore();
-            m_ScoreText.text = "Score : " + score.ToString();
-            Debug.Log("Score : " + score.ToString());
+            m_ScoreText.text = score.ToString();
+            //Debug.Log("Score : " + score.ToString());
 
             // combo
             int combo = GameMng.Instance.GetTotalCombo();

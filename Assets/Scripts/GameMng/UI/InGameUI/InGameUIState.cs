@@ -166,12 +166,16 @@ public class InGameUIState
             //callTrigger = true;
         }
         // left→middle
-        else if (m_StageType == InGameSystemStateType.TimeUp ||
-            m_StageType == InGameSystemStateType.LevelUp)
+        else if (m_StageType == InGameSystemStateType.TimeUp)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
             m_TargetPos = new Vector3(endPosX, startPosY, -1);
             //callTrigger = false;
+        }
+        else if (m_StageType == InGameSystemStateType.LevelUp)
+        {
+            m_StartPos = new Vector3(startPosX, startPosY, -1);
+            m_TargetPos = new Vector3(endPosX - 1.5f, startPosY, -1);
         }
         else
         {
@@ -190,7 +194,7 @@ public class InGameUIState
                 {
                     Vector3 pos = m_StartPos;
                     pos.x += 1.5f;    // follow with UI
-                    pos.y -= 0.2f;
+                    pos.y -= 0.1f;
                     m_InGameStateText.transform.position = pos;
                 }
             }
@@ -216,12 +220,16 @@ public class InGameUIState
         float startPosY = referPos.y + scale * col / 2 - offsetY; //middle
 
         // middle→right
-        if (m_StageType == InGameSystemStateType.TimeUp ||
-            m_StageType == InGameSystemStateType.LevelUp)
+        if (m_StageType == InGameSystemStateType.TimeUp)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
             m_TargetPos = new Vector3(startPosX + 7f, startPosY, -1);
             //callTrigger = true;
+        }
+        else if (m_StageType == InGameSystemStateType.LevelUp)
+        {
+            m_StartPos = new Vector3(startPosX - 1.5f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX + 7f, startPosY, -1);
         }
         else
         {
@@ -239,7 +247,7 @@ public class InGameUIState
                 {
                     Vector3 pos = m_StartPos;
                     pos.x += 1.5f;
-                    pos.y -= 0.2f;
+                    pos.y -= 0.1f;
                     m_InGameStateText.transform.position = pos;
                 }
             }
@@ -261,7 +269,7 @@ public class InGameUIState
         }
         else
         {
-            m_AnimDuration = 2.5f;
+            m_AnimDuration = 2.2f;
         }
 
         m_AnimTime += Time.deltaTime;
@@ -280,7 +288,7 @@ public class InGameUIState
         {
             Vector3 levelPos = pos;
             levelPos.x += 1.5f;      // Maintain a fixed distance from the picture
-            levelPos.y -= 0.2f;
+            levelPos.y -= 0.1f;
             m_InGameStateText.transform.position = levelPos;
         }
 
