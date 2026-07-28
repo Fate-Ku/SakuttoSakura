@@ -495,7 +495,7 @@ MonoBehaviour:
   inGamePatternID: 0
   isTutorial: 0
   isTestFallPath: 0
-  isTestGameProcess: 0
+  isTestGameProcess: 1
   isTestLevel: 1
   testLevel: 1
 --- !u!4 &1269920314

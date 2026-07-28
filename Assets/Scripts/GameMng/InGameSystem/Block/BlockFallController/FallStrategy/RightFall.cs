@@ -4,6 +4,7 @@
 // 2026/06/24 Created By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/06/29 Updated By Man-Yi, Yeh
+// 2026/07/28 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -61,12 +62,12 @@ public class RightFall : IFallStrategy
                 //idle or fall down
                 else
                 {
+                    //reset fall controller
+                    controller.ResetlFallController();
+
                     //back to node pos and go idle
                     block.SetPos(block.BlockNode.Pos);
                     block.GoState(BlockStateType.Idle);
-
-                    //reset fall controller
-                    controller.ResetlFallController();
 
                     return;
                 }
