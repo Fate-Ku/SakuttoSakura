@@ -6,6 +6,7 @@
 // 2026/07/03 Updated By Man-Yi, Yeh
 // 2026/07/05 Updated By Man-Yi, Yeh
 // 2026/07/06 Updated By Man-Yi, Yeh
+// 2026/07/27 Updated By Man-Yi, Yeh
 // 
 
 
@@ -27,9 +28,6 @@ public class InGameSystemLevelUpState : IInGameSystemState
     {
         Debug.Log("level up trigger in begin: " + m_Trigger.ToString());
 
-        //start State UI
-        GameMng.Instance.ShowStateUI(m_StateType);
-
         startLevelUp = false;
         startWait = false;
     }
@@ -47,6 +45,8 @@ public class InGameSystemLevelUpState : IInGameSystemState
             if (m_InGameSystem.IsAllBlocksIdle())
             {
                 m_InGameSystem.LevelUpStart();
+                //start State UI
+                GameMng.Instance.ShowStateUI(m_StateType);
                 startLevelUp = true;
             }
         }

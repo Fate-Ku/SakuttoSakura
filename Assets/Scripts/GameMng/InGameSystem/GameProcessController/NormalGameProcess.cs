@@ -6,6 +6,7 @@
 // 2026/07/06 Updated By Man-Yi, Yeh
 // 2026/07/07 Updated By Man-Yi, Yeh
 // 2026/07/13 Updated By Man-Yi, Yeh
+// 2026/07/28 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -13,10 +14,8 @@ using UnityEngine;
 
 public class NormalGameProcess : IGameProcessController
 {
-    public NormalGameProcess(InGameSystem inGameSystem)
-        : base(inGameSystem, 
-            "Data/ProcessData/NormalProcessData",
-            "Data/EventData/NormalEventData")
+    public NormalGameProcess(InGameSystem inGameSystem, string processData, string eventData,int level)
+        : base(inGameSystem, processData, eventData, level)
     {
     }
 }
