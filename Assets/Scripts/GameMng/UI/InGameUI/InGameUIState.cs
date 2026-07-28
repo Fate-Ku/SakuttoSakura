@@ -189,7 +189,8 @@ public class InGameUIState
                 if (m_StageType == InGameSystemStateType.LevelUp)
                 {
                     Vector3 pos = m_StartPos;
-                    pos.x += 0.5f;    // follow with UI
+                    pos.x += 1.5f;    // follow with UI
+                    pos.y -= 0.2f;
                     m_InGameStateText.transform.position = pos;
                 }
             }
@@ -237,7 +238,8 @@ public class InGameUIState
                 if (m_StageType == InGameSystemStateType.LevelUp)
                 {
                     Vector3 pos = m_StartPos;
-                    pos.x += 0.5f;
+                    pos.x += 1.5f;
+                    pos.y -= 0.2f;
                     m_InGameStateText.transform.position = pos;
                 }
             }
@@ -259,7 +261,7 @@ public class InGameUIState
         }
         else
         {
-            m_AnimDuration = 3f;
+            m_AnimDuration = 2.5f;
         }
 
         m_AnimTime += Time.deltaTime;
@@ -277,7 +279,8 @@ public class InGameUIState
         if (m_StageType == InGameSystemStateType.LevelUp)
         {
             Vector3 levelPos = pos;
-            levelPos.x += 2.5f;      // Maintain a fixed distance from the picture
+            levelPos.x += 1.5f;      // Maintain a fixed distance from the picture
+            levelPos.y -= 0.2f;
             m_InGameStateText.transform.position = levelPos;
         }
 
