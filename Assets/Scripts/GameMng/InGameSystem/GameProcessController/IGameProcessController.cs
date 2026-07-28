@@ -3,6 +3,7 @@
 // 
 // 2026/07/13 Created By Man-Yi, Yeh
 // 2026/07/16 Updated By Man-Yi, Yeh
+// 2026/07/28 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -38,16 +39,18 @@ public class IGameProcessController
     protected int m_NowFloor;
     protected IBlock m_TmpBlock;
     
-    public IGameProcessController(InGameSystem inGameSystem, string processDataPath, string eventDataPath)
+    public IGameProcessController(InGameSystem inGameSystem, string processDataPath, string eventDataPath,
+                                  int startLevel = 1)
     {
         m_InGameSystem = inGameSystem;
         m_GameTimer = m_InGameSystem.GameInfo.GetPlayTime();
-        m_Level = 1;
+        m_Level = startLevel;
         m_PreLevelSakuraNum = 0;
-        m_InGameSystem.GameInfo.nowLevel = m_Level;
-
+        
         InitProcessDatas(processDataPath);
         InitEventDatas(eventDataPath);
+
+        m_InGameSystem.GameInfo.nowLevel = m_Level;
     }
 
     public void AddGameTime(float time)
@@ -268,9 +271,15 @@ public class IGameProcessController
             {
                 Debug.LogError($"Failed to add ProcessData for level {data.level}");
             }
-            if (data.level == 1)
+        }
+
+        for (int i = m_Level; i >= 1; i -= 1)
+        {
+            ProcessData data = GetProcessData(i);
+            if (data != null)
             {
-                m_NowProcessData = data.data;
+                m_NowProcessData = data;
+                break;
             }
         }
     }
@@ -287,9 +296,15 @@ public class IGameProcessController
             {
                 Debug.LogError($"Failed to add EventData for level {data.level}");
             }
-            if ( data.level == 1)
+        }
+
+        for (int i = m_Level; i >= 1; i -= 1)
+        {
+            FloorData[] data = GetEventData(i);
+            if (data != null)
             {
-                m_NowEventData = data.datas;
+                m_NowEventData = data;
+                break;
             }
         }
     }

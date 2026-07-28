@@ -19,6 +19,7 @@
 // 2026/07/07 Updated By Man-Yi, Yeh
 // 2026/07/13 Updated By Man-Yi, Yeh
 // 2026/07/14 Updated By Man-Yi, Yeh
+// 2026/07/28 Updated By Man-Yi, Yeh
 // 
 
 
@@ -169,17 +170,7 @@ public class InGameSystem : IGameSystem
         //-------------------
         //game process controller
         //-------------------
-        switch (m_InGameType)
-        {
-            case InGameType.Classic:
-                m_GameProcessController = new NormalGameProcess(this);
-                break;
-
-            case InGameType.Tutorial:
-                m_GameProcessController = new TutorialGameProcess(this);
-                break;
-
-        }
+        CreateProcessController();
 
         //-------------------
         //state controller
@@ -401,6 +392,54 @@ public class InGameSystem : IGameSystem
     public int GetNumOfBlock()
     {
         return m_BlocksController.GetNumOfBlock();
+    }
+
+    //-------------------
+    //create
+    //-------------------
+    private void CreateProcessController()
+    {
+        switch (m_InGameType)
+        {
+            case InGameType.Classic:
+                {
+                    GameObject gameTestOb = GameObject.Find("GameTest");
+                    int level = 1;
+                    if (gameTestOb != null)
+                    {
+                        if (gameTestOb.TryGetComponent<GameTest>(out var gameTest))
+                        {
+                            //test level
+                            if (gameTest.isTestLevel) 
+                            {
+                                level = gameTest.testLevel;
+                            }
+
+                            //test game process
+                            if (gameTest.isTestGameProcess)
+                            {
+                                m_GameProcessController = new NormalGameProcess(
+                                    this,
+                                    "Data/ProcessData/TestProcessData",
+                                    "Data/EventData/TestEventData",
+                                    level);
+                            }
+                        }
+                    }
+                    m_GameProcessController ??= new NormalGameProcess(
+                        this,
+                        "Data/ProcessData/NormalProcessData",
+                        "Data/EventData/NormalEventData",
+                        level);
+                }
+
+                break;
+
+            case InGameType.Tutorial:
+                m_GameProcessController = new TutorialGameProcess(this);
+                break;
+
+        }
     }
 
     //-------------------

@@ -1,0 +1,23 @@
+{
+  "list": [
+    {
+      "level": 1,
+      "datas": [
+        {
+          "createRate": 1,
+          "typeRateDatas": [
+            {
+              "type": 7,
+              "rate": 1
+            },
+
+            {
+              "type": 9,
+              "rate": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

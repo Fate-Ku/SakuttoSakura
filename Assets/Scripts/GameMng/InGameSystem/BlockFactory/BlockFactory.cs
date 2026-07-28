@@ -39,7 +39,18 @@ public class BlockFactory
         //FallData
         //-------------------
         string jsonFilePath = "Data/FallData/FallData";
-        TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
+        GameObject gameTestOb = GameObject.Find("GameTest");
+        if (gameTestOb != null)
+        {
+            if (gameTestOb.TryGetComponent<GameTest>(out var gameTest))
+            {
+                if (gameTest.isTestFallPath)
+                {
+                    jsonFilePath = "Data/FallData/TestFallData";
+                }
+            }
+        } 
+                TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
         BlockFallDataList dataSet =
             JsonUtility.FromJson<BlockFallDataList>(jsonTextAsset.text);
 

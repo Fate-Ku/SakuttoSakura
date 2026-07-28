@@ -1,0 +1,12 @@
+{
+  "list": [
+    {
+      "level": 1,
+      "data": {
+        "levelUpSakuraNum": 3,
+        "typeQty": 3,
+        "eventInterval": 25
+      }
+    }
+  ]
+}
