@@ -44,8 +44,6 @@ public class IFallStrategy
 
         //test
         block.blockTest.direction = m_Direction;
-
-
     }
 
     public virtual void UpdateFall(IBlock block, IBlockFallController controller) { }

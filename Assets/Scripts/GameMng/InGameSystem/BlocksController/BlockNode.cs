@@ -7,6 +7,7 @@
 // 2026/06/10 Updated By Man-Yi, Yeh
 // 2026/06/18 Updated By Man-Yi, Yeh
 // 2026/06/22 Updated By Man-Yi, Yeh
+// 2026/07/28 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -190,35 +191,72 @@ public class BlockNode
     //-------------------
     public void BlockGoNearNode(BlockNearPos nearPos)
     {
-        Vector2Int id = new(m_ID.x, m_ID.y);
+        Vector2Int tartgetID = new(m_ID.x, m_ID.y);
 
+        //move
         switch (nearPos)
         {
             case BlockNearPos.Above:
-                id += new Vector2Int(0, 1);
+                tartgetID += new Vector2Int(0, 1);
                 break;
 
             case BlockNearPos.Below:
-                id += new Vector2Int(0, -1);
+                tartgetID += new Vector2Int(0, -1);
                 break;
 
             case BlockNearPos.Left:
-                id += new Vector2Int(-1, 0);
+                tartgetID += new Vector2Int(-1, 0);
                 break;
 
             case BlockNearPos.Right:
-                id += new Vector2Int(1, 0);
+                tartgetID += new Vector2Int(1, 0);
                 break;
 
             default:
                 break;
         }
-        //Debug.Log("test near id: " + id.ToString());
+        BlockChangeNode(tartgetID);
 
-        BlockChangeNode(id);
+        //set node state
+        switch (nearPos)
+        {
+            case BlockNearPos.Below:
+                BlockNode above = GetNearNode(BlockNearPos.Above);
+                if (above != null && above.IsState(BlockNodeState.Occupied))
+                {
+                    if (above.Block.IsFalling(FallDirection.Down))
+                    {
+                        m_State = BlockNodeState.VerticalMoving;
+                    }
+                }
+                break;
+
+            case BlockNearPos.Left:
+                BlockNode right = GetNearNode(BlockNearPos.Above);
+                if (right != null && right.IsState(BlockNodeState.Occupied))
+                {
+                    if (right.Block.IsFalling(FallDirection.Left))
+                    {
+                        m_State = BlockNodeState.HorizontalMoving;
+                    }
+                }
+                break;
+
+            case BlockNearPos.Right:
+                BlockNode left = GetNearNode(BlockNearPos.Above);
+                if (left != null && left.IsState(BlockNodeState.Occupied))
+                {
+                    if (left.Block.IsFalling(FallDirection.Right))
+                    {
+                        m_State = BlockNodeState.HorizontalMoving;
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+
     }
-
-    
-
 
 }
