@@ -232,7 +232,7 @@ public class BlockNode
                 break;
 
             case BlockNearPos.Left:
-                BlockNode right = GetNearNode(BlockNearPos.Above);
+                BlockNode right = GetNearNode(BlockNearPos.Right);
                 if (right != null && right.IsState(BlockNodeState.Occupied))
                 {
                     if (right.Block.IsFalling(FallDirection.Left))
@@ -243,7 +243,7 @@ public class BlockNode
                 break;
 
             case BlockNearPos.Right:
-                BlockNode left = GetNearNode(BlockNearPos.Above);
+                BlockNode left = GetNearNode(BlockNearPos.Left);
                 if (left != null && left.IsState(BlockNodeState.Occupied))
                 {
                     if (left.Block.IsFalling(FallDirection.Right))

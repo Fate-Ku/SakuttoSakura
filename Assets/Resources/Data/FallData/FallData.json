@@ -3,7 +3,7 @@
     {
       "type": 0,
       "data": {
-        "basicSpeed": 5,
+        "basicSpeed": 6,
         "pathDatas": [
         ]
       }
@@ -12,11 +12,11 @@
     {
       "type": 1,
       "data": {
-        "basicSpeed": 3.5,
+        "basicSpeed": 4.5,
         "pathDatas": [
           {
             "direction": 2,
-            "speed": 3
+            "speed": 4
           }
         ]
       }
@@ -25,19 +25,19 @@
     {
       "type": 2,
       "data": {
-        "basicSpeed": 4,
+        "basicSpeed": 5,
         "pathDatas": [
           {
             "direction": 1,
-            "speed": 4
+            "speed": 5
           },
           {
             "direction": 0,
-            "speed": 4
+            "speed": 5
           },
           {
             "direction": 2,
-            "speed": 4
+            "speed": 5
           }
         ]
       }
@@ -46,19 +46,19 @@
     {
       "type": 3,
       "data": {
-        "basicSpeed": 4,
+        "basicSpeed": 5,
         "pathDatas": [
           {
             "direction": 2,
-            "speed": 4
+            "speed": 5
           },
           {
             "direction": 0,
-            "speed": 4
+            "speed": 5
           },
           {
             "direction": 1,
-            "speed": 4
+            "speed": 5
           }
         ]
       }
@@ -67,27 +67,27 @@
     {
       "type": 4,
       "data": {
-        "basicSpeed": 4.25,
+        "basicSpeed": 5,
         "pathDatas": [
+          {
+            "direction": 0,
+            "speed": 5
+          },
+          {
+            "direction": 1,
+            "speed": 4.75
+          },
+          {
+            "direction": 0,
+            "speed": 4.5
+          },
           {
             "direction": 0,
             "speed": 4.25
           },
           {
-            "direction": 1,
-            "speed": 4
-          },
-          {
-            "direction": 0,
-            "speed": 3.75
-          },
-          {
-            "direction": 0,
-            "speed": 3.5
-          },
-          {
             "direction": 2,
-            "speed": 3
+            "speed": 4
           }
         ]
       }
@@ -96,27 +96,27 @@
     {
       "type": 5,
       "data": {
-        "basicSpeed": 4.25,
+        "basicSpeed": 5,
         "pathDatas": [
+          {
+            "direction": 0,
+            "speed": 5
+          },
+          {
+            "direction": 2,
+            "speed": 4.75
+          },
+          {
+            "direction": 0,
+            "speed": 4.5
+          },
           {
             "direction": 0,
             "speed": 4.25
           },
           {
-            "direction": 2,
-            "speed": 4
-          },
-          {
-            "direction": 0,
-            "speed": 3.75
-          },
-          {
-            "direction": 0,
-            "speed": 3.5
-          },
-          {
             "direction": 1,
-            "speed": 3
+            "speed": 4
           }
         ]
       }
@@ -125,11 +125,11 @@
     {
       "type": 6,
       "data": {
-        "basicSpeed": 3.5,
+        "basicSpeed": 4.5,
         "pathDatas": [
           {
             "direction": 1,
-            "speed": 3
+            "speed": 4
           }
         ]
       }
@@ -138,7 +138,7 @@
     {
       "type": 7,
       "data": {
-        "basicSpeed": 4,
+        "basicSpeed": 5,
         "pathDatas": [
         ]
       }
@@ -147,7 +147,7 @@
     {
       "type": 8,
       "data": {
-        "basicSpeed": 4,
+        "basicSpeed": 5,
         "pathDatas": [
         ]
       }
@@ -156,7 +156,7 @@
     {
       "type": 9,
       "data": {
-        "basicSpeed": 4,
+        "basicSpeed": 5,
         "pathDatas": [
         ]
       }
