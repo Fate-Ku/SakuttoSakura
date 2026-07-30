@@ -18,6 +18,9 @@ public class GameLoop : MonoBehaviour
     {
         //don't destroy
         DontDestroyOnLoad(gameObject);
+
+        //fix frame rate
+        Application.targetFrameRate = 30;
     }
 
     void Start()

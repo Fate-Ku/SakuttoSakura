@@ -11,12 +11,6 @@ using UnityEngine;
 
 public class FlowerFallController : NormalFallController
 {
-    public FlowerFallController(IBlock block, float speed) 
-        : base(block, speed)
-    {
-        m_IsResetFallController = true;
-    }
-
     public FlowerFallController(IBlock block, FallData fallData)
         : base(block,fallData.basicSpeed)
     {
@@ -42,5 +36,7 @@ public class FlowerFallController : NormalFallController
                     break;
             }
         }
+
+        block.blockTest.controllerName = "Flower";
     }
 }
