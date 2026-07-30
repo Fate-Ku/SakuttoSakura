@@ -7,6 +7,7 @@
 // 2026/06/25 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/17 Updated By Fate Ku
+// 2026/07/30 Updated By Fate Ku
 // 
 
 using TMPro;
@@ -45,21 +46,21 @@ public class InGameUIScore
         if (m_ScoreText != null)
         {
             int score = GameMng.Instance.GetScore();
-            m_ScoreText.text = "Score : " + score.ToString();
+            m_ScoreText.text = score.ToString();
 
             int maxCombo = GameMng.Instance.GetMaxCombo();
-            m_ComboText.text = "Max Combo : " + maxCombo.ToString();
+            m_ComboText.text = maxCombo.ToString();
 
             if (m_LevelText != null)
             {
                 int maxLevel = GameMng.Instance.GetMaxLevel();
-                m_LevelText.text = "Max Level : " + maxLevel.ToString();
+                m_LevelText.text = maxLevel.ToString();
             }
 
             if (m_SakuraText != null)
             {
                 int sakuraQty = GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura);
-                m_SakuraText.text = "Get " + sakuraQty.ToString() + " Sakura";
+                m_SakuraText.text = sakuraQty.ToString();
 
             }
 
