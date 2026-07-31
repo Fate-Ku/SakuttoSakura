@@ -123,10 +123,10 @@ MonoBehaviour:
   matAsagao: {fileID: 2100000, guid: 30ba9e1a4fd34554aa262f5424163dd5, type: 2}
   matKikyou: {fileID: 2100000, guid: f84fbf874e2a6514495f6ae4b0843f9f, type: 2}
   matSakura: {fileID: 2100000, guid: 6ff15251ff3145740bdc11ef6590ea19, type: 2}
-  Down: {fileID: 8448594068887878294, guid: ef5c7226d0d9d9f4ab4f0dfdde081872, type: 3}
-  DownLeft: {fileID: 5023272246551420021, guid: 0dee52dd68037ea4dba50f56634a6426, type: 3}
-  DownRight: {fileID: 8412679457419326695, guid: 0f64e95c83c1eaa45bcb03ab8ee9b426, type: 3}
-  Left: {fileID: 5062714704997143864, guid: 97e4a2eec567cd34982f0795ae246cc6, type: 3}
-  LeftDown: {fileID: 6679026067409583855, guid: a10a5c169c5e22a4380fc33ae4dc298c, type: 3}
-  Right: {fileID: 6173154094200751345, guid: 491bb1279479b264cb9556e79ac9de06, type: 3}
-  RightDown: {fileID: 5216957733037016675, guid: 5020b5dd52289384aa80526fa38f86ce, type: 3}
+  Down: {fileID: 7189033512125649665, guid: ef5c7226d0d9d9f4ab4f0dfdde081872, type: 3}
+  DownLeft: {fileID: 2191594611938196155, guid: 0dee52dd68037ea4dba50f56634a6426, type: 3}
+  DownRight: {fileID: 5535737822734555518, guid: 0f64e95c83c1eaa45bcb03ab8ee9b426, type: 3}
+  Left: {fileID: 6094423836173889939, guid: 97e4a2eec567cd34982f0795ae246cc6, type: 3}
+  LeftDown: {fileID: 256379181084627433, guid: a10a5c169c5e22a4380fc33ae4dc298c, type: 3}
+  Right: {fileID: 7961562980532697162, guid: 491bb1279479b264cb9556e79ac9de06, type: 3}
+  RightDown: {fileID: 2395800292907201054, guid: 5020b5dd52289384aa80526fa38f86ce, type: 3}

@@ -34,7 +34,7 @@ public class PathPreviewSystem
     private readonly List<FallDirection> m_PathDirections = new();
 
     private const float PREVIEW_FLOWER_SCALE = 0.5f;
-    private const float DIRECTION_SCALE = 0.033f;
+    private const float DIRECTION_SCALE = 0.357f;
 
     //--------------------------------
     // Constructor
