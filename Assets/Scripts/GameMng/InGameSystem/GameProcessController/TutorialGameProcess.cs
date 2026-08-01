@@ -1,5 +1,5 @@
 //
-// GameProcessController.cs
+// TutorialGameProcess.cs
 // 
 // 2026/06/29 Created By Man-Yi, Yeh
 // 2026/06/30 Updated By Man-Yi, Yeh
@@ -7,33 +7,53 @@
 // 2026/07/07 Updated By Man-Yi, Yeh
 // 2026/07/13 Updated By Man-Yi, Yeh
 // 2026/07/14 Updated By Man-Yi, Yeh
+// 2026/08/01 Updated By Fate Ku
 // 
 
-using System;
+
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
 public class TutorialGameProcess : IGameProcessController
 {
     private TutorialTest m_TutorialTest;
 
-    private List<BlockType> m_NextBlockType = new();
-    private List<int> m_NextBlockCol = new();
+    // 2026/08/01 Updated By Fate Ku
+    private TutorialInfo m_TutorialInfo;
+
+    //private List<BlockType> m_NextBlockType = new();
+    //private List<int> m_NextBlockCol = new();
+    private List<TutorialNextBlockData> m_NextSteps = new();
+    // 2026/08/01 Updated By Fate Ku
+
 
     //m_Index = index for type
     //m_Index - 1 = index for col
-    private int m_Index = -1; 
+    private int m_Index = -1;
 
     private bool m_FirstStepEnd = false;
 
     private bool m_AllIdlePreviousFrame = true;
 
-    public TutorialGameProcess(InGameSystem inGameSystem) 
-        : base(inGameSystem, 
+    public TutorialGameProcess(InGameSystem inGameSystem)
+        : base(inGameSystem,
             "Data/ProcessData/TutorialProcessData",
             "Data/EventData/TutorialEventData")
     {
+        // 2026/08/01 Updated By Fate Ku
+        GameObject tutorialInfoObj = GameObject.Find("TutorialInfo");
+
+        if (tutorialInfoObj != null)
+        {
+            m_TutorialInfo = tutorialInfoObj.GetComponent<TutorialInfo>();
+
+            m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
+            m_TutorialInfo.GetClickMark().SetActive(false);
+        }
+        // 2026/08/01 Updated By Fate Ku
+
         GameObject tutorialTestObj = GameObject.Find("TutorialTest");
         if (tutorialTestObj != null)
         {
@@ -67,8 +87,9 @@ public class TutorialGameProcess : IGameProcessController
 
         foreach (TutorialNextBlockData blockData in nextBlockDataSet.list)
         {
-            m_NextBlockType.Add(blockData.type);
-            m_NextBlockCol.Add(blockData.col);
+            //m_NextBlockType.Add(blockData.type);
+            //m_NextBlockCol.Add(blockData.col);
+            m_NextSteps.Add(blockData);
         }
     }
 
@@ -90,14 +111,36 @@ public class TutorialGameProcess : IGameProcessController
                 {
                     m_InGameSystem.CanOperate = true;
 
-                    if (m_Index - 1 < m_NextBlockCol.Count)
+                    //if (m_Index - 1 < m_NextBlockCol.Count)
+                    //{
+                    //    m_TutorialTest.SetActive(true);
+                    //    m_TutorialTest.SetCol(m_NextBlockCol[m_Index - 1]);
+                    //}
+                    if (m_Index - 1 < m_NextSteps.Count)
                     {
+                        TutorialNextBlockData step = m_NextSteps[m_Index - 1];
+
+                        // ClickMark
                         m_TutorialTest.SetActive(true);
-                        m_TutorialTest.SetCol(m_NextBlockCol[m_Index - 1]);
+                        m_TutorialTest.SetCol(step.col);
+                        GameMng.Instance.SetAllowColumn(step.col);
+
+                        // Instruction
+                        m_TutorialInfo.GetInstructionsText().gameObject.SetActive(true);
+                        m_TutorialInfo.GetInstructionsText().text = step.text;
+
+                        // ClickMark(UI)
+                        m_TutorialInfo.GetClickMark().SetActive(true);
                     }
                     else
                     {
                         m_FirstStepEnd = true;
+                        GameMng.Instance.SetAllowColumn(-1);
+
+                        m_TutorialTest.SetActive(false);
+
+                        m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
+                        m_TutorialInfo.GetClickMark().SetActive(false);
                     }
                 }
                 else
@@ -105,6 +148,9 @@ public class TutorialGameProcess : IGameProcessController
                     m_InGameSystem.CanOperate = false;
                     m_AllIdlePreviousFrame = false;
                     m_TutorialTest.SetActive(false);
+
+                    m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
+                    m_TutorialInfo.GetClickMark().SetActive(false);
                 }
             }
         }
@@ -117,17 +163,21 @@ public class TutorialGameProcess : IGameProcessController
         if (!m_FirstStepEnd)
         {
             m_Index += 1;
-            
-            if (m_Index < m_NextBlockType.Count)
+
+            //if (m_Index < m_NextBlockType.Count)
+            //{
+            //    res = m_NextBlockType[m_Index];
+            //}
+            if (m_Index < m_NextSteps.Count)
             {
-                res = m_NextBlockType[m_Index];
+                res = m_NextSteps[m_Index].type;
             }
         }
 
         return res;
     }
 
-    public override void TimeControl() 
+    public override void TimeControl()
     {
         if (GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura) > 0)
         {
@@ -135,5 +185,5 @@ public class TutorialGameProcess : IGameProcessController
         }
     }
     public override void EventControl() { }
-    public override bool CheckLevelUp() {  return false; }
+    public override bool CheckLevelUp() { return false; }
 }

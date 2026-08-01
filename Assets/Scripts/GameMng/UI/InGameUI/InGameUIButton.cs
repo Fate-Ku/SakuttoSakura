@@ -59,6 +59,14 @@ public class InGameUIButton
         new List<FallDirection>();
 
     //-------------------
+    //Tutorial use
+    //-------------------
+
+    private InGameType m_InGameType;
+
+    private int m_AllowColumn = -1;
+
+    //-------------------
     //Info
     //-------------------
     //blockPos info
@@ -69,9 +77,10 @@ public class InGameUIButton
         get { return m_BlockPosInfo; }
     }
 
-    public InGameUIButton(Dictionary<BlockType, Material> materials)
+    public InGameUIButton(Dictionary<BlockType, Material> materials, InGameType inGameType)
     {
         m_Materials = materials;
+        m_InGameType = inGameType;
     }
 
 
@@ -92,7 +101,7 @@ public class InGameUIButton
 
         CreateCubes();
 
-        m_PathPreview = new PathPreviewSystem(m_BlockPosInfo,m_Materials);
+        m_PathPreview = new PathPreviewSystem(m_BlockPosInfo, m_Materials);
     }
 
     // -------------------------
@@ -275,23 +284,28 @@ public class InGameUIButton
     public void CheckRaycast(Vector2 screenPos)
     {
         Ray ray = m_MainCam.ScreenPointToRay(screenPos);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (!Physics.Raycast(ray, out RaycastHit hit))
+            return;
+
+        if (hit.collider == null)
+            return;
+
+        if (!hit.collider.name.StartsWith("ClickButton"))
+            return;
+
+        int col = int.Parse(
+            hit.collider.name.Replace("ClickButton", ""));
+
+        if (!CanOperateColumn(col))
         {
-            for (int i = 0; i < 7; i++)
-            {
-                if (hit.collider != null && hit.collider.name == "ClickButton" + i)
-                {
-                    Debug.Log("Click id：" + i);
-
-                    // rid return to GameMng
-                    GameMng.Instance.InGameColumnOnClick(i);
-
-                    return;
-                }
-            }
+            Debug.Log($"Tutorial : Column {col} is Locked");
+            return;
         }
+
+        Debug.Log($"Click id : {col}");
+
+        GameMng.Instance.InGameColumnOnClick(col);
     }
 
     private void CheckPress(Vector2 screenPos)
@@ -322,6 +336,12 @@ public class InGameUIButton
 
             Debug.Log($"Press Row = {m_CurrentRow}");
 
+
+            if (!CanOperateColumn(m_CurrentRow))
+            {
+                m_PathPreview.Hide();
+                return;
+            }
 
             // preview path
             //------------------------------------
@@ -426,4 +446,16 @@ public class InGameUIButton
         m_CanOperate = canOperate;
     }
 
+    public void SetAllowColumn(int col)
+    {
+        m_AllowColumn = col;
+    }
+
+    private bool CanOperateColumn(int col)
+    {
+        if (m_InGameType != InGameType.Tutorial)
+            return true;
+
+        return col == m_AllowColumn;
+    }
 }

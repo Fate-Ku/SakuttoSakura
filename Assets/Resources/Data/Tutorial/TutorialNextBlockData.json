@@ -2,37 +2,44 @@
   "list": [
     {
       "type": 0,
-      "col": 5
+      "col": 5,
+      "text": "please click gray box1"
     },
 
     {
       "type": 1,
-      "col": 3
+      "col": 3,
+      "text": "please click gray box2"
     },
 
     {
       "type": 2,
-      "col": 4
+      "col": 4,
+      "text": "please click gray box3"
     },
 
     {
       "type": 3,
-      "col": 1
+      "col": 1,
+      "text": "please click gray box4"
     },
 
     {
       "type": 4,
-      "col": 2
+      "col": 2,
+      "text": "please click gray box5"
     },
 
     {
       "type": 5,
-      "col": 0
+      "col": 0,
+      "text": "please click gray box6"
     },
 
     {
       "type": 6,
-      "col": 7
+      "col": 7,
+      "text": "please click gray box7"
     }
   ]
 }

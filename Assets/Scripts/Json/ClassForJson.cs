@@ -2,6 +2,7 @@
 // ClassForJson.cs
 // 
 // 2026/07/17 Created By Man-Yi, Yeh
+// 2026/08/01 Updated By Fate Ku
 //
 
 
@@ -119,6 +120,7 @@ public class TutorialNextBlockData
 {
     public BlockType type;
     public int col;
+    public string text; // 2026/08/01 Updated By Fate Ku
 }
 
 [Serializable]

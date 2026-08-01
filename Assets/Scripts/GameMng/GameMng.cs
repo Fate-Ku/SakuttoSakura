@@ -242,7 +242,7 @@ public class GameMng
         prevMats[BlockType.Kikyou] = m_BlockPosInfo.GetMatKikyou();
         prevMats[BlockType.Sakura] = m_BlockPosInfo.GetMatSakura();
 
-        m_ButtonSystem = new InGameUIButton(prevMats);
+        m_ButtonSystem = new InGameUIButton(prevMats, inGameType);
         // 2026/07/16 Updated By Fate Ku
 
         m_ScoreSystem = new ScoreSystem(this);
@@ -615,6 +615,11 @@ public class GameMng
     public int GetMaxLevel()
     {
         return m_UIState.GetMaxLevel();
+    }
+
+    public void SetAllowColumn(int col)
+    {
+        m_ButtonSystem.SetAllowColumn(col);
     }
 
 
