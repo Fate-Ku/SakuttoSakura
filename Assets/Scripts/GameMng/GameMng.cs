@@ -26,6 +26,7 @@
 // 2026/07/13 Updated By Man-Yi, Yeh
 // 2026/07/17 Updated By Fate Ku
 // 2026/07/27 Updated By Fate Ku
+// 2026/08/01 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -242,7 +243,10 @@ public class GameMng
         prevMats[BlockType.Kikyou] = m_BlockPosInfo.GetMatKikyou();
         prevMats[BlockType.Sakura] = m_BlockPosInfo.GetMatSakura();
 
+        // 2026/08/01 Updated By Fate Ku
         m_ButtonSystem = new InGameUIButton(prevMats, inGameType);
+        // 2026/08/01 Updated By Fate Ku
+
         // 2026/07/16 Updated By Fate Ku
 
         m_ScoreSystem = new ScoreSystem(this);
@@ -617,10 +621,12 @@ public class GameMng
         return m_UIState.GetMaxLevel();
     }
 
+    // 2026/08/01 Updated By Fate Ku
     public void SetAllowColumn(int col)
     {
         m_ButtonSystem.SetAllowColumn(col);
     }
+    // 2026/08/01 Updated By Fate Ku
 
 
 }

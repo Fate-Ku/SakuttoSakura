@@ -9,6 +9,7 @@
 // 2026/07/12 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/16 Updated By Fate Ku
+// 2026/08/01 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -58,13 +59,14 @@ public class InGameUIButton
     private List<FallDirection> m_NextPath =
         new List<FallDirection>();
 
+    // 2026/08/01 Updated By Fate Ku
     //-------------------
     //Tutorial use
     //-------------------
-
     private InGameType m_InGameType;
 
     private int m_AllowColumn = -1;
+    // 2026/08/01 Updated By Fate Ku
 
     //-------------------
     //Info
@@ -77,12 +79,13 @@ public class InGameUIButton
         get { return m_BlockPosInfo; }
     }
 
+    // 2026/08/01 Updated By Fate Ku
     public InGameUIButton(Dictionary<BlockType, Material> materials, InGameType inGameType)
     {
         m_Materials = materials;
         m_InGameType = inGameType;
     }
-
+    // 2026/08/01 Updated By Fate Ku
 
     public void Init()
     {
@@ -297,11 +300,13 @@ public class InGameUIButton
         int col = int.Parse(
             hit.collider.name.Replace("ClickButton", ""));
 
+        // 2026/08/01 Updated By Fate Ku
         if (!CanOperateColumn(col))
         {
             Debug.Log($"Tutorial : Column {col} is Locked");
             return;
         }
+        // 2026/08/01 Updated By Fate Ku
 
         Debug.Log($"Click id : {col}");
 
@@ -336,12 +341,13 @@ public class InGameUIButton
 
             Debug.Log($"Press Row = {m_CurrentRow}");
 
-
+            // 2026/08/01 Updated By Fate Ku
             if (!CanOperateColumn(m_CurrentRow))
             {
                 m_PathPreview.Hide();
                 return;
             }
+            // 2026/08/01 Updated By Fate Ku
 
             // preview path
             //------------------------------------
@@ -446,6 +452,7 @@ public class InGameUIButton
         m_CanOperate = canOperate;
     }
 
+    // 2026/08/01 Updated By Fate Ku
     public void SetAllowColumn(int col)
     {
         m_AllowColumn = col;
@@ -456,6 +463,12 @@ public class InGameUIButton
         if (m_InGameType != InGameType.Tutorial)
             return true;
 
+        // -1 = Unlock All
+        if (m_AllowColumn < 0)
+            return true;
+
         return col == m_AllowColumn;
     }
+    // 2026/08/01 Updated By Fate Ku
+
 }

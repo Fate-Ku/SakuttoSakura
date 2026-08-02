@@ -13,7 +13,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 
 public class TutorialGameProcess : IGameProcessController
@@ -87,9 +86,11 @@ public class TutorialGameProcess : IGameProcessController
 
         foreach (TutorialNextBlockData blockData in nextBlockDataSet.list)
         {
+            // 2026/08/01 Updated By Fate Ku
             //m_NextBlockType.Add(blockData.type);
             //m_NextBlockCol.Add(blockData.col);
             m_NextSteps.Add(blockData);
+            // 2026/08/01 Updated By Fate Ku
         }
     }
 
@@ -111,6 +112,7 @@ public class TutorialGameProcess : IGameProcessController
                 {
                     m_InGameSystem.CanOperate = true;
 
+                    // 2026/08/01 Updated By Fate Ku
                     //if (m_Index - 1 < m_NextBlockCol.Count)
                     //{
                     //    m_TutorialTest.SetActive(true);
@@ -123,7 +125,16 @@ public class TutorialGameProcess : IGameProcessController
                         // ClickMark
                         m_TutorialTest.SetActive(true);
                         m_TutorialTest.SetCol(step.col);
-                        GameMng.Instance.SetAllowColumn(step.col);
+
+                        // type = sakura can click
+                        if (m_Index - 1 == m_NextSteps.Count - 1)
+                        {
+                            GameMng.Instance.SetAllowColumn(-1);
+                        }
+                        else
+                        {
+                            GameMng.Instance.SetAllowColumn(step.col);
+                        }
 
                         // Instruction
                         m_TutorialInfo.GetInstructionsText().gameObject.SetActive(true);
@@ -131,6 +142,11 @@ public class TutorialGameProcess : IGameProcessController
 
                         // ClickMark(UI)
                         m_TutorialInfo.GetClickMark().SetActive(true);
+                        Vector2 pos = GameMng.Instance.GetBgVirtualCubePosition(step.col, 4);
+                        Vector3 spawnPos = new Vector3(pos.x, pos.y, -10f);
+                        m_TutorialInfo.GetClickMark().transform.position = spawnPos;
+                        m_TutorialInfo.GetClickMark().transform.localScale = Vector3.one * 0.1f;
+
                     }
                     else
                     {
@@ -152,6 +168,7 @@ public class TutorialGameProcess : IGameProcessController
                     m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
                     m_TutorialInfo.GetClickMark().SetActive(false);
                 }
+                // 2026/08/01 Updated By Fate Ku
             }
         }
     }
@@ -164,6 +181,7 @@ public class TutorialGameProcess : IGameProcessController
         {
             m_Index += 1;
 
+            // 2026/08/01 Updated By Fate Ku
             //if (m_Index < m_NextBlockType.Count)
             //{
             //    res = m_NextBlockType[m_Index];
@@ -172,6 +190,7 @@ public class TutorialGameProcess : IGameProcessController
             {
                 res = m_NextSteps[m_Index].type;
             }
+            // 2026/08/01 Updated By Fate Ku
         }
 
         return res;
