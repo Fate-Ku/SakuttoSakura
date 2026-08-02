@@ -3,43 +3,43 @@
     {
       "type": 0,
       "col": 5,
-      "text": "please click gray box1"
+      "text": "灰色の枠にクリックしてください！"
     },
 
     {
       "type": 1,
       "col": 3,
-      "text": "please click gray box2"
+      "text": "灰色の枠にクリックしてください！"
     },
 
     {
       "type": 2,
       "col": 4,
-      "text": "please click gray box3"
+      "text": "灰色の枠にクリックしてください！"
     },
 
     {
       "type": 3,
       "col": 1,
-      "text": "please click gray box4"
+      "text": "灰色の枠にクリックしてください！"
     },
 
     {
       "type": 4,
       "col": 2,
-      "text": "please click gray box5"
+      "text": "灰色の枠にクリックしてください！"
     },
 
     {
       "type": 5,
       "col": 0,
-      "text": "please click gray box6"
+      "text": "灰色の枠にクリックしてください！"
     },
 
     {
       "type": 6,
       "col": 7,
-      "text": "create Sakura !"
+      "text": "さくらを作ろう！"
     }
   ]
 }
