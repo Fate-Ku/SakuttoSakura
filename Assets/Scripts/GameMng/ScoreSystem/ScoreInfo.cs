@@ -7,8 +7,10 @@
 // 2026/06/24 Added By Fate Ku 
 // 2026/07/17 Added By Fate Ku 
 // 2026/07/27 Added By Fate Ku 
+// 2026/08/03 Added By Fate Ku 
 // 
 
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +28,16 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ComboText;
     [SerializeField] private TextMeshProUGUI LevelText;
     [SerializeField] private TextMeshPro MoveableComboText;
+
+    [Header("Show Result- words")]
+    [SerializeField] public GameObject NiceTry;
+    [SerializeField] public GameObject GoodJob;
+    [SerializeField] public GameObject Welldone;
+
+    [Header("Show Result- stamps")]
+    [SerializeField] public GameObject BronzeStamp;
+    [SerializeField] public GameObject SilverStamp;
+    [SerializeField] public GameObject GoldStamp;
 
     [Header("Show Game State")]
     [SerializeField] private TextMeshPro InGameStateLevelText;
@@ -186,10 +198,21 @@ public class ScoreInfo : MonoBehaviour
         return GameStart;
     }
 
-    public GameObject GetGameOver(){ return GameOver; }
+    public GameObject GetGameOver() { return GameOver; }
 
     public GameObject GetTimeUp() { return TimeUp; }
 
-    public GameObject GetLevel() {  return Level; }
+    public GameObject GetLevel() { return Level; }
+
+    public GameObject GetNiceTry() { return NiceTry; }
+
+    public GameObject GetGoodJob() { return GoodJob; }
+
+    public GameObject GetWelldone() { return Welldone; }
+
+    public GameObject GetBronzeStamp() { return BronzeStamp; }
+
+    public GameObject GetSilverStamp() { return SilverStamp; }
+    public GameObject GetGoldStamp() { return GoldStamp; }
 
 }

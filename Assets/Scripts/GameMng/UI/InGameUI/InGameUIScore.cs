@@ -8,6 +8,7 @@
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/17 Updated By Fate Ku
 // 2026/07/30 Updated By Fate Ku
+// 2026/08/03 Updated By Fate Ku
 // 
 
 using TMPro;
@@ -23,14 +24,32 @@ public class InGameUIScore
 
     private TextMeshProUGUI m_SakuraText;
 
+    private GameObject m_NiceTry;
+    private GameObject m_GoodJob;
+    private GameObject m_WellDone;
+
+    private GameObject m_Bronze;
+    private GameObject m_Silver;
+    private GameObject m_Gold;
+
     public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText
-        , TextMeshPro moveableComboPrefab, TextMeshProUGUI sakuraText, TextMeshProUGUI levelText)
+        , TextMeshPro moveableComboPrefab, TextMeshProUGUI sakuraText, TextMeshProUGUI levelText,
+        GameObject NiceTry, GameObject GoodJob, GameObject WellDone,
+        GameObject Bronze, GameObject Silver, GameObject Gold)
     {
         m_ScoreText = scoreText;
         m_ComboText = comboText;
         m_moveableComboPrefab = moveableComboPrefab;
         m_SakuraText = sakuraText;
         m_LevelText = levelText;
+
+        m_NiceTry = NiceTry;
+        m_GoodJob = GoodJob;
+        m_WellDone = WellDone;
+        m_Bronze = Bronze;
+        m_Silver = Silver;
+        m_Gold = Gold;
+
     }
 
     public float showComboTime;
@@ -45,6 +64,7 @@ public class InGameUIScore
         // use in score scene
         if (m_ScoreText != null)
         {
+
             int score = GameMng.Instance.GetScore();
             m_ScoreText.text = score.ToString();
 
@@ -62,6 +82,11 @@ public class InGameUIScore
                 int sakuraQty = GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura);
                 m_SakuraText.text = sakuraQty.ToString();
 
+            }
+
+            if (m_NiceTry != null)
+            {
+                Show();
             }
 
             //Debug.Log("Score : " + score.ToString());
@@ -119,6 +144,47 @@ public class InGameUIScore
     {
         m_ScoreText = null;
 
+    }
+
+    void HideAll()
+    {
+        if (m_NiceTry != null)
+        {
+
+            m_NiceTry.SetActive(false);
+            m_GoodJob.SetActive(false);
+            m_WellDone.SetActive(false);
+
+            m_Bronze.SetActive(false);
+            m_Silver.SetActive(false);
+            m_Gold.SetActive(false);
+        }
+    }
+
+    public void Show()
+    {
+        HideAll();
+
+        int score = GameMng.Instance.GetScore();
+
+        if (score < 15000)
+        {
+            m_NiceTry.SetActive(true);
+            m_Bronze.SetActive(true);
+
+        }
+        else if (score < 35000)
+        {
+            m_GoodJob.SetActive(true);
+            m_Silver.SetActive(true);
+
+        }
+        else
+        {
+            m_WellDone.SetActive(true);
+            m_Gold.SetActive(true);
+
+        }
     }
 
 }
