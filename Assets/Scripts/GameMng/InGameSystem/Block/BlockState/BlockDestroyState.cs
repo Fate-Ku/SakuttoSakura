@@ -56,6 +56,7 @@ public class BlockDestroyState : IBlockState
         }
 
         //test
+        /*
         timer-= Time.deltaTime;
         if (timer <= 0)
         {
@@ -67,5 +68,6 @@ public class BlockDestroyState : IBlockState
             GameMng.Instance.OffDestroyEffect(m_EffectID);
             return;
         }
+        */
     }
 }

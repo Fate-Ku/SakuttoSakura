@@ -970,11 +970,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2438909170700871015, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 64.63027
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2438909170700871015, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 201.398
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2438909170700871015, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1012,6 +1012,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameLoop
       objectReference: {fileID: 0}
+    - target: {fileID: 6620542686429966032, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 103227111}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

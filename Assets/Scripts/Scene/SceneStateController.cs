@@ -5,6 +5,7 @@
 // 2026/05/21 Updated By Man-Yi, Yeh 
 // 2026/05/26 Updated By Man-Yi, Yeh 
 // 2026/06/03 Updated By Man-Yi, Yeh 
+// 2026/08/03 Updated By Man-Yi, Yeh 
 // 
 
 using UnityEngine;
@@ -16,7 +17,12 @@ public class SceneStateController
     private AsyncOperation m_AsyncOp;
     private bool m_bRunBegin = false;
 
-    public SceneStateController() { }
+    private LoadingBG m_LoadingBG;
+
+    public SceneStateController(LoadingBG loadingBG)
+    {
+        m_LoadingBG = loadingBG;
+    }
 
     //set state
     public void SetState(ISceneState state, string loadSceneName)
@@ -55,6 +61,7 @@ public class SceneStateController
         //start new state
         if (!m_bRunBegin)
         {
+            m_LoadingBG.SetActive(false);
             m_State.StateBegin();
             m_bRunBegin= true;
         }
@@ -89,6 +96,7 @@ public class SceneStateController
         }
 
         m_AsyncOp = SceneManager.LoadSceneAsync(loadSceneName);
+        m_LoadingBG.SetActive(true);
     }
 
 }
