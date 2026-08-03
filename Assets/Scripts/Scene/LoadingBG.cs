@@ -10,10 +10,12 @@ using UnityEngine.UI;
 public class LoadingBG : MonoBehaviour
 {
     private Canvas m_Canvas;
+    private Animator[] m_Animators;
 
     void Start()
     {
         m_Canvas = GetComponent<Canvas>();
+        m_Animators = GetComponentsInChildren<Animator>();
         SetActive(false);
     }
 
@@ -22,6 +24,14 @@ public class LoadingBG : MonoBehaviour
         if (m_Canvas != null)
         {
             m_Canvas.enabled = active;
+        }
+
+        if (m_Animators != null)
+        {
+            foreach (Animator animator in m_Animators)
+            {
+                animator.enabled = active;
+            }
         }
     }
 

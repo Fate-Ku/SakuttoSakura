@@ -13,7 +13,7 @@ using UnityEngine;
 
 public class BlockDestroyState : IBlockState
 {
-    private float timer = 0.8f;
+    //private float timer = 0.8f;
     private int m_EffectID;
     public BlockDestroyState(IBlock block, BlockStateController controller) 
         : base(block, controller)

@@ -1012,10 +1012,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameLoop
       objectReference: {fileID: 0}
+    - target: {fileID: 5300382061990074773, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 5300382061990074773, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
+      propertyPath: m_Color.g
+      value: 0.2208322
+      objectReference: {fileID: 0}
+    - target: {fileID: 5300382061990074773, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
+      propertyPath: m_Color.r
+      value: 0.17679779
+      objectReference: {fileID: 0}
     - target: {fileID: 6620542686429966032, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 103227111}
+    - target: {fileID: 8936011163356906455, guid: 907f5d3233d652041baa1c69d50b4d00, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
