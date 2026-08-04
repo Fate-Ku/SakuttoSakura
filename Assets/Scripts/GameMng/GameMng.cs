@@ -28,6 +28,7 @@
 // 2026/07/27 Updated By Fate Ku
 // 2026/08/01 Updated By Fate Ku
 // 2026/08/04 Updated By Man-Yi, Yeh
+// 2026/08/04 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -220,7 +221,7 @@ public class GameMng
         stateType[InGameSystemStateType.LevelUp] = m_ScoreInfo.GetLevel();
 
         //renew
-        m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateLevelText(), stateType);
+        m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateLevelText(), stateType, inGameType); // 2026/08/04 Updated By Fate Ku
         // 2026/07/27 Added By Fate Ku 
         m_InGameSystem = new InGameSystem(this, inGameType);
         m_Background = new InGameUIBackground();

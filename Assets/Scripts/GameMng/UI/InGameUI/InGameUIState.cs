@@ -7,6 +7,7 @@
 // 2026/07/06 Updated By Fate Ku
 // 2026/07/09 Updated By Fate Ku
 // 2026/07/17 Updated By Fate Ku
+// 2026/08/04 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -48,11 +49,19 @@ public class InGameUIState
 
     private float m_BasePosX;
 
+    // 2026/08/04 Updated By Fate Ku
+    //-------------------
+    //Tutorial use
+    //-------------------
+    private InGameType m_InGameType;
+    // 2026/08/04 Updated By Fate Ku
 
-    public InGameUIState(TextMeshPro inGameStateText, Dictionary<InGameSystemStateType, GameObject> DStageType)
+
+    public InGameUIState(TextMeshPro inGameStateText, Dictionary<InGameSystemStateType, GameObject> DStageType,InGameType inGameType)
     {
         m_InGameStateText = inGameStateText;
         m_DStageType = DStageType;
+        m_InGameType = inGameType;
     }
 
 
@@ -165,13 +174,24 @@ public class InGameUIState
             m_TargetPos = new Vector3(startPosX + 13f, startPosY, -1);
             //callTrigger = true;
         }
+        // 2026/08/04 Updated By Fate Ku
         // left→middle
         else if (m_StageType == InGameSystemStateType.TimeUp)
         {
-            m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(endPosX, startPosY, -1);
-            //callTrigger = false;
+            if (m_InGameType == InGameType.Tutorial)
+            {
+                m_CurrentStageObj.SetActive(false);
+            }
+            else
+            {
+                m_CurrentStageObj.SetActive(true);
+                m_StartPos = new Vector3(startPosX, startPosY, -1);
+                m_TargetPos = new Vector3(endPosX, startPosY, -1);
+                //callTrigger = false;
+
+            }
         }
+        // 2026/08/04 Updated By Fate Ku
         else if (m_StageType == InGameSystemStateType.LevelUp)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
@@ -219,13 +239,24 @@ public class InGameUIState
         float startPosX = referPos.x + scale * row / 2 - offsetX;
         float startPosY = referPos.y + scale * col / 2 - offsetY; //middle
 
+        // 2026/08/04 Updated By Fate Ku
         // middle→right
         if (m_StageType == InGameSystemStateType.TimeUp)
         {
-            m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 7f, startPosY, -1);
-            //callTrigger = true;
+            if (m_InGameType == InGameType.Tutorial)
+            {
+                m_CurrentStageObj.SetActive(false);
+            }
+            else
+            {
+                m_CurrentStageObj.SetActive(true);
+
+                m_StartPos = new Vector3(startPosX, startPosY, -1);
+                m_TargetPos = new Vector3(startPosX + 7f, startPosY, -1);
+                //callTrigger = true;
+            }
         }
+        // 2026/08/04 Updated By Fate Ku
         else if (m_StageType == InGameSystemStateType.LevelUp)
         {
             m_StartPos = new Vector3(startPosX - 1.5f, startPosY, -1);
