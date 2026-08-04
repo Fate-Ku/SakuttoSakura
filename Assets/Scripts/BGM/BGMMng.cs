@@ -64,21 +64,21 @@ public class BGMMng
         }
     }
 
-    public void SetBGM(BGMType bgmType)
+    public void SetBGM(BGMType bgmType, bool loop = false)
     {
         Debug.Log($"BGMMng: SetBGM called with {bgmType}");
         if (m_AudioSet != null)
         {
             Debug.Log($"Setting BGM to {bgmType}");
-            m_AudioSet.SetNowAudio(bgmType);
+            m_AudioSet.SetNowAudio(bgmType, loop);
         }
     }
 
-    public void SetNextBGM(BGMType bgmType)
+    public void SetNextBGM(BGMType bgmType, bool loop = false)
     {
         if (m_AudioSet != null)
         {
-            m_AudioSet.SetNextAudio(bgmType);
+            m_AudioSet.SetNextAudio(bgmType, loop);
         }
     }
 

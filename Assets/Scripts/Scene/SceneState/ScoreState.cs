@@ -18,6 +18,9 @@ public class ScoreState : IGameSceneState
     public override void StateBegin()
     {
         GameMng.Instance.SetPhase(GameMng.PhaseType.Score);
+
+        BGMMng.Instance.SetBGM(BGMType.A2Loop);
+        BGMMng.Instance.SetNextBGM(BGMType.Outro);
     }
 
     public override void StateEnd()

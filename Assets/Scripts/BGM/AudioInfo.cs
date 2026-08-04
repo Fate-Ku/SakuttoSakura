@@ -5,6 +5,7 @@
 //
 
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class AudioInfo : MonoBehaviour
 {
@@ -50,6 +51,11 @@ public class AudioInfo : MonoBehaviour
         {
             audioSource.UnPause();
         }
+    }
+
+    public void SetLoop(bool loop)
+    {
+        audioSource.loop = loop;
     }
 
     public void SetVolume(float volume)

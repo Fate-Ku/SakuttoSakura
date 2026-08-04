@@ -18,16 +18,13 @@ public class TutorialState : IGameSceneState
     {
         GameMng.Instance.SetPhase(GameMng.PhaseType.Tutorial);
 
-        //GameMng.Instance.SetBGM(BGMType.BLoop);
-        //GameMng.Instance.SetNextBGM(BGMType.None);
-        BGMMng.Instance.SetBGM(BGMType.BLoop);
+        BGMMng.Instance.SetBGM(BGMType.BLoop, true);
     }
 
     public override void StateEnd()
     {
         GameMng.Instance.EndPhase();
 
-        //GameMng.Instance.PauseBGM();
         BGMMng.Instance.PauseBGM();
     }
 
