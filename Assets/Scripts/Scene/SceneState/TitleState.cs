@@ -16,6 +16,11 @@ public class TitleState : ISceneState
         StateName = "StartState";
     }
 
+    public override void StateBegin()
+    {
+        GameMng.Instance.Init();
+    }
+
     //update
     public override void StateUpdate() 
     {

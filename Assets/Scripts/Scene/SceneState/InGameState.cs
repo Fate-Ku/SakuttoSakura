@@ -18,11 +18,15 @@ public class InGameState : IGameSceneState
     public override void StateBegin()
     {
         GameMng.Instance.SetPhase(GameMng.PhaseType.InGame);
+
+        GameMng.Instance.SetBGM(BGMType.BLoop);
+        GameMng.Instance.SetNextBGM(BGMType.BLoop);
     }
 
     public override void StateEnd()
     {
         GameMng.Instance.EndPhase();
+        GameMng.Instance.PauseBGM();
     }
 
     public override void StateUpdate()

@@ -17,6 +17,17 @@ public class MenuState : IGameSceneState
         StateName = "MenuState";
     }
 
+    public override void StateBegin()
+    {
+        GameMng.Instance.SetBGM(BGMType.Intro);
+        GameMng.Instance.SetNextBGM(BGMType.A1Loop);
+    }
+
+    public override void StateEnd()
+    {
+        GameMng.Instance.PauseBGM();
+    }
+
     public override void StateUpdate()
     {
         GameMng.Instance.Update();
