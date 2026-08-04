@@ -132,25 +132,10 @@ public class GameMng
     // UI touch button
     private InGameUIButton m_ButtonSystem;
 
-    //-------------------
-    //bgm
-    //-------------------
-    private BGMMng m_BGMMng;
 
     public void Init()
     {
         m_SkillDataSystem = new SkillDataSystem(this);
-
-        GameObject bgmMng = GameObject.Find("BGMMng");
-        if (bgmMng != null)
-        {
-            Debug.Log("Fing BGMMng");
-            m_BGMMng = bgmMng.GetComponent<BGMMng>();
-        }
-        else
-        {
-            Debug.Log("Don't find BGMMng");
-        }
     }
 
     public void Term()
@@ -644,47 +629,4 @@ public class GameMng
     }
     // 2026/08/01 Updated By Fate Ku
 
-    //-------------------
-    //bgm
-    //-------------------
-    public void SetBGM(BGMType type)
-    {
-        if (m_BGMMng != null)
-        {
-            Debug.Log("Set BGM: " + type.ToString());
-            m_BGMMng.SetBGM(type);
-        }
-    }
-
-    public void SetNextBGM(BGMType type)
-    {
-        if (m_BGMMng != null)
-        {
-            m_BGMMng.SetNextBGM(type);
-        }
-    }
-
-    public void SetBGMVolume(float volume)
-    {
-        if (m_BGMMng != null)
-        {
-            m_BGMMng.SetBGMVolume(volume);
-        }
-    }
-
-    public void PauseBGM()
-    {
-        if (m_BGMMng != null)
-        {
-            m_BGMMng.PauseBGM();
-        }
-    }
-
-    public void ResumeBGM()
-    {
-        if (m_BGMMng != null)
-        {
-            m_BGMMng.ResumeBGM();
-        }
-    }
 }

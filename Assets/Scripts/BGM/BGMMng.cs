@@ -4,13 +4,12 @@
 // 2026/08/04 Created By Man-Yi, Yeh
 //
 
-using System;
 using UnityEngine;
 
 public enum BGMType
 {
     None = -1,
-    
+
     Intro,
     A1Loop,
     A1Final,
@@ -25,94 +24,86 @@ public enum BGMType
     Count
 }
 
-public class BGMMng : MonoBehaviour
+public class BGMMng
 {
-    [SerializeField] private AudioSource[] audioSources;
-    private BGMType m_NowBGMType = BGMType.None;
-    private BGMType m_NextBGMTYpe = BGMType.None;
-    public float m_Volume = 1.0f;
-
-    private void Awake()
+    private static BGMMng m_Instance;
+    public static BGMMng Instance
     {
-        //don't destroy
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Update()
-    {
-        // Check if the next BGM type is different from the current one
-        if (m_NowBGMType != BGMType.None &&
-            m_NowBGMType != m_NextBGMTYpe)
+        get
         {
-            if (audioSources[(int)m_NowBGMType].clip.length - audioSources[(int)m_NowBGMType].time
-                < 0.2f)
+            if (m_Instance == null)
             {
-                Debug.Log("BGM: Play Next");
-                PlayNext();
+                m_Instance = new BGMMng();
             }
+            return m_Instance;
+        }
+    }
+    private BGMMng() { }
+
+    private AudioSet m_AudioSet;
+
+    public void SetAudioSet()
+    {
+        Debug.Log("Setting AudioSet in BGMMng");
+        GameObject audioSet = GameObject.Find("AudioSet");
+        if (audioSet != null)
+        {
+            m_AudioSet = audioSet.GetComponent<AudioSet>();
+            if (m_AudioSet == null)
+            {
+                Debug.LogError("AudioSet component not found on the AudioSet GameObject.");
+            }
+            else
+            {
+                Debug.Log("AudioSet successfully set in BGMMng");
+            }
+        }
+        else
+        {
+            Debug.LogError("AudioSet GameObject not found in the scene.");
         }
     }
 
     public void SetBGM(BGMType bgmType)
     {
-        if (bgmType == m_NowBGMType)
+        Debug.Log($"BGMMng: SetBGM called with {bgmType}");
+        if (m_AudioSet != null)
         {
-            return;
+            Debug.Log($"Setting BGM to {bgmType}");
+            m_AudioSet.SetNowAudio(bgmType);
         }
-
-        // Stop the current BGM
-        if (m_NowBGMType != BGMType.None)
-        {
-            audioSources[(int)m_NowBGMType].Stop();
-        }
-        // Play the new BGM
-        if (bgmType != BGMType.None)
-        {
-            audioSources[(int)bgmType].volume = m_Volume;
-            audioSources[(int)bgmType].Play();
-        }
-        m_NowBGMType = bgmType;
     }
 
     public void SetNextBGM(BGMType bgmType)
     {
-        m_NextBGMTYpe = bgmType;
+        if (m_AudioSet != null)
+        {
+            m_AudioSet.SetNextAudio(bgmType);
+        }
     }
 
     public void PauseBGM()
     {
-        if (m_NowBGMType != BGMType.None)
+        if (m_AudioSet != null)
         {
-            audioSources[(int)m_NowBGMType].Pause();
-        }   
+            m_AudioSet.Pause();
+        }
     }
 
     public void ResumeBGM()
     {
-        if (m_NowBGMType != BGMType.None)
+        if (m_AudioSet != null)
         {
-            audioSources[(int)m_NowBGMType].UnPause();
+            m_AudioSet.Resume();
         }
     }
 
+    //volume: 0.0f ~ 1.0f
     public void SetBGMVolume(float volume)
     {
-        m_Volume = Mathf.Clamp01(volume);
-        if (m_NowBGMType != BGMType.None)
+        if (m_AudioSet != null)
         {
-            audioSources[(int)m_NowBGMType].volume = m_Volume;
+            m_AudioSet.SetVolume(volume);
         }
-    }
-
-    private void PlayNext()
-    {
-        if (m_NextBGMTYpe != BGMType.None)
-        {
-            double startTime = AudioSettings.dspTime +
-                               audioSources[(int)m_NowBGMType].clip.length - audioSources[(int)m_NowBGMType].time;
-            audioSources[(int)m_NextBGMTYpe].volume = m_Volume;
-            audioSources[(int)m_NextBGMTYpe].PlayScheduled(startTime);
-        }
-        m_NowBGMType = m_NextBGMTYpe;
     }
 }

@@ -6,6 +6,7 @@
 // 2026/05/26 Updated By Man-Yi, Yeh 
 // 2026/06/03 Updated By Man-Yi, Yeh 
 // 2026/08/03 Updated By Man-Yi, Yeh 
+// 2026/08/04 Updated By Man-Yi, Yeh 
 // 
 
 using UnityEngine;
@@ -61,9 +62,11 @@ public class SceneStateController
         //start new state
         if (!m_bRunBegin)
         {
-            m_LoadingBG.SetActive(false);
+            BGMMng.Instance.SetAudioSet();
             m_State.StateBegin();
-            m_bRunBegin= true;
+            m_LoadingBG.SetActive(false);
+            
+            m_bRunBegin = true;
         }
 
         //state update
