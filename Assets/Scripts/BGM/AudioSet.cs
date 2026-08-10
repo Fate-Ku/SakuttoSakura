@@ -14,8 +14,8 @@ public class AudioSet : MonoBehaviour
     private Dictionary<BGMType, AudioInfo> m_AudioInfos = new();
 
     private BGMType m_NowBGMType = BGMType.None;
-    private BGMType m_NextBGMTYpe = BGMType.None; 
-    public float m_Volume = 1.0f;
+    private BGMType m_NextBGMTYpe = BGMType.None;
+    public float m_Volume = 0.5f;
 
     void Start()
     {
@@ -41,12 +41,19 @@ public class AudioSet : MonoBehaviour
                 PlayNext();
             }
         }
+
+        if (m_NextBGMTYpe != BGMType.None &&
+            m_NextBGMTYpe != m_NowBGMType)
+        {
+            if (GetAudioInfo(m_NextBGMTYpe).IsPlaying())
+            {
+                m_NowBGMType = m_NextBGMTYpe;
+            }
+        }
     }
 
     public void SetNowAudio(BGMType type, bool loop = false)
     {
-        Debug.Log($"BGM: SetNowAudio {type}");
-
         if (type == m_NowBGMType)
         {
             return;

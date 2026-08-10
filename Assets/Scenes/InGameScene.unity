@@ -1672,6 +1672,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2324415136169497420, guid: 83c1775169012ed4f84cc032351284c7, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2324415136169497420, guid: 83c1775169012ed4f84cc032351284c7, type: 3}
       propertyPath: audioInfos.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -20492,7 +20496,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: playTime
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 365702353927796876, guid: 667f1dbca018ffd48b39f9e13e6136e3, type: 3}
       propertyPath: nextBlockPos

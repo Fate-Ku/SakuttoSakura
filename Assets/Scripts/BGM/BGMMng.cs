@@ -53,10 +53,6 @@ public class BGMMng
             {
                 Debug.LogError("AudioSet component not found on the AudioSet GameObject.");
             }
-            else
-            {
-                Debug.Log("AudioSet successfully set in BGMMng");
-            }
         }
         else
         {
@@ -66,10 +62,8 @@ public class BGMMng
 
     public void SetBGM(BGMType bgmType, bool loop = false)
     {
-        Debug.Log($"BGMMng: SetBGM called with {bgmType}");
         if (m_AudioSet != null)
         {
-            Debug.Log($"Setting BGM to {bgmType}");
             m_AudioSet.SetNowAudio(bgmType, loop);
         }
     }

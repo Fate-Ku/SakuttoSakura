@@ -21,6 +21,11 @@ public class AudioInfo : MonoBehaviour
         }
     }
 
+    public bool IsPlaying()
+    {
+        return audioSource.isPlaying;
+    }
+
     public void Play()
     {
         if (!audioSource.isPlaying)
