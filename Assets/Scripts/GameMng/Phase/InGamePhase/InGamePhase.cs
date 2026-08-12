@@ -13,8 +13,8 @@ using UnityEngine;
 
 public class InGamePhase : Phase
 {
-    public InGamePhase(GameMng gameMng)
-        : base(gameMng)
+    public InGamePhase(GameMng gameMng, bool isTGS)
+        : base(gameMng, isTGS)
     {
     }
 
@@ -26,7 +26,7 @@ public class InGamePhase : Phase
 
     public override void Init()
     {
-        m_GameMng.InGameInit();
+        m_GameMng.InGameInit(m_IsTGS);
 
         // 2026/06/02 Updated By Fate Ku
         m_InGameUI = new InGameUI(m_GameMng);

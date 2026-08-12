@@ -8,8 +8,11 @@ using UnityEngine;
 
 public class Phase : IGameSystem
 {
-    public Phase(GameMng gameMng) 
+    protected bool m_IsTGS;
+
+    public Phase(GameMng gameMng, bool isTGS) 
         : base(gameMng)
     {
+        m_IsTGS = isTGS;
     }
 }

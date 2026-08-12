@@ -14,7 +14,7 @@ public class GameLoop : MonoBehaviour
 {
     //scene state controller
     SceneStateController m_SceneStateController;
-
+    [SerializeField] private bool m_IsTGS;
     [SerializeField] private LoadingBG m_LoadingBG;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class GameLoop : MonoBehaviour
         m_SceneStateController = new(m_LoadingBG);
 
         //set start scene
-        m_SceneStateController.SetState(new TitleState(m_SceneStateController), "");
+        m_SceneStateController.SetState(new TitleState(m_SceneStateController, m_IsTGS), "");
     }
 
     void Update()

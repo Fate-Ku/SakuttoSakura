@@ -11,10 +11,13 @@ using UnityEngine;
 
 public class MenuState : IGameSceneState
 {
-    public MenuState(SceneStateController controller) 
-        : base(controller)
+    private float m_Timer;
+
+    public MenuState(SceneStateController controller, bool isTGS) 
+        : base(controller, isTGS)
     {
         StateName = "MenuState";
+        m_Timer = 0f;
     }
 
     public override void StateBegin()
@@ -30,7 +33,16 @@ public class MenuState : IGameSceneState
 
     public override void StateUpdate()
     {
-        GameMng.Instance.Update();
         ControllSceneByGameMng();
+
+        if (m_IsTGS)
+        {
+            m_Timer += Time.deltaTime;
+            if (m_Timer >= 20f)
+            {
+                //change to MenuState
+                m_Controller.SetState(new IdleScreenState(m_Controller, m_IsTGS), "IdleScreenScene");
+            }
+        }
     }
 }

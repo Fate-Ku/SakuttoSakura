@@ -159,7 +159,7 @@ public class GameMng
     //-------------------
     //method of phase
     //-------------------
-    public void SetPhase(PhaseType phaseType)
+    public void SetPhase(PhaseType phaseType, bool isTGS)
     {
         m_NowPhase?.Term();
 
@@ -167,19 +167,19 @@ public class GameMng
         switch (phaseType)
         {
             case PhaseType.SkillSelect:
-                phase = new SkillSelectPhase(this);
+                phase = new SkillSelectPhase(this, isTGS);
                 break;
 
             case PhaseType.InGame:
-                phase = new InGamePhase(this);
+                phase = new InGamePhase(this, isTGS);
                 break;
 
             case PhaseType.Score:
-                phase = new ScorePhase(this);
+                phase = new ScorePhase(this, isTGS);
                 break;
 
             case PhaseType.Tutorial:
-                phase = new TutorialPhase(this);
+                phase = new TutorialPhase(this, isTGS);
                 break;
 
             default:
@@ -205,7 +205,7 @@ public class GameMng
     //-------------------
     //method of InGameSystem
     //-------------------
-    public void InGameInit(InGameType inGameType = InGameType.Classic)
+    public void InGameInit(bool isTGS, InGameType inGameType = InGameType.Classic)
     {
         GameObject scoreInfo = GameObject.Find("ScoreInfo");
         if (scoreInfo != null)
@@ -223,7 +223,7 @@ public class GameMng
         //renew
         m_UIState = new InGameUIState(m_ScoreInfo.GetInGameStateLevelText(), stateType, inGameType); // 2026/08/04 Updated By Fate Ku
         // 2026/07/27 Added By Fate Ku 
-        m_InGameSystem = new InGameSystem(this, inGameType);
+        m_InGameSystem = new InGameSystem(this, isTGS, inGameType);
         m_Background = new InGameUIBackground();
 
 

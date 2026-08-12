@@ -8,6 +8,7 @@
 // 2026/07/13 Updated By Man-Yi, Yeh
 // 2026/07/14 Updated By Man-Yi, Yeh
 // 2026/08/01 Updated By Fate Ku
+// 2026/08/12 Updated By Man-Yi, Yeh
 // 
 
 
@@ -17,7 +18,7 @@ using UnityEngine;
 
 public class TutorialGameProcess : IGameProcessController
 {
-    private TutorialTest m_TutorialTest;
+    //private TutorialTest m_TutorialTest;
 
     // 2026/08/01 Updated By Fate Ku
     private TutorialInfo m_TutorialInfo;
@@ -36,7 +37,7 @@ public class TutorialGameProcess : IGameProcessController
 
     private bool m_AllIdlePreviousFrame = true;
 
-    public TutorialGameProcess(InGameSystem inGameSystem)
+    public TutorialGameProcess(InGameSystem inGameSystem, bool isTGS)
         : base(inGameSystem,
             "Data/ProcessData/TutorialProcessData",
             "Data/EventData/TutorialEventData")
@@ -52,18 +53,28 @@ public class TutorialGameProcess : IGameProcessController
             m_TutorialInfo.GetClickMark().SetActive(false);
         }
         // 2026/08/01 Updated By Fate Ku
-
+        /*
         GameObject tutorialTestObj = GameObject.Find("TutorialTest");
         if (tutorialTestObj != null)
         {
             m_TutorialTest = tutorialTestObj.GetComponent<TutorialTest>();
             m_TutorialTest.SetActive(false);
         }
+        */
 
         //-------------------
-        //Start Block Data
+        //Block Data
         //-------------------
-        TextAsset jsonTextAsset = Resources.Load<TextAsset>("Data/Tutorial/TutorialStartBlockData");
+        string startBlockDataPath = "Data/Tutorial/TutorialStartBlockData";
+        string nextBlockDataPath = "Data/Tutorial/TutorialNextBlockData";
+        if (isTGS)
+        {
+            startBlockDataPath = "Data/Tutorial/TGSTutorialStartBlockData"; 
+            nextBlockDataPath = "Data/Tutorial/TGSTutorialNextBlockData";
+        }
+
+        //start block data
+        TextAsset jsonTextAsset = Resources.Load<TextAsset>(startBlockDataPath);
         Debug.Log("Start Block Data: " + jsonTextAsset);
         TutorialStartBlockDataList startBlockDataSet =
             JsonUtility.FromJson<TutorialStartBlockDataList>(jsonTextAsset.text);
@@ -76,11 +87,9 @@ public class TutorialGameProcess : IGameProcessController
             m_InGameSystem.AddBlock(type, id);
         }
 
-        //-------------------
-        //Next Block Data
-        //-------------------
-        jsonTextAsset = Resources.Load<TextAsset>("Data/Tutorial/TutorialNextBlockData");
-        Debug.Log("Start Block Data: " + jsonTextAsset);
+        //next block data
+        jsonTextAsset = Resources.Load<TextAsset>(nextBlockDataPath);
+        Debug.Log("Next Block Data: " + jsonTextAsset);
         TutorialNextBlockDataList nextBlockDataSet =
             JsonUtility.FromJson<TutorialNextBlockDataList>(jsonTextAsset.text);
 
@@ -123,8 +132,8 @@ public class TutorialGameProcess : IGameProcessController
                         TutorialNextBlockData step = m_NextSteps[m_Index - 1];
 
                         // ClickMark
-                        m_TutorialTest.SetActive(true);
-                        m_TutorialTest.SetCol(step.col);
+                        //m_TutorialTest.SetActive(true);
+                        //m_TutorialTest.SetCol(step.col);
 
                         // type = sakura can click
                         if (m_Index - 1 == m_NextSteps.Count - 1)
@@ -153,7 +162,7 @@ public class TutorialGameProcess : IGameProcessController
                         m_FirstStepEnd = true;
                         GameMng.Instance.SetAllowColumn(-1);
 
-                        m_TutorialTest.SetActive(false);
+                        //m_TutorialTest.SetActive(false);
 
                         m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
                         m_TutorialInfo.GetClickMark().SetActive(false);
@@ -163,7 +172,7 @@ public class TutorialGameProcess : IGameProcessController
                 {
                     m_InGameSystem.CanOperate = false;
                     m_AllIdlePreviousFrame = false;
-                    m_TutorialTest.SetActive(false);
+                    //m_TutorialTest.SetActive(false);
 
                     m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
                     m_TutorialInfo.GetClickMark().SetActive(false);

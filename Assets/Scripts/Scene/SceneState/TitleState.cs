@@ -10,8 +10,8 @@ public class TitleState : ISceneState
 {
     private float timer = 0;
 
-    public TitleState(SceneStateController controller) 
-        : base(controller)
+    public TitleState(SceneStateController controller, bool isTGS) 
+        : base(controller, isTGS)
     {
         StateName = "StartState";
     }
@@ -37,7 +37,7 @@ public class TitleState : ISceneState
                     if (gameTest.isTutorial)
                     {
                         //change to TutorialState
-                        m_Controller.SetState(new TutorialState(m_Controller), "TutorialScene");
+                        m_Controller.SetState(new TutorialState(m_Controller, m_IsTGS), "TutorialScene");
                         return;
 
                     }
@@ -46,7 +46,7 @@ public class TitleState : ISceneState
             }
 
             //change to MenuState
-            m_Controller.SetState(new MenuState(m_Controller), "MenuScene");
+            m_Controller.SetState(new MenuState(m_Controller, m_IsTGS), "MenuScene");
         }
     }
 }

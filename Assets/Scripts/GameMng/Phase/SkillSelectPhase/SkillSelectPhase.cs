@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class SkillSelectPhase : Phase
 {
-    public SkillSelectPhase(GameMng gameMng) 
-        : base(gameMng)
+    public SkillSelectPhase(GameMng gameMng, bool isTGS) 
+        : base(gameMng, isTGS)
     {
     }
 

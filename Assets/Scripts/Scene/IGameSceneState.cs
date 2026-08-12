@@ -10,8 +10,8 @@ using UnityEngine;
 
 public class IGameSceneState : ISceneState
 {
-    public IGameSceneState(SceneStateController controller) 
-        : base(controller)
+    public IGameSceneState(SceneStateController controller, bool isTGS) 
+        : base(controller, isTGS)
     {
         StateName = "IGameSceneState";
     }
@@ -26,23 +26,27 @@ public class IGameSceneState : ISceneState
             switch (sceneName) 
             {
                 case "MenuScene":
-                    state = new MenuState(m_Controller);
+                    state = new MenuState(m_Controller, m_IsTGS);
                     break;
 
                 case "SkillSelectScene":
-                    state = new SkillSelectState(m_Controller);
+                    state = new SkillSelectState(m_Controller, m_IsTGS);
                     break;
 
                 case "TutorialScene":
-                    state = new TutorialState(m_Controller);
+                    state = new TutorialState(m_Controller, m_IsTGS);
                     break;
 
                 case "InGameScene":
-                    state = new InGameState(m_Controller);
+                    state = new InGameState(m_Controller, m_IsTGS);
                     break;
 
                 case "ScoreScene":
-                    state = new ScoreState(m_Controller);
+                    state = new ScoreState(m_Controller, m_IsTGS);
+                    break;
+
+                case "IdleScreenScene":
+                    state = new IdleScreenState(m_Controller, m_IsTGS);
                     break;
 
                 default:

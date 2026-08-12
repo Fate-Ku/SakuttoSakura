@@ -10,15 +10,15 @@ using UnityEngine;
 
 public class SkillSelectState : IGameSceneState
 {
-    public SkillSelectState(SceneStateController controller)
-        : base(controller)
+    public SkillSelectState(SceneStateController controller, bool isTGS)
+        : base(controller, isTGS)
     {
         StateName = "SkillSelectState";
     }
 
     public override void StateBegin()
     {
-        GameMng.Instance.SetPhase(GameMng.PhaseType.SkillSelect);
+        GameMng.Instance.SetPhase(GameMng.PhaseType.SkillSelect, m_IsTGS);
     }
 
     public override void StateEnd()

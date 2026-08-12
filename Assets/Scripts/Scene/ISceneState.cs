@@ -19,10 +19,13 @@ public class ISceneState
 
     //Controller
     protected SceneStateController m_Controller = null;
+    //is TGS
+    protected bool m_IsTGS = false;
 
-    public ISceneState(SceneStateController controller)
+    public ISceneState(SceneStateController controller, bool isTGS)
     {
         m_Controller = controller;
+        m_IsTGS = isTGS;
     }
 
     //begin

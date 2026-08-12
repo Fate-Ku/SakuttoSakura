@@ -63,6 +63,7 @@ public class InGameSystem : IGameSystem
     //game type
     //-------------------
     private InGameType m_InGameType;
+    private bool m_IsTGS;
 
     //-------------------
     //game end
@@ -127,9 +128,10 @@ public class InGameSystem : IGameSystem
     private InGameStateController m_InGameSystemStateController = new();
 
 
-    public InGameSystem(GameMng gameMng, InGameType inGameType = InGameType.Classic)
+    public InGameSystem(GameMng gameMng, bool isTGS, InGameType inGameType = InGameType.Classic)
         : base(gameMng)
     {
+        m_IsTGS = isTGS;
         m_InGameType = inGameType;
     }
 
@@ -426,17 +428,25 @@ public class InGameSystem : IGameSystem
                             }
                         }
                     }
+                    //normal game process
+                    string processDataPath = "Data/ProcessData/NormalProcessData";
+                    string eventDataPath = "Data/EventData/NormalEventData";
+                    if (m_IsTGS)
+                    {
+                        processDataPath = "Data/ProcessData/TGSNormalProcessData";
+                        eventDataPath = "Data/EventData/TGSNormalEventData";
+                    }
                     m_GameProcessController ??= new NormalGameProcess(
                         this,
-                        "Data/ProcessData/NormalProcessData",
-                        "Data/EventData/NormalEventData",
+                        processDataPath,
+                        eventDataPath,
                         level);
                 }
 
                 break;
 
             case InGameType.Tutorial:
-                m_GameProcessController = new TutorialGameProcess(this);
+                m_GameProcessController = new TutorialGameProcess(this, m_IsTGS);
                 break;
 
         }

@@ -9,15 +9,15 @@ using UnityEngine;
 
 public class InGameState : IGameSceneState
 {
-    public InGameState(SceneStateController controller) 
-        : base(controller)
+    public InGameState(SceneStateController controller, bool isTGS) 
+        : base(controller, isTGS)
     {
-        this.StateName = "InGameState";
+        StateName = "InGameState";
     }
 
     public override void StateBegin()
     {
-        GameMng.Instance.SetPhase(GameMng.PhaseType.InGame);
+        GameMng.Instance.SetPhase(GameMng.PhaseType.InGame, m_IsTGS);
 
         BGMMng.Instance.SetBGM(BGMType.BLoop, true);
     }

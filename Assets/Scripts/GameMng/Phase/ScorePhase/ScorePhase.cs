@@ -20,8 +20,8 @@ public class ScorePhase : Phase
 
     private InGameUIScore m_ScoreUI;
 
-    public ScorePhase(GameMng gameMng) 
-        : base(gameMng)
+    public ScorePhase(GameMng gameMng, bool isTGS) 
+        : base(gameMng, isTGS)
     {
     }
 

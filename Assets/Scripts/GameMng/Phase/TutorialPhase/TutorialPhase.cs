@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class TutorialPhase : Phase
 {
-    public TutorialPhase(GameMng gameMng) 
-        : base(gameMng)
+    public TutorialPhase(GameMng gameMng, bool isTGS) 
+        : base(gameMng, isTGS)
     {
     }
 
@@ -21,7 +21,7 @@ public class TutorialPhase : Phase
 
     public override void Init()
     {
-        m_GameMng.InGameInit(InGameType.Tutorial);
+        m_GameMng.InGameInit(m_IsTGS, InGameType.Tutorial);
 
         m_InGameUI = new InGameUI(m_GameMng);
         m_InGameUI.Init();
