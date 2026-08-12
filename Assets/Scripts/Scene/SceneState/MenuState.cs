@@ -22,17 +22,22 @@ public class MenuState : IGameSceneState
 
     public override void StateBegin()
     {
+        GameMng.Instance.SetPhase(GameMng.PhaseType.Menu, m_IsTGS);
+
         BGMMng.Instance.SetBGM(BGMType.Intro);
         BGMMng.Instance.SetNextBGM(BGMType.A1Loop, true);
     }
 
     public override void StateEnd()
     {
+        GameMng.Instance.EndPhase();
+
         BGMMng.Instance.PauseBGM();
     }
 
     public override void StateUpdate()
     {
+        GameMng.Instance.Update();
         ControllSceneByGameMng();
 
         if (m_IsTGS)

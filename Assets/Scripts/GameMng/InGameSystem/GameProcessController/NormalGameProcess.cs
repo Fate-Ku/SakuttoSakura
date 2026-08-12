@@ -14,8 +14,8 @@ using UnityEngine;
 
 public class NormalGameProcess : IGameProcessController
 {
-    public NormalGameProcess(InGameSystem inGameSystem, string processData, string eventData,int level)
-        : base(inGameSystem, processData, eventData, level)
+    public NormalGameProcess(InGameSystem inGameSystem, string processData, string eventData, string bgmData, int level)
+        : base(inGameSystem, processData, eventData, bgmData, level)
     {
     }
 }

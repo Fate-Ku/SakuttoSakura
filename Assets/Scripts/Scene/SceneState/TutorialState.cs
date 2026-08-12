@@ -2,6 +2,7 @@
 // TutorialState.cs
 // 
 // 2026/07/13 Created By Man-Yi, Yeh
+// 2026/08/12 Updated By Man-Yi, Yeh
 //
 
 using UnityEngine;
@@ -18,7 +19,7 @@ public class TutorialState : IGameSceneState
     {
         GameMng.Instance.SetPhase(GameMng.PhaseType.Tutorial, m_IsTGS);
 
-        BGMMng.Instance.SetBGM(BGMType.BLoop, true);
+        //BGMMng.Instance.SetBGM(BGMType.BLoop, true);
     }
 
     public override void StateEnd()

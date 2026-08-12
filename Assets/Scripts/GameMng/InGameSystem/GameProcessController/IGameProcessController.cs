@@ -4,6 +4,7 @@
 // 2026/07/13 Created By Man-Yi, Yeh
 // 2026/07/16 Updated By Man-Yi, Yeh
 // 2026/07/28 Updated By Man-Yi, Yeh
+// 2026/08/12 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -27,6 +28,8 @@ public class IGameProcessController
     protected Dictionary<int, FloorData[]> m_EventDatas = new();
     protected FloorData[] m_NowEventData;
 
+    protected Dictionary<int, BGMData[]> m_BGMDatas = new();
+
     protected int m_Level;
     public int Level
     {
@@ -39,8 +42,9 @@ public class IGameProcessController
     protected int m_NowFloor;
     protected IBlock m_TmpBlock;
     
-    public IGameProcessController(InGameSystem inGameSystem, string processDataPath, string eventDataPath,
-                                  int startLevel = 1)
+    public IGameProcessController(InGameSystem inGameSystem, 
+        string processDataPath, string eventDataPath, string bgmDataPath,
+        int startLevel = 1)
     {
         m_InGameSystem = inGameSystem;
         m_GameTimer = m_InGameSystem.GameInfo.GetPlayTime();
@@ -49,6 +53,7 @@ public class IGameProcessController
         
         InitProcessDatas(processDataPath);
         InitEventDatas(eventDataPath);
+        InitBGMDatas(bgmDataPath);
 
         m_InGameSystem.GameInfo.nowLevel = m_Level;
     }
@@ -70,6 +75,14 @@ public class IGameProcessController
         if (eventData != null)
         {
             m_NowEventData = eventData;
+        }
+        BGMData[] bgmDatas = GetBGMData(m_Level);
+        if (bgmDatas != null)
+        {
+            foreach (var bgmData in bgmDatas)
+            {
+                BGMMng.Instance.SetNextBGM(bgmData.type, bgmData.loop);
+            }
         }
 
         m_GameTimer += m_InGameSystem.GameInfo.GetLevelUpAddGameTime();
@@ -256,6 +269,16 @@ public class IGameProcessController
         return res;
     }
 
+    protected BGMData[] GetBGMData(int level)
+    {
+        BGMData[] res = null;
+        if (m_BGMDatas.TryGetValue(level, out var data))
+        {
+            res = data;
+        }
+        return res;
+    }
+
     //-------------------
     //init
     //-------------------
@@ -304,6 +327,35 @@ public class IGameProcessController
             if (data != null)
             {
                 m_NowEventData = data;
+                break;
+            }
+        }
+    }
+
+    private void InitBGMDatas(string jsonFilePath)
+    {
+        TextAsset jsonTextAsset = Resources.Load<TextAsset>(jsonFilePath);
+        NextBGMDataList dataSet =
+            JsonUtility.FromJson<NextBGMDataList>(jsonTextAsset.text);
+        foreach (NextBGMData data in dataSet.list)
+        {
+            bool isAdded = m_BGMDatas.TryAdd(data.level, data.datas);
+            if (!isAdded)
+            {
+                Debug.LogError($"Failed to add BGMData for level {data.level}");
+            }
+        }
+
+        for (int i = m_Level; i >= 1; i -= 1)
+        {
+            BGMData[] bgmDatas = GetBGMData(i);
+            if (bgmDatas != null)
+            {
+                BGMMng.Instance.SetBGM(bgmDatas[0].type, bgmDatas[0].loop);
+                for(int j = 1; j < bgmDatas.Length; ++j)
+                {
+                    BGMMng.Instance.SetNextBGM(bgmDatas[j].type, bgmDatas[j].loop);
+                }
                 break;
             }
         }

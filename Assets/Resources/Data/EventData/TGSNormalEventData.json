@@ -12,11 +12,47 @@
             },
 
             {
-              "type": 9,
+              "type": 8,
+              "rate": 1
+            }
+          ]
+        },
+
+        {
+          "createRate": 0.8,
+          "typeRateDatas": [
+            {
+              "type": 6,
+              "rate": 1
+            },
+
+            {
+              "type": 7,
+              "rate": 2
+            },
+
+            {
+              "type": 8,
+              "rate": 1
+            }
+          ]
+        },
+
+        {
+          "createRate": 0.6,
+          "typeRateDatas": [
+            {
+              "type": 6,
+              "rate": 1
+            },
+
+            {
+              "type": 7,
               "rate": 1
             }
           ]
         }
+
       ]
     }
   ]

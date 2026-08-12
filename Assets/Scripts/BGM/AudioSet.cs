@@ -10,15 +10,17 @@ using UnityEngine;
 
 public class AudioSet : MonoBehaviour
 {
-    [SerializeField] private AudioInfo[] audioInfos;
+    private AudioInfo[] audioInfos;
     private Dictionary<BGMType, AudioInfo> m_AudioInfos = new();
 
     private BGMType m_NowBGMType = BGMType.None;
-    private BGMType m_NextBGMTYpe = BGMType.None;
+    private List<BGMType> m_NextBGMTypes = new();
     public float m_Volume = 0.5f;
 
     void Start()
     {
+        audioInfos = GetComponentsInChildren<AudioInfo>();
+
         foreach (var audioInfo in audioInfos)
         {
             bool isAdded = m_AudioInfos.TryAdd(audioInfo.type, audioInfo);
@@ -33,21 +35,29 @@ public class AudioSet : MonoBehaviour
     {
         // Check if the next BGM type is different from the current one
         if (m_NowBGMType != BGMType.None &&
-            m_NowBGMType != m_NextBGMTYpe)
+            m_NextBGMTypes.Count > 0)
         {
-            if (GetAudioInfo(m_NowBGMType).GetRemainingTime() < 0.1f)
+            if (m_NowBGMType != m_NextBGMTypes[0])
             {
-                Debug.Log("BGM: Play Next");
-                PlayNext();
+                if (GetAudioInfo(m_NowBGMType).GetRemainingTime() < 0.1f)
+                {
+                    Debug.Log("BGM: Play Next");
+                    PlayNext();
+                }
             }
         }
 
-        if (m_NextBGMTYpe != BGMType.None &&
-            m_NextBGMTYpe != m_NowBGMType)
+        if (m_NextBGMTypes.Count > 0)
         {
-            if (GetAudioInfo(m_NextBGMTYpe).IsPlaying())
+            if (m_NextBGMTypes[0] != BGMType.None ||
+                m_NextBGMTypes[0] != m_NowBGMType)
             {
-                m_NowBGMType = m_NextBGMTYpe;
+                // Handle the next BGM type
+                if (GetAudioInfo(m_NextBGMTypes[0]).IsPlaying())
+                {
+                    m_NowBGMType = m_NextBGMTypes[0];
+                    m_NextBGMTypes.RemoveAt(0);
+                }
             }
         }
     }
@@ -87,8 +97,22 @@ public class AudioSet : MonoBehaviour
             Debug.LogError($"AudioInfo with type {type} not found.");
             return;
         }
-        m_NextBGMTYpe = type;
-        GetAudioInfo(type)?.SetLoop(loop);
+
+        int index = m_NextBGMTypes.Count - 1;
+        if (index >= 0 && m_NextBGMTypes[index] == type)
+        {
+            return;
+        }
+
+
+        GetAudioInfo(m_NowBGMType).SetLoop(false);
+        foreach (var nextType in m_NextBGMTypes)
+        {
+            GetAudioInfo(nextType).SetLoop(false);
+        }
+        GetAudioInfo(type).SetLoop(loop);
+        m_NextBGMTypes.Add(type);
+
     }
 
     public void Pause()
@@ -126,14 +150,14 @@ public class AudioSet : MonoBehaviour
 
     private void PlayNext()
     {
-        if (m_NextBGMTYpe != BGMType.None &&
-            m_NextBGMTYpe != m_NowBGMType)
+        if (m_NextBGMTypes[0] != BGMType.None &&
+            m_NextBGMTypes[0] != m_NowBGMType)
         {
             double startTime = AudioSettings.dspTime +
                                GetAudioInfo(m_NowBGMType).GetRemainingTime();
             
-            GetAudioInfo(m_NextBGMTYpe)?.SetVolume(m_Volume);
-            GetAudioInfo(m_NextBGMTYpe)?.PlayScheduled(startTime);
+            GetAudioInfo(m_NextBGMTypes[0])?.SetVolume(m_Volume);
+            GetAudioInfo(m_NextBGMTypes[0])?.PlayScheduled(startTime);
         }
     }
 }

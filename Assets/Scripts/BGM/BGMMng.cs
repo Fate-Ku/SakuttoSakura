@@ -70,6 +70,7 @@ public class BGMMng
 
     public void SetNextBGM(BGMType bgmType, bool loop = false)
     {
+        Debug.Log($"Setting next BGM: {bgmType}, loop: {loop}");
         if (m_AudioSet != null)
         {
             m_AudioSet.SetNextAudio(bgmType, loop);

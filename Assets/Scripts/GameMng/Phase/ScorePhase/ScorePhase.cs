@@ -41,14 +41,16 @@ public class ScorePhase : Phase
 
     }
 
-    public override void Update()
-    {
-        //m_ScoreUI.Update();
-    }
-
     public override void Term()
     {
         m_GameMng.InGameTerm();
         m_ScoreUI.Term();
     }
+
+    public override void Update()
+    {
+        //m_ScoreUI.Update();
+    }
+
+    
 }

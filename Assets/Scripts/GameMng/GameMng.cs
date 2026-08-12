@@ -38,6 +38,7 @@ public class GameMng
 {
     public enum PhaseType
     {
+        Menu,
         SkillSelect,
         InGame,
         Score,
@@ -166,6 +167,10 @@ public class GameMng
         Phase phase = null;
         switch (phaseType)
         {
+            case PhaseType.Menu:
+                phase = new MenuPhase(this, isTGS);
+                break;
+
             case PhaseType.SkillSelect:
                 phase = new SkillSelectPhase(this, isTGS);
                 break;

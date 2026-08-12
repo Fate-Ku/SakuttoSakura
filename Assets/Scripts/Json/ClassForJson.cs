@@ -6,6 +6,7 @@
 //
 
 
+using JetBrains.Annotations;
 using System;
 using UnityEngine;
 
@@ -92,6 +93,29 @@ public class LevelFloorData
 public class LevelFloorDataList
 {
     public LevelFloorData[] list;
+}
+
+//-------------------
+//Next BGM Data
+//-------------------
+[Serializable]
+public class BGMData
+{
+    public BGMType type;
+    public bool loop;
+}
+
+[Serializable]
+public class NextBGMData
+{
+    public int level;
+    public BGMData[] datas;
+}
+
+[Serializable]
+public class NextBGMDataList
+{
+    public NextBGMData[] list;
 }
 
 

@@ -3,6 +3,7 @@
 // 
 // 2026/05/19 Created By Man-Yi, Yeh
 // 2026/05/31 Updated By Man-Yi, Yeh
+// 2026/08/12 Updated By Man-Yi, Yeh
 //
 
 using UnityEngine;
@@ -19,7 +20,7 @@ public class InGameState : IGameSceneState
     {
         GameMng.Instance.SetPhase(GameMng.PhaseType.InGame, m_IsTGS);
 
-        BGMMng.Instance.SetBGM(BGMType.BLoop, true);
+        //BGMMng.Instance.SetBGM(BGMType.BLoop, true);
     }
 
     public override void StateEnd()

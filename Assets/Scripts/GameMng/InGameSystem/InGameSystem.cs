@@ -407,6 +407,9 @@ public class InGameSystem : IGameSystem
                 {
                     GameObject gameTestOb = GameObject.Find("GameTest");
                     int level = 1;
+                    string processDataPath = "Data/ProcessData/NormalProcessData";
+                    string eventDataPath = "Data/EventData/NormalEventData";
+                    string bgmDataPath = "Data/NextBGMData/NormalNextBGMData";
                     if (gameTestOb != null)
                     {
                         if (gameTestOb.TryGetComponent<GameTest>(out var gameTest))
@@ -420,26 +423,23 @@ public class InGameSystem : IGameSystem
                             //test game process
                             if (gameTest.isTestGameProcess)
                             {
-                                m_GameProcessController = new NormalGameProcess(
-                                    this,
-                                    "Data/ProcessData/TestProcessData",
-                                    "Data/EventData/TestEventData",
-                                    level);
+                                processDataPath = "Data/ProcessData/TestProcessData";
+                                eventDataPath = "Data/EventData/TestEventData";
                             }
                         }
                     }
                     //normal game process
-                    string processDataPath = "Data/ProcessData/NormalProcessData";
-                    string eventDataPath = "Data/EventData/NormalEventData";
                     if (m_IsTGS)
                     {
                         processDataPath = "Data/ProcessData/TGSNormalProcessData";
                         eventDataPath = "Data/EventData/TGSNormalEventData";
+                        bgmDataPath = "Data/NextBGMData/TGSNormalNextBGMData";
                     }
                     m_GameProcessController ??= new NormalGameProcess(
                         this,
                         processDataPath,
                         eventDataPath,
+                        bgmDataPath,
                         level);
                 }
 

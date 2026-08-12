@@ -1,0 +1,28 @@
+{
+  "list": [
+    {
+      "level": 1,
+      "datas": [
+        {
+          "type": 4,
+          "loop": false
+        },
+
+        {
+          "type": 6,
+          "loop": false
+        },
+
+        {
+          "type": 7,
+          "loop": false
+        },
+
+        {
+          "type": 8,
+          "loop": true
+        }
+      ]
+    }
+  ]
+}
