@@ -2,6 +2,7 @@
 // InGameSystemPlayState.cs
 // 
 // 2026/06/10 Created By Man-Yi, Yeh
+// 2026/08/18 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;
@@ -18,11 +19,13 @@ public class InGameSystemPlayState : IInGameSystemState
     public override void StateBegin()
     {
         m_InGameSystem.StartPlay();
+        BGMMng.Instance.ResumeBGM();
     }
 
     public override void StateEnd()
     {
         m_InGameSystem.IsPlaying = false;
+        BGMMng.Instance.PauseBGM();
     }
 
     public override void StateUpdate()

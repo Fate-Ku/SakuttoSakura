@@ -5,6 +5,7 @@
 // 2026/07/16 Updated By Man-Yi, Yeh
 // 2026/07/28 Updated By Man-Yi, Yeh
 // 2026/08/12 Updated By Man-Yi, Yeh
+// 2026/08/18 Updated By Man-Yi, Yeh
 // 
 
 using System;
@@ -352,7 +353,9 @@ public class IGameProcessController
             if (bgmDatas != null)
             {
                 BGMMng.Instance.SetBGM(bgmDatas[0].type, bgmDatas[0].loop);
-                for(int j = 1; j < bgmDatas.Length; ++j)
+                BGMMng.Instance.PauseBGM();
+
+                for (int j = 1; j < bgmDatas.Length; ++j)
                 {
                     BGMMng.Instance.SetNextBGM(bgmDatas[j].type, bgmDatas[j].loop);
                 }

@@ -6,6 +6,7 @@
 // 2026/07/03 Updated By Man-Yi, Yeh
 // 2026/07/05 Updated By Man-Yi, Yeh
 // 2026/07/06 Updated By Man-Yi, Yeh
+// 2026/08/18 Updated By Man-Yi, Yeh
 // 
 
 using UnityEngine;

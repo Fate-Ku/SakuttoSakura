@@ -39,7 +39,7 @@ public class AudioSet : MonoBehaviour
         {
             if (m_NowBGMType != m_NextBGMTypes[0])
             {
-                if (GetAudioInfo(m_NowBGMType).GetRemainingTime() < 0.1f)
+                if (GetAudioInfo(m_NowBGMType).GetRemainingTime() < 1f)
                 {
                     Debug.Log("BGM: Play Next");
                     PlayNext();
