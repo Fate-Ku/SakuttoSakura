@@ -29,6 +29,7 @@
 // 2026/08/01 Updated By Fate Ku
 // 2026/08/04 Updated By Man-Yi, Yeh
 // 2026/08/04 Updated By Fate Ku
+// 2026/08/24 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -286,9 +287,11 @@ public class GameMng
         desEff[BlockType.Kikyou] = m_EffectInfo.GetDesEffKikyou();
         desEff[BlockType.Sakura] = m_EffectInfo.GetDesEffSakura();
 
+        // 2026/08/24 Updated By Fate Ku
         m_EffectSystem = new EffectSystem(this, m_EffectInfo.GetEffectPrefab(), mats,
             m_EffectInfo.GetSakuraImagePrefab(),m_EffectInfo.GetSakuraTarget(),
-            m_EffectInfo.GetSakuraFlyPrefab(), desEff);
+            m_EffectInfo.GetSakuraFlyPrefab(), desEff,m_EffectInfo.GetSakuraRenderer());
+        // 2026/08/24 Updated By Fate Ku
         // 2026/06/25 Updated By Fate Ku
 
         //init

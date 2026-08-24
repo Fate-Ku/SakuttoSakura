@@ -5,6 +5,7 @@
 // 2026/07/06 Updated By Fate Ku
 // 2026/07/07 Updated By Fate Ku
 // 2026/07/26 Updated By Fate Ku
+// 2026/08/24 Updated By Fate Ku
 // 
 
 using UnityEngine;
@@ -27,6 +28,7 @@ public class EffectInfo : MonoBehaviour
     public GameObject sakuraImagePrefab;
     public Transform sakuraTarget;
     public GameObject sakuraFlyPrefab;
+    public GameObject sakuraRenderer;
 
     // 2026/07/26 added by Fate
     [Header("Destory Eff")]
@@ -39,6 +41,9 @@ public class EffectInfo : MonoBehaviour
     public GameObject desEffSakura;
     // 2026/07/26 added by Fate
     
+    public GameObject GetSakuraRenderer()
+    {  return sakuraRenderer; }
+
     public GameObject GetEffectPrefab()
     {
         return effectPrefab;

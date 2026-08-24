@@ -8,9 +8,10 @@
 // 2026/07/17 Added By Fate Ku 
 // 2026/07/27 Added By Fate Ku 
 // 2026/08/03 Added By Fate Ku 
+// 2026/08/24 Added By Fate Ku 
 // 
 
-using System.Collections;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,8 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ComboText;
     [SerializeField] private TextMeshProUGUI LevelText;
     [SerializeField] private TextMeshPro MoveableComboText;
+    [SerializeField] private GameObject sakuraRenderer;
+    [SerializeField] private Transform sakuraTarget;
 
     [Header("Show Result- words")]
     [SerializeField] public GameObject NiceTry;
@@ -69,6 +72,9 @@ public class ScoreInfo : MonoBehaviour
     //[SerializeField] private int ShowComboTime;
     [SerializeField] private int ComboBase;//base combo
     [SerializeField] private int ComboBaseBonus;//bonus
+
+    public GameObject GetSakuraRenderer()
+    { return sakuraRenderer; }
 
     public TextMeshProUGUI GetScoreText()
     {
@@ -214,5 +220,10 @@ public class ScoreInfo : MonoBehaviour
 
     public GameObject GetSilverStamp() { return SilverStamp; }
     public GameObject GetGoldStamp() { return GoldStamp; }
+
+    public Transform GetSakuraTarget()
+    {
+        return sakuraTarget;
+    }
 
 }

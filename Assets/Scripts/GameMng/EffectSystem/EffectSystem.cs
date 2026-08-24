@@ -8,6 +8,7 @@
 // 2026/07/11 Updated By Fate Ku
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/26 Updated By Fate Ku
+// 2026/08/24 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ public class EffectSystem : IGameSystem
     private GameObject m_SakuraImagePrefab;
     private Transform m_SakuraTarget;
     private GameObject m_SakuraFlyPrefab;
+    private GameObject m_SakuraRenderer;
 
     // flower materials
     private Dictionary<BlockType, Material> m_Materials;
@@ -36,11 +38,28 @@ public class EffectSystem : IGameSystem
     public int m_NextCombineEffectId = 0;
     public int m_NextDestroyEffectId = 0;
 
+    //====================================
+    // Basket Sakura
+    //====================================
+
+    private readonly List<GameObject> m_BasketSakuras =
+        new List<GameObject>();
+
+    private int m_BasketSakuraCount = 0;
+
+    // sakura space
+    private const float BASKET_SAKURA_SPACING_X = 0.5f;
+    private const float BASKET_SAKURA_SPACING_Y = 0.5f;
+
+    // sakura size
+    private const float BASKET_SAKURA_SCALE = 0.35f;
+
     public EffectSystem(
         GameMng gameMng, GameObject effectPrefab,
         Dictionary<BlockType, Material> materials,
         GameObject sakuraImagePrefab, Transform sakuraTarget,
-        GameObject sakuraFlyPrefab, Dictionary<BlockType, GameObject> desEff)
+        GameObject sakuraFlyPrefab, Dictionary<BlockType, GameObject> desEff
+        , GameObject basketRenderer)
         : base(gameMng)
     {
         m_EffectPrefab = effectPrefab;
@@ -51,6 +70,8 @@ public class EffectSystem : IGameSystem
         m_SakuraFlyPrefab = sakuraFlyPrefab;
 
         m_DesEff = desEff;
+
+        m_SakuraRenderer = basketRenderer;
     }
 
     // combine effect
@@ -253,9 +274,67 @@ public class EffectSystem : IGameSystem
         }
 
         SakuraFly fly = sakura.AddComponent<SakuraFly>();
-        fly.Init(m_SakuraTarget.position);
+
+        fly.Init(
+            m_SakuraTarget.position,
+            AddSakuraToBasket
+        );
     }
 
+
+    private void AddSakuraToBasket()
+    {
+        m_BasketSakuraCount++;
+
+        Debug.Log(
+            $"Basket Sakura Count = {m_BasketSakuraCount}");
+
+        if (m_SakuraRenderer == null)
+            return;
+
+        GameObject sakura =
+            GameObject.Instantiate(m_SakuraRenderer);
+
+        sakura.name =
+            $"BasketSakura_{m_BasketSakuraCount}";
+
+        sakura.transform.localScale =
+            Vector3.one * BASKET_SAKURA_SCALE;
+
+        Vector3 pos =
+            GetBasketSakuraPosition(
+                m_BasketSakuraCount - 1);
+
+        sakura.transform.position = pos;
+
+        m_BasketSakuras.Add(sakura);
+    }
+
+    private Vector3 GetBasketSakuraPosition(int index)
+    {
+        int column = index % 9;
+        int row = index / 9;
+
+        Vector3 center =
+            m_SakuraTarget.position;
+
+        float startX =
+            center.x -
+            (6 * BASKET_SAKURA_SPACING_X * 0.5f);
+
+        float x =
+            startX +
+            column * BASKET_SAKURA_SPACING_X * 0.8f;
+
+        float y =
+            center.y +
+            row * BASKET_SAKURA_SPACING_Y * 0.5f;
+
+        return new Vector3(
+            x,
+            y,
+            -5f);
+    }
 }
 
 

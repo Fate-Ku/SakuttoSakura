@@ -2,12 +2,16 @@
 // SakuraFly.cs
 // 
 // 2026/07/06 Created By Fate Ku
+// 2026/08/24 Updated By Fate Ku
 // 
 
+using System;
 using UnityEngine;
 
 public class SakuraFly : MonoBehaviour
 {
+    private Action m_OnArrived;
+
     private Vector3 m_Start;
     private Vector3 m_Target;
     private Vector3 m_Control;
@@ -22,10 +26,15 @@ public class SakuraFly : MonoBehaviour
     private const float START_SCALE = 0.6f;
     private const float PEAK_SCALE = 0.75f;
 
-    public void Init(Vector3 target)
+
+    public void Init(Vector3 target, Action onArrived = null)
     {
         m_Start = transform.position;
         m_Target = target;
+
+        m_OnArrived = onArrived;
+
+        m_Timer = 0f;
 
         transform.localScale = new Vector3(
             START_SCALE,
@@ -36,8 +45,8 @@ public class SakuraFly : MonoBehaviour
 
         float height = 2.5f;
 
-        // every flowers have different radians 
-        float randomOffset = Random.Range(-1.2f, 1.2f);
+        // every flowers have different radians
+        float randomOffset = UnityEngine.Random.Range(-1.2f, 1.2f);
 
         m_Control = (m_Start + m_Target) * 0.5f;
         m_Control.y += height;
@@ -94,6 +103,8 @@ public class SakuraFly : MonoBehaviour
 
         if (m_Timer >= m_Duration)
         {
+            m_OnArrived?.Invoke();
+
             Destroy(gameObject);
         }
     }

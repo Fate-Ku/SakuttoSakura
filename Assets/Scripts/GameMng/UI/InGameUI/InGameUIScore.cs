@@ -9,8 +9,10 @@
 // 2026/07/17 Updated By Fate Ku
 // 2026/07/30 Updated By Fate Ku
 // 2026/08/03 Updated By Fate Ku
+// 2026/08/24 Updated By Fate Ku
 // 
 
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -32,10 +34,31 @@ public class InGameUIScore
     private GameObject m_Silver;
     private GameObject m_Gold;
 
+    private GameObject m_SakuraRenderer;
+    private Transform m_SakuraTarget;
+
+
+    //====================================
+    // Basket Sakura
+    //====================================
+
+    private readonly List<GameObject> m_BasketSakuras =
+        new List<GameObject>();
+
+    // sakura space
+    private const float BASKET_SAKURA_SPACING_X = 0.5f;
+    private const float BASKET_SAKURA_SPACING_Y = 0.5f;
+
+    // sakura size
+    private const float BASKET_SAKURA_SCALE = 0.35f;
+
+
+
     public InGameUIScore(TextMeshProUGUI scoreText, TextMeshProUGUI comboText
         , TextMeshPro moveableComboPrefab, TextMeshProUGUI sakuraText, TextMeshProUGUI levelText,
         GameObject NiceTry, GameObject GoodJob, GameObject WellDone,
-        GameObject Bronze, GameObject Silver, GameObject Gold)
+        GameObject Bronze, GameObject Silver, GameObject Gold,
+        GameObject basketRenderer, Transform sakuraTarget)
     {
         m_ScoreText = scoreText;
         m_ComboText = comboText;
@@ -50,6 +73,8 @@ public class InGameUIScore
         m_Silver = Silver;
         m_Gold = Gold;
 
+        m_SakuraRenderer = basketRenderer;
+        m_SakuraTarget = sakuraTarget;
     }
 
     public float showComboTime;
@@ -77,17 +102,19 @@ public class InGameUIScore
                 m_LevelText.text = maxLevel.ToString();
             }
 
-            if (m_SakuraText != null)
+            if (m_SakuraText != null && m_SakuraRenderer != null && m_SakuraTarget != null)
             {
                 int sakuraQty = GameMng.Instance.GetBlockDestroyNum(BlockType.Sakura);
                 m_SakuraText.text = sakuraQty.ToString();
 
+                AddSakuraToBasket(sakuraQty);
             }
 
             if (m_NiceTry != null)
             {
                 Show();
             }
+
 
             //Debug.Log("Score : " + score.ToString());
             //Debug.Log("InGameUIScore Init");
@@ -186,5 +213,87 @@ public class InGameUIScore
 
         }
     }
+
+
+    private void AddSakuraToBasket(int sakuraCount)
+    {
+        Debug.Log(
+            $"Add Sakura To Basket Count = {sakuraCount}");
+
+        if (m_SakuraRenderer == null)
+        {
+            Debug.LogWarning(
+                "m_SakuraRenderer is null.");
+            return;
+        }
+
+        if (m_SakuraTarget == null)
+        {
+            Debug.LogWarning(
+                "m_SakuraTarget is null.");
+            return;
+        }
+
+        // init
+        foreach (GameObject sakura in m_BasketSakuras)
+        {
+            if (sakura != null)
+            {
+                GameObject.Destroy(sakura);
+            }
+        }
+
+        m_BasketSakuras.Clear();
+
+        // create sakura
+        for (int i = 0; i < sakuraCount; i++)
+        {
+            GameObject sakura =
+                GameObject.Instantiate(m_SakuraRenderer);
+
+            sakura.name =
+                $"BasketSakura_{i + 1}";
+
+            sakura.transform.localScale =
+                Vector3.one * BASKET_SAKURA_SCALE;
+
+            Vector3 pos =
+                GetBasketSakuraPosition(i);
+
+            sakura.transform.position =
+                pos;
+
+            m_BasketSakuras.Add(sakura);
+        }
+
+        Debug.Log(
+            $"Created {m_BasketSakuras.Count} Basket Sakuras.");
+    }
+    private Vector3 GetBasketSakuraPosition(int index)
+    {
+        int column = index % 9;
+        int row = index / 9;
+
+        Vector3 center =
+            m_SakuraTarget.position;
+
+        float startX =
+            center.x -
+            (6 * BASKET_SAKURA_SPACING_X * 0.5f);
+
+        float x =
+            startX +
+            column * BASKET_SAKURA_SPACING_X * 0.8f;
+
+        float y =
+            center.y +
+            row * BASKET_SAKURA_SPACING_Y * 0.5f;
+
+        return new Vector3(
+            x,
+            y,
+            -5f);
+    }
+
 
 }
