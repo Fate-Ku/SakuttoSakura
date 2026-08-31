@@ -9,6 +9,7 @@
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/26 Updated By Fate Ku
 // 2026/08/24 Updated By Fate Ku
+// 2026/08/31 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -333,7 +334,7 @@ public class EffectSystem : IGameSystem
         return new Vector3(
             x,
             y,
-            -5f);
+            -1f);
     }
 }
 

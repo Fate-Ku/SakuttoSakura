@@ -10,6 +10,7 @@
 // 2026/07/30 Updated By Fate Ku
 // 2026/08/03 Updated By Fate Ku
 // 2026/08/24 Updated By Fate Ku
+// 2026/08/31 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -292,7 +293,7 @@ public class InGameUIScore
         return new Vector3(
             x,
             y,
-            -5f);
+            -1f);
     }
 
 
