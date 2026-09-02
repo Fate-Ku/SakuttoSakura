@@ -25,7 +25,7 @@ public class InGameSystemPlayState : IInGameSystemState
     public override void StateEnd()
     {
         m_InGameSystem.IsPlaying = false;
-        BGMMng.Instance.PauseBGM();
+        //BGMMng.Instance.PauseBGM();
     }
 
     public override void StateUpdate()
