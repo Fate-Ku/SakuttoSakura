@@ -30,6 +30,7 @@
 // 2026/08/04 Updated By Man-Yi, Yeh
 // 2026/08/04 Updated By Fate Ku
 // 2026/08/24 Updated By Fate Ku
+// 2026/09/04 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -85,7 +86,7 @@ public class GameMng
     // 2026/06/25 Updated By Fate Ku
     //effect info
     private EffectInfo m_EffectInfo;
-    
+
     public EffectInfo EffectInfo
     {
         get { return m_EffectInfo; }
@@ -106,6 +107,14 @@ public class GameMng
     {
         get { return m_BlockPosInfo; }
     }
+
+    // 2026/09/04 Added By Fate Ku
+    // Sakura Info
+    private SakuraInfo m_SakuraInfo;
+
+    public SakuraInfo SakuraInfo
+    { get { return m_SakuraInfo; } }
+    // 2026/09/04 Added By Fate Ku
 
     //-------------------
     //game system
@@ -260,6 +269,15 @@ public class GameMng
         m_ScoreSystem = new ScoreSystem(this);
         m_GameLogSystem = new GameLogSystem(this);
 
+        // 2026/09/04 Added By Fate Ku
+        // Sakura Info
+        GameObject sakuraInfo = GameObject.Find("SakuraInfo");
+
+        if (sakuraInfo != null)
+        {
+            m_SakuraInfo = sakuraInfo.GetComponent<SakuraInfo>();
+        }
+        // 2026/09/04 Added By Fate Ku
 
         // 2026/06/25 Updated By Fate Ku
         GameObject effectInfo = GameObject.Find("EffectInfo");
@@ -288,11 +306,21 @@ public class GameMng
         desEff[BlockType.Sakura] = m_EffectInfo.GetDesEffSakura();
 
         // 2026/08/24 Updated By Fate Ku
+        // 2026/09/04 Updated By Fate Ku
         m_EffectSystem = new EffectSystem(this, m_EffectInfo.GetEffectPrefab(), mats,
-            m_EffectInfo.GetSakuraImagePrefab(),m_EffectInfo.GetSakuraTarget(),
-            m_EffectInfo.GetSakuraFlyPrefab(), desEff,m_EffectInfo.GetSakuraRenderer());
+            m_EffectInfo.GetSakuraImagePrefab(), m_EffectInfo.GetSakuraTarget(),
+            m_EffectInfo.GetSakuraFlyPrefab(), desEff, m_EffectInfo.GetSakuraRenderer(),
+            m_SakuraInfo.GetSakura1(), m_SakuraInfo.GetSakura2(), m_SakuraInfo.GetSakura3(),
+            m_SakuraInfo.GetSakura5(), m_SakuraInfo.GetSakura7(), m_SakuraInfo.GetSakura9(),
+            m_SakuraInfo.GetSakura11(), m_SakuraInfo.GetSakura14(), m_SakuraInfo.GetSakura17(),
+            m_SakuraInfo.GetSakura20(), m_SakuraInfo.GetSakura23(), m_SakuraInfo.GetSakura26(),
+            m_SakuraInfo.GetSakura29(), m_SakuraInfo.GetSakura32(), m_SakuraInfo.GetSakura35(),
+            m_SakuraInfo.GetSakura38(), m_SakuraInfo.GetSakura41(), m_SakuraInfo.GetSakura44(),
+            m_SakuraInfo.GetSakura47(), m_SakuraInfo.GetSakura50(), m_SakuraInfo.GetSakura53(),
+            m_SakuraInfo.GetSakura56(), m_SakuraInfo.GetSakura60());
         // 2026/08/24 Updated By Fate Ku
         // 2026/06/25 Updated By Fate Ku
+        // 2026/09/04 Updated By Fate Ku
 
         //init
         m_UIState?.Init();
@@ -339,7 +367,7 @@ public class GameMng
         return res;
     }
 
-    
+
 
     //2026/05/30 Updated By Man-Yi, Yeh
     //-------------------
@@ -444,7 +472,7 @@ public class GameMng
         if (m_InGameSystem != null)
         {
             res = m_InGameSystem.GetGameLevel();
-        }        
+        }
 
         return res;
     }
@@ -523,7 +551,7 @@ public class GameMng
     //effect
     //-------------------
 
-    public int SetCombineEffect(BlockType type,List<Vector2> pos)
+    public int SetCombineEffect(BlockType type, List<Vector2> pos)
     {
         int id = -1;
 

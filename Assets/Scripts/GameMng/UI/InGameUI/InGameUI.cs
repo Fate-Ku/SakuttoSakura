@@ -12,6 +12,7 @@
 // 2026/07/17 Updated By Fate Ku
 // 2026/08/03 Updated By Fate Ku
 // 2026/08/24 Updated By Fate Ku
+// 2026/09/04 Updated By Fate Ku
 //
 
 using UnityEngine;
@@ -29,6 +30,14 @@ public class InGameUI : UISystem
     private InGameUIScore m_ScoreUI;
     private InGameUITimer m_Timer;
 
+    // 2026/09/04 Added By Fate Ku
+    // Sakura Info
+    private SakuraInfo m_SakuraInfo;
+
+    public SakuraInfo SakuraInfo
+    { get { return m_SakuraInfo; } }
+    // 2026/09/04 Added By Fate Ku
+
     public InGameUI(GameMng gameMng)
         : base(gameMng)
     {
@@ -42,6 +51,16 @@ public class InGameUI : UISystem
         //m_ButtonSystem.Init();
         //m_Background.Init();
 
+        // 2026/09/04 Added By Fate Ku
+        // Sakura Info
+        GameObject sakuraInfo = GameObject.Find("SakuraInfo");
+
+        if (sakuraInfo != null)
+        {
+            m_SakuraInfo = sakuraInfo.GetComponent<SakuraInfo>();
+        }
+        // 2026/09/04 Added By Fate Ku
+
 
         GameObject scoreInfo = GameObject.Find("ScoreInfo");
         if (scoreInfo != null)
@@ -53,7 +72,17 @@ public class InGameUI : UISystem
             , m_ScoreInfo.GetMoveableComboText(), m_ScoreInfo.GetSakuraText(), m_ScoreInfo.GetLevelText(),
           m_ScoreInfo.GetNiceTry(), m_ScoreInfo.GetGoodJob(), m_ScoreInfo.GetWelldone(),
           m_ScoreInfo.GetBronzeStamp(), m_ScoreInfo.GetSilverStamp(), m_ScoreInfo.GetGoldStamp(),
-          m_ScoreInfo.GetSakuraRenderer(),m_ScoreInfo.GetSakuraTarget());
+          m_ScoreInfo.GetSakuraRenderer(),m_ScoreInfo.GetSakuraTarget(),
+          // 2026/09/04 Added By Fate Ku
+          m_SakuraInfo.GetSakura1(), m_SakuraInfo.GetSakura2(), m_SakuraInfo.GetSakura3(),
+            m_SakuraInfo.GetSakura5(), m_SakuraInfo.GetSakura7(), m_SakuraInfo.GetSakura9(),
+            m_SakuraInfo.GetSakura11(), m_SakuraInfo.GetSakura14(), m_SakuraInfo.GetSakura17(),
+            m_SakuraInfo.GetSakura20(), m_SakuraInfo.GetSakura23(), m_SakuraInfo.GetSakura26(),
+            m_SakuraInfo.GetSakura29(), m_SakuraInfo.GetSakura32(), m_SakuraInfo.GetSakura35(),
+            m_SakuraInfo.GetSakura38(), m_SakuraInfo.GetSakura41(), m_SakuraInfo.GetSakura44(),
+            m_SakuraInfo.GetSakura47(), m_SakuraInfo.GetSakura50(), m_SakuraInfo.GetSakura53(),
+            m_SakuraInfo.GetSakura56(), m_SakuraInfo.GetSakura60());
+        // 2026/09/04 Added By Fate Ku
         m_ScoreUI.Init();
 
         m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(), m_ScoreInfo.GetTimerSlider());
