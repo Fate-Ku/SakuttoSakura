@@ -8,6 +8,7 @@
 // 2026/07/09 Updated By Fate Ku
 // 2026/07/17 Updated By Fate Ku
 // 2026/08/04 Updated By Fate Ku
+// 2026/09/04 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -166,16 +167,16 @@ public class InGameUIState
 
         float endPosX = referPos.x + scale * row / 2 - offsetX;
 
-        // left→right
+        // right→left
         if (m_StageType == InGameSystemStateType.Start ||
             m_StageType == InGameSystemStateType.GameOver)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 13f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX - 13f, startPosY, -1);
             //callTrigger = true;
         }
         // 2026/08/04 Updated By Fate Ku
-        // left→middle
+        // right→middle
         else if (m_StageType == InGameSystemStateType.TimeUp)
         {
             if (m_InGameType == InGameType.Tutorial)
@@ -195,7 +196,7 @@ public class InGameUIState
         else if (m_StageType == InGameSystemStateType.LevelUp)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(endPosX - 1.5f, startPosY, -1);
+            m_TargetPos = new Vector3(endPosX + 1.5f, startPosY, -1);
         }
         else
         {
@@ -240,7 +241,7 @@ public class InGameUIState
         float startPosY = referPos.y + scale * col / 2 - offsetY; //middle
 
         // 2026/08/04 Updated By Fate Ku
-        // middle→right
+        // middle→left
         if (m_StageType == InGameSystemStateType.TimeUp)
         {
             if (m_InGameType == InGameType.Tutorial)
@@ -252,15 +253,15 @@ public class InGameUIState
                 m_CurrentStageObj.SetActive(true);
 
                 m_StartPos = new Vector3(startPosX, startPosY, -1);
-                m_TargetPos = new Vector3(startPosX + 7f, startPosY, -1);
+                m_TargetPos = new Vector3(startPosX - 7f, startPosY, -1);
                 //callTrigger = true;
             }
         }
         // 2026/08/04 Updated By Fate Ku
         else if (m_StageType == InGameSystemStateType.LevelUp)
         {
-            m_StartPos = new Vector3(startPosX - 1.5f, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX + 7f, startPosY, -1);
+            m_StartPos = new Vector3(startPosX + 1.5f, startPosY, -1);
+            m_TargetPos = new Vector3(startPosX - 7f, startPosY, -1);
         }
         else
         {
