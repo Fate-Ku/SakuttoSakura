@@ -134,8 +134,11 @@ public class TutorialGameProcess : IGameProcessController
                         TutorialNextBlockData step = m_NextSteps[m_Index - 1];
 
                         // ClickMark
-                        m_TutorialTest.SetActive(true);
-                        m_TutorialTest.SetCol(step.col);
+                        if (m_TutorialTest != null)
+                        {
+                            m_TutorialTest.SetActive(true);
+                            m_TutorialTest.SetCol(step.col);
+                        }
 
                         // type = sakura can click
                         if (m_Index - 1 == m_NextSteps.Count - 1)
@@ -164,7 +167,10 @@ public class TutorialGameProcess : IGameProcessController
                         m_FirstStepEnd = true;
                         GameMng.Instance.SetAllowColumn(-1);
 
-                        m_TutorialTest.SetActive(false);
+                        if (m_TutorialTest != null)
+                        {
+                            m_TutorialTest.SetActive(true);
+                        }
 
                         m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
                         m_TutorialInfo.GetClickMark().SetActive(false);
@@ -174,7 +180,11 @@ public class TutorialGameProcess : IGameProcessController
                 {
                     m_InGameSystem.CanOperate = false;
                     m_AllIdlePreviousFrame = false;
-                    m_TutorialTest.SetActive(false);
+
+                    if (m_TutorialTest != null)
+                    {
+                        m_TutorialTest.SetActive(false);
+                    }
 
                     m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
                     m_TutorialInfo.GetClickMark().SetActive(false);
