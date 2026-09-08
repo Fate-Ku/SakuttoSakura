@@ -44,6 +44,8 @@ public class BlocksController
     private Dictionary<Vector2Int, BlockNode> m_Nodes = new();
     private Vector2Int m_NextNodeID;
     private Vector2Int m_NextNextNodeID;
+    private float m_NextPosZ;
+    private float m_NextNextPosZ;
 
     //gameinfo
     private int m_ColNum;
@@ -95,13 +97,15 @@ public class BlocksController
 
         //NextNode
         m_NextNodeID = new(-1, -1);
-        Vector2 nextPos = gameInfo.GetNextBlockPos();
+        Vector3 nextPos = gameInfo.GetNextBlockPos();
         BlockNode nextNode = new(this, m_NextNodeID, nextPos);
+        m_NextPosZ = nextPos.z;
         m_Nodes.TryAdd(m_NextNodeID, nextNode);
         //NextNextBlock
         m_NextNextNodeID = new(-2, -2);
-        Vector2 nextNextPos = gameInfo.GetNextNextBlockPos();
+        Vector3 nextNextPos = gameInfo.GetNextNextBlockPos();
         BlockNode nextNextNode = new(this, m_NextNextNodeID, nextNextPos);
+        m_NextNextPosZ = nextNextPos.z;
         m_Nodes.TryAdd(m_NextNextNodeID, nextNextNode);
 
     }
@@ -111,14 +115,14 @@ public class BlocksController
         //next
         BlockNode nextNode = GetNode(m_NextNodeID);
         nextNode.SetBlock(nextBlock);
-        nextNode?.Block?.SetPos(new Vector3(nextNode.Pos.x, nextNode.Pos.y, 0));
+        nextNode?.Block?.SetPos(new Vector3(nextNode.Pos.x, nextNode.Pos.y, m_NextPosZ));
         nextNode?.Block?.SetSize(m_NextSize);
         m_InGameSystem.SetNextBlockPath(nextNode.Block.Type);
 
-        //next mext
+        //next next 
         BlockNode nextNextNode = GetNode(m_NextNextNodeID);
         nextNextNode.SetBlock(nextNextBlock);
-        nextNextNode?.Block?.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, 1));
+        nextNextNode?.Block?.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, m_NextNextPosZ));
         nextNextNode?.Block?.SetSize(m_NextNextSize);
     }
 
@@ -202,7 +206,7 @@ public class BlocksController
 
                 BlockNode nextNode = GetNode(m_NextNodeID);
                 Vector2 nextPos = GetNodePos(m_NextNodeID);
-                nextNode?.Block?.SetPos(new Vector3(nextPos.x, nextPos.y, 0));
+                nextNode?.Block?.SetPos(new Vector3(nextPos.x, nextPos.y, m_NextPosZ));
                 nextNode?.Block?.SetSize(m_NextSize);
 
                 BlockNode nextNextNode = GetNode(m_NextNextNodeID);
@@ -267,7 +271,7 @@ public class BlocksController
 
             //new next next
             nextNextNode.SetBlock(nowNextNextBlock);
-            nowNextNextBlock.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, 1));
+            nowNextNextBlock.SetPos(new Vector3(nextNextNode.Pos.x, nextNextNode.Pos.y, m_NextNextPosZ));
             nowNextNextBlock.SetSize(m_NextNextSize);
             nowNextNextBlock.SetActive(false);
         }
