@@ -21,6 +21,8 @@ public enum BGMType
     A2Loop,
     Outro,
 
+    Ingame,
+
     Count
 }
 
