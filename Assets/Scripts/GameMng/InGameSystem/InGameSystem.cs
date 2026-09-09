@@ -301,6 +301,16 @@ public class InGameSystem : IGameSystem
     public void ReversePause()
     {
         m_IsPause = !m_IsPause;
+        m_GameProcessController.IsRunning = !m_IsPause;
+
+        if (m_IsPause)
+        {
+            m_BlocksController.BlocksPauseAnimation();
+        }
+        else
+        {
+            m_BlocksController.BlocksResumeAnimation();
+        }
     }
 
     public float GetGameTime()

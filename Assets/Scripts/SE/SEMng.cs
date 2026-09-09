@@ -34,19 +34,19 @@ public class SEMng
         m_Volume = Mathf.Clamp01(volume);
     }
 
-    public void PlayButtonSE()
+    public void PlayUISE(UISEType type)
     {
         if (m_SEController != null)
         {
-            m_SEController.PlayButtonSE(m_Volume);
+            m_SEController.PlayUISE(type, m_Volume);
         }
     }
 
-    public void PlayAlarmSE()
+    public void PlayGameSE(GameSEType type)
     {
         if (m_SEController != null)
         {
-            m_SEController.PlayAlarmSE(m_Volume);
+            m_SEController.PlayGameSE(type, m_Volume);
         }
     }
 

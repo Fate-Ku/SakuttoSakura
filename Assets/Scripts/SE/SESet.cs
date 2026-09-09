@@ -6,11 +6,22 @@
 
 using UnityEngine;
 
+public enum UISEType
+{
+    Button1,
+}
+
+
+public enum GameSEType
+{
+    Alarm,
+}
+
 
 public class SESet : MonoBehaviour
 {
-    [SerializeField] private AudioSource buttonSE;
-    [SerializeField] private AudioSource alarmSE;
+    [SerializeField] private AudioSource[] UISE;
+    [SerializeField] private AudioSource[] gameSE;
     [SerializeField] private AudioSource[] comboSE;
 
     void Awake()
@@ -24,21 +35,31 @@ public class SESet : MonoBehaviour
         SEMng.Instance.Init(this);
     }
 
-    public void PlayButtonSE(float volume)
+    public void PlayUISE(UISEType type, float volume)
     {
-        if (buttonSE != null)
+        if ((int)type < 0 || (int)type >= UISE.Length)
         {
-            buttonSE.volume = volume;
-            buttonSE.Play();
+            return;
+        }
+
+        if (UISE[(int)type] != null)
+        {
+            UISE[(int)type].volume = volume;
+            UISE[(int)type].Play();
         }
     }
 
-    public void PlayAlarmSE(float volume)
+    public void PlayGameSE(GameSEType type, float volume)
     {
-        if (alarmSE != null)
+        if ((int)type < 0 || (int)type >= gameSE.Length)
         {
-            alarmSE.volume = volume;
-            alarmSE.Play();
+            return;
+        }
+
+        if (gameSE[(int)type] != null)
+        {
+            gameSE[(int)type].volume = volume;
+            gameSE[(int)type].Play();
         }
     }
 

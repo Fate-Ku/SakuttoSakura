@@ -19,6 +19,7 @@
 // 2026/06/26 Updated By Man-Yi, Yeh
 // 2026/06/29 Updated By Man-Yi, Yeh
 // 2026/07/13 Updated By Man-Yi, Yeh
+// 2026/09/10 Updated By Man-Yi, Yeh
 // 
 
 using System.Collections.Generic;
@@ -242,6 +243,25 @@ public class BlocksController
         }
     }
 
+
+    //-------------------
+    //blocks animation
+    //-------------------
+    public void BlocksPauseAnimation()
+    {
+        foreach (var node in m_Nodes)
+        {
+            node.Value?.Block?.PauseAnimation();
+        }
+    }
+
+    public void BlocksResumeAnimation()
+    {
+        foreach (var node in m_Nodes)
+        {
+            node.Value?.Block?.ResumeAnimation();
+        }
+    }
 
     //-------------------
     //game

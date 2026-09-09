@@ -15,6 +15,7 @@
 // 2026/06/24 Updated By Man-Yi, Yeh
 // 2026/06/25 Updated By Man-Yi, Yeh
 // 2026/07/05 Updated By Man-Yi, Yeh
+// 2026/09/10 Updated By Man-Yi, Yeh
 // 
 
 
@@ -407,6 +408,16 @@ public abstract class IBlock
     public void SetAnimation(string variable, bool active)
     {
         m_Animator?.SetBool(variable, active);
+    }
+
+    public void PauseAnimation()
+    {
+        m_Animator.speed = 0;
+    }
+
+    public void ResumeAnimation()
+    {
+        m_Animator.speed = 1;
     }
 
     public void CallStateTrigger()

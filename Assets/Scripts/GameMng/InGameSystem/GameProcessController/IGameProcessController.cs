@@ -16,6 +16,11 @@ public class IGameProcessController
 {
     protected InGameSystem m_InGameSystem;
 
+    private bool m_Running = true;
+    public bool IsRunning
+    {
+        set { m_Running = value; }
+    }
     protected float m_GameTimer;
     public float GameTimer
     {
@@ -127,6 +132,11 @@ public class IGameProcessController
 
     public virtual void TimeControl() 
     {
+        if (!m_Running)
+        {
+            return;
+        }
+
         m_GameTimer -= Time.deltaTime;
         if (m_GameTimer <= 0)
         {
