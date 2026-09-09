@@ -31,6 +31,7 @@
 // 2026/08/04 Updated By Fate Ku
 // 2026/08/24 Updated By Fate Ku
 // 2026/09/04 Updated By Fate Ku
+// 2026/09/08 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -144,6 +145,11 @@ public class GameMng
     // UI touch button
     private InGameUIButton m_ButtonSystem;
 
+    // 2026/09/08 Updated By Fate Ku
+    // tutorial UI
+    private TutorialGameProcessUI m_TutorialGameProcessUI;
+    // 2026/09/08 Updated By Fate Ku
+
 
     public void Init()
     {
@@ -241,6 +247,13 @@ public class GameMng
         m_InGameSystem = new InGameSystem(this, isTGS, inGameType);
         m_Background = new InGameUIBackground();
 
+        // 2026/09/08 Updated By Fate Ku
+        if (inGameType == InGameType.Tutorial)
+        {
+            m_TutorialGameProcessUI = new TutorialGameProcessUI(inGameType);
+        }
+        // 2026/09/08 Updated By Fate Ku
+
 
         // 2026/07/16 Updated By Fate Ku
         // block info . path preview
@@ -325,6 +338,12 @@ public class GameMng
         //init
         m_UIState?.Init();
         m_InGameSystem?.Init();
+        // 2026/09/08 Updated By Fate Ku
+        if (inGameType == InGameType.Tutorial)
+        {
+            m_TutorialGameProcessUI?.Init();
+        }
+        // 2026/09/08 Updated By Fate Ku
         m_Background.Init();
         m_ButtonSystem.Init();
         m_ScoreSystem?.Init();
@@ -349,6 +368,7 @@ public class GameMng
     {
         m_UIState?.Update();
         m_InGameSystem?.Update();
+        m_TutorialGameProcessUI?.Update();
         m_ButtonSystem?.Update();
         m_ScoreSystem?.Update();
         m_GameLogSystem?.Update();

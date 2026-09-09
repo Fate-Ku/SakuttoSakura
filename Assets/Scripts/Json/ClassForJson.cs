@@ -3,6 +3,7 @@
 // 
 // 2026/07/17 Created By Man-Yi, Yeh
 // 2026/08/01 Updated By Fate Ku
+// 2026/09/08 Updated By Fate Ku
 //
 
 
@@ -144,6 +145,8 @@ public class TutorialNextBlockData
 {
     public BlockType type;
     public int col;
+
+    public string info; // 2026/09/08 Updated By Fate Ku
     public string text; // 2026/08/01 Updated By Fate Ku
 }
 
