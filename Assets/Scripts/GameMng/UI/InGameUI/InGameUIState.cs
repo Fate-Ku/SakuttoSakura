@@ -9,6 +9,7 @@
 // 2026/07/17 Updated By Fate Ku
 // 2026/08/04 Updated By Fate Ku
 // 2026/09/04 Updated By Fate Ku
+// 2026/09/09 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -45,6 +46,8 @@ public class InGameUIState
     private float m_AnimTime = 0f;
     private float m_AnimDuration;
 
+    private float m_AnimSpeed = 5.5f;
+
     private Vector3 m_StartPos;
     private Vector3 m_TargetPos;
 
@@ -57,12 +60,22 @@ public class InGameUIState
     private InGameType m_InGameType;
     // 2026/08/04 Updated By Fate Ku
 
+    // 2026/09/09 Updated By Fate Ku
+    private GameObject m_Banner;
 
-    public InGameUIState(TextMeshPro inGameStateText, Dictionary<InGameSystemStateType, GameObject> DStageType,InGameType inGameType)
+    private bool m_IsEndAnimation = false;
+    // 2026/09/09 Updated By Fate Ku
+
+
+
+    public InGameUIState(TextMeshPro inGameStateText, Dictionary<InGameSystemStateType, GameObject> DStageType, InGameType inGameType,
+        GameObject banner)
     {
         m_InGameStateText = inGameStateText;
         m_DStageType = DStageType;
         m_InGameType = inGameType;
+
+        m_Banner = banner;
     }
 
 
@@ -81,6 +94,8 @@ public class InGameUIState
         }
 
         m_BasePosX = m_InGameStateText.transform.position.x;
+
+        HideBanner();
     }
 
     public void Update()
@@ -150,6 +165,7 @@ public class InGameUIState
     {
         m_IsAnimating = true;
         m_AnimTime = 0f;
+        m_IsEndAnimation = false;
 
         //setting
         float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
@@ -171,8 +187,8 @@ public class InGameUIState
         if (m_StageType == InGameSystemStateType.Start ||
             m_StageType == InGameSystemStateType.GameOver)
         {
-            m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX - 13f, startPosY, -1);
+            m_StartPos = new Vector3(startPosX, startPosY, -10);
+            m_TargetPos = new Vector3(startPosX - 10.5f, startPosY, -10);
             //callTrigger = true;
         }
         // 2026/08/04 Updated By Fate Ku
@@ -186,17 +202,17 @@ public class InGameUIState
             else
             {
                 m_CurrentStageObj.SetActive(true);
-                m_StartPos = new Vector3(startPosX, startPosY, -1);
-                m_TargetPos = new Vector3(endPosX, startPosY, -1);
+                m_StartPos = new Vector3(startPosX, startPosY, -10);
+                m_TargetPos = new Vector3(endPosX, startPosY, -10);
                 //callTrigger = false;
 
             }
         }
         // 2026/08/04 Updated By Fate Ku
-        else if (m_StageType == InGameSystemStateType.LevelUp)
+        else if (m_StageType == InGameSystemStateType.LevelUp && m_InGameType == InGameType.Classic)
         {
-            m_StartPos = new Vector3(startPosX, startPosY, -1);
-            m_TargetPos = new Vector3(endPosX + 1.5f, startPosY, -1);
+            m_StartPos = new Vector3(startPosX, startPosY, -10);
+            m_TargetPos = new Vector3(endPosX, startPosY, -10);
         }
         else
         {
@@ -206,6 +222,8 @@ public class InGameUIState
         // init position
         if (m_IsAnimating)
         {
+            ShowBanner();
+
             if (m_CurrentStageObj != null)
             {
                 m_CurrentStageObj.transform.position = m_StartPos;
@@ -226,6 +244,7 @@ public class InGameUIState
     {
         m_IsAnimating = true;
         m_AnimTime = 0f;
+        m_IsEndAnimation = true;
 
         //setting
         float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
@@ -252,16 +271,16 @@ public class InGameUIState
             {
                 m_CurrentStageObj.SetActive(true);
 
-                m_StartPos = new Vector3(startPosX, startPosY, -1);
-                m_TargetPos = new Vector3(startPosX - 7f, startPosY, -1);
+                m_StartPos = new Vector3(startPosX, startPosY, -10);
+                m_TargetPos = new Vector3(startPosX - 7f, startPosY, -10);
                 //callTrigger = true;
             }
         }
         // 2026/08/04 Updated By Fate Ku
         else if (m_StageType == InGameSystemStateType.LevelUp)
         {
-            m_StartPos = new Vector3(startPosX + 1.5f, startPosY, -1);
-            m_TargetPos = new Vector3(startPosX - 7f, startPosY, -1);
+            m_StartPos = new Vector3(startPosX, startPosY, -10);
+            m_TargetPos = new Vector3(startPosX - 6f, startPosY, -10);
         }
         else
         {
@@ -294,21 +313,40 @@ public class InGameUIState
         if (!m_IsAnimating)
             return;
 
-        if (m_StageType == InGameSystemStateType.TimeUp ||
-            m_StageType == InGameSystemStateType.LevelUp)
+        // -----------------------------------
+        // Calculate duration by distance
+        // -----------------------------------
+        float distance = Vector3.Distance(m_StartPos, m_TargetPos);
+
+        if (m_StageType == InGameSystemStateType.LevelUp)
         {
-            m_AnimDuration = 2f;
+            m_AnimSpeed = 4f;
+        }
+        else if (m_StageType == InGameSystemStateType.TimeUp)
+        {
+            m_AnimSpeed = 7f;
         }
         else
         {
-            m_AnimDuration = 2.2f;
+            m_AnimSpeed = 6f;
+        }
+
+        if (m_AnimSpeed > 0f)
+        {
+            m_AnimDuration = distance / m_AnimSpeed;
+        }
+        else
+        {
+            m_AnimDuration = 1f;
         }
 
         m_AnimTime += Time.deltaTime;
+
         float t = Mathf.Clamp01(m_AnimTime / m_AnimDuration);
 
-        // duration
-        //m_InGameStateText.transform.position = Vector3.Lerp(m_StartPos, m_TargetPos, t);
+        // -----------------------------------
+        // Move
+        // -----------------------------------
         Vector3 pos = Vector3.Lerp(m_StartPos, m_TargetPos, t);
 
         if (m_CurrentStageObj != null)
@@ -316,25 +354,38 @@ public class InGameUIState
             m_CurrentStageObj.transform.position = pos;
         }
 
+        // -----------------------------------
+        // Level number follows UI
+        // -----------------------------------
         if (m_StageType == InGameSystemStateType.LevelUp)
         {
             Vector3 levelPos = pos;
-            levelPos.x += 1.5f;      // Maintain a fixed distance from the picture
+
+            levelPos.x += 1.5f;
             levelPos.y -= 0.1f;
+
             m_InGameStateText.transform.position = levelPos;
         }
 
+        // -----------------------------------
+        // Animation End
+        // -----------------------------------
         if (t >= 1f)
         {
             m_IsAnimating = false;
 
-            //if (callTrigger)
-            //{
+            if (m_IsEndAnimation)
+            {
+                HideBanner();
+                m_IsEndAnimation = false;
+            }else if(m_StageType != InGameSystemStateType.LevelUp &&
+                m_StageType != InGameSystemStateType.TimeUp)
+            {
+                HideBanner();
+            }
+
             GameMng.Instance.CallInGameSystemStateTrigger();
-            //}
         }
-
-
     }
 
     private void CheckMaxLevel()
@@ -351,5 +402,21 @@ public class InGameUIState
         return MaxLevel;
     }
 
+
+    private void ShowBanner()
+    {
+        if (m_Banner != null)
+        {
+            m_Banner.SetActive(true);
+        }
+    }
+
+    private void HideBanner()
+    {
+        if (m_Banner != null)
+        {
+            m_Banner.SetActive(false);
+        }
+    }
 
 }

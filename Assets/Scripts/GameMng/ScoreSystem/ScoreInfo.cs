@@ -9,6 +9,7 @@
 // 2026/07/27 Added By Fate Ku 
 // 2026/08/03 Added By Fate Ku 
 // 2026/08/24 Added By Fate Ku 
+// 2026/09/09 Added By Fate Ku 
 // 
 
 
@@ -48,6 +49,7 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] public GameObject TimeUp;
     [SerializeField] public GameObject GameOver;
     [SerializeField] public GameObject Level;
+    [SerializeField] public GameObject Banner;
 
 
     [Header("Base Score")]
@@ -73,6 +75,10 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private int ComboBase;//base combo
     [SerializeField] private int ComboBaseBonus;//bonus
 
+    public GameObject GetBanner()
+    {
+        return Banner;
+    }
     public GameObject GetSakuraRenderer()
     { return sakuraRenderer; }
 
