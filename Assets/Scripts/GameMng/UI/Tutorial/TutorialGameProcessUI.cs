@@ -36,6 +36,7 @@ public class TutorialGameProcessUI
             m_TutorialInfo.GetInfoText().gameObject.SetActive(false);
             m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
             m_TutorialInfo.GetClickMark().SetActive(false);
+            m_TutorialInfo.GetTapFrame().SetActive(false);
         }
 
         //-------------------

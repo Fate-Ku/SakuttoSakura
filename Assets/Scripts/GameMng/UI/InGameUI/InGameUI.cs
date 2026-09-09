@@ -13,6 +13,7 @@
 // 2026/08/03 Updated By Fate Ku
 // 2026/08/24 Updated By Fate Ku
 // 2026/09/04 Updated By Fate Ku
+// 2026/09/09 Updated By Fate Ku
 //
 
 using UnityEngine;
@@ -85,7 +86,11 @@ public class InGameUI : UISystem
         // 2026/09/04 Added By Fate Ku
         m_ScoreUI.Init();
 
-        m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(), m_ScoreInfo.GetTimerSlider());
+        // 2026/09/09 Updated By Fate Ku
+        m_Timer = new InGameUITimer(m_ScoreInfo.GetTimeText(), m_ScoreInfo.GetTimerSlider(),
+            m_ScoreInfo.GetPetal());
+        // 2026/09/09 Updated By Fate Ku
+
         m_Timer.Init();
 
         //Debug.Log("InGameUI Init");
