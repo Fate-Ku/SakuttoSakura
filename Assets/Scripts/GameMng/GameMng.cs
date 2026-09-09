@@ -252,6 +252,10 @@ public class GameMng
         {
             m_TutorialGameProcessUI = new TutorialGameProcessUI(inGameType);
         }
+        else
+        {
+            m_TutorialGameProcessUI = null;
+        }
         // 2026/09/08 Updated By Fate Ku
 
 

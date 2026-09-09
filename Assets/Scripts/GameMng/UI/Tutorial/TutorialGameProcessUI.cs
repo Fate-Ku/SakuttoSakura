@@ -26,6 +26,7 @@ public class TutorialGameProcessUI
 
     public void Init()
     {
+
         GameObject tutorialInfoObj = GameObject.Find("TutorialInfo");
 
         if (tutorialInfoObj != null)
