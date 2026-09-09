@@ -2,6 +2,7 @@
 // InGameUITimer.cs
 // 
 // 2026/06/16 Created By Fate Ku
+// 2026/09/09 Updated By Fate Ku
 //
 
 using TMPro;
@@ -13,6 +14,12 @@ public class InGameUITimer
     private Slider m_TimerBar;
     private TextMeshProUGUI m_TimerText;
 
+    private GameObject m_Petal;
+
+    private RectTransform m_TimerBarRect;
+
+    private float m_YOffset = 40f;
+
     //-------------------
     //game info
     //-------------------
@@ -22,23 +29,27 @@ public class InGameUITimer
         get { return m_GameInfo; }
     }
 
-    public InGameUITimer(TextMeshProUGUI timerText, Slider timerSlider)
+    public InGameUITimer(TextMeshProUGUI timerText, Slider timerSlider,GameObject petal)
     {
         m_TimerText = timerText;
         m_TimerBar = timerSlider;
+
+        m_Petal = petal;
     }
 
     public void Init()
     {
-
-        //TimerBar = GetComponent<Slider>();
         GameObject gameInfo = GameObject.Find("GameInfo");
+
         if (gameInfo != null)
         {
             m_GameInfo = gameInfo.GetComponent<GameInfo>();
         }
 
         m_TimerBar.maxValue = m_GameInfo.GetPlayTime();
+
+        m_TimerBarRect = m_TimerBar.GetComponent<RectTransform>(); // 2026/09/09 Updated By Fate Ku
+
         Debug.Log("maxTimer" + m_TimerBar.maxValue);
     }
 
@@ -65,7 +76,33 @@ public class InGameUITimer
     {
         m_TimerBar.value = timer;
 
-        //Debug.Log("timer" + m_TimerBar.value);
+        // 2026/09/09 Updated By Fate Ku
+        float ratio = m_TimerBar.normalizedValue;
+
+        Vector3[] corners = new Vector3[4];
+        m_TimerBarRect.GetWorldCorners(corners);
+
+        Vector3 left = corners[0];
+        Vector3 right = corners[3];
+
+        Vector3 targetPos = Vector3.Lerp(left, right, ratio);
+
+        if (m_Petal != null)
+        {
+            Vector3 petalPos = targetPos;
+            petalPos.y += m_YOffset;
+
+            m_Petal.transform.position = petalPos;
+        }
+
+        if (m_TimerText != null)
+        {
+            Vector3 textPos = targetPos;
+            textPos.y += m_YOffset;
+
+            m_TimerText.transform.position = textPos;
+        }
+        // 2026/09/09 Updated By Fate Ku
     }
 
 }

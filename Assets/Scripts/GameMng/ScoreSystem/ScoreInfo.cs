@@ -24,6 +24,8 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private Slider TimeSlider;
     [SerializeField] private TextMeshProUGUI TimeText;
 
+    [SerializeField] private GameObject Petal;
+
     [Header("Show Result")]
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI SakuraText;
@@ -74,6 +76,11 @@ public class ScoreInfo : MonoBehaviour
     //[SerializeField] private int ShowComboTime;
     [SerializeField] private int ComboBase;//base combo
     [SerializeField] private int ComboBaseBonus;//bonus
+
+    public GameObject GetPetal()
+    {
+        return Petal;
+    }
 
     public GameObject GetBanner()
     {
