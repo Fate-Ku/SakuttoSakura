@@ -10,6 +10,7 @@
 // 2026/07/13 Updated By Fate Ku
 // 2026/07/16 Updated By Fate Ku
 // 2026/08/01 Updated By Fate Ku
+// 2026/09/09 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -67,6 +68,8 @@ public class InGameUIButton
 
     private int m_AllowColumn = -1;
     // 2026/08/01 Updated By Fate Ku
+
+    private bool m_DoRaycast = true;
 
     //-------------------
     //Info
@@ -166,11 +169,12 @@ public class InGameUIButton
             }
 
             // Release , click
-            if (Mouse.current.leftButton.wasReleasedThisFrame)
+            if (Mouse.current.leftButton.wasReleasedThisFrame && m_DoRaycast)
             {
                 CheckRaycast(mousePos);
                 EndPress();
             }
+            m_DoRaycast = true;
         }
 
         //========================
@@ -210,11 +214,12 @@ public class InGameUIButton
             }
 
             // Release , click
-            if (touch.press.wasReleasedThisFrame)
+            if (touch.press.wasReleasedThisFrame && m_DoRaycast)
             {
                 CheckRaycast(touchPos);
                 EndPress();
             }
+            m_DoRaycast = true;
         }
 
         if (m_PathPreview != null)
@@ -447,11 +452,6 @@ public class InGameUIButton
         Debug.Log($"Type={type}, Path={pathText}");
     }
 
-    public void SetCanOperate(bool canOperate)
-    {
-        m_CanOperate = canOperate;
-    }
-
     // 2026/08/01 Updated By Fate Ku
     public void SetAllowColumn(int col)
     {
@@ -470,5 +470,18 @@ public class InGameUIButton
         return col == m_AllowColumn;
     }
     // 2026/08/01 Updated By Fate Ku
+
+    // -------------------------
+    // Button Operation
+    // -------------------------
+    public void SetCanOperate(bool canOperate)
+    {
+        m_CanOperate = canOperate;
+    }
+
+    public void SetDoRaycast(bool doRaycast) 
+    {
+        m_DoRaycast = doRaycast;
+    }
 
 }
