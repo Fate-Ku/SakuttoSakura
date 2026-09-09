@@ -308,6 +308,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
+    - target: {fileID: 4050691107379020803, guid: c5a1abd3c86242f479e0958b0ec21b79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.055258073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050691107379020803, guid: c5a1abd3c86242f479e0958b0ec21b79, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.013879727
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050691107379020803, guid: c5a1abd3c86242f479e0958b0ec21b79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.009181707
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050691107379020803, guid: c5a1abd3c86242f479e0958b0ec21b79, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9906544
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050691107379020803, guid: c5a1abd3c86242f479e0958b0ec21b79, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.13639583
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050691107379020803, guid: c5a1abd3c86242f479e0958b0ec21b79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15.679
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
