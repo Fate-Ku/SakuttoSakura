@@ -651,6 +651,17 @@ public class GameMng
 
     }
 
+    // 2026/09/09 Updated By Fate Ku
+    // -------------------------
+    // Button Operation
+    // -------------------------
+
+    public void UnlockButtonOperation()
+    {
+        m_ButtonSystem.SetDoRaycast(false);
+    }
+    // 2026/09/09 Updated By Fate Ku
+
     //2026/07/11 Updated By Fate Ku
     //-------------------
     //get bg position for sakura fly use
