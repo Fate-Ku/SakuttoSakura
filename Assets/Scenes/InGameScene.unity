@@ -9528,6 +9528,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2014105836}
+        m_TargetAssemblyTypeName: SESetting, Assembly-CSharp
+        m_MethodName: ButtonSE
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &885822514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17900,6 +17912,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2014105836}
+        m_TargetAssemblyTypeName: SESetting, Assembly-CSharp
+        m_MethodName: ButtonSE
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713495396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22293,6 +22317,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2014105836}
+        m_TargetAssemblyTypeName: SESetting, Assembly-CSharp
+        m_MethodName: ButtonSE
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2012361564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22343,6 +22379,7 @@ GameObject:
   - component: {fileID: 2014105833}
   - component: {fileID: 2014105832}
   - component: {fileID: 2014105831}
+  - component: {fileID: 2014105836}
   - component: {fileID: 2014105835}
   m_Layer: 5
   m_Name: Canvas
@@ -22456,6 +22493,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseUI
   popupPanel: {fileID: 1216644539}
   buttonPanel: {fileID: 1617275700}
+--- !u!114 &2014105836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014105830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642d74d3d082aa944bf475bed6044d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SESetting
 --- !u!1 &2038484162
 GameObject:
   m_ObjectHideFlags: 0
@@ -24089,6 +24138,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2014105835}
         m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
         m_MethodName: ShowBtnFrame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2014105836}
+        m_TargetAssemblyTypeName: SESetting, Assembly-CSharp
+        m_MethodName: ButtonSE
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

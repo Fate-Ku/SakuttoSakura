@@ -201,6 +201,8 @@ public class InGameUIScore
                 newComboText.text = combo.ToString() + " Combo";
                 newComboText.color = Color.red;
 
+                SEMng.Instance.PlayComboSE(combo);// 2026/09/10 Updated By Fate Ku
+
                 // Animation Script
                 newComboText.gameObject.AddComponent<MoveUpFadeOut>();
             }
