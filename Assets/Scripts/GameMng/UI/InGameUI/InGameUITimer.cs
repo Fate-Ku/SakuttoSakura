@@ -18,7 +18,8 @@ public class InGameUITimer
 
     private RectTransform m_TimerBarRect;
 
-    private float m_YOffset = 40f;
+    private float m_YOffset = 34f;
+    private float m_XOffset = 50f;
 
     //-------------------
     //game info
@@ -91,6 +92,7 @@ public class InGameUITimer
         {
             Vector3 petalPos = targetPos;
             petalPos.y += m_YOffset;
+            petalPos.x += m_XOffset;
 
             m_Petal.transform.position = petalPos;
         }
@@ -99,6 +101,7 @@ public class InGameUITimer
         {
             Vector3 textPos = targetPos;
             textPos.y += m_YOffset;
+            textPos.x += m_XOffset;
 
             m_TimerText.transform.position = textPos;
         }

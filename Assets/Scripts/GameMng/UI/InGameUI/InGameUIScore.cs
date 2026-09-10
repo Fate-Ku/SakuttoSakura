@@ -12,6 +12,7 @@
 // 2026/08/24 Updated By Fate Ku
 // 2026/08/31 Updated By Fate Ku
 // 2026/09/04 Updated By Fate Ku
+// 2026/09/10 Updated By Fate Ku
 // 
 
 using System.Collections.Generic;
@@ -233,26 +234,47 @@ public class InGameUIScore
     {
         HideAll();
 
-        int score = GameMng.Instance.GetScore();
+        // 2026/09/10 Updated By Fate Ku
+        //int score = GameMng.Instance.GetScore();
 
-        if (score < 15000)
-        {
-            m_NiceTry.SetActive(true);
-            m_Bronze.SetActive(true);
+        //if (score < 15000)
+        //{
+        //    m_NiceTry.SetActive(true);
+        //    m_Bronze.SetActive(true);
 
-        }
-        else if (score < 35000)
+        //}
+        //else if (score < 35000)
+        //{
+        //    m_GoodJob.SetActive(true);
+        //    m_Silver.SetActive(true);
+
+        //}
+        //else
+        //{
+        //    m_WellDone.SetActive(true);
+        //    m_Gold.SetActive(true);
+
+        //}
+
+        int maxLevel = GameMng.Instance.GetMaxLevel();
+
+        if (maxLevel == 4)
         {
             m_GoodJob.SetActive(true);
             m_Silver.SetActive(true);
-
         }
-        else
+        else if (maxLevel >= 5)
         {
             m_WellDone.SetActive(true);
             m_Gold.SetActive(true);
-
         }
+        else
+        {
+            m_NiceTry.SetActive(true);
+            m_Bronze.SetActive(true);
+        }
+        // 2026/09/10 Updated By Fate Ku
+
     }
 
     private void AddSakuraToBasket(int sakuraQty)
