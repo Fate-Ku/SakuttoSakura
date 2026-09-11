@@ -10,6 +10,7 @@
 // 2026/08/04 Updated By Fate Ku
 // 2026/09/04 Updated By Fate Ku
 // 2026/09/09 Updated By Fate Ku
+// 2026/09/11 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -66,16 +67,36 @@ public class InGameUIState
     private bool m_IsEndAnimation = false;
     // 2026/09/09 Updated By Fate Ku
 
+    // 2026/09/11 Updated By Fate Ku
+
+    // Level number
+    private SpriteRenderer m_TensNumber;
+    private SpriteRenderer m_OnesNumber;
+    private SpriteRenderer m_OnlyOneNumber;
+
+    private Sprite[] m_NumberSprites;
+
+    // Level number follows LevelUp banner
+    private Transform m_LevelNumberRoot;
+
+    // 2026/09/11 Updated By Fate Ku
 
 
     public InGameUIState(TextMeshPro inGameStateText, Dictionary<InGameSystemStateType, GameObject> DStageType, InGameType inGameType,
-        GameObject banner)
+        GameObject banner, SpriteRenderer tensNumber, SpriteRenderer onesNumber, SpriteRenderer onlyOneNumber,
+        Sprite[] numberSprites, Transform levelNumberRoot)
     {
         m_InGameStateText = inGameStateText;
         m_DStageType = DStageType;
         m_InGameType = inGameType;
 
         m_Banner = banner;
+
+        m_TensNumber = tensNumber;
+        m_OnesNumber = onesNumber;
+        m_OnlyOneNumber = onlyOneNumber;
+        m_NumberSprites = numberSprites;
+        m_LevelNumberRoot = levelNumberRoot;
     }
 
 
@@ -94,6 +115,8 @@ public class InGameUIState
         }
 
         m_BasePosX = m_InGameStateText.transform.position.x;
+
+        HideLevelNumbers();
 
         HideBanner();
     }
@@ -150,11 +173,13 @@ public class InGameUIState
         if (m_StageType == InGameSystemStateType.LevelUp)
         {
             m_InGameStateText.gameObject.SetActive(true);
-            m_InGameStateText.text = " " + m_GameLevel;
+            //m_InGameStateText.text = " " + m_GameLevel;
+            SetLevelNumber(m_GameLevel);
         }
         else
         {
             m_InGameStateText.gameObject.SetActive(false);
+            HideLevelNumbers();
         }
     }
 
@@ -212,7 +237,7 @@ public class InGameUIState
         else if (m_StageType == InGameSystemStateType.LevelUp && m_InGameType == InGameType.Classic)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -10);
-            m_TargetPos = new Vector3(endPosX, startPosY, -10);
+            m_TargetPos = new Vector3(endPosX - 2f, startPosY, -10);
         }
         else
         {
@@ -229,13 +254,13 @@ public class InGameUIState
                 m_CurrentStageObj.transform.position = m_StartPos;
 
                 // Level font follow with picture
-                if (m_StageType == InGameSystemStateType.LevelUp)
-                {
-                    Vector3 pos = m_StartPos;
-                    pos.x += 1.5f;    // follow with UI
-                    pos.y -= 0.1f;
-                    m_InGameStateText.transform.position = pos;
-                }
+                //if (m_StageType == InGameSystemStateType.LevelUp)
+                //{
+                //    Vector3 pos = m_StartPos;
+                //    pos.x += 1.5f;    // follow with UI
+                //    pos.y -= 0.1f;
+                //    m_InGameStateText.transform.position = pos;
+                //}
             }
         }
     }
@@ -279,7 +304,7 @@ public class InGameUIState
         // 2026/08/04 Updated By Fate Ku
         else if (m_StageType == InGameSystemStateType.LevelUp)
         {
-            m_StartPos = new Vector3(startPosX, startPosY, -10);
+            m_StartPos = new Vector3(startPosX - 2f, startPosY, -10);
             m_TargetPos = new Vector3(startPosX - 6f, startPosY, -10);
         }
         else
@@ -294,13 +319,13 @@ public class InGameUIState
             {
                 m_CurrentStageObj.transform.position = m_StartPos;
 
-                if (m_StageType == InGameSystemStateType.LevelUp)
-                {
-                    Vector3 pos = m_StartPos;
-                    pos.x += 1.5f;
-                    pos.y -= 0.1f;
-                    m_InGameStateText.transform.position = pos;
-                }
+                //if (m_StageType == InGameSystemStateType.LevelUp)
+                //{
+                //    Vector3 pos = m_StartPos;
+                //    pos.x += 1.5f;
+                //    pos.y -= 0.1f;
+                //    m_InGameStateText.transform.position = pos;
+                //}
             }
         }
     }
@@ -357,15 +382,15 @@ public class InGameUIState
         // -----------------------------------
         // Level number follows UI
         // -----------------------------------
-        if (m_StageType == InGameSystemStateType.LevelUp)
-        {
-            Vector3 levelPos = pos;
+        //if (m_StageType == InGameSystemStateType.LevelUp)
+        //{
+        //    Vector3 levelPos = pos;
 
-            levelPos.x += 1.5f;
-            levelPos.y -= 0.1f;
+        //    levelPos.x += 1.5f;
+        //    levelPos.y -= 0.1f;
 
-            m_InGameStateText.transform.position = levelPos;
-        }
+        //    m_InGameStateText.transform.position = levelPos;
+        //}
 
         // -----------------------------------
         // Animation End
@@ -378,7 +403,8 @@ public class InGameUIState
             {
                 HideBanner();
                 m_IsEndAnimation = false;
-            }else if(m_StageType != InGameSystemStateType.LevelUp &&
+            }
+            else if (m_StageType != InGameSystemStateType.LevelUp &&
                 m_StageType != InGameSystemStateType.TimeUp)
             {
                 HideBanner();
@@ -418,5 +444,67 @@ public class InGameUIState
             m_Banner.SetActive(false);
         }
     }
+
+    // ---------------------------------------------------------
+    // Level Number
+    // ---------------------------------------------------------
+
+    private void SetLevelNumber(int level)
+    {
+        if (m_NumberSprites == null || m_NumberSprites.Length < 10)
+        {
+            Debug.LogWarning("NumberSprites is missing or less than 10 sprites.");
+            return;
+        }
+
+        HideLevelNumbers();
+
+        // Level 1~9
+        if (level >= 1 && level <= 9)
+        {
+            if (m_OnlyOneNumber != null)
+            {
+                m_OnlyOneNumber.sprite = m_NumberSprites[level];
+                m_OnlyOneNumber.gameObject.SetActive(true);
+            }
+        }
+        // Level 10 +
+        else if (level >= 10)
+        {
+            int tens = level / 10;
+            int ones = level % 10;
+            if (m_TensNumber != null)
+            {
+                m_TensNumber.sprite = m_NumberSprites[tens];
+                m_TensNumber.gameObject.SetActive(true);
+            }
+            if (m_OnesNumber != null)
+            {
+                m_OnesNumber.sprite = m_NumberSprites[ones];
+                m_OnesNumber.gameObject.SetActive(true);
+            }
+        }
+
+    }
+
+
+    private void HideLevelNumbers()
+    {
+        if (m_OnlyOneNumber != null)
+        {
+            m_OnlyOneNumber.gameObject.SetActive(false);
+        }
+
+        if (m_TensNumber != null)
+        {
+            m_TensNumber.gameObject.SetActive(false);
+        }
+
+        if (m_OnesNumber != null)
+        {
+            m_OnesNumber.gameObject.SetActive(false);
+        }
+    }
+
 
 }

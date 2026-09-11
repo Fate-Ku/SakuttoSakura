@@ -10,6 +10,7 @@
 // 2026/08/03 Added By Fate Ku 
 // 2026/08/24 Added By Fate Ku 
 // 2026/09/09 Added By Fate Ku 
+// 2026/09/11 Added By Fate Ku 
 // 
 
 
@@ -53,6 +54,12 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] public GameObject Level;
     [SerializeField] public GameObject Banner;
 
+    [Header("Show Game Level")]
+    [SerializeField] public SpriteRenderer TensNumber;
+    [SerializeField] public SpriteRenderer OnesNumber;
+    [SerializeField] public SpriteRenderer OnlyOneNumber;
+    [SerializeField] public Sprite[] NumberSprites;
+    [SerializeField] public Transform LevelNumberRoot;
 
     [Header("Base Score")]
     [SerializeField] private int TsubakiScore;
@@ -77,6 +84,26 @@ public class ScoreInfo : MonoBehaviour
     [SerializeField] private int ComboBase;//base combo
     [SerializeField] private int ComboBaseBonus;//bonus
 
+    public SpriteRenderer GetTensNumber()
+    {
+        return TensNumber;
+    }
+    public SpriteRenderer GetOnesNumber()
+    {
+        return OnesNumber;
+    }
+    public SpriteRenderer GetOnlyOneNumber()
+    {
+        return OnlyOneNumber;
+    }
+    public Sprite[] GetNumberSprites()
+    {
+        return NumberSprites;
+    }
+    public Transform GetLevelNumberRoot()
+    {
+        return LevelNumberRoot;
+    }
     public GameObject GetPetal()
     {
         return Petal;
