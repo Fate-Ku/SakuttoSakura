@@ -127,7 +127,7 @@ public class InGameUITimer
         }
 
         // 0秒以下になったら終了
-        if (timer < 0f)
+        if (timer <= 0f)
         {
             return;
         }

@@ -1,10 +1,13 @@
 //
-// TutorialGameProcess.cs
+// TutorialGameProcessUI.cs
 // 
 // 2026/09/08 Created By Fate Ku
+// 2026/09/12 Updated By Fate Ku
+//
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TutorialGameProcessUI
 {
@@ -18,6 +21,10 @@ public class TutorialGameProcessUI
     private InGameType m_InGameType;
 
     private bool m_PreviousCanOperate = true;
+
+    private bool m_NextInfo = true;
+
+    private bool m_btnLock = false;
 
     public TutorialGameProcessUI(InGameType inGameType)
     {
@@ -37,6 +44,9 @@ public class TutorialGameProcessUI
             m_TutorialInfo.GetInstructionsText().gameObject.SetActive(false);
             m_TutorialInfo.GetClickMark().SetActive(false);
             m_TutorialInfo.GetTapFrame().SetActive(false);
+            m_TutorialInfo.GetInfoFrame().SetActive(false);
+            m_TutorialInfo.GetTapWordAnim().SetActive(false);
+
         }
 
         //-------------------
@@ -79,9 +89,33 @@ public class TutorialGameProcessUI
         // now Step
         // ========================================
 
-        if (canOperate)
+        if (canOperate && m_NextInfo)
         {
             ShowCurrentStep();
+        }
+
+        // ========================================
+        // btn lock -> unlock
+        // for click/touch
+        // ========================================
+        bool mousePressed =
+            Mouse.current != null &&
+            Mouse.current.leftButton.wasReleasedThisFrame;
+
+        bool touchPressed =
+            Touchscreen.current != null &&
+            Touchscreen.current.primaryTouch.press.wasReleasedThisFrame;
+
+        if (m_btnLock &&
+            (mousePressed || touchPressed) &&
+            (m_Index == 0 || m_Index == 2))
+        {
+            m_TutorialInfo.GetInfoFrame().SetActive(false);
+            m_TutorialInfo.GetTapWordAnim().SetActive(false);
+
+            m_btnLock = false;
+
+            NextStep();
         }
 
         // ========================================
@@ -89,10 +123,12 @@ public class TutorialGameProcessUI
         // Step++
         // ========================================
 
-        if (m_PreviousCanOperate && !canOperate)
+        if (m_PreviousCanOperate && !canOperate && m_NextInfo)
         {
             m_TutorialInfo.GetClickMark().SetActive(false);
             m_TutorialInfo.GetTapFrame().SetActive(false);
+            m_TutorialInfo.GetInfoFrame().SetActive(false);
+            m_TutorialInfo.GetTapWordAnim().SetActive(false);
             NextStep();
         }
 
@@ -116,48 +152,71 @@ public class TutorialGameProcessUI
 
         TutorialNextBlockData step = m_NextSteps[m_Index];
 
+        // click judge
         if (m_Index == m_NextSteps.Count - 1)
         {
             GameMng.Instance.SetAllowColumn(-1);
+        }
+        else if (m_Index == 0 || m_Index == 2)
+        {
+            GameMng.Instance.UnlockButtonOperation();
+            m_btnLock = true;
         }
         else
         {
             GameMng.Instance.SetAllowColumn(step.col);
         }
 
-        // Instruction
-        m_TutorialInfo.GetInstructionsText().gameObject.SetActive(true);
-        m_TutorialInfo.GetInstructionsText().text = step.text;
-
-        // info
-        m_TutorialInfo.GetInfoText().gameObject.SetActive(true);
-        m_TutorialInfo.GetInfoText().text = step.info;
-
-        int index = m_Index + 1;
-        if (index != m_NextSteps.Count)
+        // context
+        if (m_Index == 0 || m_Index == 2)
         {
-            // ClickMark
-            m_TutorialInfo.GetClickMark().SetActive(true);
+            if (m_Index == 0)
+            {
+                m_TutorialInfo.GetInfoFrame().SetActive(true);
+            }
+            m_TutorialInfo.GetTapWordAnim().SetActive(true);
 
-            Vector2 pos =
-                GameMng.Instance.GetBgVirtualCubePosition(step.col, 4);
+            // Instruction
+            m_TutorialInfo.GetInstructionsText().gameObject.SetActive(true);
+            m_TutorialInfo.GetInstructionsText().text = step.text;
 
-            Vector3 spawnPos =
-                new Vector3(pos.x + 0.2f, pos.y, -10f);
+        }
+        else
+        {
+            // Instruction
+            m_TutorialInfo.GetInstructionsText().gameObject.SetActive(true);
+            m_TutorialInfo.GetInstructionsText().text = step.text;
 
-            m_TutorialInfo.GetClickMark().transform.position = spawnPos;
-            m_TutorialInfo.GetClickMark().transform.localScale = Vector3.one * 0.4f;
+            // info
+            //m_TutorialInfo.GetInfoText().gameObject.SetActive(true);
+            //m_TutorialInfo.GetInfoText().text = step.info;
 
-            // Tap Frame
-            m_TutorialInfo.GetTapFrame().gameObject.SetActive(true);
+            int index = m_Index + 1;
+            if (index != m_NextSteps.Count)
+            {
+                // ClickMark
+                m_TutorialInfo.GetClickMark().SetActive(true);
 
-            Vector2 pos2 =
-                GameMng.Instance.GetBgVirtualCubePosition(step.col, 0);
+                Vector2 pos =
+                    GameMng.Instance.GetBgVirtualCubePosition(step.col, 4);
 
-            Vector3 tapPos =
-                new Vector3(pos2.x + 0.2f, pos2.y - 0.5f, -5f);
+                Vector3 spawnPos =
+                    new Vector3(pos.x + 0.2f, pos.y, -10f);
 
-            m_TutorialInfo.GetTapFrame().transform.position = tapPos;
+                m_TutorialInfo.GetClickMark().transform.position = spawnPos;
+                m_TutorialInfo.GetClickMark().transform.localScale = Vector3.one * 0.4f;
+
+                // Tap Frame
+                m_TutorialInfo.GetTapFrame().gameObject.SetActive(true);
+
+                Vector2 pos2 =
+                    GameMng.Instance.GetBgVirtualCubePosition(step.col, 0);
+
+                Vector3 tapPos =
+                    new Vector3(pos2.x + 0.2f, pos2.y - 0.5f, -5f);
+
+                m_TutorialInfo.GetTapFrame().transform.position = tapPos;
+            }
         }
     }
 
@@ -170,4 +229,5 @@ public class TutorialGameProcessUI
             Debug.Log("Next Tutorial Step : " + m_Index);
         }
     }
+
 }
