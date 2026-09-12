@@ -3,6 +3,7 @@
 // 
 // 2026/06/16 Created By Fate Ku
 // 2026/09/09 Updated By Fate Ku
+// 2026/09/12 Updated By Fate Ku
 //
 
 using TMPro;
@@ -20,6 +21,12 @@ public class InGameUITimer
 
     private float m_YOffset = 34f;
     private float m_XOffset = 50f;
+
+    //-------------------
+    // SE Timer
+    //-------------------
+    private float m_SETimer = 0f;
+    //private int m_PreviousSecond = -1;
 
     //-------------------
     //game info
@@ -61,10 +68,10 @@ public class InGameUITimer
             float timer = GameMng.Instance.GetGameTime();
 
             m_TimerText.text = ((int)timer).ToString();
-            //Debug.Log("timer" + timer);
 
             UpdateTimerBar(timer);
 
+            UpdateTimerSE(timer);
         }
     }
 
@@ -108,4 +115,34 @@ public class InGameUITimer
         // 2026/09/09 Updated By Fate Ku
     }
 
+    // 2026/09/12 Updated By Fate Ku
+    private void UpdateTimerSE(float timer)
+    {
+        // 10秒より上はSEを鳴らさない
+        if (timer > 10f)
+        {
+            m_SETimer = 0f;
+            //m_PreviousSecond = -1;
+            return;
+        }
+
+        // 0秒以下になったら終了
+        if (timer < 0f)
+        {
+            return;
+        }
+
+        // 5秒以下なら0.5秒間隔
+        float interval = timer <= 5f ? 0.5f : 1.0f;
+
+        m_SETimer += Time.deltaTime;
+
+        if (m_SETimer >= interval)
+        {
+            SEMng.Instance.PlayGameSE(0);
+
+            m_SETimer -= interval;
+        }
+    }
+    // 2026/09/12 Updated By Fate Ku
 }
