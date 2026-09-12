@@ -43,6 +43,7 @@ public class BGMMng
     private BGMMng() { }
 
     private AudioSet m_AudioSet;
+    private float m_Volume = 0.5f;
 
     public void SetAudioSet()
     {
@@ -54,6 +55,10 @@ public class BGMMng
             if (m_AudioSet == null)
             {
                 Debug.LogError("AudioSet component not found on the AudioSet GameObject.");
+            }
+            else
+            {
+                m_AudioSet.SetVolume(m_Volume);
             }
         }
         else
@@ -98,9 +103,10 @@ public class BGMMng
     //volume: 0.0f ~ 1.0f
     public void SetBGMVolume(float volume)
     {
+        m_Volume = Mathf.Clamp01(volume);
         if (m_AudioSet != null)
         {
-            m_AudioSet.SetVolume(volume);
+            m_AudioSet.SetVolume(m_Volume);
         }
     }
 }

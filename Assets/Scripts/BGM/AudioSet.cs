@@ -15,7 +15,7 @@ public class AudioSet : MonoBehaviour
 
     private BGMType m_NowBGMType = BGMType.None;
     private List<BGMType> m_NextBGMTypes = new();
-    public float m_Volume = 0.5f;
+    public float m_Volume = 0;
 
     void Start()
     {
@@ -128,7 +128,10 @@ public class AudioSet : MonoBehaviour
     public void SetVolume(float volume)
     {
         m_Volume = Mathf.Clamp01(volume);
-        GetAudioInfo(m_NowBGMType)?.SetVolume(m_Volume);
+        if (m_NowBGMType != BGMType.None)
+        {
+            GetAudioInfo(m_NowBGMType)?.SetVolume(m_Volume);
+        }
     }
 
 
