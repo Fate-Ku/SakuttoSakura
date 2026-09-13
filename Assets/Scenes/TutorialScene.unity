@@ -8055,6 +8055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3cb574ff34d1043b33b04ef641eda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChangeUI
+  popupPanel: {fileID: 0}
 --- !u!114 &567367559
 MonoBehaviour:
   m_ObjectHideFlags: 0
