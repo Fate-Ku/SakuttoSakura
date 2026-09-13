@@ -3,11 +3,13 @@
 // 
 // 2026/09/08 Created By Fate Ku
 // 2026/09/12 Updated By Fate Ku
+// 2026/09/13 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class TutorialGameProcessUI
 {
@@ -25,6 +27,8 @@ public class TutorialGameProcessUI
     private bool m_NextInfo = true;
 
     private bool m_btnLock = false;
+
+    private bool m_Freeze = true;
 
     public TutorialGameProcessUI(InGameType inGameType)
     {
@@ -46,7 +50,6 @@ public class TutorialGameProcessUI
             m_TutorialInfo.GetTapFrame().SetActive(false);
             m_TutorialInfo.GetInfoFrame().SetActive(false);
             m_TutorialInfo.GetTapWordAnim().SetActive(false);
-
         }
 
         //-------------------
@@ -89,7 +92,7 @@ public class TutorialGameProcessUI
         // now Step
         // ========================================
 
-        if (canOperate && m_NextInfo)
+        if (canOperate && m_NextInfo && !m_TutorialInfo.GetPopupPanel().activeSelf)
         {
             ShowCurrentStep();
         }
@@ -98,24 +101,28 @@ public class TutorialGameProcessUI
         // btn lock -> unlock
         // for click/touch
         // ========================================
-        bool mousePressed =
+        bool mouseReleased =
             Mouse.current != null &&
             Mouse.current.leftButton.wasReleasedThisFrame;
 
-        bool touchPressed =
+        bool touchReleased =
             Touchscreen.current != null &&
             Touchscreen.current.primaryTouch.press.wasReleasedThisFrame;
 
         if (m_btnLock &&
-            (mousePressed || touchPressed) &&
-            (m_Index == 0 || m_Index == 2))
+           (mouseReleased || touchReleased) &&
+           (m_Index == 0 || m_Index == 2)
+           && !m_TutorialInfo.GetPopupPanel().activeSelf)
         {
-            m_TutorialInfo.GetInfoFrame().SetActive(false);
-            m_TutorialInfo.GetTapWordAnim().SetActive(false);
+            if (IsClickTutorialButton())
+            {
+                m_TutorialInfo.GetInfoFrame().SetActive(false);
+                m_TutorialInfo.GetTapWordAnim().SetActive(false);
 
-            m_btnLock = false;
+                m_btnLock = false;
 
-            NextStep();
+                NextStep();
+            }
         }
 
         // ========================================
@@ -123,7 +130,7 @@ public class TutorialGameProcessUI
         // Step++
         // ========================================
 
-        if (m_PreviousCanOperate && !canOperate && m_NextInfo)
+        if (m_PreviousCanOperate && !canOperate && m_NextInfo && !m_TutorialInfo.GetPopupPanel().activeSelf)
         {
             m_TutorialInfo.GetClickMark().SetActive(false);
             m_TutorialInfo.GetTapFrame().SetActive(false);
@@ -152,6 +159,16 @@ public class TutorialGameProcessUI
 
         TutorialNextBlockData step = m_NextSteps[m_Index];
 
+        //bool mouseClick =
+        //    Mouse.current != null &&
+        //    Mouse.current.leftButton.wasPressedThisFrame;
+
+        //bool touchClick =
+        //    Touchscreen.current != null &&
+        //    Touchscreen.current.primaryTouch.press.wasPressedThisFrame;
+
+        //bool isClicked = mouseClick || touchClick;
+
         // click judge
         if (m_Index == m_NextSteps.Count - 1)
         {
@@ -162,6 +179,22 @@ public class TutorialGameProcessUI
             GameMng.Instance.UnlockButtonOperation();
             m_btnLock = true;
         }
+        //else if (m_Index == 3)
+        //{
+        //    if (isClicked)
+        //    //if (isClicked && !m_Freeze)
+        //    {
+        //        GameMng.Instance.UnlockButtonOperation();
+        //        m_Freeze = true;
+        //        Debug.Log("!isPressed && !m_Freeze : " + m_Freeze);
+        //    }
+        //    else
+        //    {
+        //        GameMng.Instance.SetAllowColumn(step.col);
+        //        m_Freeze = false;
+        //        Debug.Log("m_Freeze : " + m_Freeze);
+        //    }
+        //}
         else
         {
             GameMng.Instance.SetAllowColumn(step.col);
@@ -218,6 +251,7 @@ public class TutorialGameProcessUI
                 m_TutorialInfo.GetTapFrame().transform.position = tapPos;
             }
         }
+
     }
 
     public void NextStep()
@@ -228,6 +262,54 @@ public class TutorialGameProcessUI
 
             Debug.Log("Next Tutorial Step : " + m_Index);
         }
+    }
+
+    private bool IsClickTutorialButton()
+    {
+        Vector2 pointerPosition;
+
+        if (Mouse.current != null &&
+            Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            pointerPosition = Mouse.current.position.ReadValue();
+            Debug.Log("Mouse Click ");
+        }
+        else if (Touchscreen.current != null &&
+                 Touchscreen.current.primaryTouch.press.wasReleasedThisFrame)
+        {
+            pointerPosition =
+                Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+        else
+        {
+            return false;
+        }
+
+        PointerEventData eventData =
+            new PointerEventData(EventSystem.current);
+
+        eventData.position = pointerPosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        EventSystem.current.RaycastAll(eventData, results);
+
+        GameObject clickBtn1 = m_TutorialInfo.GetClickBtn1();
+        GameObject clickBtn2 = m_TutorialInfo.GetClickBtn2();
+
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject == clickBtn1 ||
+                result.gameObject.transform.IsChildOf(clickBtn1.transform) ||
+                result.gameObject == clickBtn2 ||
+                result.gameObject.transform.IsChildOf(clickBtn2.transform))
+            {
+                Debug.Log("Mouse Click1/2 ");
+                return true;
+            }
+        }
+        Debug.Log("NO Mouse Click");
+        return false;
     }
 
 }

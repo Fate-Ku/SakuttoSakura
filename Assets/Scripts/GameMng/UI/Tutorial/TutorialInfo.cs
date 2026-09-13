@@ -4,6 +4,7 @@
 // 2026/08/01 Created By Fate Ku
 // 2026/09/09 Updated By Fate Ku
 // 2026/09/12 Updated By Fate Ku
+// 2026/09/13 Updated By Fate Ku
 //
 
 using TMPro;
@@ -20,10 +21,17 @@ public class TutorialInfo : MonoBehaviour
     [SerializeField] public GameObject TapFrame;
     [SerializeField] public GameObject InfoFrame;
     [SerializeField] public GameObject TapWordAnim;
+    [SerializeField] public GameObject ClickBtn1;
+    [SerializeField] public GameObject ClickBtn2;
 
     [Header("Pause UI")]
     public GameObject popupPanel;
 
+    public GameObject GetClickBtn1()
+    { return ClickBtn1; }
+
+    public GameObject GetClickBtn2()
+    { return ClickBtn2; }
     public GameObject GetInfoFrame()
     {  return InfoFrame; }
 
