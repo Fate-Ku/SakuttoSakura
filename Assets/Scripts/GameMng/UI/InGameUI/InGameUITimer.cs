@@ -4,6 +4,7 @@
 // 2026/06/16 Created By Fate Ku
 // 2026/09/09 Updated By Fate Ku
 // 2026/09/12 Updated By Fate Ku
+// 2026/09/14 Updated By Fate Ku
 //
 
 using TMPro;
@@ -118,8 +119,8 @@ public class InGameUITimer
     // 2026/09/12 Updated By Fate Ku
     private void UpdateTimerSE(float timer)
     {
-        // 10秒より上はSEを鳴らさない
-        if (timer > 10f)
+        // 15秒より上はSEを鳴らさない
+        if (timer > 15f)
         {
             m_SETimer = 0f;
             //m_PreviousSecond = -1;
