@@ -14,6 +14,11 @@ public class IdleScreenState : IGameSceneState
         StateName = "IdleScreenState";
     }
 
+    public override void StateBegin()
+    {
+        BGMMng.Instance.SetBGM(BGMType.A2Loop, true);
+    }
+
     public override void StateUpdate()
     {
         ControllSceneByGameMng();
