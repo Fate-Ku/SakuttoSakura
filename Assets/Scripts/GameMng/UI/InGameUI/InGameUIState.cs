@@ -65,7 +65,7 @@ public class InGameUIState
     // 2026/09/09 Updated By Fate Ku
     private GameObject m_Banner;
 
-    //private bool m_IsEndAnimation = false;
+    private bool m_IsEndAnimation = false;
     // 2026/09/09 Updated By Fate Ku
 
     // 2026/09/11 Updated By Fate Ku
@@ -191,7 +191,7 @@ public class InGameUIState
     {
         m_IsAnimating = true;
         m_AnimTime = 0f;
-        //m_IsEndAnimation = false;
+        m_IsEndAnimation = false;
 
         //setting
         float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
@@ -238,7 +238,7 @@ public class InGameUIState
         else if (m_StageType == InGameSystemStateType.LevelUp && m_InGameType == InGameType.Classic)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -10);
-            m_TargetPos = new Vector3(endPosX -0.8f, startPosY, -10);
+            m_TargetPos = new Vector3(endPosX - 0.8f, startPosY, -10);
         }
         else
         {
@@ -270,7 +270,7 @@ public class InGameUIState
     {
         m_IsAnimating = true;
         m_AnimTime = 0f;
-        //m_IsEndAnimation = true;
+        m_IsEndAnimation = true;
 
         //setting
         float scale = m_BlockPosInfo.GetSize();     // scaleX, scaleY
@@ -352,7 +352,7 @@ public class InGameUIState
         {
             m_AnimSpeed = 7f;
         }
-        else if(m_StageType == InGameSystemStateType.GameOver)
+        else if (m_StageType == InGameSystemStateType.GameOver)
         {
             m_AnimSpeed = 3.5f;
         }
@@ -368,6 +368,14 @@ public class InGameUIState
         else
         {
             m_AnimDuration = 1f;
+        }
+
+        if (m_IsEndAnimation &&
+            (m_StageType == InGameSystemStateType.LevelUp ||
+                m_StageType == InGameSystemStateType.TimeUp))
+        {
+            HideBanner();
+            m_IsEndAnimation = false;
         }
 
         m_AnimTime += Time.deltaTime;
@@ -405,17 +413,17 @@ public class InGameUIState
             m_IsAnimating = false;
 
             // 2026/09/14 Updated By Fate Ku
-            HideBanner();
             //if (m_IsEndAnimation)
             //{
             //    HideBanner();
             //    m_IsEndAnimation = false;
             //}
             //else if (m_StageType != InGameSystemStateType.LevelUp &&
-            //    m_StageType != InGameSystemStateType.TimeUp)
-            //{
-            //    HideBanner();
-            //}
+            if (m_StageType != InGameSystemStateType.LevelUp &&
+                m_StageType != InGameSystemStateType.TimeUp)
+            {
+                HideBanner();
+            }
             // 2026/09/14 Updated By Fate Ku
             GameMng.Instance.CallInGameSystemStateTrigger();
         }
