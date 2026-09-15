@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class TitleState : ISceneState
 {
+    const float TitleDuration = 5.0f;
+
     private float timer = 0;
 
     public TitleState(SceneStateController controller, bool isTGS) 
@@ -26,7 +28,7 @@ public class TitleState : ISceneState
     {
         timer += Time.deltaTime;
 
-        if (timer >= 1)
+        if (timer >= TitleDuration)
         {
             GameObject gameTestOb = GameObject.Find("GameTest");
             if (gameTestOb != null)
