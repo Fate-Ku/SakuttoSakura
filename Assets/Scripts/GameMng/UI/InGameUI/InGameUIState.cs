@@ -238,7 +238,7 @@ public class InGameUIState
         else if (m_StageType == InGameSystemStateType.LevelUp && m_InGameType == InGameType.Classic)
         {
             m_StartPos = new Vector3(startPosX, startPosY, -10);
-            m_TargetPos = new Vector3(endPosX - 2f, startPosY, -10);
+            m_TargetPos = new Vector3(endPosX -0.8f, startPosY, -10);
         }
         else
         {
@@ -305,7 +305,7 @@ public class InGameUIState
         // 2026/08/04 Updated By Fate Ku
         else if (m_StageType == InGameSystemStateType.LevelUp)
         {
-            m_StartPos = new Vector3(startPosX - 2f, startPosY, -10);
+            m_StartPos = new Vector3(startPosX - 0.8f, startPosY, -10);
             m_TargetPos = new Vector3(startPosX - 6f, startPosY, -10);
         }
         else
