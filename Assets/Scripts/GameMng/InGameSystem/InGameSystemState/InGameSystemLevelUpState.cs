@@ -30,7 +30,7 @@ public class InGameSystemLevelUpState : IInGameSystemState
         Debug.Log("level up trigger in begin: " + m_Trigger.ToString());
 
         //start State UI
-        //GameMng.Instance.ShowStateUI(m_StateType);
+        GameMng.Instance.ShowStateUI(m_StateType);
 
         startLevelUp = false;
         startWait = false;
@@ -50,7 +50,7 @@ public class InGameSystemLevelUpState : IInGameSystemState
             {
                 m_InGameSystem.LevelUpStart();
                 //start State UI
-                GameMng.Instance.ShowStateUI(m_StateType);
+                //GameMng.Instance.ShowStateUI(m_StateType);
                 startLevelUp = true;
             }
         }
