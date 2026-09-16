@@ -300,15 +300,16 @@ public class TutorialGameProcessUI
         foreach (RaycastResult result in results)
         {
             if (result.gameObject == clickBtn1 ||
-                result.gameObject.transform.IsChildOf(clickBtn1.transform) ||
-                result.gameObject == clickBtn2 ||
-                result.gameObject.transform.IsChildOf(clickBtn2.transform))
+                result.gameObject.transform.IsChildOf(clickBtn1.transform) //||
+                //result.gameObject == clickBtn2 ||
+                //result.gameObject.transform.IsChildOf(clickBtn2.transform)
+                )
             {
-                Debug.Log("Mouse Click1/2 ");
+                Debug.Log("Click1/2 ");
                 return true;
             }
         }
-        Debug.Log("NO Mouse Click");
+        Debug.Log("NO Click");
         return false;
     }
 
