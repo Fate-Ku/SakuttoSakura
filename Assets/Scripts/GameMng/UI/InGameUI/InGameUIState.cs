@@ -12,6 +12,7 @@
 // 2026/09/09 Updated By Fate Ku
 // 2026/09/11 Updated By Fate Ku
 // 2026/09/14 Updated By Fate Ku
+// 2026/09/16 Updated By Fate Ku
 //
 
 using System.Collections.Generic;
@@ -136,7 +137,10 @@ public class InGameUIState
     public void ShowStateUI(InGameSystemStateType type)
     {
         m_StageType = type;
-        m_GameLevel = GameMng.Instance.GetGameLevel();
+        // 2026/09/16 Updated By Fate Ku
+        m_GameLevel = GameMng.Instance.GetGameLevel() + 1;
+        // 2026/09/16 Updated By Fate Ku
+
         //UpdateState();
         UpdateText();
         StartAnimation();

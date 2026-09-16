@@ -5,6 +5,7 @@
 // 2026/09/09 Updated By Fate Ku
 // 2026/09/12 Updated By Fate Ku
 // 2026/09/14 Updated By Fate Ku
+// 2026/09/16 Updated By Fate Ku
 //
 
 using TMPro;
@@ -21,7 +22,7 @@ public class InGameUITimer
     private RectTransform m_TimerBarRect;
 
     private float m_YOffset = 34f;
-    private float m_XOffset = 50f;
+    private float m_XOffset = 48f;
 
     //-------------------
     // SE Timer
