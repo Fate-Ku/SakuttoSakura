@@ -264,6 +264,7 @@ public class TutorialGameProcessUI
         }
     }
 
+
     private bool IsClickTutorialButton()
     {
         Vector2 pointerPosition;
@@ -272,7 +273,6 @@ public class TutorialGameProcessUI
             Mouse.current.leftButton.wasReleasedThisFrame)
         {
             pointerPosition = Mouse.current.position.ReadValue();
-            Debug.Log("Mouse Click ");
         }
         else if (Touchscreen.current != null &&
                  Touchscreen.current.primaryTouch.press.wasReleasedThisFrame)
@@ -285,32 +285,49 @@ public class TutorialGameProcessUI
             return false;
         }
 
-        PointerEventData eventData =
-            new PointerEventData(EventSystem.current);
-
-        eventData.position = pointerPosition;
-
-        List<RaycastResult> results = new List<RaycastResult>();
-
-        EventSystem.current.RaycastAll(eventData, results);
-
         GameObject clickBtn1 = m_TutorialInfo.GetClickBtn1();
         GameObject clickBtn2 = m_TutorialInfo.GetClickBtn2();
 
-        foreach (RaycastResult result in results)
+        if (IsPointerInsideUI(clickBtn1, pointerPosition) ||
+            IsPointerInsideUI(clickBtn2, pointerPosition))
         {
-            if (result.gameObject == clickBtn1 ||
-                result.gameObject.transform.IsChildOf(clickBtn1.transform) //||
-                //result.gameObject == clickBtn2 ||
-                //result.gameObject.transform.IsChildOf(clickBtn2.transform)
-                )
-            {
-                Debug.Log("Click1/2 ");
-                return true;
-            }
+            Debug.Log("Click Tutorial Button");
+            return true;
         }
-        Debug.Log("NO Click");
+
+        Debug.Log("Outside Tutorial Button");
         return false;
     }
 
+    private bool IsPointerInsideUI(
+        GameObject target,
+        Vector2 pointerPosition)
+    {
+        if (target == null || !target.activeInHierarchy)
+            return false;
+
+        RectTransform rectTransform =
+            target.GetComponent<RectTransform>();
+
+        if (rectTransform == null)
+            return false;
+
+        Canvas canvas = target.GetComponentInParent<Canvas>();
+
+        if (canvas == null)
+            return false;
+
+        Camera eventCamera = null;
+
+        if (canvas.renderMode != RenderMode.ScreenSpaceOverlay)
+        {
+            eventCamera = canvas.worldCamera;
+        }
+
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            rectTransform,
+            pointerPosition,
+            eventCamera
+        );
+    }  
 }
